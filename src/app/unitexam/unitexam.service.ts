@@ -1,6 +1,7 @@
 import {Injectable} from '@angular/core';
 import {Http, Response} from "@angular/http"
 import {Observable} from "rxjs/Observable";
+import "rxjs/add/operator/catch";
 
 @Injectable()
 export class UnitexamService {
@@ -10,13 +11,13 @@ export class UnitexamService {
 
 // 私有变量加上下划线符号
   private _url = "unitExam/getUnitExam";
-
+  public headers = new Headers({'Content-Type': 'application/json'});
   /*向 get 方法传递资源URL，它会访问服务端并返回 数据。
   返回的结果可能会很惊讶，因为我们会比较期待返回一个 promise，这样我们可以使用 then() 来获取数据，然后我们调用了 map() 方法，而非 promise。
   事实上，http.get 方法返回的是一个HTTP响应 Observable 对象，由RxJS库提供，map() 也是RxJS的一个操作符。同时Angular也推荐使用RXJS*/
 
   getUnitExam(typeCode: string): Observable<any> {
-    return this._http.get(this._url)
+    return this._http.get(this._url + typeCode)
       .map(this.extractData)
       .catch(this.handleError);
   }

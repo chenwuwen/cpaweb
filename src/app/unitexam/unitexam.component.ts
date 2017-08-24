@@ -8,15 +8,20 @@ import {UnitexamService} from "./unitexam.service";
   styleUrls: ['./unitexam.component.css']
 })
 export class UnitexamComponent implements OnInit {
-
-  constructor(public route: ActivatedRoute,private _unitexamService: UnitexamService) {
-    //通过这种形式来接收父级页面传过来的值
-    this.route.params.subscribe(data=>console.log("传递的参数为："+data.typeCode));
-    //或者通过
-    // this.route.params['value']['typeCode'];
-  }
+  constructor(
+    private route: ActivatedRoute,
+    private _unitexamService: UnitexamService
+  ) {}
 
   ngOnInit() {
+    /*通过这种形式来接收父级页面传过来的值  或者通过  this.route.params['value']['typeCode']*/
+    this.route.params.subscribe(data=>console.log("传递的参数为："+data.typeCode));
+    const typeCode =  this.route.params['value']['typeCode'];
+    console.log("typeCode:"+typeCode);
+    /*将路由传递参数值传递给Service*/
+    this.getUnitExam(typeCode);
   }
-
+  getUnitExam(typeCode: string){
+    this._unitexamService.getUnitExam(typeCode);
+  }
 }
