@@ -22,6 +22,9 @@ import { UnitexamComponent } from './unitexam/unitexam.component';
     FormsModule,
     HttpModule,
     Ng2BootstrapModule.forRoot(), /*导入全部的ngx-bootstrap模块*/
+     /*angular2默认采用HTML5的pushState来管理路由，它会导致前端路由与后端路由的冲突，例如当部署到nginx环境时，
+     我们通过首页进入子路由一切正常，但是在子路由路径下，刷新就会报404了。默认情况下nginx会当成这个路径是实际web路径下的资源而去定位它，
+     但可想而知实际是并不存在的。折中的方案可以改回hash风格*/
     RouterModule.forRoot(appRoutes,{useHash:false})  /*angular2项目中url去掉#(即哈希路由)*/
   ],
   providers: [  /*声明模块中使用的服务的提供者*/
