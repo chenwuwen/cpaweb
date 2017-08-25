@@ -11,7 +11,9 @@ import { flyIn } from '../animations/fly-in';
 })
 export class HomeComponent implements OnInit {
 
-  constructor() { }
+  constructor() {}
+
+
 
   ngOnInit() {
   }
