@@ -6,16 +6,14 @@ import {Ng2BootstrapModule} from 'ngx-bootstrap';
 import { RouterModule } from '@angular/router';  /*路由模块*/
 
 import { AppComponent } from './app.component';
-import {HomeComponent} from './home/home.component';
 import {appRoutes} from './app.routes';
-import { UnitexamComponent } from './unitexam/unitexam.component';
+import {UnitexamModule} from "./unitexam/unitexam.module"
+import {HomeModule} from "./home/home.module";
 
 
 @NgModule({
   declarations: [   /*声明属于本模块的组件，每个组件必须在且仅在一个模块中声明*/
-    AppComponent,
-    HomeComponent,
-    UnitexamComponent
+    AppComponent
   ],
   imports: [     /*引入买本模块中用到的模块，该模块是处于import语句引入的模块中*/
     BrowserModule,
@@ -25,9 +23,11 @@ import { UnitexamComponent } from './unitexam/unitexam.component';
      /*angular2默认采用HTML5的pushState来管理路由，它会导致前端路由与后端路由的冲突，例如当部署到nginx环境时，
      我们通过首页进入子路由一切正常，但是在子路由路径下，刷新就会报404了。默认情况下nginx会当成这个路径是实际web路径下的资源而去定位它，
      但可想而知实际是并不存在的。折中的方案可以改回hash风格*/
-    RouterModule.forRoot(appRoutes,{useHash:false})  /*angular2项目中url去掉#(即哈希路由)*/
+    RouterModule.forRoot(appRoutes,{useHash:false}),  /*angular2项目中url去掉#(即哈希路由)*/
+    UnitexamModule,
+    HomeModule
   ],
-  providers: [  /*声明模块中使用的服务的提供者*/
+  providers: [  /*声明模块中使用的服务的提供者,对于appModule来说,也应该就是控制菜单显示了，即权限控制*/
 
   ],
   bootstrap: [   /*根模块中的引导组件，应用启动过程中，会创建这个数组中的组件并插入到HTML中，一般只有一个引导组件*/

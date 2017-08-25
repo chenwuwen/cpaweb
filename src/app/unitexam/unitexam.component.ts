@@ -21,7 +21,11 @@ export class UnitexamComponent implements OnInit {
     /*将路由传递参数值传递给Service*/
     this.getUnitExam(typeCode);
   }
-  getUnitExam(typeCode: string){
-    this._unitexamService.getUnitExam(typeCode);
+  getUnitExam(typeCode: string): any{
+    this._unitexamService.getUnitExam(typeCode).subscribe({
+      next:(event: any) => console.log(`从service获取数据，订阅将数据到Component ${event.target.value}`),
+      error:(err) => console.log(`error ${err}`),
+      complete: () => console.log(`编译！`)
+    });
   }
 }

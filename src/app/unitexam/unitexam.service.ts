@@ -10,7 +10,7 @@ export class UnitexamService {
   }
 
 // 私有变量加上下划线符号
-  private _url = "unitExam/getUnitExam";
+  private _url = "/api/unitExam/getUnitExam/";
   public headers = new Headers({'Content-Type': 'application/json'});
   /*向 get 方法传递资源URL，它会访问服务端并返回 数据。
   返回的结果可能会很惊讶，因为我们会比较期待返回一个 promise，这样我们可以使用 then() 来获取数据，然后我们调用了 map() 方法，而非 promise。

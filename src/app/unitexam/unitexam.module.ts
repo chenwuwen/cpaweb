@@ -4,9 +4,12 @@ import {UnitexamService} from "./unitexam.service";
 
 @NgModule({
   imports: [
-    UnitexamComponent
+
   ],
   declarations: [
+    UnitexamComponent
+  ],
+  providers: [
     UnitexamService
   ]
 })
