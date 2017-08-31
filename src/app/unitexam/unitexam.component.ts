@@ -26,8 +26,11 @@ export class UnitexamComponent implements OnInit {
 
 
   ngOnInit() {
-    /*将路由传递参数值传递给Service*/
-    // this.getUnitExam(typeCode);
+    /*订阅事件将路由传递参数值传递给Service*/
+      this.route.params.subscribe((params) => {
+        this.typeCode = params['typeCode'] || '';
+        this.getUnitExam(this.typeCode);
+    });
   }
 
 
