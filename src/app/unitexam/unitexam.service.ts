@@ -32,7 +32,9 @@ export class UnitexamService {
     /*解析JSON:响应数据返回的是一个JSON字符串格式，我们必须调用 response.json() 转换成JavaScript对象*/
     let result = res.json();
     /*我们不应该让 json() 直接返回一个数组 ，而应该是返回一个带有 data 属性的对象，比如：{data: [ hero, hero ] } 这是因对于老式浏览器可能会有JSON被劫持安全漏洞*/
-    return result.data || {};
+    // return result.data || {};
+    // 我这边之所以不用上面的写法，是因为我返回的是有至少一个对象的
+    return result;
   }
 
   private handleError(error: any) {

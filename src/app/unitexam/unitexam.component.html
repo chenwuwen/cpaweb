@@ -1,14 +1,14 @@
 <div class="row">
   <div class="col-md-5 col-md-offset-1" >
-    <div class="panel panel-default" *ngFor="let data of Listdata" >
+    <div class="panel panel-default" *ngFor="let data of Listdata;let i = index" >
       <div class="panel-heading">
-        <h3 class="panel-title">{{data.testStem}}</h3>
+        <h3 class="panel-title">第{{i+1}}题.{{data.testStem}}</h3>
       </div>
       <div class="panel-body" >
         <ul class="list" style="margin:0;padding:0;list-style:none">
-          <li *ngFor="let options of data.cpaOptionDtos">
-            <input class="magic-radio"   type="radio" />
-            <label for="">{{options.optionData}}</label>
+          <li *ngFor="let options of data.cpaOptionDtos;let k = index">
+            <input class="magic-radio" type="radio" name="optionsRadio{{i}}" id="optionsRadio{{i}}{{k}}"/>
+            <label for="optionsRadio{{i}}{{k}}">{{options.selectData}}.{{options.optionData}}</label>
           </li>
         </ul>
       </div>

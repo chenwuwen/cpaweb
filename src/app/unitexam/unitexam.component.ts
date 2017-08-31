@@ -5,7 +5,7 @@ import {UnitexamService} from "./unitexam.service";
 @Component({
   selector: 'app-unitexam',
   templateUrl: './unitexam.component.html',
-  styleUrls: ['./unitexam.component.css']
+  styleUrls: ['./unitexam.component.css','./magic-check.css']
 })
 export class UnitexamComponent implements OnInit {
 
