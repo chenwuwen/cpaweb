@@ -15,20 +15,19 @@
 
       <!-- Collect the nav links, forms, and other content for toggling -->
       <div class="collapse navbar-collapse" >
-        <!--这里使用routerLink将超链接和路由建立联接-->
+        <!--这里使用[routerLink]将超链接和路由建立联接-->
         <ul class="nav navbar-nav">
-          <!--ui-sref=".required"说明当点击这个链接的时候路由会跳转到相应的包含required状态的路由中-->
-          <!--这里使用ui-sref链接路由状态，将该状态的url替换到href中，相当与href="#/PageTab/xiaomi"-->
-          <li routerLinkActive="active"><a routerLink="home" href="javascript:void(0)">首页</a></li>
+          <!--这里使用routerLinkActive显示正处于哪个菜单的选中样式-->
+          <li routerLinkActive="active"><a [routerLink]="['/home']" href="javascript:void(0)">首页</a></li>
           <li class="dropdown">
             <a href="javascript:void(0)" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true"
                aria-expanded="false" >在线练习 <span class="caret"></span></a>
             <ul class="dropdown-menu" role="menu" aria-labelledby="dLabel" >
-              <li routerLinkActive="active"><a routerLink="unitexam/basicAccount" href="javascript:void(0)">会计基础</a></li>
+              <li routerLinkActive="active"><a [routerLink]="['/unitexam','basicAccount']" href="javascript:void(0)">会计基础</a></li>
               <li class="divider"></li>
-              <li routerLinkActive="active"><a routerLink="unitexam/cpuAccount" href="javascript:void(0)">会计电算化</a></li>
+              <li routerLinkActive="active"><a [routerLink]="['/unitexam','cpuAccount']" href="javascript:void(0)">会计电算化</a></li>
               <li class="divider"></li>
-              <li routerLinkActive="active"><a routerLink="unitexam/statuteEthics" href="javascript:void(0)">财经法规与职业道德</a></li>
+              <li routerLinkActive="active"><a [routerLink]="['/unitexam','statuteEthics']" href="javascript:void(0)">财经法规与职业道德</a></li>
             </ul>
           </li>
           <li routerLinkActive="active"><a href="javascript:void(0)">模拟测验</a></li>
