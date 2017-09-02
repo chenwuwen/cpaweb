@@ -10,16 +10,15 @@ import { flyIn } from '../animations/fly-in';
   ]
 })
 export class HomeComponent implements OnInit {
-
+  userName: string;
   constructor() {
-    let localStorage  = window['localStorage'];
-    localStorage.setItem("username","kanyun");
-    let username = localStorage.getItem("username");
+    
   }
 
 
 
   ngOnInit() {
+    this.userName = localStorage.getItem("userName");
   }
 
 }
