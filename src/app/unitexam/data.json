@@ -1,0 +1,307 @@
+{
+    "status": 1,
+    "msg": null,
+    "data": [
+        {
+            "id": 1,
+            "testStem": "会计分期是建立的在（）基础上的。",
+            "testType": null,
+            "insertDate": null,
+            "presult": null,
+            "bresult": null,
+            "cpaOptionDtos": [
+                {
+                    "id": null,
+                    "selectData": "A",
+                    "optionData": "会计主体 "
+                },
+                {
+                    "id": null,
+                    "selectData": "B",
+                    "optionData": "持续经营"
+                },
+                {
+                    "id": null,
+                    "selectData": "C",
+                    "optionData": "权责发生制原则"
+                },
+                {
+                    "id": null,
+                    "selectData": "D",
+                    "optionData": "货币计量"
+                }
+            ]
+        },
+        {
+            "id": 2,
+            "testStem": "下列不属于会计核算专门方法的是（）",
+            "testType": null,
+            "insertDate": null,
+            "presult": null,
+            "bresult": null,
+            "cpaOptionDtos": [
+                {
+                    "id": null,
+                    "selectData": "A",
+                    "optionData": "成本计算与复式记账"
+                },
+                {
+                    "id": null,
+                    "selectData": "B",
+                    "optionData": "评估预测"
+                },
+                {
+                    "id": null,
+                    "selectData": "C",
+                    "optionData": "设置账户与填制、审核会计凭证"
+                },
+                {
+                    "id": null,
+                    "selectData": "D",
+                    "optionData": "编制报表与登记账簿"
+                }
+            ]
+        },
+        {
+            "id": 3,
+            "testStem": "某企业资产总额为100万元，现发生一笔以银行存款10万元偿还银行借款的经济业务，此时，该企业的权益总额为（）。",
+            "testType": null,
+            "insertDate": null,
+            "presult": null,
+            "bresult": null,
+            "cpaOptionDtos": [
+                {
+                    "id": null,
+                    "selectData": "A",
+                    "optionData": "80万元 "
+                },
+                {
+                    "id": null,
+                    "selectData": "B",
+                    "optionData": "90万元"
+                },
+                {
+                    "id": null,
+                    "selectData": "C",
+                    "optionData": "100万元 "
+                },
+                {
+                    "id": null,
+                    "selectData": "D",
+                    "optionData": "70万元"
+                }
+            ]
+        },
+        {
+            "id": 4,
+            "testStem": "某企业9月份的资产总额为50 000元，负债总额为20 000元。9月份发生如下业务：9月份取得收入共计24 000元，发生费用共计15 000元，则9月份该企业的所有者权益总额为（）元。",
+            "testType": null,
+            "insertDate": null,
+            "presult": null,
+            "bresult": null,
+            "cpaOptionDtos": [
+                {
+                    "id": null,
+                    "selectData": "A",
+                    "optionData": "31 000"
+                },
+                {
+                    "id": null,
+                    "selectData": "B",
+                    "optionData": "39 000"
+                },
+                {
+                    "id": null,
+                    "selectData": "C",
+                    "optionData": "50 000"
+                },
+                {
+                    "id": null,
+                    "selectData": "D",
+                    "optionData": "45 000"
+                }
+            ]
+        },
+        {
+            "id": 5,
+            "testStem": "下列等式不正确的是（）。",
+            "testType": null,
+            "insertDate": null,
+            "presult": null,
+            "bresult": null,
+            "cpaOptionDtos": [
+                {
+                    "id": null,
+                    "selectData": "A",
+                    "optionData": "资产＝负债＋所有者权益"
+                },
+                {
+                    "id": null,
+                    "selectData": "B",
+                    "optionData": "资产＝权益"
+                },
+                {
+                    "id": null,
+                    "selectData": "C",
+                    "optionData": "收入－费用＝利润"
+                },
+                {
+                    "id": null,
+                    "selectData": "D",
+                    "optionData": "资产＋收入＝负债＋所有者权益＋费用"
+                }
+            ]
+        },
+        {
+            "id": 6,
+            "testStem": "某企业月初有短期借款40万元，本月向银行借入短期借款45万元，以银行存款偿还短期借款20万元，则月末“短期借款”账户的余额为(     )。",
+            "testType": null,
+            "insertDate": null,
+            "presult": null,
+            "bresult": null,
+            "cpaOptionDtos": [
+                {
+                    "id": null,
+                    "selectData": "A",
+                    "optionData": "借方65万元 "
+                },
+                {
+                    "id": null,
+                    "selectData": "B",
+                    "optionData": "贷方65万元"
+                },
+                {
+                    "id": null,
+                    "selectData": "C",
+                    "optionData": "借方15万元"
+                },
+                {
+                    "id": null,
+                    "selectData": "D",
+                    "optionData": "贷方15 万元"
+                }
+            ]
+        },
+        {
+            "id": 7,
+            "testStem": "根据借贷记账法的账户结构，在账户借方登记的是(     )",
+            "testType": null,
+            "insertDate": null,
+            "presult": null,
+            "bresult": null,
+            "cpaOptionDtos": [
+                {
+                    "id": null,
+                    "selectData": "A",
+                    "optionData": "费用的增加"
+                },
+                {
+                    "id": null,
+                    "selectData": "B",
+                    "optionData": "收入的增加"
+                },
+                {
+                    "id": null,
+                    "selectData": "C",
+                    "optionData": "费用的减少"
+                },
+                {
+                    "id": null,
+                    "selectData": "D",
+                    "optionData": "所有者权益的增加"
+                }
+            ]
+        },
+        {
+            "id": 8,
+            "testStem": "某企业月末编制的试算平衡表中，全部账户的本月借方发生额合计为900000元，除“应付账款”以外其他账户的本月贷方发生额合计为895000元，则应付账款账户(     )",
+            "testType": null,
+            "insertDate": null,
+            "presult": null,
+            "bresult": null,
+            "cpaOptionDtos": [
+                {
+                    "id": null,
+                    "selectData": "A",
+                    "optionData": "本月借方发生额为5000元"
+                },
+                {
+                    "id": null,
+                    "selectData": "B",
+                    "optionData": "本月贷方发生额为5000元"
+                },
+                {
+                    "id": null,
+                    "selectData": "C",
+                    "optionData": "月末借方余额为5000元"
+                },
+                {
+                    "id": null,
+                    "selectData": "D",
+                    "optionData": "月末贷方余额为红字5000元"
+                }
+            ]
+        },
+        {
+            "id": 9,
+            "testStem": "“本年利润”账户的期末余额一般在(     )",
+            "testType": null,
+            "insertDate": null,
+            "presult": null,
+            "bresult": null,
+            "cpaOptionDtos": [
+                {
+                    "id": null,
+                    "selectData": "A",
+                    "optionData": "借方"
+                },
+                {
+                    "id": null,
+                    "selectData": "B",
+                    "optionData": "贷方"
+                },
+                {
+                    "id": null,
+                    "selectData": "C",
+                    "optionData": "借方或贷方"
+                },
+                {
+                    "id": null,
+                    "selectData": "D",
+                    "optionData": "无余额"
+                }
+            ]
+        },
+        {
+            "id": 10,
+            "testStem": "汇总记账凭证账务处理程序的优点是(     )",
+            "testType": null,
+            "insertDate": null,
+            "presult": null,
+            "bresult": null,
+            "cpaOptionDtos": [
+                {
+                    "id": null,
+                    "selectData": "A",
+                    "optionData": "详细反映经济业务的发生情况"
+                },
+                {
+                    "id": null,
+                    "selectData": "B",
+                    "optionData": "可以做到试算平衡"
+                },
+                {
+                    "id": null,
+                    "selectData": "C",
+                    "optionData": "便于了解账户之间的对应关系"
+                },
+                {
+                    "id": null,
+                    "selectData": "D",
+                    "optionData": "处理手续简便"
+                }
+            ]
+        }
+    ],
+    "totalCount": 10
+}

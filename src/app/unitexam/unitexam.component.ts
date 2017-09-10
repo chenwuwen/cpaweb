@@ -1,16 +1,21 @@
 import {Component, Input, OnInit} from '@angular/core';
 import {ActivatedRoute, Router} from "@angular/router";
 import {UnitexamService} from "./unitexam.service";
+import { flyIn } from '../animations/fly-in';
 
 @Component({
   selector: 'app-unitexam',
   templateUrl: './unitexam.component.html',
-  styleUrls: ['./unitexam.component.css','./magic-check.css']
+  styleUrls: ['./unitexam.component.css','./magic-check.css'],
+  animations: [
+    flyIn
+  ]
 })
 export class UnitexamComponent implements OnInit {
 
   public typeCode: string;
   public Listdata: Array<any>;
+  public pAnswers:Array<any>;
 
   constructor(private route: ActivatedRoute,
               private router: Router,
@@ -23,6 +28,7 @@ export class UnitexamComponent implements OnInit {
     this.route.params.subscribe(params => {
       this.typeCode = params['typeCode'] || '';
     });
+    this.pAnswers=[]
   }
 
 
@@ -42,5 +48,9 @@ export class UnitexamComponent implements OnInit {
         console.log(`error ${err}`);
       }, () => console.log(`编译！`)
     );
+  }
+
+  showMsg():void{
+    console.log(`click: `+this.pAnswers)
   }
 }

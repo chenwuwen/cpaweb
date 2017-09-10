@@ -10,7 +10,7 @@
             "name": "Launch Chrome with ng serve",
             "url": "http://localhost:4200",
             "webRoot": "${workspaceRoot}",
-            "runtimeExecutable": "D:/¹È¸èä¯ÀÀÆ÷/MyChrome.exe",
+            "runtimeExecutable": "D:/¹È¸èä¯ÀÀÆ÷/Chrome/chrome.exe",
             "runtimeArgs": [
               "--disable-session-crashed-bubble",
               "--disable-infobars"
