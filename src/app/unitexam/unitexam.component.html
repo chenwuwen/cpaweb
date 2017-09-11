@@ -1,14 +1,31 @@
+<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+        <h4 class="modal-title" id="myModalLabel">得分</h4>
+      </div>
+      <div class="modal-body">{{result.score}}分</div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+        <button type="button" class="btn btn-primary">继续测试</button>
+      </div>
+    </div><!-- /.modal-content -->
+  </div><!-- /.modal -->
+</div>
+
 <div class="row" [@flyIn]="'active'">
-  <div class="col-md-5 col-md-offset-1" >
-    <div class="panel panel-default" *ngFor="let data of Listdata;let i = index" >
+  <div class="col-md-5 col-md-offset-1">
+    <div class="panel panel-default" *ngFor="let data of Listdata;let i = index">
       <div class="panel-heading">
         <h3 class="panel-title">第{{i+1}}题.{{data.testStem}}</h3>
       </div>
-      <div class="panel-body" >
+      <div class="panel-body">
         <ul class="list" style="margin:0;padding:0;list-style:none">
           <li *ngFor="let options of data.cpaOptionDtos;let k = index">
-            <input class="magic-radio" type="radio"  [(ngModel)]="pAnswers[i]"  value="{{data.id}}-{{options.selectData}}" (click)="showMsg()"
-            name="optionsRadio{{i}}" id="optionsRadio{{i}}{{k}}"/>
+            <input class="magic-radio" type="radio" [(ngModel)]="pAnswers[i]" value="{{data.id}}-{{options.selectData}}"
+                   (click)="showMsg()"
+                   name="optionsRadio{{i}}" id="optionsRadio{{i}}{{k}}"/>
             <label for="optionsRadio{{i}}{{k}}">{{options.selectData}}.{{options.optionData}}</label>
           </li>
         </ul>
@@ -18,7 +35,7 @@
   <div class="col-md-4 col-md-offset-1">
     <!--这里是右侧动态加载的内容(计算器等)是子组件-->
     <!-- 其中”pAnswers” 为父组件中的属性，[pAnswer] 为子组件的输入;在子组件中使用 @Input() pAnswer 来接受父组件传递的值 -->
-    <app-util [pAnswer]="pAnswers"></app-util>
+    <app-util [pAnswer]="pAnswers" (childResult)="hitResult($event)"></app-util>
   </div>
 </div>
 

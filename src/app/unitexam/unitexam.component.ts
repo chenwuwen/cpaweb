@@ -1,21 +1,23 @@
 import {Component, Input, OnInit} from '@angular/core';
 import {ActivatedRoute, Router} from "@angular/router";
 import {UnitexamService} from "./unitexam.service";
-import { flyIn } from '../animations/fly-in';
+import {flyIn} from '../animations/fly-in';
 
 @Component({
   selector: 'app-unitexam',
   templateUrl: './unitexam.component.html',
-  styleUrls: ['./unitexam.component.css','./magic-check.css'],
+  styleUrls: ['./unitexam.component.css', './magic-check.css'],
   animations: [
     flyIn
   ]
 })
 export class UnitexamComponent implements OnInit {
 
+
   public typeCode: string;
   public Listdata: Array<any>;
-  public pAnswers:Array<any>;
+  public pAnswers: Array<any>;
+  public result: object;
 
   constructor(private route: ActivatedRoute,
               private router: Router,
@@ -28,7 +30,7 @@ export class UnitexamComponent implements OnInit {
     this.route.params.subscribe(params => {
       this.typeCode = params['typeCode'] || '';
     });
-    this.pAnswers=[]
+    this.pAnswers = [];
   }
 
 
@@ -43,14 +45,22 @@ export class UnitexamComponent implements OnInit {
 
   getUnitExam(typeCode: string): any {
     return this._unitexamService.getUnitExam(typeCode).subscribe(res => {
-        this.Listdata = res['data'];     /*从service获取数据，订阅将数据到Component*/
+        this.Listdata = res['data'];
+        /*从service获取数据，订阅将数据到Component*/
       }, (err) => {
         console.log(`error ${err}`);
       }, () => console.log(`编译！`)
     );
   }
 
-  showMsg():void{
-    console.log(`click: `+this.pAnswers)
+  showMsg(): void {
+    console.log(`click: ` + this.pAnswers);
+  }
+
+  /*父组件事件回调接收*/
+  hitResult(data): void {
+    console.log(`接收子组件数据`);
+    this.result = data;
+    console.log(`得分: ` + this.result.score);
   }
 }
