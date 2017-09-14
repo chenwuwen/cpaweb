@@ -1,19 +1,26 @@
-<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-  <div class="modal-dialog">
+<!--model-->
+<div *ngIf="isModalShown" [config]="{ show: true }" (onHidden)="initHidden()" bsModal #autoShownModal="bs-modal"
+     class="modal fade" tabindex="-1" role="dialog" aria-hidden="true">
+  <div class="modal-dialog modal-sm">
     <div class="modal-content">
       <div class="modal-header">
-        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-        <h4 class="modal-title" id="myModalLabel">得分</h4>
+        <h4 class="modal-title pull-left">得分</h4>
+        <button type="button" class="close pull-right" aria-label="Close" (click)="autoShownModal.hide()">
+          <span aria-hidden="true">&times;</span>
+        </button>
       </div>
-      <div class="modal-body">{{result.score}}分</div>
+      <div class="modal-body">
+        您的本次得分为{{result.score}}分
+      </div>
       <div class="modal-footer">
-        <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
-        <button type="button" class="btn btn-primary">继续测试</button>
+        <button type="button" class="btn btn-primary" (click)="autoShownModal.hide()">回到首页</button>
+        <button type="button" class="btn btn-warning" (click)="autoShownModal.hide()">继续测试</button>
       </div>
-    </div><!-- /.modal-content -->
-  </div><!-- /.modal -->
+    </div>
+  </div>
 </div>
 
+<!--试题列表-->
 <div class="row" [@flyIn]="'active'">
   <div class="col-md-5 col-md-offset-1">
     <div class="panel panel-default" *ngFor="let data of Listdata;let i = index">

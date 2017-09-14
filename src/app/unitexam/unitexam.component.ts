@@ -1,7 +1,9 @@
-import {Component, Input, OnInit} from '@angular/core';
+import {Component, ElementRef, Input, OnInit} from '@angular/core';
 import {ActivatedRoute, Router} from "@angular/router";
 import {UnitexamService} from "./unitexam.service";
 import {flyIn} from '../animations/fly-in';
+import {BsModalService} from "ngx-bootstrap";
+
 
 @Component({
   selector: 'app-unitexam',
@@ -17,11 +19,12 @@ export class UnitexamComponent implements OnInit {
   public typeCode: string;
   public Listdata: Array<any>;
   public pAnswers: Array<any>;
-  public result: object;
+  public result: any;
+  public isModalShown: boolean = false
 
   constructor(private route: ActivatedRoute,
               private router: Router,
-              private _unitexamService: UnitexamService) {
+              private _unitexamService: UnitexamService, private _bsModalService: BsModalService) {
     /*通过这种形式来接收父级页面传过来的值  或者通过  this.route.params['value']['typeCode']*/
     /*route.params是一个可观察对象，可以使用.subscribe(),将参数值提取到固定值，这种情况下，我们将params['id'];赋值给组件实例变量id*/
     // route.params与route.queryParams不同,route.params在路由配置中匹配参数，而queryParams在查询字符串中匹配参数
@@ -62,5 +65,11 @@ export class UnitexamComponent implements OnInit {
     console.log(`接收子组件数据`);
     this.result = data;
     console.log(`得分: ` + this.result.score);
+    this.isModalShown = true;
+  }
+
+  initHidden(): void {
+    /*model弹出之后,再关闭需要设置isModalShown为初始值*/
+    this.isModalShown = false;
   }
 }

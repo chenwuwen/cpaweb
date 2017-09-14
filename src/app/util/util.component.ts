@@ -1,5 +1,8 @@
-import {Component, OnInit, Input, Output, EventEmitter} from '@angular/core';
-import {UtilService} from "./util.service"
+import {Component, OnInit, Input, Output, EventEmitter, TemplateRef, ViewChild} from '@angular/core';
+import {UtilService} from "./util.service";
+import {BsModalRef, BsModalService, ModalDirective} from "ngx-bootstrap";
+import swal from 'sweetalert2';
+
 
 @Component({
   selector: 'app-util',
@@ -13,13 +16,19 @@ export class UtilComponent implements OnInit {
   /*声明事件发射器*/
   @Output() childResult = new EventEmitter<any>();
 
-  constructor(private _utilService: UtilService) {
+  @ViewChild('staticModal')
+  public staticModal: ModalDirective;
+  public bsModalRef: BsModalRef;
+
+  constructor(private _utilService: UtilService,
+              private _bsModalService: BsModalService) {
   }
 
   ngOnInit() {
   }
 
-  submitUnitExam(pAnswer: any): any {
+  submitUnitExam(): any {
+    this.staticModal.hide();
     console.log(`点击了提交按钮： ` + this.pAnswer);
     return this._utilService.commitAnswer(this.pAnswer).subscribe(res => {
         // this.result = res['data'];
@@ -30,8 +39,28 @@ export class UtilComponent implements OnInit {
     );
   }
 
-  launchResult(data) {
+  launchResult(data): void {
     /*发射事件*/
     this.childResult.emit(data);
   }
+
+  /* inquirySubmit(): void {
+     swal({
+       title: '确定提交吗',
+       text: "You won't be able to revert this!",
+       type: 'warning',
+       showCancelButton: true,
+       cancelButtonText: '取消',
+       cancelButtonColor: '#d33',
+       confirmButtonColor: '#3085d6',
+       confirmButtonText: '确认提交',
+       showConfirmButton: true
+     }).then(function (isConfirm) {
+       if (isConfirm === true) {
+         //回调可能会报错
+         this.submitUnitExam();
+       }
+     })
+   }*/
+
 }
