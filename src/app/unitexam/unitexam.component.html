@@ -13,8 +13,8 @@
         您的本次得分为{{result.score}}分
       </div>
       <div class="modal-footer">
-        <button type="button" class="btn btn-primary" (click)="autoShownModal.hide()">回到首页</button>
-        <button type="button" class="btn btn-warning" (click)="autoShownModal.hide()">继续测试</button>
+        <button type="button" class="btn btn-primary" (click)="reviewErr()">查看错题</button>
+        <button type="button" class="btn btn-warning" [routerLink]="['/unitexam',this.typeCode]">继续测试</button>
       </div>
     </div>
   </div>
@@ -23,7 +23,7 @@
 <!--试题列表-->
 <div class="row" [@flyIn]="'active'">
   <div class="col-md-5 col-md-offset-1">
-    <div class="panel panel-default" *ngFor="let data of Listdata;let i = index">
+    <div class="panel panel-default panel-danger" [ngClass]="{'panel-danger':reviewErrList()}" *ngFor="let data of Listdata;let i = index">
       <div class="panel-heading">
         <h3 class="panel-title">第{{i+1}}题.{{data.testStem}}</h3>
       </div>

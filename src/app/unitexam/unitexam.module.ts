@@ -5,12 +5,14 @@ import {UtilModule} from "../util/util.module";
 import {CommonModule} from "@angular/common";
 import { FormsModule } from '@angular/forms';
 import { ModalModule } from 'ngx-bootstrap/modal';
+import {RouterModule} from '@angular/router';
 @NgModule({
   imports: [
     CommonModule,
     FormsModule,
     ModalModule.forRoot(),
-    UtilModule
+    UtilModule,
+    RouterModule
   ],
   declarations: [
     UnitexamComponent,

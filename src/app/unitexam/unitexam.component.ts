@@ -1,8 +1,8 @@
-import {Component, ElementRef, Input, OnInit} from '@angular/core';
+import {Component, ElementRef, Input, OnInit, ViewChild} from '@angular/core';
 import {ActivatedRoute, Router} from "@angular/router";
 import {UnitexamService} from "./unitexam.service";
 import {flyIn} from '../animations/fly-in';
-import {BsModalService} from "ngx-bootstrap";
+import {BsModalService, ModalDirective} from "ngx-bootstrap";
 
 
 @Component({
@@ -20,7 +20,9 @@ export class UnitexamComponent implements OnInit {
   public Listdata: Array<any>;
   public pAnswers: Array<any>;
   public result: any;
-  public isModalShown: boolean = false
+  public isModalShown: boolean = false;
+  @ViewChild('autoShownModal')
+  public autoShownModal: ModalDirective;
 
   constructor(private route: ActivatedRoute,
               private router: Router,
@@ -71,5 +73,18 @@ export class UnitexamComponent implements OnInit {
   initHidden(): void {
     /*model弹出之后,再关闭需要设置isModalShown为初始值*/
     this.isModalShown = false;
+  }
+
+  reviewErr(): void {
+    this.autoShownModal.hide();
+    console.log("查看错题。。。。。。。。");
+  }
+  reviewErrList(examId: number): boolean {
+    let falg: boolean = false;
+    let errList = this.result.errorList;
+    if (examId == errList[0]){
+      falg = true;
+    }
+    return falg;
   }
 }
