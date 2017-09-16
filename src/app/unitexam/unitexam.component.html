@@ -14,7 +14,7 @@
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-primary" (click)="reviewErr()">查看错题</button>
-        <button type="button" class="btn btn-warning" [routerLink]="['/unitexam',this.typeCode]">继续测试</button>
+        <button type="button" class="btn btn-warning" [routerLink]="['/unitexam',typeCode]" window.location.href="javascript:void(0)">继续测试</button>
       </div>
     </div>
   </div>
@@ -23,7 +23,7 @@
 <!--试题列表-->
 <div class="row" [@flyIn]="'active'">
   <div class="col-md-5 col-md-offset-1">
-    <div class="panel panel-default panel-danger" [ngClass]="{'panel-danger':reviewErrList()}" *ngFor="let data of Listdata;let i = index">
+    <div class="panel panel-default panel-danger" [ngClass]="{'panel-danger':reviewErrList()}"  *ngFor="let data of Listdata;let i = index">
       <div class="panel-heading">
         <h3 class="panel-title">第{{i+1}}题.{{data.testStem}}</h3>
       </div>
@@ -42,7 +42,7 @@
   <div class="col-md-4 col-md-offset-1">
     <!--这里是右侧动态加载的内容(计算器等)是子组件-->
     <!-- 其中”pAnswers” 为父组件中的属性，[pAnswer] 为子组件的输入;在子组件中使用 @Input() pAnswer 来接受父组件传递的值 -->
-    <app-util [pAnswer]="pAnswers" (childResult)="hitResult($event)"></app-util>
+    <app-util [pAnswer]="pAnswers" [totleCount]="totleCount" (childResult)="hitResult($event)"></app-util>
   </div>
 </div>
 
