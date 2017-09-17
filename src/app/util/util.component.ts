@@ -1,6 +1,6 @@
-import {Component, OnInit, Input, Output, EventEmitter, TemplateRef, ViewChild} from '@angular/core';
-import {UtilService} from "./util.service";
-import {BsModalRef, BsModalService, ModalDirective} from "ngx-bootstrap";
+import { Component, OnInit, Input, Output, EventEmitter, TemplateRef, ViewChild } from '@angular/core';
+import { UtilService } from "./util.service";
+import { BsModalRef, BsModalService, ModalDirective } from "ngx-bootstrap";
 import swal from 'sweetalert2';
 
 
@@ -18,13 +18,14 @@ export class UtilComponent implements OnInit {
   @Output() childResult = new EventEmitter<any>();
 
   public notDoCount: number;
+  public result: any;
 
   @ViewChild('staticModal')
   public staticModal: ModalDirective;
   public bsModalRef: BsModalRef;
 
   constructor(private _utilService: UtilService,
-              private _bsModalService: BsModalService) {
+    private _bsModalService: BsModalService) {
   }
 
   ngOnInit() {
@@ -35,11 +36,11 @@ export class UtilComponent implements OnInit {
     this.staticModal.hide();
     console.log(`点击了提交按钮： ` + this.pAnswer);
     return this._utilService.commitAnswer(this.pAnswer).subscribe(res => {
-        // this.result = res['data'];
-        this.launchResult(res['data']);
-      }, (err) => {
-        console.log(`error ${err}`);
-      }, () => console.log(`编译！`)
+      this.result = res['data'];
+      this.launchResult(res['data']);
+    }, (err) => {
+      console.log(`error ${err}`);
+    }, () => console.log(`编译！`)
     );
   }
 
@@ -49,7 +50,7 @@ export class UtilComponent implements OnInit {
   }
 
   // 还有几道题没有做提示
-  notDo(): boolean{    
+  notDo(): boolean {
     let falg: boolean = false;
     this.notDoCount = this.totleCount - this.pAnswer.length;
     if (this.notDoCount > 0) {
@@ -58,22 +59,33 @@ export class UtilComponent implements OnInit {
     return falg
   }
 
-  // 如果用户一道题都没有做点提交选择不同的弹窗
-  chooseModel(): void{
-    if (this.pAnswer.length == 0){
-      this.tips()
-    }else{
+  // 如果用户一道题都没有做点提交选择不同的弹窗,如果用户已经提交过一次，就不让他再次提交
+  chooseModel(): void {
+    if (this.pAnswer.length == 0) {
+      this.tip1()
+    } else if (this.result != undefined) {
+      this.tip2()
+    } else {
       this.staticModal.show()
     }
   }
 
-   tips(): void {
-     swal({
-       title: '提示',
-       text: "至少选择一个答案!",
-       type: 'warning',
-       timer: 2000
-     })
-   }
+  tip1(): void {
+    swal({
+      title: '提示',
+      text: "至少选择一个答案!",
+      type: 'warning',
+      timer: 2000
+    })
+  }
+
+  tip2(): void {
+    swal({
+      title: '提示',
+      text: "您已经提交过一次，请勿重复提交!",
+      type: 'warning',
+      timer: 2000
+    })
+  }
 
 }

@@ -14,7 +14,7 @@
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-primary" (click)="reviewErr()">查看错题</button>
-        <button type="button" class="btn btn-warning" [routerLink]="['/unitexam',typeCode]" window.location.href="javascript:void(0)">继续测试</button>
+        <button type="button" class="btn btn-warning" [routerLink]="['/unitexam',typeCode]" >继续测试</button>
       </div>
     </div>
   </div>
@@ -23,7 +23,7 @@
 <!--试题列表-->
 <div class="row" [@flyIn]="'active'">
   <div class="col-md-5 col-md-offset-1">
-    <div class="panel panel-default panel-danger" [ngClass]="{'panel-danger':reviewErrList()}"  *ngFor="let data of Listdata;let i = index">
+    <div class="panel panel-default panel-danger" [ngClass]="{'panel-danger':reviewErrList(data.id)}"  *ngFor="let data of Listdata;let i = index">
       <div class="panel-heading">
         <h3 class="panel-title">第{{i+1}}题.{{data.testStem}}</h3>
       </div>
