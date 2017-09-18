@@ -17,10 +17,11 @@ import {AppComponent} from './app.component';
 import {appRoutes} from './app.routes';
 import {UnitexamModule} from "./unitexam/unitexam.module"
 import {HomeModule} from "./home/home.module";
+import { ManagerComponent } from './manager/manager.component';
 
 @NgModule({
   declarations: [/*声明属于本模块的组件，每个组件必须在且仅在一个模块中声明*/
-    AppComponent
+    AppComponent, ManagerComponent
   ],
   imports: [/*引入买本模块中用到的模块，该模块是处于import语句引入的模块中*/
     BrowserModule,

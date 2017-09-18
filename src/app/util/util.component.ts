@@ -1,6 +1,6 @@
-import { Component, OnInit, Input, Output, EventEmitter, TemplateRef, ViewChild } from '@angular/core';
-import { UtilService } from "./util.service";
-import { BsModalRef, BsModalService, ModalDirective } from "ngx-bootstrap";
+import {Component, OnInit, Input, Output, EventEmitter, TemplateRef, ViewChild} from '@angular/core';
+import {UtilService} from "./util.service";
+import {BsModalRef, BsModalService, ModalDirective} from "ngx-bootstrap";
 import swal from 'sweetalert2';
 
 
@@ -14,6 +14,7 @@ export class UtilComponent implements OnInit {
   Output相当于指令的方法绑定，子作用域触发事件执行响应函数，而响应函数方法体则位于父作用域中，相当于将事件“输出到”父作用域中，在父作用域中处理。*/
   @Input() pAnswer;
   @Input() totleCount;
+  @Input() typeCode;
   /*声明事件发射器*/
   @Output() childResult = new EventEmitter<any>();
 
@@ -25,7 +26,7 @@ export class UtilComponent implements OnInit {
   public bsModalRef: BsModalRef;
 
   constructor(private _utilService: UtilService,
-    private _bsModalService: BsModalService) {
+              private _bsModalService: BsModalService) {
   }
 
   ngOnInit() {
@@ -36,11 +37,15 @@ export class UtilComponent implements OnInit {
     this.staticModal.hide();
     console.log(`点击了提交按钮： ` + this.pAnswer);
     return this._utilService.commitAnswer(this.pAnswer).subscribe(res => {
-      this.result = res['data'];
-      this.launchResult(res['data']);
-    }, (err) => {
-      console.log(`error ${err}`);
-    }, () => console.log(`编译！`)
+        this.result = res['data'];
+        this.launchResult(res['data']);
+        /*如果提交了答案将typeCode置为hasCommit,这时如果父组件切换了路由typeCode会将值传递给子组件*/
+        this.typeCode = "hasCommit";
+        /*如果提交了答案将pAnswer设为null*/
+        this.pAnswer = null;
+      }, (err) => {
+        console.log(`error ${err}`);
+      }, () => console.log(`编译！`)
     );
   }
 
@@ -63,7 +68,7 @@ export class UtilComponent implements OnInit {
   chooseModel(): void {
     if (this.pAnswer.length == 0) {
       this.tip1()
-    } else if (this.result != undefined) {
+    } else if (this.result != undefined && this.typeCode == "hasCommit") {
       this.tip2()
     } else {
       this.staticModal.show()
