@@ -3,10 +3,12 @@ import {CommonModule} from '@angular/common';
 import {UtilComponent} from "./util.component";
 import {UtilService} from "./util.service";
 import {ModalModule} from 'ngx-bootstrap/modal';
+import {CalculatorModule} from "./calculator/calculator.module";
 
 @NgModule({
   imports: [
     CommonModule,
+    CalculatorModule,
     ModalModule.forRoot()
   ],
   declarations: [UtilComponent],

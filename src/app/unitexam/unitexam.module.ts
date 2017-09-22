@@ -6,13 +6,15 @@ import {CommonModule} from "@angular/common";
 import { FormsModule } from '@angular/forms';
 import { ModalModule } from 'ngx-bootstrap/modal';
 import {RouterModule} from '@angular/router';
+import {BrowserAnimationsModule} from "@angular/platform-browser/animations";
 @NgModule({
   imports: [
     CommonModule,
     FormsModule,
     ModalModule.forRoot(),
     UtilModule,
-    RouterModule
+    RouterModule,
+    BrowserAnimationsModule,   /*动画所需Module*/
   ],
   declarations: [
     UnitexamComponent,

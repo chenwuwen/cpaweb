@@ -1,18 +1,15 @@
-<div class="panel panel-default">
-  <div class="panel-body">
-    音乐播放器
-  </div>
-</div>
+<!--计算器组件-->
+<app-calculator></app-calculator>
+
 <div class="panel panel-default" style="position: fixed">
   <div class="panel-body">
-    <!-- <button type="button"  class="btn btn-info" (click)="staticModal.show()">提交</button> -->
-    <button type="button"  class="btn btn-info" (click)="chooseModel()">提交</button>
+    <button type="button" class="btn btn-info" (click)="chooseModel()">提交</button>
   </div>
 </div>
 
 <!-- model -->
 <div class="modal fade" bsModal #staticModal="bs-modal" [config]="{backdrop: 'static'}"
-     tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">
+     tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true" (onHidden)="initMark()">
   <div class="modal-dialog modal-sm">
     <div class="modal-content">
       <div class="modal-header">
@@ -22,7 +19,7 @@
         </button>
       </div>
       <div class="modal-body">
-        <span *ngIf="notDo()" >您尚有{{notDoCount}}未做,</span>确定提交吗?
+        <span *ngIf="notDo()">您尚有{{notDoCount}}未做,</span>确定提交吗?
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-primary" (click)="submitUnitExam()">确认提交</button>
