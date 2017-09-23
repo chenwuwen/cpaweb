@@ -19,10 +19,10 @@ export class UtilService {
   commitAnswer(pAnswer:any,typeCode:string): Observable<any>{
     let url = "/api/solution/correctItem";
     let params = new URLSearchParams();
-    params.set("typeCode",typeCode);
-    params.set("pAnswers",pAnswer);
+    params.append("typeCode",typeCode);
+    params.append("pAnswers",pAnswer);
     /*console.log(`从组件传到Service的数据，pAnswer:  `+pAnswer);*/
-    return this._http.post(url,{"data":params},this.getOptions())
+    return this._http.post(url,params,this.getOptions())
       .map(this.extractData)
       .catch(this.handleError);
   }
