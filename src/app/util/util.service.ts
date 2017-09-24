@@ -10,7 +10,9 @@ export class UtilService {
 
   private getOptions(): RequestOptions {
     var headers: Headers = new Headers();
-    headers.append('content-type', 'application/json; charset=utf-8');
+    // angular post请求默认是json格式的即请求头时application/json;charset=utf-8，这是springMVc接受参数需要添加@RequestBody注解
+    // 而springMvc的默认接受请求头为pplication/x-www-form-urlencoded;charset=utf-8'，即jquery Ajax那种 data:{}方式
+    // headers.append('content-type', 'application/x-www-form-urlencoded;charset=utf-8');
     let opts = new RequestOptions({headers: headers});
     opts.headers = headers;
     return opts;
@@ -18,11 +20,9 @@ export class UtilService {
 
   commitAnswer(pAnswer:any,typeCode:string): Observable<any>{
     let url = "/api/solution/correctItem";
-    let params = new URLSearchParams();
-    params.append("typeCode",typeCode);
-    params.append("pAnswers",pAnswer);
+    // let params = new URLSearchParams();
     /*console.log(`从组件传到Service的数据，pAnswer:  `+pAnswer);*/
-    return this._http.post(url,params,this.getOptions())
+    return this._http.post(url,{pAnswer,typeCode},this.getOptions())
       .map(this.extractData)
       .catch(this.handleError);
   }
