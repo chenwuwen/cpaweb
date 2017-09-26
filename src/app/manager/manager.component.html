@@ -1,44 +1,61 @@
-<ul class="nav nav-list bs-docs-sidenav affix-top">
-  <li class="active">
-    <a href="#overview"><i class="icon-chevron-right"></i> 概览</a>
-  </li>
-  <li class="">
-    <a href="#transitions"><i class="icon-chevron-right"></i> 过渡效果</a>
-  </li>
-  <li class="">
-    <a href="#modals"><i class="icon-chevron-right"></i> 模态对话框</a>
-  </li>
-  <li class="">
-    <a href="#dropdowns"><i class="icon-chevron-right"></i> 下拉菜单</a>
-  </li>
-  <li>
-    <a href="#scrollspy"><i class="icon-chevron-right"></i> 滚动监听</a>
-  </li>
-  <li class="">
-    <a href="#tabs"><i class="icon-chevron-right"></i> 标签页</a>
-  </li>
-  <li class="">
-    <a href="#tooltips"><i class="icon-chevron-right"></i> 工具提示</a>
-  </li>
-  <li class="">
-    <a href="#popovers"><i class="icon-chevron-right"></i> 弹出提示</a>
-  </li>
-  <li class="">
-    <a href="#alerts"><i class="icon-chevron-right"></i> 警告框</a>
-  </li>
-  <li class="">
-    <a href="#buttons"><i class="icon-chevron-right"></i> 按钮</a>
-  </li>
-  <li class="">
-    <a href="#collapse"><i class="icon-chevron-right"></i> Collapse</a>
-  </li>
-  <li class="">
-    <a href="#carousel"><i class="icon-chevron-right"></i> 轮播</a>
-  </li>
-  <li class="">
-    <a href="#typeahead"><i class="icon-chevron-right"></i> 输入提示</a>
-  </li>
-  <li class="">
-    <a href="#affix"><i class="icon-chevron-right"></i> 附加导航</a>
-  </li>
-</ul>
+<div class="row">
+  <div class="col-md-5">
+    <aside class="sidebar show perfectScrollbar">
+      <div id="solso-sidebar">
+        <div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true">
+
+          <div class="panel panel-default">
+              <div class="panel-heading" role="tab">
+                <div class="input-group custom-search-form">
+                  <input type="text" class="form-control" placeholder="Search..."/>
+                  <span class="input-group-btn">
+                                <button class="btn btn-default" type="button">
+                                    <i class="fa fa-search"></i>
+                                </button>
+                  </span>
+                </div>
+              </div>
+          </div>
+
+          <div class="panel panel-default" routerLinkActive="active">
+              <div class="panel-heading" role="tab" id="heading1">
+                <h4 class="panel-title">
+                  <a href="javascript:void(0)" class="single-item" [routerLink]="['/manager/main']">
+                    <i class="fa fa-dashboard"></i> 主面板
+                  </a>
+                </h4>
+              </div>
+          </div>
+
+          <div class="panel panel-default">
+            <div class="panel-heading" role="tab" id="heading2">
+              <h4 class="panel-title">
+                <a data-toggle="collapse" data-parent="#accordion" href="#collapse2" aria-expanded="true"
+                   aria-controls="collapse2">
+                  <i class="fa fa-bar-chart-o"></i> 试题管理
+                  <i class="pull-right fa fa-caret-down"></i>
+                </a>
+              </h4>
+            </div>
+
+            <div id="collapse2" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="heading2">
+              <div>
+                <a href="javascript:void(0)" class="list-group-item">新增试题</a>
+                <a href="javascript:void(0)" class="list-group-item">pie Chart</a>
+                <a href="javascript:void(0)" class="list-group-item">google Chart</a>
+              </div>
+            </div>
+          </div>
+
+
+        </div>
+      </div>
+    </aside>
+  </div>
+  <!--后台管理右侧内容-->
+  <div class="col-md-7">
+    <!--<router-outlet></router-outlet>-->
+  </div>
+</div>
+
+
