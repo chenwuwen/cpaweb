@@ -18,10 +18,11 @@ import {appRoutes} from './app.routes';
 import {UnitexamModule} from "./unitexam/unitexam.module"
 import {HomeModule} from "./home/home.module";
 import { ManagerComponent } from './manager/manager.component';
+import {ManagerModule} from "./manager/manager.module";
 
 @NgModule({
   declarations: [/*声明属于本模块的组件，每个组件必须在且仅在一个模块中声明*/
-    AppComponent, ManagerComponent
+    AppComponent
   ],
   imports: [/*引入买本模块中用到的模块，该模块是处于import语句引入的模块中*/
     BrowserModule,
@@ -35,6 +36,7 @@ import { ManagerComponent } from './manager/manager.component';
     RouterModule.forRoot(appRoutes, {useHash: false}), /*angular2项目中url去掉#(即哈希路由)*/
     UnitexamModule,
     HomeModule,
+    ManagerModule,
   ],
   providers: [/*声明模块中使用的服务的提供者,对于appModule来说,也应该就是控制菜单显示了，即权限控制*/
 

@@ -18,13 +18,9 @@ export const appRoutes = [
     component: UnitexamComponent
   },
   {
-    path: "manager",
-    component: ManagerComponent
+  	path:'manager',  // **代表该路由是一个通配符路径。如果当前URL无法匹配上我们配置过的任何一个路由中的路径，路由器就会匹配上这一个。当需要显示404页面或者重定向到其它路由时，该特性非常有用。
+  	loadChildren:'./manager/manager.module#ManagerModule'  //嵌套路由,二级路由子路由，当路由参数中又包含‘manager’,将跳转到managerModule中，使用该模块路由
   }
-  // {
-  // 	path:'**',  // **代表该路由是一个通配符路径。如果当前URL无法匹配上我们配置过的任何一个路由中的路径，路由器就会匹配上这一个。当需要显示404页面或者重定向到其它路由时，该特性非常有用。
-  // 	loadChildren:'./home/home.module#HomeModule'  //路由懒加载
-  // }
 
 ];
 

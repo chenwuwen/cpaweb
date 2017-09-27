@@ -1,0 +1,106 @@
+<form class="form-horizontal" role="form">
+
+  <fieldset>
+    <legend class="">填写题干</legend>
+    <div class="form-group">
+      <div class="col-sm-9"><input name="testStem" type="text" class="form-control" id="" [(ngModel)]="item.testStem"
+                                   placeholder="请填写题干"></div>
+    </div>
+  </fieldset>
+
+  <fieldset>
+    <legend class="">填写选项</legend>
+    <div class="form-group">
+      <div class="col-sm-9">
+        <div class="input-group">
+          <span class="input-group-addon" id="basic-addon3" [(ngModel)]="cpaOption.selectData">A</span>
+          <input name="option" class="form-control" id="" [(ngModel)]="cpaOption.optionData"
+                 placeholder="请填写选项内容">
+        </div>
+      </div>
+    </div>
+
+    <div class="form-group">
+      <div class="col-sm-9">
+        <div class="input-group">
+          <span class="input-group-addon" id="" [(ngModel)]="cpaOption.selectData">B</span>
+          <input name="option" class="form-control" id="" [(ngModel)]="cpaOption.optionData"
+                 placeholder="请填写选项内容">
+        </div>
+      </div>
+    </div>
+
+    <div class="form-group">
+      <div class="col-sm-9">
+        <div class="input-group">
+          <span class="input-group-addon" id="" [(ngModel)]="cpaOption.selectData">C</span>
+          <input name="option" class="form-control" id="" [(ngModel)]="cpaOption.optionData"
+                 placeholder="请填写选项内容">
+        </div>
+      </div>
+    </div>
+
+    <div class="form-group">
+      <div class="col-sm-9">
+        <div class="input-group">
+          <span class="input-group-addon" id="" [(ngModel)]="cpaOptions[3].selectData">D</span>
+          <input name="option" class="form-control" id="" [(ngModel)]="cpaOptions[3].optionData"
+                 placeholder="请填写选项内容">
+        </div>
+      </div>
+    </div>
+  </fieldset>
+
+  <fieldset>
+    <legend class="">试题类型</legend>
+    <div class="form-group">
+      <div class="col-sm-9">
+        <label class="radio-inline">
+          <input name="multiple" type="radio" value="1" checked="checked" name="group">
+          单选题
+        </label>
+        <label class="radio-inline">
+          <input name="multiple" type="radio" value="2" name="group">
+          多选题
+        </label>
+        <div class="controls">
+          <select class="input-xlarge">
+            <option>会计基础</option>
+            <option>会计电算化</option>
+            <option>财经法规与职业道德</option>
+          </select>
+        </div>
+
+      </div>
+    </div>
+  </fieldset>
+
+  <fieldset>
+    <legend class="">标准答案</legend>
+    <div class="form-group">
+      <div class="col-sm-9">
+        <label class="radio-inline">
+          <input type="radio" value="1" checked="checked" name="basic" [(ngModel)]="item.bresult[0]">
+          A
+        </label>
+        <label class="radio-inline">
+          <input type="radio" value="2" name="basic" [(ngModel)]="item.bresult[1]">
+          B
+        </label>
+        <label class="radio-inline">
+          <input type="radio" value="2" name="basic" [(ngModel)]="item.bresult[2]">
+          C
+        </label>
+        <label class="radio-inline">
+          <input type="radio" value="2" name="basic" [(ngModel)]="item.bresult[3]">
+          D
+        </label>
+      </div>
+    </div>
+  </fieldset>
+
+  <div class="col-sm-offset-2">
+    <button type="submit" class="btn btn-default" (click)="submitItem()">提交</button>
+  </div>
+
+</form>
