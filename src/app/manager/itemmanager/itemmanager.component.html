@@ -3,8 +3,8 @@
   <fieldset>
     <legend class="">填写题干</legend>
     <div class="form-group">
-      <div class="col-sm-9"><input name="testStem" type="text" class="form-control" id="" [(ngModel)]="item.testStem"
-                                   placeholder="请填写题干"></div>
+      <div class="col-sm-9"><input name="testStem" type="text" class="form-control" [(ngModel)]="item.testStem"
+                                   required placeholder="请填写题干"></div>
     </div>
   </fieldset>
 
@@ -13,9 +13,11 @@
     <div class="form-group">
       <div class="col-sm-9">
         <div class="input-group">
-          <span class="input-group-addon" id="basic-addon3" [(ngModel)]="cpaOption.selectData">A</span>
-          <input name="option" class="form-control" id="" [(ngModel)]="cpaOption.optionData"
+          <span class="input-group-addon">A</span>
+          <input [ngModelOptions]="{standalone: true}" class="form-control" [(ngModel)]="cpaOption.optionData"
                  placeholder="请填写选项内容">
+          <input style="display: none" [ngModelOptions]="{standalone: true}" class="form-control"
+                 value="A" [(ngModel)]="cpaOption.selectData">
         </div>
       </div>
     </div>
@@ -23,9 +25,11 @@
     <div class="form-group">
       <div class="col-sm-9">
         <div class="input-group">
-          <span class="input-group-addon" id="" [(ngModel)]="cpaOption.selectData">B</span>
-          <input name="option" class="form-control" id="" [(ngModel)]="cpaOption.optionData"
+          <span class="input-group-addon">B</span>
+          <input [ngModelOptions]="{standalone: true}" class="form-control" [(ngModel)]="cpaOption.optionData"
                  placeholder="请填写选项内容">
+          <input style="display: none" [ngModelOptions]="{standalone: true}" class="form-control"
+                 value="B" [(ngModel)]="cpaOption.selectData">
         </div>
       </div>
     </div>
@@ -33,9 +37,11 @@
     <div class="form-group">
       <div class="col-sm-9">
         <div class="input-group">
-          <span class="input-group-addon" id="" [(ngModel)]="cpaOption.selectData">C</span>
-          <input name="option" class="form-control" id="" [(ngModel)]="cpaOption.optionData"
+          <span class="input-group-addon">C</span>
+          <input [ngModelOptions]="{standalone: true}" class="form-control" [(ngModel)]="cpaOption.optionData"
                  placeholder="请填写选项内容">
+          <input style="display: none" [ngModelOptions]="{standalone: true}" class="form-control"
+                 value="C" [(ngModel)]="cpaOption.selectData">
         </div>
       </div>
     </div>
@@ -43,9 +49,11 @@
     <div class="form-group">
       <div class="col-sm-9">
         <div class="input-group">
-          <span class="input-group-addon" id="" [(ngModel)]="cpaOptions[3].selectData">D</span>
-          <input name="option" class="form-control" id="" [(ngModel)]="cpaOptions[3].optionData"
+          <span class="input-group-addon">D</span>
+          <input  class="form-control" [ngModelOptions]="{standalone: true}" [(ngModel)]="cpaOption.optionData"
                  placeholder="请填写选项内容">
+          <input style="display: none"  class="form-control"
+                 value="D" [ngModelOptions]="{standalone: true}" [(ngModel)]="cpaOption.selectData" >
         </div>
       </div>
     </div>
@@ -64,10 +72,10 @@
           多选题
         </label>
         <div class="controls">
-          <select class="input-xlarge">
-            <option>会计基础</option>
-            <option>会计电算化</option>
-            <option>财经法规与职业道德</option>
+          <select class="input-xlarge" [(ngModel)]="item.testType">
+            <option value="basicAccount">会计基础</option>
+            <option value="cpuAccount">会计电算化</option>
+            <option value="statuteEthics">财经法规与职业道德</option>
           </select>
         </div>
 
@@ -80,19 +88,19 @@
     <div class="form-group">
       <div class="col-sm-9">
         <label class="radio-inline">
-          <input type="radio" value="1" checked="checked" name="basic" [(ngModel)]="item.bresult[0]">
+          <input type="radio" value="1" checked="checked" name="basic" [(ngModel)]="item.bresult">
           A
         </label>
         <label class="radio-inline">
-          <input type="radio" value="2" name="basic" [(ngModel)]="item.bresult[1]">
+          <input type="radio" value="2" name="basic" [(ngModel)]="item.bresult">
           B
         </label>
         <label class="radio-inline">
-          <input type="radio" value="2" name="basic" [(ngModel)]="item.bresult[2]">
+          <input type="radio" value="2" name="basic" [(ngModel)]="item.bresult">
           C
         </label>
         <label class="radio-inline">
-          <input type="radio" value="2" name="basic" [(ngModel)]="item.bresult[3]">
+          <input type="radio" value="2" name="basic" [(ngModel)]="item.bresult">
           D
         </label>
       </div>

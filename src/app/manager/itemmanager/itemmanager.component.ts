@@ -10,7 +10,6 @@ export class ItemmanagerComponent implements OnInit {
 
   public item: Item = new Item();
   public cpaOption: CpaOption = new CpaOption();
-  public cpaOptions: Array<CpaOption> = [];
 
   constructor() {
   }

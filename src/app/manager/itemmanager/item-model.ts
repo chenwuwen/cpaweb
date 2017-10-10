@@ -1,6 +1,7 @@
 export class Item {
   testStem: string;
-  bresult: Array<any>;
+  testType: string;
+  bresult: Array<string>;
   cpaOptionDtos: Array<CpaOption>;
 }
 
