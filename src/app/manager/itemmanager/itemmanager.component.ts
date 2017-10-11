@@ -1,5 +1,6 @@
 import {Component, OnInit} from '@angular/core';
 import {CpaOption, Item} from "./item-model";
+import {ItemmanagerService} from "./itemmanager.service";
 
 @Component({
   selector: 'app-itemmanager',
@@ -9,15 +10,16 @@ import {CpaOption, Item} from "./item-model";
 export class ItemmanagerComponent implements OnInit {
 
   public item: Item = new Item();
-  public cpaOption: CpaOption = new CpaOption();
 
-  constructor() {
+  constructor(private _itemManagerService: ItemmanagerService) {
   }
 
   ngOnInit() {
   }
 
-  submitItem(): void {
-
+  submitItem(item: Item): void {
+    console.log(item);
+    console.log('item的类型是：' + typeof item);
+    console.log(`click button`);
   }
 }

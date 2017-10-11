@@ -1,10 +1,12 @@
-<form class="form-horizontal" role="form">
+<form class="form-horizontal" role="form" (ngSubmit)="submitItem(addItemForm.value)" #addItemForm="ngForm">
 
   <fieldset>
     <legend class="">填写题干</legend>
     <div class="form-group">
-      <div class="col-sm-9"><input name="testStem" type="text" class="form-control" [(ngModel)]="item.testStem"
-                                   required placeholder="请填写题干"></div>
+      <div class="col-sm-9">
+        <input name="testStem" type="text" class="form-control" [(ngModel)]="item.testStem" required
+               placeholder="请填写题干">
+      </div>
     </div>
   </fieldset>
 
@@ -14,10 +16,11 @@
       <div class="col-sm-9">
         <div class="input-group">
           <span class="input-group-addon">A</span>
-          <input [ngModelOptions]="{standalone: true}" class="form-control" [(ngModel)]="cpaOption.optionData"
+          <input name="optionData" class="form-control" [ngModelOptions]="{standalone: true}"
+                 [(ngModel)]="item.cpaOptionDtos[0].optionData"
                  placeholder="请填写选项内容">
-          <input style="display: none" [ngModelOptions]="{standalone: true}" class="form-control"
-                 value="A" [(ngModel)]="cpaOption.selectData">
+          <input style="display: none" name="selectData" class="form-control" [ngModelOptions]="{standalone: true}"
+                 value="A" [(ngModel)]="item.cpaOptionDtos[0].selectData">
         </div>
       </div>
     </div>
@@ -26,10 +29,11 @@
       <div class="col-sm-9">
         <div class="input-group">
           <span class="input-group-addon">B</span>
-          <input [ngModelOptions]="{standalone: true}" class="form-control" [(ngModel)]="cpaOption.optionData"
+          <input [ngModelOptions]="{standalone: true}" class="form-control"
+                 [(ngModel)]="item.cpaOptionDtos[1].optionData"
                  placeholder="请填写选项内容">
           <input style="display: none" [ngModelOptions]="{standalone: true}" class="form-control"
-                 value="B" [(ngModel)]="cpaOption.selectData">
+                 value="B" [(ngModel)]="item.cpaOptionDtos[1].selectData">
         </div>
       </div>
     </div>
@@ -38,10 +42,11 @@
       <div class="col-sm-9">
         <div class="input-group">
           <span class="input-group-addon">C</span>
-          <input [ngModelOptions]="{standalone: true}" class="form-control" [(ngModel)]="cpaOption.optionData"
+          <input [ngModelOptions]="{standalone: true}" class="form-control"
+                 [(ngModel)]="item.cpaOptionDtos[2].optionData"
                  placeholder="请填写选项内容">
           <input style="display: none" [ngModelOptions]="{standalone: true}" class="form-control"
-                 value="C" [(ngModel)]="cpaOption.selectData">
+                 value="C" [(ngModel)]="item.cpaOptionDtos[2].selectData">
         </div>
       </div>
     </div>
@@ -50,10 +55,11 @@
       <div class="col-sm-9">
         <div class="input-group">
           <span class="input-group-addon">D</span>
-          <input  class="form-control" [ngModelOptions]="{standalone: true}" [(ngModel)]="cpaOption.optionData"
+          <input class="form-control" [ngModelOptions]="{standalone: true}"
+                 [(ngModel)]="item.cpaOptionDtos[3].optionData"
                  placeholder="请填写选项内容">
-          <input style="display: none"  class="form-control"
-                 value="D" [ngModelOptions]="{standalone: true}" [(ngModel)]="cpaOption.selectData" >
+          <input style="display: none" class="form-control"
+                 value="D" [ngModelOptions]="{standalone: true}" [(ngModel)]="item.cpaOptionDtos[3].selectData">
         </div>
       </div>
     </div>
@@ -64,21 +70,28 @@
     <div class="form-group">
       <div class="col-sm-9">
         <label class="radio-inline">
-          <input name="multiple" type="radio" value="1" checked="checked" name="group">
+          <input name="choice" type="radio" value="exclusive" checked="checked" [(ngModel)]="item.choice">
           单选题
         </label>
         <label class="radio-inline">
-          <input name="multiple" type="radio" value="2" name="group">
+          <input name="choice" type="radio" value="multiple" [(ngModel)]="item.choice">
           多选题
         </label>
+      </div>
+    </div>
+  </fieldset>
+
+  <fieldset>
+    <legend class="">试题类型</legend>
+    <div class="form-group">
+      <div class="col-sm-9">
         <div class="controls">
-          <select class="input-xlarge" [(ngModel)]="item.testType">
+          <select name="testType" class="input-xlarge" required [(ngModel)]="item.testType">
             <option value="basicAccount">会计基础</option>
             <option value="cpuAccount">会计电算化</option>
             <option value="statuteEthics">财经法规与职业道德</option>
           </select>
         </div>
-
       </div>
     </div>
   </fieldset>
@@ -88,19 +101,19 @@
     <div class="form-group">
       <div class="col-sm-9">
         <label class="radio-inline">
-          <input type="radio" value="1" checked="checked" name="basic" [(ngModel)]="item.bresult">
+          <input type="radio" value="A" name="basic" [(ngModel)]="item.bresult">
           A
         </label>
         <label class="radio-inline">
-          <input type="radio" value="2" name="basic" [(ngModel)]="item.bresult">
+          <input type="radio" value="B" name="basic" [(ngModel)]="item.bresult">
           B
         </label>
         <label class="radio-inline">
-          <input type="radio" value="2" name="basic" [(ngModel)]="item.bresult">
+          <input type="radio" value="C" name="basic" [(ngModel)]="item.bresult">
           C
         </label>
         <label class="radio-inline">
-          <input type="radio" value="2" name="basic" [(ngModel)]="item.bresult">
+          <input type="radio" value="D" name="basic" [(ngModel)]="item.bresult">
           D
         </label>
       </div>
@@ -108,7 +121,7 @@
   </fieldset>
 
   <div class="col-sm-offset-2">
-    <button type="submit" class="btn btn-default" (click)="submitItem()">提交</button>
+    <button type="submit" class="btn btn-default" [disabled]="!addItemForm.form.valid">提交</button>
   </div>
 
 </form>
