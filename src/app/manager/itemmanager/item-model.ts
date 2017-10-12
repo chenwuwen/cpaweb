@@ -7,7 +7,6 @@ export class Item {
   cpaOptionDtos: CpaOption[];
 
   constructor() {
-    // this.cpaOptionDtos.push(new CpaOption());
     this.cpaOptionDtos =  [new CpaOption(),new CpaOption(),new CpaOption(),new CpaOption()];
   }
 }

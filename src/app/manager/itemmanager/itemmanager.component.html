@@ -1,10 +1,10 @@
-<form class="form-horizontal" role="form" (ngSubmit)="submitItem(addItemForm.value)" #addItemForm="ngForm">
+<form class="form-horizontal" role="form" (ngSubmit)="submitItem(addItemForm.value)" [formGroup]="addItemForm">
 
   <fieldset>
     <legend class="">填写题干</legend>
     <div class="form-group">
       <div class="col-sm-9">
-        <input name="testStem" type="text" class="form-control" [(ngModel)]="item.testStem" required
+        <input name="testStem" typ="text" class="form-control" formControlName="testStem" required
                placeholder="请填写题干">
       </div>
     </div>
@@ -12,57 +12,57 @@
 
   <fieldset>
     <legend class="">填写选项</legend>
-    <div class="form-group">
+    <div class="form-group" *ngFor="let cpaOption of item.cpaOptionDtos;let i = index">
       <div class="col-sm-9">
-        <div class="input-group">
-          <span class="input-group-addon">A</span>
-          <input name="optionData" class="form-control" [ngModelOptions]="{standalone: true}"
-                 [(ngModel)]="item.cpaOptionDtos[0].optionData"
+        <div class="input-group" formGroupName="cpaOption">
+          <span class="input-group-addon">{{i | digitalTransfer}}</span>
+          <input name="optionData" class="form-control"
+                 formControlName="optionData"
                  placeholder="请填写选项内容">
-          <input style="display: none" name="selectData" class="form-control" [ngModelOptions]="{standalone: true}"
-                 value="A" [(ngModel)]="item.cpaOptionDtos[0].selectData">
+          <input style="display: none" name="selectData" class="form-control"
+                 value="{{i | digitalTransfer}}" formControlName="selectData">
         </div>
       </div>
     </div>
 
-    <div class="form-group">
-      <div class="col-sm-9">
-        <div class="input-group">
-          <span class="input-group-addon">B</span>
-          <input [ngModelOptions]="{standalone: true}" class="form-control"
-                 [(ngModel)]="item.cpaOptionDtos[1].optionData"
-                 placeholder="请填写选项内容">
-          <input style="display: none" [ngModelOptions]="{standalone: true}" class="form-control"
-                 value="B" [(ngModel)]="item.cpaOptionDtos[1].selectData">
+    <!--    <div class="form-group">
+          <div class="col-sm-9">
+            <div class="input-group">
+              <span class="input-group-addon">B</span>
+              <input [ngModelOptions]="{standalone: true}" class="form-control"
+                     [(ngModel)]="cpaOptionDtos[1].optionData"
+                     placeholder="请填写选项内容">
+              <input style="display: none" [ngModelOptions]="{standalone: true}" class="form-control"
+                     value="B" [(ngModel)]="cpaOptionDtos[1].selectData">
+            </div>
+          </div>
         </div>
-      </div>
-    </div>
 
-    <div class="form-group">
-      <div class="col-sm-9">
-        <div class="input-group">
-          <span class="input-group-addon">C</span>
-          <input [ngModelOptions]="{standalone: true}" class="form-control"
-                 [(ngModel)]="item.cpaOptionDtos[2].optionData"
-                 placeholder="请填写选项内容">
-          <input style="display: none" [ngModelOptions]="{standalone: true}" class="form-control"
-                 value="C" [(ngModel)]="item.cpaOptionDtos[2].selectData">
+        <div class="form-group">
+          <div class="col-sm-9">
+            <div class="input-group">
+              <span class="input-group-addon">C</span>
+              <input [ngModelOptions]="{standalone: true}" class="form-control"
+                     [(ngModel)]="cpaOptionDtos[2].optionData"
+                     placeholder="请填写选项内容">
+              <input style="display: none" [ngModelOptions]="{standalone: true}" class="form-control"
+                     value="C" [(ngModel)]="cpaOptionDtos[2].selectData">
+            </div>
+          </div>
         </div>
-      </div>
-    </div>
 
-    <div class="form-group">
-      <div class="col-sm-9">
-        <div class="input-group">
-          <span class="input-group-addon">D</span>
-          <input class="form-control" [ngModelOptions]="{standalone: true}"
-                 [(ngModel)]="item.cpaOptionDtos[3].optionData"
-                 placeholder="请填写选项内容">
-          <input style="display: none" class="form-control"
-                 value="D" [ngModelOptions]="{standalone: true}" [(ngModel)]="item.cpaOptionDtos[3].selectData">
-        </div>
-      </div>
-    </div>
+        <div class="form-group">
+          <div class="col-sm-9">
+            <div class="input-group">
+              <span class="input-group-addon">D</span>
+              <input class="form-control" [ngModelOptions]="{standalone: true}"
+                     [(ngModel)]="cpaOptionDtos[3].optionData"
+                     placeholder="请填写选项内容">
+              <input style="display: none" class="form-control"
+                     value="D" [ngModelOptions]="{standalone: true}" [(ngModel)]="cpaOptionDtos[3].selectData">
+            </div>
+          </div>
+        </div>-->
   </fieldset>
 
   <fieldset>
@@ -70,11 +70,11 @@
     <div class="form-group">
       <div class="col-sm-9">
         <label class="radio-inline">
-          <input name="choice" type="radio" value="exclusive" checked="checked" [(ngModel)]="item.choice">
+          <input name="choice" type="radio" value="exclusive" checked="checked" formControlName="choice">
           单选题
         </label>
         <label class="radio-inline">
-          <input name="choice" type="radio" value="multiple" [(ngModel)]="item.choice">
+          <input name="choice" type="radio" value="multiple" formControlName="choice">
           多选题
         </label>
       </div>
@@ -86,7 +86,7 @@
     <div class="form-group">
       <div class="col-sm-9">
         <div class="controls">
-          <select name="testType" class="input-xlarge" required [(ngModel)]="item.testType">
+          <select name="testType" class="input-xlarge" required  formControlName="testType">
             <option value="basicAccount">会计基础</option>
             <option value="cpuAccount">会计电算化</option>
             <option value="statuteEthics">财经法规与职业道德</option>
@@ -101,19 +101,19 @@
     <div class="form-group">
       <div class="col-sm-9">
         <label class="radio-inline">
-          <input type="radio" value="A" name="basic" [(ngModel)]="item.bresult">
+          <input type="radio" value="A" name="bresult" formControlName="bresult">
           A
         </label>
         <label class="radio-inline">
-          <input type="radio" value="B" name="basic" [(ngModel)]="item.bresult">
+          <input type="radio" value="B" name="bresult" formControlName="bresult">
           B
         </label>
         <label class="radio-inline">
-          <input type="radio" value="C" name="basic" [(ngModel)]="item.bresult">
+          <input type="radio" value="C" name="bresult" formControlName="bresult">
           C
         </label>
         <label class="radio-inline">
-          <input type="radio" value="D" name="basic" [(ngModel)]="item.bresult">
+          <input type="radio" value="D" name="bresult" formControlName="bresult">
           D
         </label>
       </div>
@@ -121,7 +121,7 @@
   </fieldset>
 
   <div class="col-sm-offset-2">
-    <button type="submit" class="btn btn-default" [disabled]="!addItemForm.form.valid">提交</button>
+    <button type="submit" class="btn btn-default" [disabled]="!addItemForm.valid">提交</button>
   </div>
 
 </form>
