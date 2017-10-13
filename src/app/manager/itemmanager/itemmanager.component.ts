@@ -1,7 +1,7 @@
 import {Component, OnInit} from '@angular/core';
 import {CpaOption, Item} from "./item-model";
 import {ItemmanagerService} from "./itemmanager.service";
-import {FormBuilder, FormControl, FormGroup} from "@angular/forms";
+import {FormBuilder, FormControl, FormGroup, Validators} from "@angular/forms";
 
 @Component({
   selector: 'app-itemmanager',
@@ -11,8 +11,6 @@ import {FormBuilder, FormControl, FormGroup} from "@angular/forms";
 export class ItemmanagerComponent implements OnInit {
 
   private addItemForm: FormGroup;
-  public item: Item = new Item();
-  public cpaOption: CpaOption;
 
   constructor(private fromBuild: FormBuilder, private _itemManagerService: ItemmanagerService) {
   }
@@ -30,14 +28,19 @@ export class ItemmanagerComponent implements OnInit {
     //   })
     // })
     this.addItemForm = this.fromBuild.group({
-      testStem: [""],
-      testType: [""],
-      choice: [""],
-      bresult: [""],
-      cpaOption: this.fromBuild.group({
-        selectData: [""],
-        optionData: [""]
-      })
+      testStem: ['', [
+        Validators.required,
+        Validators.minLength(10)
+      ]],
+      testType: ['', [Validators.required]],
+      choice: [''],
+      bresult: [''],
+      cpaOptionDtos: this.fromBuild.array([
+        [''],
+        [''],
+        [''],
+        ['']
+      ])
     })
   }
 
