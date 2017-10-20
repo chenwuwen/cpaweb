@@ -1,7 +1,7 @@
 import {Injectable} from '@angular/core';
-import {Item} from "./item-model";
+import {CpaOption, CpaSolution, Item} from "./item-model";
 import {Observable} from "rxjs/Observable";
-import {Http} from "@angular/http";
+import {Http, Headers, Response, URLSearchParams, RequestOptions} from "@angular/http";
 
 @Injectable()
 export class ItemmanagerService {
@@ -9,12 +9,22 @@ export class ItemmanagerService {
   constructor(private _http: Http) {
   }
 
-  // addItem(item: Item): Observable<any> {
-  //   let url = "/api/unitExam/addUnitExam";
-  //   return this._http.post(url,{item})
-  //     .map(this.extractData)
-  //     .catch(this.handleError);
-  // }
+  private getOptions(): RequestOptions {
+    var headers: Headers = new Headers();
+    // angular post请求默认是json格式的即请求头时application/json;charset=utf-8，这是springMVc接受参数需要添加@RequestBody注解
+    // 而springMvc的默认接受请求头为application/x-www-form-urlencoded;charset=utf-8'，即jquery Ajax那种 data:{}方式
+    // headers.append('content-type', 'application/x-www-form-urlencoded;charset=utf-8');
+    let opts = new RequestOptions({headers: headers});
+    opts.headers = headers;
+    return opts;
+  }
+
+  addItem(cpaRepertory: Item, cpaOptions: Array<CpaOption>, cpaSolution: CpaSolution): Observable<any> {
+    let url = "/api/unitExam/addUnitExam";
+    return this._http.post(url, {cpaRepertory, cpaOptions, cpaSolution}, this.getOptions())
+      .map(this.extractData)
+      .catch(this.handleError);
+  }
 
   /*response 对象并不是返回我们可以直接使用的数据，要想变成应用程序所需要的数据需要：检查不良响应,解析响应数据*/
   private extractData(res: Response) {

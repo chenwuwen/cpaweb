@@ -1,5 +1,5 @@
 import {Component, OnInit} from '@angular/core';
-import {CpaOption, Item} from "./item-model";
+import {CpaOption, CpaSolution, Item} from "./item-model";
 import {ItemmanagerService} from "./itemmanager.service";
 import {FormBuilder, FormControl, FormGroup, Validators} from "@angular/forms";
 
@@ -11,6 +11,7 @@ import {FormBuilder, FormControl, FormGroup, Validators} from "@angular/forms";
 export class ItemmanagerComponent implements OnInit {
 
   private addItemForm: FormGroup;
+  public result: any;
 
   constructor(private fromBuild: FormBuilder, private _itemManagerService: ItemmanagerService) {
   }
@@ -28,14 +29,14 @@ export class ItemmanagerComponent implements OnInit {
     //   })
     // })
     this.addItemForm = this.fromBuild.group({
-      testStem: ['', [
+      'testStem': ['', [
         Validators.required,
-        Validators.minLength(10)
+        Validators.minLength(1)
       ]],
-      testType: ['', [Validators.required]],
-      choice: [''],
-      bresult: [''],
-      cpaOptionDtos: this.fromBuild.array([
+      'testType': ['', [Validators.required]],
+      'choice': [''],
+      'result': [''],
+      'cpaOptions': this.fromBuild.array([
         [''],
         [''],
         [''],
@@ -44,16 +45,31 @@ export class ItemmanagerComponent implements OnInit {
     })
   }
 
-  // submitItem(item: Item, cpaOptionDtos: Array<CpaOption>): void {
-  //   console.log(item);
-  //   console.log(cpaOptionDtos);
-  //   console.log(this.cpaOption);
-  //   console.log('item的类型是：' + typeof item);
-  //   console.log('--------' + item.cpaOptionDtos);
-  //   console.log(`click button`);
-  // }
   submitItem(value: any): void {
     console.log(value);
+    const item: Item = {
+      testStem: value.testStem,
+      testType: value.testType,
+      choice: value.choice
+    };
+    console.log(`Item : ` + JSON.stringify(item));
+    const cpaSolution: CpaSolution = {
+      result: value.result
+    };
+    console.log(`CpaSolution : ` + JSON.stringify(cpaSolution));
+    let cpaOptions: Array<CpaOption> = [];
+    for (var i = 0, k = value.cpaOptions.length; i < k; i++) {
+      const cpaOption: CpaOption = {selectData: i.toString(), optionData: value.cpaOptions[i]}
+      cpaOptions.push(cpaOption);
+    }
+    console.log('cpaOptions : ' + JSON.stringify(cpaOptions));
+    this._itemManagerService.addItem(item, cpaOptions, cpaSolution).subscribe(res => {
+
+      }, (err) => {
+        console.log(`error ${err}`);
+      }, () => console.log(`编译！`)
+    )
     console.log(`click button`);
   }
 }
+
