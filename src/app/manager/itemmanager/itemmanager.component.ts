@@ -2,6 +2,7 @@ import {Component, OnInit} from '@angular/core';
 import {CpaOption, CpaSolution, Item} from "./item-model";
 import {ItemmanagerService} from "./itemmanager.service";
 import {FormBuilder, FormControl, FormGroup, Validators} from "@angular/forms";
+import swal from 'sweetalert2';
 
 @Component({
   selector: 'app-itemmanager',
@@ -11,7 +12,7 @@ import {FormBuilder, FormControl, FormGroup, Validators} from "@angular/forms";
 export class ItemmanagerComponent implements OnInit {
 
   private addItemForm: FormGroup;
-  public result: any;
+  public serialNumber: number = 0;
 
   constructor(private fromBuild: FormBuilder, private _itemManagerService: ItemmanagerService) {
   }
@@ -64,12 +65,32 @@ export class ItemmanagerComponent implements OnInit {
     }
     console.log('cpaOptions : ' + JSON.stringify(cpaOptions));
     this._itemManagerService.addItem(item, cpaOptions, cpaSolution).subscribe(res => {
-
+        this.serialNumber = res;
+        this.tip(this.serialNumber);
       }, (err) => {
+        this.tip(this.serialNumber);
         console.log(`error ${err}`);
       }, () => console.log(`编译！`)
     )
     console.log(`click button`);
+  }
+
+  tip(serialNumber: number): void {
+    if (serialNumber > 0) {
+      swal({
+        title: '提示',
+        text: "提交成功!",
+        type: 'success',
+        timer: 2000
+      })
+    } else {
+      swal({
+        title: '提示',
+        text: "提交失败!",
+        type: 'warning',
+        timer: 2000
+      })
+    }
   }
 }
 
