@@ -1,3 +1,4 @@
+import { UsercenterComponent } from './usercenter/usercenter.component';
 import {RouterModule} from '@angular/router';
 import {HomeComponent} from "./home/home.component";
 import {UnitexamComponent} from "./unitexam/unitexam.component";
@@ -16,6 +17,10 @@ export const appRoutes = [
   {
     path: "unitexam/:typeCode",
     component: UnitexamComponent
+  },
+  {
+    path: "usercenter",
+    component: UsercenterComponent
   },
   {
   	path:'manager',  // **代表该路由是一个通配符路径。如果当前URL无法匹配上我们配置过的任何一个路由中的路径，路由器就会匹配上这一个。当需要显示404页面或者重定向到其它路由时，该特性非常有用。

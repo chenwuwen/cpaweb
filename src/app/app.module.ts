@@ -19,6 +19,7 @@ import {UnitexamModule} from "./unitexam/unitexam.module"
 import {HomeModule} from "./home/home.module";
 import {ManagerModule} from "./manager/manager.module";
 import {ItemmanagerModule} from "./manager/itemmanager/itemmanager.module";
+import { UsercenterModule } from './usercenter/usercenter.module';
 
 @NgModule({
   declarations: [/*声明属于本模块的组件，每个组件(管道)必须在且仅在一个模块中声明,g*/
@@ -36,6 +37,7 @@ import {ItemmanagerModule} from "./manager/itemmanager/itemmanager.module";
     但可想而知实际是并不存在的。折中的方案可以改回hash风格*/
     RouterModule.forRoot(appRoutes, {useHash: false}), /*angular2项目中url去掉#(即哈希路由)*/
     UnitexamModule,
+    UsercenterModule,
     HomeModule,
     ManagerModule,
     ItemmanagerModule,
