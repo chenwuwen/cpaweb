@@ -3,6 +3,7 @@ import {CpaOption, CpaSolution, Item} from "./item-model";
 import {ItemmanagerService} from "./itemmanager.service";
 import {FormBuilder, FormControl, FormGroup, Validators} from "@angular/forms";
 import swal from 'sweetalert2';
+import { DigitalTransferPipe } from '../../common/pipe/digital-transfer.pipe';
 
 @Component({
   selector: 'app-itemmanager',
@@ -14,7 +15,7 @@ export class ItemmanagerComponent implements OnInit {
   private addItemForm: FormGroup;
   public serialNumber: number = 0;
 
-  constructor(private fromBuild: FormBuilder, private _itemManagerService: ItemmanagerService) {
+  constructor(private fromBuild: FormBuilder,private _itemManagerService: ItemmanagerService) {
   }
 
   ngOnInit() {
@@ -59,8 +60,9 @@ export class ItemmanagerComponent implements OnInit {
     };
     console.log(`CpaSolution : ` + JSON.stringify(cpaSolution));
     let cpaOptions: Array<CpaOption> = [];
+    let digitalTransferPipe:DigitalTransferPipe = new DigitalTransferPipe();
     for (var i = 0, k = value.cpaOptions.length; i < k; i++) {
-      const cpaOption: CpaOption = {selectData: i.toString(), optionData: value.cpaOptions[i]}
+      const cpaOption: CpaOption = {selectData: digitalTransferPipe.transform(i), optionData: value.cpaOptions[i]}
       cpaOptions.push(cpaOption);
     }
     console.log('cpaOptions : ' + JSON.stringify(cpaOptions));

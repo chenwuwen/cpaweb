@@ -22,7 +22,9 @@ export class UnitexamComponent implements OnInit {
   public pAnswers: Array<any>;  //用户回答
   public result: any;           //结果，由子组件传递过来
   public isModalShown: boolean = false;
- 
+  private collectIndex: number;   //收藏试题索引
+  private commentIndex: number;   //评论试题索引
+
 
   @ViewChild('autoShownModal')
   public autoShownModal: ModalDirective;
@@ -113,29 +115,22 @@ export class UnitexamComponent implements OnInit {
     return falg;
   }
   //试题收藏
-  toggleCollect(index: number, obj: any): boolean {
+  toggleCollect(index: number, obj: any): void {
     console.log(`index: ` + index);
-    console.log(`obj: ` + obj.element.classlist);
-    // if (obj.)
-    alert(index)
-    let falg: boolean = false;
-    falg = true;
-    return falg
+    console.dir(`obj: ` + obj);
+    this.collectIndex = index
   }
 
+
   //评论试题
-  commentItem(index:number,comment:string):any{
+  commentItem(index: number, comment: string): any {
     console.log(`index: ` + index);
     console.log(`comment: ` + comment);
-    return 
+    return
   }
-//打开关闭评论窗口
-toggleCommentwindow(index:number):any{
-    console.log(`打开或关闭评论窗口`);
-    let commonWindowSatus = false;
-      commonWindowSatus =!commonWindowSatus 
-    
-    return commonWindowSatus
+  //打开关闭评论窗口
+  toggleCommentwindow(index: number): void {
+    this.commentIndex = index
   }
 
 }

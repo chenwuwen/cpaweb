@@ -39,13 +39,13 @@
             </li>
             <li style="text-align:right">
               <span class="glyphicon glyphicon-comment" style="cursor:pointer" aria-hidden="true" (click)="toggleCommentwindow(i)"></span>
-              <span class="glyphicon glyphicon-star-empty" style="cursor:pointer" aria-hidden="true" (click)="toggleCollect(i,this)"></span>
+              <span class="glyphicon  glyphicon-star-empty" style="cursor:pointer" [ngClass]="{'glyphicon-star':i == collectIndex}" aria-hidden="true" (click)="toggleCollect(i,$event)"></span>
               <!-- [ngClass]="{'glyphicon-star':collect(i)}" -->
             </li>
           </ul>
-          <form role="form" style="text-align:right" *ngIf="toggleCommentwindow(i)" >
+          <form role="form" style="text-align:right" *ngIf="i == commentIndex" >
             <div class="form-group">
-              <textarea class="form-control" rows="3" placeholder="请输入评论内容..."></textarea>
+              <textarea style="resize:none;" class="form-control" rows="3" placeholder="请输入评论内容..."></textarea>
             </div>
               <button #commont type="button" class="btn btn-info btn-xs" (click)="commentItem(i,commont.value)">发布评论</button>
             </form>
