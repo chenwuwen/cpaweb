@@ -22,8 +22,8 @@ export class UnitexamComponent implements OnInit {
   public pAnswers: Array<any>;  //用户回答
   public result: any;           //结果，由子组件传递过来
   public isModalShown: boolean = false;
-  private collectIndex: number;   //收藏试题索引
-  private commentIndex: number;   //评论试题索引
+  private collectIndexs: boolean[] = new Array();   //收藏试题索引数组
+  private commentIndexs: boolean[] = new Array();   //评论试题索引数组
 
 
   @ViewChild('autoShownModal')
@@ -58,9 +58,14 @@ export class UnitexamComponent implements OnInit {
 
   getUnitExam(typeCode: string): any {
     return this._unitexamService.getUnitExam(typeCode).subscribe(res => {
+      /*从service获取数据，订阅将数据到Component*/
       this.Listdata = res['data'];
       this.totleCount = res['totalCount'];
-      /*从service获取数据，订阅将数据到Component*/
+      // this.collectIndexs = new Array(this.Listdata.length)
+      for (var i = 0; i < this.Listdata.length; i++) {
+        this.collectIndexs.push(true);
+        this.commentIndexs.push(false);
+      }
     }, (err) => {
       console.log(`error ${err}`);
     }, () => console.log(`编译！`)
@@ -115,22 +120,27 @@ export class UnitexamComponent implements OnInit {
     return falg;
   }
   //试题收藏
-  toggleCollect(index: number, obj: any): void {
+  toggleCollect(index: number, reId: number): void {
     console.log(`index: ` + index);
-    console.dir(`obj: ` + obj);
-    this.collectIndex = index
+    console.dir(`reId: ` + reId);
+    this.collectIndexs[index] = !this.collectIndexs[index];
+    this._unitexamService.toggleCollect(reId).subscribe(res => {
+    }, (err) => { console.log(`error ${err}`) },
+      () => { console.log(`编译`) })
   }
 
 
   //评论试题
-  commentItem(index: number, comment: string): any {
-    console.log(`index: ` + index);
+  commentItem(reId: number, comment: string): any {
+    console.log(`reId: ` + reId);
     console.log(`comment: ` + comment);
-    return
+    this._unitexamService.commentItem(reId, comment).subscribe(res => {
+    }, (err) => { console.log(`error ${err}`) },
+      () => { console.log(`编译`) })
   }
   //打开关闭评论窗口
   toggleCommentwindow(index: number): void {
-    this.commentIndex = index
+    this.commentIndexs[index] = !this.commentIndexs[index]
   }
 
 }

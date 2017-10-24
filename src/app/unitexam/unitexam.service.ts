@@ -1,6 +1,6 @@
-import {Injectable} from '@angular/core';
-import {Http, Response} from "@angular/http"
-import {Observable} from "rxjs/Observable";
+import { Injectable } from '@angular/core';
+import { Http, Response } from "@angular/http"
+import { Observable } from "rxjs/Observable";
 import "rxjs/add/operator/catch";
 
 @Injectable()
@@ -9,33 +9,33 @@ export class UnitexamService {
   constructor(private _http: Http) {
   }
 
-// 私有变量加上下划线符号
+  // 私有变量加上下划线符号
   // private _url = "/api/unitExam/getUnitExam/";
-  public headers = new Headers({'Content-Type': 'application/json'});
+  public headers = new Headers({ 'Content-Type': 'application/json' });
   /*向 get 方法传递资源URL，它会访问服务端并返回 数据。
   返回的结果可能会很惊讶，因为我们会比较期待返回一个 promise，这样我们可以使用 then() 来获取数据，然后我们调用了 map() 方法，而非 promise。
   事实上，http.get 方法返回的是一个HTTP响应 Observable 对象，由RxJS库提供，map() 也是RxJS的一个操作符。同时Angular也推荐使用RXJS*/
 
   getUnitExam(typeCode: string): Observable<any> {
-    let url =  "/api/unitExam/getUnitExam/";
+    let url = "/api/unitExam/getUnitExam/";
     return this._http.get(url + typeCode)
       .map(this.extractData)
       .catch(this.handleError);
   }
 
   // 收藏题目
-  toggleCollect(index:number):Observable<any>{
-    let url =  "/api/unitExam/toggleCollect/";
-    return this._http.get(url+index)
-    .map(this.extractData)
-    .catch(this.handleError);
+  toggleCollect(reId: number): Observable<any> {
+    let url = "/api/usercollect/toggleCollect/";
+    return this._http.get(url + reId)
+      .map(this.extractData)
+      .catch(this.handleError);
   }
-//评论试题
-  commentItem(index:number,comment:string):Observable<any>{
-    let url =  "/api/unitExam/commonItem/";
-    return this._http.post(url,{index,comment})
-    .map(this.extractData)
-    .catch(this.handleError);
+  //评论试题
+  commentItem(reId: number, comment: string): Observable<any> {
+    let url = "/api/usercomment/saveComment";
+    return this._http.post(url, { reId, comment })
+      .map(this.extractData)
+      .catch(this.handleError);
   }
   /*response 对象并不是返回我们可以直接使用的数据，要想变成应用程序所需要的数据需要：检查不良响应,解析响应数据*/
   private extractData(res: Response) {

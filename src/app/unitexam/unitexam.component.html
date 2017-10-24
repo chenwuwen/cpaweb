@@ -38,18 +38,18 @@
               <label for="optionsRadio{{i}}{{k}}">{{options.selectData}}.{{options.optionData}}</label>
             </li>
             <li style="text-align:right">
-              <span class="glyphicon glyphicon-comment" style="cursor:pointer" aria-hidden="true" (click)="toggleCommentwindow(i)"></span>
-              <span class="glyphicon  glyphicon-star-empty" style="cursor:pointer" [ngClass]="{'glyphicon-star':i == collectIndex}" aria-hidden="true" (click)="toggleCollect(i,$event)"></span>
-              <!-- [ngClass]="{'glyphicon-star':collect(i)}" -->
+              <span class="glyphicon glyphicon-comment" style="cursor:pointer" aria-hidden="true" (click)="toggleCommentwindow(i,data.id)"></span>
+              <span class="glyphicon glyphicon-star" style="cursor:pointer" [ngClass]="{'glyphicon-star-empty':collectIndexs[i]}" aria-hidden="true"
+                (click)="toggleCollect(i,data.id)"></span>
             </li>
           </ul>
-          <form role="form" style="text-align:right" *ngIf="i == commentIndex" >
+          <form role="form" style="text-align:right" *ngIf="commentIndexs[i]">
             <div class="form-group">
-              <textarea style="resize:none;" class="form-control" rows="3" placeholder="请输入评论内容..."></textarea>
+              <textarea #comment style="resize:none;" class="form-control" rows="3" placeholder="请输入评论内容..."></textarea>
             </div>
-              <button #commont type="button" class="btn btn-info btn-xs" (click)="commentItem(i,commont.value)">发布评论</button>
-            </form>
-          
+            <button type="button" class="btn btn-info btn-xs" (click)="commentItem(data.id,comment.value)">发布评论</button>
+          </form>
+
         </div>
       </div>
     </ng-container>
