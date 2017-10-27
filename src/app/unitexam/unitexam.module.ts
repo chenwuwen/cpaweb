@@ -1,3 +1,4 @@
+import { LoginmodelModule } from './../common/loginmodel/loginmodel.module';
 import {NgModule} from '@angular/core';
 import {UnitexamComponent} from './unitexam.component';
 import {UnitexamService} from "./unitexam.service";
@@ -15,6 +16,7 @@ import {BrowserAnimationsModule} from "@angular/platform-browser/animations";
     UtilModule,
     RouterModule,
     BrowserAnimationsModule,   /*动画所需Module*/
+    LoginmodelModule
   ],
   declarations: [
     UnitexamComponent,

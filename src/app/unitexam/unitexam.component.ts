@@ -1,3 +1,4 @@
+import { state } from '@angular/animations';
 import { Component, ElementRef, Input, OnInit, ViewChild } from '@angular/core';
 import { ActivatedRoute, Router } from "@angular/router";
 import { UnitexamService } from "./unitexam.service";
@@ -125,7 +126,11 @@ export class UnitexamComponent implements OnInit {
     console.dir(`reId: ` + reId);
     this.collectIndexs[index] = !this.collectIndexs[index];
     this._unitexamService.toggleCollect(reId).subscribe(res => {
-      if (res == 0) {
+      // 用户未登录，弹出登陆框
+      if (res['status'] == 0) {
+        this.collectIndexs[index] = !this.collectIndexs[index];
+        console.log('弹出登陆窗口')
+      } else if (res['state'] == 2) {   //操作失败
         this.collectIndexs[index] = !this.collectIndexs[index];
         this.tip2();
       }
@@ -140,10 +145,15 @@ export class UnitexamComponent implements OnInit {
     console.log(`comment: ` + comment);
     this._unitexamService.commentItem(reId, comment).subscribe(res => {
       this.commentIndexs[index] = !this.commentIndexs[index];
-      if (res != 0) {
-        this.tip();
-      } else {
+      // 用户未登录，弹出登陆框
+      if (res['status'] == 0) {
+        this.commentIndexs[index] = !this.commentIndexs[index];
+        console.log('弹出登陆窗口')
+      } else if (res['state'] == 2) {   //操作失败
+        this.commentIndexs[index] = !this.commentIndexs[index];
         this.tip1();
+      } else {
+        this.tip();
       }
 
     }, (err) => { console.log(`error ${err}`); this.tip1(); },
