@@ -3,7 +3,7 @@ import { ActivatedRoute, Router } from "@angular/router";
 import { UnitexamService } from "./unitexam.service";
 import { flyIn } from '../animations/fly-in';
 import { BsModalService, ModalDirective } from "ngx-bootstrap";
-
+import swal from 'sweetalert2';
 
 @Component({
   selector: 'app-unitexam',
@@ -125,17 +125,28 @@ export class UnitexamComponent implements OnInit {
     console.dir(`reId: ` + reId);
     this.collectIndexs[index] = !this.collectIndexs[index];
     this._unitexamService.toggleCollect(reId).subscribe(res => {
-    }, (err) => { console.log(`error ${err}`) },
+      if (res == 0) {
+        this.collectIndexs[index] = !this.collectIndexs[index];
+        this.tip2();
+      }
+    }, (err) => { console.log(`error ${err}`); this.collectIndexs[index] = !this.collectIndexs[index]; this.tip2(); },
       () => { console.log(`编译`) })
   }
 
 
   //评论试题
-  commentItem(reId: number, comment: string): any {
+  commentItem(index: number, reId: number, comment: string): any {
     console.log(`reId: ` + reId);
     console.log(`comment: ` + comment);
     this._unitexamService.commentItem(reId, comment).subscribe(res => {
-    }, (err) => { console.log(`error ${err}`) },
+      this.commentIndexs[index] = !this.commentIndexs[index];
+      if (res != 0) {
+        this.tip();
+      } else {
+        this.tip1();
+      }
+
+    }, (err) => { console.log(`error ${err}`); this.tip1(); },
       () => { console.log(`编译`) })
   }
   //打开关闭评论窗口
@@ -143,4 +154,30 @@ export class UnitexamComponent implements OnInit {
     this.commentIndexs[index] = !this.commentIndexs[index]
   }
 
+  tip(): void {
+    swal({
+      title: '提示',
+      text: "评论已提交!",
+      type: 'success',
+      timer: 2000
+    })
+  }
+  tip1(): void {
+    swal({
+      title: '提示',
+      text: "评论失败!",
+      type: 'error',
+      timer: 2000
+    })
+  }
+  tip2(): void {
+    swal({
+      title: '提示',
+      text: "收藏失败!",
+      type: 'error',
+      timer: 2000
+    })
+  }
+
 }
+
