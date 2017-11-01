@@ -5,6 +5,7 @@ import { UnitexamService } from "./unitexam.service";
 import { flyIn } from '../animations/fly-in';
 import { BsModalService, ModalDirective } from "ngx-bootstrap";
 import swal from 'sweetalert2';
+import { LoginmodelComponent } from '../common/loginmodel/loginmodel.component';
 
 @Component({
   selector: 'app-unitexam',
@@ -29,6 +30,8 @@ export class UnitexamComponent implements OnInit {
 
   @ViewChild('autoShownModal')
   public autoShownModal: ModalDirective;
+  @ViewChild('loginModal')
+  private loginModal: LoginmodelComponent;
 
   constructor(private _route: ActivatedRoute,
     private _router: Router,
@@ -129,7 +132,9 @@ export class UnitexamComponent implements OnInit {
       // 用户未登录，弹出登陆框
       if (res['status'] == 0) {
         this.collectIndexs[index] = !this.collectIndexs[index];
-        console.log('弹出登陆窗口')
+        console.log('弹出登陆窗口');
+        // 调用子组件打开登陆窗口
+        this.loginModal.showLoginModal();
       } else if (res['state'] == 2) {   //操作失败
         this.collectIndexs[index] = !this.collectIndexs[index];
         this.tip2();
@@ -148,7 +153,9 @@ export class UnitexamComponent implements OnInit {
       // 用户未登录，弹出登陆框
       if (res['status'] == 0) {
         this.commentIndexs[index] = !this.commentIndexs[index];
-        console.log('弹出登陆窗口')
+        console.log('弹出登陆窗口');
+        // 调用子组件打开登陆窗口
+        this.loginModal.showLoginModal();
       } else if (res['state'] == 2) {   //操作失败
         this.commentIndexs[index] = !this.commentIndexs[index];
         this.tip1();

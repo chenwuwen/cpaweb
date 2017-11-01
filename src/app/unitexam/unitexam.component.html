@@ -1,4 +1,4 @@
-<!--model-->
+<!--modal-->
 <div *ngIf="isModalShown" [config]="{ show: true }" (onHidden)="initHidden()" bsModal #autoShownModal="bs-modal" class="modal fade"
   tabindex="-1" role="dialog" aria-hidden="true">
   <div class="modal-dialog modal-sm">
@@ -19,6 +19,9 @@
     </div>
   </div>
 </div>
+<!-- 登陆窗口弹出层 -->
+<!-- 此变量须与组件内@ViewChild的值相同 -->
+<app-loginmodel #loginModal></app-loginmodel>
 
 <!--试题列表-->
 <div class="row" [@flyIn]="'active'">
@@ -60,7 +63,5 @@
     <!-- 其中”pAnswers” 为父组件中的属性，[pAnswer] 为子组件的输入;在子组件中使用 @Input() pAnswer 来接受父组件传递的值 -->
     <app-util [pAnswer]="pAnswers" [totleCount]="totleCount" [typeCode]="typeCode" (childResult)="hitResult($event)"></app-util>
   </div>
-  
-</div>
 
-<app-loginmodel *ngIf="1==1" ></app-loginmodel>
+</div>

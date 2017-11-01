@@ -1,29 +1,52 @@
-<div class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="false" style="display:block">
+<div *ngIf="isModalShown" [config]="{ show: true }"  bsModal #loginModal="bs-modal" class="modal fade" tabindex="-1" role="dialog"
+  aria-hidden="true">
   <div class="modal-dialog">
     <div class="modal-content">
-      <tabset>
-        <tab heading="登陆">
-          <form class="form-horizontal" role="form"  >
-            <div class="form-group">
-              <div class="col-sm-9">
-                <div class="input-group">
-                  <span class="input-group-addon"></span>
-                  <input class="form-control" placeholder="请输入用户名">
+      <!-- <div class="modal-header">
+        <h4 class="modal-title pull-left">Auto shown modal</h4>
+        <button type="button" class="close pull-right" aria-label="Close" (click)="hideModal()">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div> -->
+      <div class="modal-body">
+        <tabset>
+          <tab (select)="changeLoginSchema()" heading="登陆">
+            <form class="form-horizontal" role="form" #loginForm="ngForm" (ngSubmit)="login(loginForm.value)">
+              <div class="form-group">
+                <div class="col-sm-9">
+                  <div class="input-group">
+                    <span class="input-group-addon"></span>
+                    <input class="form-control" type="text" name="userName" [(ngModel)]="cpaUser.userName" placeholder="请输入用户名">
+                  </div>
                 </div>
               </div>
-            </div>
-            <div class="form-group">
-              <div class="col-sm-9">
-                <div class="input-group">
-                  <span class="input-group-addon"></span>
-                  <input class="form-control" placeholder="请输入密码">
+              <div class="form-group">
+                <div class="col-sm-9">
+                  <div class="input-group">
+                    <span class="input-group-addon"></span>
+                    <input class="form-control" type="password" name="password" [(ngModel)]="cpaUser.password" placeholder="请输入密码">
+                  </div>
                 </div>
               </div>
-            </div>
-          </form>
-        </tab>
-        <tab heading="注册">Static content 1</tab>
-      </tabset>
+              <div class="form-group">
+                <div class="col-sm-9">
+                  <div class="input-group">
+                    <span class="input-group-addon"></span>
+                    <input class="form-control" type="text" name="validateCode" [(ngModel)]="cpaUser.validateCode" placeholder="请输入验证码">
+                  </div>
+                </div>
+              </div>
+            </form>
+          </tab>
+          <tab (select)="changeRegisterSchema()" heading="注册">Static content 1</tab>
+        </tabset>
+      </div>
+      <div class="modal-footer" [ngSwitch]="schema">
+        <button *ngSwitchCase=1 type="submit" class="btn btn-primary">登陆</button>
+        <button *ngSwitchCase=0 type="submit" class="btn btn-primary" (click)="register()">注册</button>
+        <button *ngSwitchDefault type="submit" class="btn btn-primary">登陆</button>
+        <button (click)="onHidden()" type="button" class="btn btn-secondary" data-dismiss="modal">取消</button>
+      </div>
     </div>
     <!-- /.modal-content -->
   </div>
