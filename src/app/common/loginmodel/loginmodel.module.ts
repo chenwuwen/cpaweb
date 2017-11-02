@@ -3,6 +3,7 @@ import { CommonModule } from '@angular/common';
 import { LoginmodelComponent } from './loginmodel.component';
 import { TabsModule, ModalModule } from 'ngx-bootstrap';
 import { FormsModule } from '@angular/forms';
+import { LoginmodelService } from './loginmodel.service';
 @NgModule({
   imports: [
     ModalModule.forRoot(),
@@ -11,6 +12,9 @@ import { FormsModule } from '@angular/forms';
     FormsModule
   ],
   declarations: [LoginmodelComponent],
+  providers: [
+    LoginmodelService
+  ],
   exports: [LoginmodelComponent]
 })
 export class LoginmodelModule { }

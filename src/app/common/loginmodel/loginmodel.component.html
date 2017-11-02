@@ -1,4 +1,4 @@
-<div *ngIf="isModalShown" [config]="{ show: true }"  bsModal #loginModal="bs-modal" class="modal fade" tabindex="-1" role="dialog"
+<div *ngIf="isModalShown" [config]="{ show: true }" bsModal #loginModal="bs-modal" class="modal fade" tabindex="-1" role="dialog"
   aria-hidden="true">
   <div class="modal-dialog">
     <div class="modal-content">
@@ -11,11 +11,11 @@
       <div class="modal-body">
         <tabset>
           <tab (select)="changeLoginSchema()" heading="登陆">
-            <form class="form-horizontal" role="form" #loginForm="ngForm" (ngSubmit)="login(loginForm.value)">
+            <form class="form-horizontal" role="form" autocomplete="on">
               <div class="form-group">
                 <div class="col-sm-9">
                   <div class="input-group">
-                    <span class="input-group-addon"></span>
+                    <span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span>
                     <input class="form-control" type="text" name="userName" [(ngModel)]="cpaUser.userName" placeholder="请输入用户名">
                   </div>
                 </div>
@@ -23,28 +23,67 @@
               <div class="form-group">
                 <div class="col-sm-9">
                   <div class="input-group">
-                    <span class="input-group-addon"></span>
+                    <span class="input-group-addon"><i class="glyphicon glyphicon-lock"></i></span>
                     <input class="form-control" type="password" name="password" [(ngModel)]="cpaUser.password" placeholder="请输入密码">
+                  </div>
+                </div>
+              </div>
+              <div class="form-group">
+                <div class="row">
+                  <div class="col-sm-5 ">
+                    <input class="form-control" type="text" name="validateCode" [(ngModel)]="cpaUser.validateCode" placeholder="请输入验证码">
+                  </div>
+                  <div class="col-sm-4">
+                    <img src="/api/validateCode" class="changecode" class="img-responsive" title="点击重新获取验证码" alt="验证码" (click)="reloadValidateCode()">
+                  </div>
+                </div>
+              </div>
+            </form>
+          </tab>
+          <tab (select)="changeRegisterSchema()" heading="注册">
+            <form class="form-horizontal" role="form">
+              <div class="form-group">
+                <div class="col-sm-9">
+                  <div class="input-group">
+                    <span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span>
+                    <input class="form-control" type="text" name="userName" [(ngModel)]="registerUser.userName" placeholder="请输入用户名">
                   </div>
                 </div>
               </div>
               <div class="form-group">
                 <div class="col-sm-9">
                   <div class="input-group">
-                    <span class="input-group-addon"></span>
-                    <input class="form-control" type="text" name="validateCode" [(ngModel)]="cpaUser.validateCode" placeholder="请输入验证码">
+                    <span class="input-group-addon"><i class="glyphicon glyphicon-lock"></i></span>
+                    <input class="form-control" type="password" name="password" [(ngModel)]="registerUser.password" placeholder="请输入密码">
+                  </div>
+                </div>
+              </div>
+              <div class="form-group">
+                <div class="col-sm-9">
+                  <div class="input-group">
+                    <span class="input-group-addon"><i class="glyphicon glyphicon-lock"></i></span>
+                    <input class="form-control" type="password" name="confirmPassword" [(ngModel)]="registerUser.confirmPassword" placeholder="确认密码">
+                  </div>
+                </div>
+              </div>
+              <div class="form-group">
+                <div class="row">
+                  <div class="col-sm-5 ">
+                    <input class="form-control" type="text" name="validateCode" [(ngModel)]="registerUser.validateCode" placeholder="请输入验证码">
+                  </div>
+                  <div class="col-sm-4">
+                    <img src="/api/validateCode" class="changecode" class="img-responsive" title="点击重新获取验证码" alt="验证码" (click)="reloadValidateCode()">
                   </div>
                 </div>
               </div>
             </form>
           </tab>
-          <tab (select)="changeRegisterSchema()" heading="注册">Static content 1</tab>
         </tabset>
       </div>
       <div class="modal-footer" [ngSwitch]="schema">
-        <button *ngSwitchCase=1 type="submit" class="btn btn-primary">登陆</button>
+        <button *ngSwitchCase=1 type="submit" class="btn btn-primary" (click)="login()">登陆</button>
         <button *ngSwitchCase=0 type="submit" class="btn btn-primary" (click)="register()">注册</button>
-        <button *ngSwitchDefault type="submit" class="btn btn-primary">登陆</button>
+        <button *ngSwitchDefault type="submit" class="btn btn-primary" (click)="login()">登陆</button>
         <button (click)="onHidden()" type="button" class="btn btn-secondary" data-dismiss="modal">取消</button>
       </div>
     </div>

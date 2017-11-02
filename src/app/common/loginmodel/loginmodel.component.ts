@@ -1,6 +1,7 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { ModalDirective } from 'ngx-bootstrap';
 import { CpaUser } from './user-model';
+import { LoginmodelService } from './loginmodel.service';
 
 @Component({
   selector: 'app-loginmodel',
@@ -11,8 +12,9 @@ export class LoginmodelComponent implements OnInit {
   public isModalShown: boolean = false;
   private schema: number;
   private cpaUser: CpaUser = new CpaUser();
+  private registerUser: CpaUser = new CpaUser();
 
-  constructor() { }
+  constructor(private loginModelService: LoginmodelService) { }
 
   ngOnInit() {
   }
@@ -34,11 +36,24 @@ export class LoginmodelComponent implements OnInit {
     this.schema = 0;
   }
 
-  public login(cpaUser: CpaUser): any {
-    console.log(cpaUser)
+  public login(): any {
+    console.log(this.cpaUser);
+    this.loginModelService.login(this.cpaUser).subscribe(res => {
+
+    }, (err) => { console.log(`error ${err}`); },
+      () => { console.log(`编译`) })
   }
 
-  public register(cpaUser: CpaUser): any {
-    console.log(cpaUser)
+  public register(): any {
+    console.log(this.registerUser)
+    this.loginModelService.register(this.registerUser).subscribe(res => {
+
+    }, (err) => { console.log(`error ${err}`); },
+      () => { console.log(`编译`) })
+  }
+
+
+  public reloadValidateCode(): any {
+    // this.loginModelService.reloadValidateCode
   }
 }
