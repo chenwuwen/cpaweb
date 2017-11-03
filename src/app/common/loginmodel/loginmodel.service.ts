@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Observable } from "rxjs/Observable";
-import { Http, Headers, Response, URLSearchParams, RequestOptions } from "@angular/http";
+import { Http, Headers, Response, URLSearchParams, RequestOptions, ResponseContentType } from "@angular/http";
 import { CpaUser } from './user-model';
 
 @Injectable()
@@ -17,20 +17,26 @@ export class LoginmodelService {
     opts.headers = headers;
     return opts;
   }
-  // 点击跟换验证码
+  /*   点击跟换验证码(返回流);返回流需要设置responseType;需要注意的一点是,使用get请求,使用URLSearchParams设置参数时;直接使用
+    URLSearchParams,需要在url后面加上问号，使用RequestOptions设置的话,其功能更为强大,可以设置请求参数(在此处url可不加问号),请
+    求头headers,返回类型responseType(其接收参数为枚举类型) */
   reloadValidateCode(): Observable<any> {
     let url = '/api/validateCode';
-    // let random = new Date();
-    // let params = new URLSearchParams();
-    // params.set('data', random);
-    return this._http.get(url).map(this.extractData).catch(this.handleError)
+    let random = new Date() + Math.floor(Math.random() * 24).toString();
+    let params = new URLSearchParams();
+    params.set('data', random);
+    // 需要注意的是如何仅设置了请求参数的话需要在url后面加上?
+    // return this._http.get(url+params);
+    let options = new RequestOptions({ search: params, responseType: ResponseContentType.Blob });
+    return this._http.get(url, options).catch(this.handleError);
+
   }
 
   // 登陆
   login(cpaUser: CpaUser): Observable<any> {
     let url = '/api/login';
     let user = new FormData();
-    user.append('userName',cpaUser.userName);
+    user.append('userName', cpaUser.userName);
     user.append('password', cpaUser.password);
     user.append('validateCode', cpaUser.validateCode);
     return this._http.post(url, user).map(this.extractData).catch(this.handleError);

@@ -4,12 +4,14 @@ import { LoginmodelComponent } from './loginmodel.component';
 import { TabsModule, ModalModule } from 'ngx-bootstrap';
 import { FormsModule } from '@angular/forms';
 import { LoginmodelService } from './loginmodel.service';
+import { CustomFormsModule } from 'ng2-validation';
 @NgModule({
   imports: [
     ModalModule.forRoot(),
     TabsModule.forRoot(),
     CommonModule,
-    FormsModule
+    FormsModule,
+    CustomFormsModule  //引入ng2-validation
   ],
   declarations: [LoginmodelComponent],
   providers: [
