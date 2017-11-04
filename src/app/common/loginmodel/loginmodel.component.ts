@@ -14,6 +14,9 @@ export class LoginmodelComponent implements OnInit {
   private schema: number;
   private cpaUser: CpaUser = new CpaUser();
   private registerUser: CpaUser = new CpaUser();
+  private ifshow: boolean = false;
+  private ifshow1: boolean = false;
+  private msg: string;
   /*  ViewChild 装饰器用于获取模板视图中的元素，它支持 Type 类型或 string 类型的选择器，同时支持设置 read 查询条件，
    以获取不同类型的实例。而 ViewChildren 装饰器是用来从模板视图中获取匹配的多个元素，返回的结果是一个 QueryList 集合。 */
   @ViewChild('validateCodeUrl0')
@@ -49,6 +52,14 @@ export class LoginmodelComponent implements OnInit {
     this.loginModelService.login(this.cpaUser).subscribe(res => {
       if (res['status'] == 1) {
         this.onHidden();
+      } else {
+        this.msg = res['msg'];
+        if (this.msg =='验证码错误！'){
+          this.ifshow1 = !this.ifshow1;
+        }else{
+          this.ifshow = !this.ifshow;
+        }
+        
       }
     }, (err) => { console.log(`error ${err}`); },
       () => { console.log(`编译`) })
