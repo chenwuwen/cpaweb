@@ -26,6 +26,7 @@ export class UnitexamComponent implements OnInit {
   public isModalShown: boolean = false;
   private collectIndexs: boolean[] = new Array();   //收藏试题索引数组
   private commentIndexs: boolean[] = new Array();   //评论试题索引数组
+  private commentContentIndexs: boolean[] = new Array();  //评论试题内容索引数组
 
 
   @ViewChild('autoShownModal')
@@ -69,6 +70,7 @@ export class UnitexamComponent implements OnInit {
       for (var i = 0; i < this.Listdata.length; i++) {
         this.collectIndexs.push(true);
         this.commentIndexs.push(false);
+        this.commentContentIndexs.push(false);
       }
     }, (err) => {
       console.log(`error ${err}`);
@@ -169,6 +171,22 @@ export class UnitexamComponent implements OnInit {
   //打开关闭评论窗口
   toggleCommentwindow(index: number): void {
     this.commentIndexs[index] = !this.commentIndexs[index]
+  }
+
+  // 获取试题评论
+  getComment(index:number,reId:number):any{
+    if(!this.commentContentIndexs[index]){   //如果评论内容Dom未打开
+    this._unitexamService.getComment(reId).subscribe(res=>{
+       //如果评论内容加载完Dom打开
+      this.commentContentIndexs[index] = !this.commentContentIndexs[index];
+    },(err)=>{
+      console.log(`error ${err}`); 
+      }, () => console.log(`编译`)
+    )
+  }else{
+    //如果评论内容Dom打开则关闭
+      this.commentContentIndexs[index] = !this.commentContentIndexs[index];
+  }
   }
 
   tip(): void {

@@ -51,8 +51,14 @@
               <textarea #comment style="resize:none;" class="form-control" rows="3" placeholder="请输入评论内容..."></textarea>
             </div>
             <button type="button" class="btn btn-info btn-xs" (click)="commentItem(i,data.id,comment.value)">发布评论</button>
-          </form>
 
+          </form>
+          <div>
+            <a href="javascript:void(0)" (click)="getComment(i,data.id)" *ngIf="data.commentCount>0">共{{data.commentCount}}条评论</a>
+            <div *ngIf="commentContentIndexs[i]">
+                <!-- 显示评论内容 -->
+            </div>
+          </div>
         </div>
       </div>
     </ng-container>
