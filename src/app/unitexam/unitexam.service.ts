@@ -39,7 +39,7 @@ export class UnitexamService {
   }
   //获取试题评论内容
   getComment(reId: number): Observable<any> {
-    let url = "/api/usercomment/getItemComment";
+    let url = "/api/usercomment/getItemComment/";
     return this._http.get(url + reId).map(this.extractData)
       .catch(this.handleError);
   }
