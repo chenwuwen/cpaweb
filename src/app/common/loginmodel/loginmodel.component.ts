@@ -54,12 +54,12 @@ export class LoginmodelComponent implements OnInit {
         this.onHidden();
       } else {
         this.msg = res['msg'];
-        if (this.msg =='验证码错误！'){
+        if (this.msg == '验证码错误！') {
           this.ifshow1 = !this.ifshow1;
-        }else{
+        } else {
           this.ifshow = !this.ifshow;
         }
-        
+
       }
     }, (err) => { console.log(`error ${err}`); },
       () => { console.log(`编译`) })

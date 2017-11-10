@@ -27,6 +27,7 @@ export class UnitexamComponent implements OnInit {
   private collectIndexs: boolean[] = new Array();   //收藏试题索引数组
   private commentIndexs: boolean[] = new Array();   //评论试题索引数组
   private commentContentIndexs: boolean[] = new Array();  //评论试题内容索引数组
+  private Listcomment:any[]=new Array();
 
 
   @ViewChild('autoShownModal')
@@ -71,6 +72,7 @@ export class UnitexamComponent implements OnInit {
         this.collectIndexs.push(true);
         this.commentIndexs.push(false);
         this.commentContentIndexs.push(false);
+        this.Listcomment.push();
       }
     }, (err) => {
       console.log(`error ${err}`);
@@ -162,7 +164,11 @@ export class UnitexamComponent implements OnInit {
         this.commentIndexs[index] = !this.commentIndexs[index];
         this.tip1();
       } else {
-        this.tip();
+        // this.tip();
+        //如果当前评论窗口是打开状态,触发查看评论方法
+        if (this.commentContentIndexs[index]) {
+          this.getComment(index,reId);
+        }
       }
 
     }, (err) => { console.log(`error ${err}`); this.tip1(); },
@@ -177,6 +183,7 @@ export class UnitexamComponent implements OnInit {
   getComment(index:number,reId:number):any{
     if(!this.commentContentIndexs[index]){   //如果评论内容Dom未打开
     this._unitexamService.getComment(reId).subscribe(res=>{
+      this.Listcomment[index]=res['data'];
        //如果评论内容加载完Dom打开
       this.commentContentIndexs[index] = !this.commentContentIndexs[index];
     },(err)=>{

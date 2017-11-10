@@ -56,7 +56,19 @@
           <div>
             <a href="javascript:void(0)" (click)="getComment(i,data.id)" *ngIf="data.commentCount>0">共{{data.commentCount}}条评论</a>
             <div *ngIf="commentContentIndexs[i]">
-                <!-- 显示评论内容 -->
+              <!-- 显示评论内容(使用了BootStrap媒体对象列表) -->
+              <div class="media" *ngFor='let userComment of Listcomment[i]'>
+                <div class="media-left">
+                  <a href="javascript:void(0)">
+                    <img class="media-object" src="..." alt="...">
+                  </a>
+                  <b>{{userComment.username}}</b>
+                </div>
+                <div class="media-body">
+                  <h4 class="media-heading">{{userComment.commentDate | date : 'yyyy-MM-dd'}}</h4>
+                  {{userComment.comment}}
+                </div>
+              </div>
             </div>
           </div>
         </div>
