@@ -87,7 +87,11 @@ export class UnitexamComponent implements OnInit {
   /*父组件事件回调接收*/
   hitResult(data): void {
     console.log(`接收子组件数据`);
-    this.result = data;
+    if (data.status==0) {
+      this.loginModal.showLoginModal();
+      return;
+    }
+    this.result = data.data;
     console.log(`得分: ` + this.result.score);
     this.isModalShown = true;
   }

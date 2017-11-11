@@ -1,6 +1,6 @@
 import { Component, OnInit, ViewChild, ElementRef, ViewChildren, QueryList } from '@angular/core';
 import { CustomValidators } from 'ng2-validation';
-import { ModalDirective } from 'ngx-bootstrap';
+import { ModalDirective, BsModalRef } from 'ngx-bootstrap';
 import { CpaUser } from './user-model';
 import { LoginmodelService } from './loginmodel.service';
 
@@ -10,6 +10,7 @@ import { LoginmodelService } from './loginmodel.service';
   styleUrls: ['./loginmodel.component.css']
 })
 export class LoginmodelComponent implements OnInit {
+ 
   public isModalShown: boolean = false;
   private schema: number;
   private cpaUser: CpaUser = new CpaUser();

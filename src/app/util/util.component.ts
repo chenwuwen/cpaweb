@@ -42,7 +42,7 @@ export class UtilComponent implements OnInit {
     console.log(`点击了提交按钮： ${this.newAnswer}`);
     return this._utilService.commitAnswer(this.newAnswer, this.typeCode).subscribe(res => {
         this.result = res['data'];
-        this.launchResult(res['data']);
+        this.launchResult(res);
         /*如果提交了答案将typeCode置为null,这时如果父组件切换了路由typeCode会将值传递给子组件*/
         this.typeCode = null;
         /*如果提交了答案将newAnswer设为空数组;若不置为空数组,当再次切换到该路由后所做的题还会包括上次所做的题*/
