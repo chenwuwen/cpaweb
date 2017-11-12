@@ -12,7 +12,7 @@
         <tabset>
           <tab (select)="changeLoginSchema()" heading="登陆">
             <form class="form-horizontal" role="form" autocomplete="on" #loginForm="ngForm">
-              <div class="form-group" [ngClass]="{'has-error':loginUserName.errors?.required && loginUserName.touched}">
+              <div class="form-group" [ngClass]="{'has-error':loginUserName.errors?.required && loginUserName.touched || ifshow}">
                 <div class="col-sm-9">
                   <div class="input-group">
                     <span class="input-group-addon">
@@ -21,11 +21,11 @@
                     <input class="form-control" type="text" #loginUserName='ngModel' name="userName" [(ngModel)]="cpaUser.userName" placeholder="请输入用户名"
                       required>
                   </div>
-                  <div class="alert alert-warning" *ngIf="ifshow">{{msg}}</div>
+                  <span class="help-block" *ngIf="ifshow">{{msg}}</span>
                   <span class="help-block" *ngIf="loginUserName.errors?.required && loginUserName.touched">用户名不能为空</span>
                 </div>
               </div>
-              <div class="form-group" [ngClass]="{'has-error':loginPassword.errors?.required && loginPassword.touched}">
+              <div class="form-group" [ngClass]="{'has-error':loginPassword.errors?.required && loginPassword.touched || ifshow}">
                 <div class="col-sm-9">
                   <div class="input-group">
                     <span class="input-group-addon">
@@ -34,11 +34,11 @@
                     <input class="form-control" #loginPassword='ngModel' type="password" name="password" [(ngModel)]="cpaUser.password" placeholder="请输入密码"
                       required>
                   </div>
-                  <div class="alert alert-warning" *ngIf="ifshow">{{msg}}</div>
+                  <span class="help-block" *ngIf="ifshow">{{msg}}</span>
                   <span class="help-block" *ngIf="loginPassword.errors?.required && loginPassword.touched">密码不能为空</span>
                 </div>
               </div>
-              <div class="form-group" [ngClass]="{'has-error':loginValidateCode.errors?.required && loginValidateCode.touched}">
+              <div class="form-group" [ngClass]="{'has-error':loginValidateCode.errors?.required && loginValidateCode.touched || ifshow1}">
                 <div class="row">
                   <div class="col-sm-5 ">
                     <div class="input-group">
@@ -53,7 +53,7 @@
                     <img src="/api/validateCode" #validateCodeUrl0 class="img-responsive" title="点击重新获取验证码" alt="验证码" (click)="reloadValidateCode()">
                   </div>
                 </div>
-                <div class="alert alert-warning" *ngIf="ifshow1">{{msg}}</div>
+                <span class="help-block" *ngIf="ifshow1">{{msg}}</span>
                 <span class="help-block" *ngIf="loginValidateCode.errors?.required && loginValidateCode.touched">验证码不能为空</span>
               </div>
             </form>

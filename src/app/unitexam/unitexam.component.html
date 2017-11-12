@@ -46,15 +46,15 @@
                 (click)="toggleCollect(i,data.id)"></span>
             </li>
           </ul>
-          <form role="form" style="text-align:right" *ngIf="commentIndexs[i]">
+          <form role="form" style="text-align:right" *ngIf="commentIndexs[i]" #commentForm="ngForm">
             <div class="form-group">
-              <textarea #comment style="resize:none;" class="form-control" rows="3" placeholder="请输入评论内容..."></textarea>
+              <textarea name="commentContent" #comment="ngModel" [(ngModel)]="commentContent[i]" style="resize:none;" class="form-control" rows="3" placeholder="请输入评论内容..." required></textarea>
             </div>
-            <button type="button" class="btn btn-info btn-xs" (click)="commentItem(i,data.id,comment.value)">发布评论</button>
+            <button type="button" [disabled]="!commentForm.valid" class="btn btn-info btn-xs" (click)="commentItem(i,data.id,comment.value)">发布评论</button>
 
           </form>
           <div>
-            <a href="javascript:void(0)" (click)="getComment(i,data.id)" *ngIf="data.commentCount>0">共{{data.commentCount}}条评论</a>
+            <a href="javascript:void(0)" (click)="getComment(i,data.id,i)" *ngIf="data.commentCount>0">共{{data.commentCount}}条评论</a>
             <div *ngIf="commentContentIndexs[i]">
               <!-- 显示评论内容(使用了BootStrap媒体对象列表) -->
               <div class="media" *ngFor='let userComment of Listcomment[i]'>

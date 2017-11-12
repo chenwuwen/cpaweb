@@ -27,7 +27,8 @@ export class UnitexamComponent implements OnInit {
   private collectIndexs: boolean[] = new Array();   //收藏试题索引数组
   private commentIndexs: boolean[] = new Array();   //评论试题索引数组
   private commentContentIndexs: boolean[] = new Array();  //评论试题内容索引数组
-  private Listcomment:any[]=new Array();
+  private Listcomment: any[] = new Array();   //获取试题评论数组
+  public commentContent: any[] = new Array();  //评论内容数组,用在表单验证上
 
 
   @ViewChild('autoShownModal')
@@ -87,7 +88,7 @@ export class UnitexamComponent implements OnInit {
   /*父组件事件回调接收*/
   hitResult(data): void {
     console.log(`接收子组件数据`);
-    if (data.status==0) {
+    if (data.status == 0) {
       this.loginModal.showLoginModal();
       return;
     }
@@ -169,9 +170,13 @@ export class UnitexamComponent implements OnInit {
         this.tip1();
       } else {
         // this.tip();
+        // 评论完成,将评论数加一,此处应该在后台查询,先这样写吧 
+        console.log(this.Listcomment[index]);
+        console.log(typeof this.Listcomment[index]);
+        this.Listcomment[index].commentCount = this.Listcomment[index].commentCount + 1;
         //如果当前评论窗口是打开状态,触发查看评论方法
         if (this.commentContentIndexs[index]) {
-          this.getComment(index,reId);
+          this.getComment(index, reId, 0);
         }
       }
 
@@ -184,20 +189,34 @@ export class UnitexamComponent implements OnInit {
   }
 
   // 获取试题评论
-  getComment(index:number,reId:number):any{
-    if(!this.commentContentIndexs[index]){   //如果评论内容Dom未打开
-    this._unitexamService.getComment(reId).subscribe(res=>{
-      this.Listcomment[index]=res['data'];
-       //如果评论内容加载完Dom打开
-      this.commentContentIndexs[index] = !this.commentContentIndexs[index];
-    },(err)=>{
-      console.log(`error ${err}`); 
+  getComment(index: number, reId: number, falg: number): any {
+    if (!this.commentContentIndexs[index]) {   //如果评论内容Dom未打开
+      this._unitexamService.getComment(reId).subscribe(res => {
+        if (res['status'] == 0) {
+          this.loginModal.showLoginModal();
+        }
+        this.Listcomment[index] = res['data'];
+        //如果评论内容加载完Dom打开
+        this.commentContentIndexs[index] = !this.commentContentIndexs[index];
+      }, (err) => {
+        console.log(`error ${err}`);
       }, () => console.log(`编译`)
-    )
-  }else{
-    //如果评论内容Dom打开则关闭
+      )
+    } else if (falg == index) {    // 这里用falg变量来判断,请求该方法的操作是来自Dom的点击还是Js的回调
+      console.log(`是dom点击操作调用的`)
+      //再次点击dom时如果评论内容Dom打开则关闭
       this.commentContentIndexs[index] = !this.commentContentIndexs[index];
-  }
+    } else {
+      this._unitexamService.getComment(reId).subscribe(res => {
+        if (res['status'] == 0) {
+          this.loginModal.showLoginModal();
+        }
+        this.Listcomment[index] = res['data'];
+      }, (err) => {
+        console.log(`error ${err}`);
+      }, () => console.log(`编译`)
+      )
+    }
   }
 
   tip(): void {
