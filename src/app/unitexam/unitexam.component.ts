@@ -62,7 +62,6 @@ export class UnitexamComponent implements OnInit {
     });
   }
 
-
   getUnitExam(typeCode: string): any {
     return this._unitexamService.getUnitExam(typeCode).subscribe(res => {
       /*从service获取数据，订阅将数据到Component*/

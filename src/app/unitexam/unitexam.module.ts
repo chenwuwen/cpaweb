@@ -8,6 +8,7 @@ import { FormsModule } from '@angular/forms';
 import { ModalModule } from 'ngx-bootstrap/modal';
 import {RouterModule} from '@angular/router';
 import {BrowserAnimationsModule} from "@angular/platform-browser/animations";
+import { CustomFormsModule } from 'ng2-validation';
 @NgModule({
   imports: [
     CommonModule,
@@ -16,7 +17,8 @@ import {BrowserAnimationsModule} from "@angular/platform-browser/animations";
     UtilModule,
     RouterModule,
     BrowserAnimationsModule,   /*动画所需Module*/
-    LoginmodelModule
+    LoginmodelModule,
+    CustomFormsModule  //引入ng2-validation
   ],
   declarations: [
     UnitexamComponent,
