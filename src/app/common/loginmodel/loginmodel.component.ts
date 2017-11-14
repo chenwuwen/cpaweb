@@ -10,13 +10,15 @@ import { LoginmodelService } from './loginmodel.service';
   styleUrls: ['./loginmodel.component.css']
 })
 export class LoginmodelComponent implements OnInit {
- 
+
   public isModalShown: boolean = false;
   private schema: number;
   private cpaUser: CpaUser = new CpaUser();
   private registerUser: CpaUser = new CpaUser();
   private ifshow: boolean = false;
   private ifshow1: boolean = false;
+  private ifshow2: boolean = false;
+  private ifshow3: boolean = false;
   private msg: string;
   /*  ViewChild 装饰器用于获取模板视图中的元素，它支持 Type 类型或 string 类型的选择器，同时支持设置 read 查询条件，
    以获取不同类型的实例。而 ViewChildren 装饰器是用来从模板视图中获取匹配的多个元素，返回的结果是一个 QueryList 集合。 */
@@ -48,6 +50,34 @@ export class LoginmodelComponent implements OnInit {
     this.schema = 0;
   }
 
+  /**
+   * 检查用户名是否被占用
+   */
+  public checkUserName(newUsername: string) {
+    console.log(`新用户名：` + newUsername);
+    this.loginModelService.checkUsername(newUsername).subscribe(res => {
+      if (res['state'] != 1) {
+        this.ifshow3 = true
+      } else {
+        this.ifshow3 = false
+      }
+      console.log(res);
+    })
+  }
+
+
+  public onKeyPress(event: any) {
+    console.log(`键盘弹起事件：` + event.keyCode);
+    // let keyCode = event.keyCode;
+    // if (keyCode!=13) {
+    //   this.ifshow3 = false;
+    // }
+  }
+
+//  input的值改变事件
+  public changeName(event: any) {
+    this.ifshow3 = false;
+  }
   public login(): any {
     console.log(this.cpaUser);
     this.loginModelService.login(this.cpaUser).subscribe(res => {
@@ -69,7 +99,15 @@ export class LoginmodelComponent implements OnInit {
   public register(): any {
     console.log(this.registerUser)
     this.loginModelService.register(this.registerUser).subscribe(res => {
+      if (res['state'] == 1) {
+        this.onHidden();
+      } else {
+        if (this.msg == '验证码错误！') {
 
+        } else {
+
+        }
+      }
     }, (err) => { console.log(`error ${err}`); },
       () => { console.log(`编译`) })
   }

@@ -60,16 +60,17 @@
           </tab>
           <tab (select)="changeRegisterSchema()" heading="注册" class="container">
             <br>
-            <form class="form-horizontal center-vertical" role="form" #registerForm="ngForm">
-              <div class="form-group" [ngClass]="{'has-error':newUserName.errors?.rangeLength}">
+            <form class="form-horizontal" role="form" #registerForm="ngForm">
+              <div class="form-group" [ngClass]="{'has-error':newUserName.errors?.rangeLength || ifshow3}">
                 <div class="col-md-5">
                   <div class="input-group">
                     <span class="input-group-addon">
                       <i class="glyphicon glyphicon-user"></i>
                     </span>
-                    <input class="form-control" type="text" #newUserName="ngModel" [rangeLength]="[5,10]" name="userName" [(ngModel)]="registerUser.userName"
-                      placeholder="请输入用户名">
+                    <input class="form-control"  type="text" #newUserName="ngModel" (blur)="checkUserName(newUserName.value)" (keyup)="onKeyPress($event)" [rangeLength]="[5,10]" name="userName" [(ngModel)]="registerUser.userName"
+                     (ngModelChange)="changeName($event)" placeholder="请输入用户名">
                   </div>
+                  <span class="help-block"  *ngIf="ifshow3">用户名已被占用</span>
                   <span class="help-block" *ngIf="newUserName.errors?.rangeLength">用户名长度必须在5到10位之间</span>
                 </div>
               </div>
@@ -119,6 +120,7 @@
                     <input class="form-control" #registerValidateCode="ngModel" type="text" name="validateCode" [(ngModel)]="registerUser.validateCode"
                       placeholder="请输入验证码" required>
                   </div>
+                  <span class="help-block" *ngIf="ifshow2">验证码错误</span>
                   <span class="help-block" *ngIf="registerValidateCode.errors?.required && registerValidateCode.touched">验证码不能为空</span>
                 </div>
                 <div class="col-sm-2">

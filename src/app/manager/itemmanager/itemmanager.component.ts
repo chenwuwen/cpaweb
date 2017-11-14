@@ -1,9 +1,9 @@
-import {Component, OnInit} from '@angular/core';
-import {CpaOption, CpaSolution, Item} from "./item-model";
-import {ItemmanagerService} from "./itemmanager.service";
-import {FormBuilder, FormControl, FormGroup, Validators} from "@angular/forms";
+import { Component, OnInit } from '@angular/core';
+import { CpaOption, CpaSolution, Item } from "./item-model";
+import { ItemmanagerService } from "./itemmanager.service";
+import { FormBuilder, FormControl, FormGroup, Validators } from "@angular/forms";
 import swal from 'sweetalert2';
-import { DigitalTransferPipe } from '../../common/pipe/digital-transfer.pipe';
+import { DigitalTransferPipe } from '../../common/pipe/DigitalTransferPipe/digital-transfer.pipe';
 
 @Component({
   selector: 'app-itemmanager',
@@ -15,7 +15,7 @@ export class ItemmanagerComponent implements OnInit {
   private addItemForm: FormGroup;
   public serialNumber: number = 0;
 
-  constructor(private fromBuild: FormBuilder,private _itemManagerService: ItemmanagerService) {
+  constructor(private fromBuild: FormBuilder, private _itemManagerService: ItemmanagerService) {
   }
 
   ngOnInit() {
@@ -60,19 +60,23 @@ export class ItemmanagerComponent implements OnInit {
     };
     console.log(`CpaSolution : ` + JSON.stringify(cpaSolution));
     let cpaOptions: Array<CpaOption> = [];
-    let digitalTransferPipe:DigitalTransferPipe = new DigitalTransferPipe();
+    let digitalTransferPipe: DigitalTransferPipe = new DigitalTransferPipe();
     for (var i = 0, k = value.cpaOptions.length; i < k; i++) {
-      const cpaOption: CpaOption = {selectData: digitalTransferPipe.transform(i), optionData: value.cpaOptions[i]}
+      const cpaOption: CpaOption = { selectData: digitalTransferPipe.transform(i), optionData: value.cpaOptions[i] }
       cpaOptions.push(cpaOption);
     }
     console.log('cpaOptions : ' + JSON.stringify(cpaOptions));
     this._itemManagerService.addItem(item, cpaOptions, cpaSolution).subscribe(res => {
-        this.serialNumber = res;
-        this.tip(this.serialNumber);
-      }, (err) => {
-        this.tip(this.serialNumber);
-        console.log(`error ${err}`);
-      }, () => console.log(`编译！`)
+      if (res['status'] == 0) {
+        console.log(`用户未登录,但是会有个问题就是,此页面是管理员页面,如果未登陆,是弹出登陆框,还是跳到登陆页面进行登陆,值得商榷`);
+        return
+      }
+      this.serialNumber = res['data'];
+      this.tip(this.serialNumber);
+    }, (err) => {
+      this.tip(this.serialNumber);
+      console.log(`error ${err}`);
+    }, () => console.log(`编译！`)
     )
     console.log(`click button`);
   }

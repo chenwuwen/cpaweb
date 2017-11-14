@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { Observable } from "rxjs/Observable";
 import { Http, Headers, Response, URLSearchParams, RequestOptions, ResponseContentType } from "@angular/http";
 import { CpaUser } from './user-model';
+import { ChangePostBodyPipe } from '../pipe/ChangePostBodyPipe/change-post-body.pipe';
 
 @Injectable()
 export class LoginmodelService {
@@ -17,6 +18,8 @@ export class LoginmodelService {
     opts.headers = headers;
     return opts;
   }
+
+
   /*   点击跟换验证码(返回流);返回流需要设置responseType;需要注意的一点是,使用get请求,使用URLSearchParams设置参数时;直接使用
     URLSearchParams,需要在url后面加上问号，使用RequestOptions设置的话,其功能更为强大,可以设置请求参数(在此处url可不加问号),请
     求头headers,返回类型responseType(其接收参数为枚举类型) */
@@ -44,7 +47,20 @@ export class LoginmodelService {
   // 注册
   register(cpaUser: CpaUser): Observable<any> {
     let url = '/api/user/register';
-    return this._http.post(url, cpaUser).map(this.extractData).catch(this.handleError);
+    let changePostBodyPipe = new ChangePostBodyPipe();
+    let userDto = changePostBodyPipe.transform(cpaUser);
+    return this._http.post(url, userDto, this.getOptions()).map(this.extractData).catch(this.handleError);
+  }
+
+  //  检查用户名
+  public checkUsername(newUsername: string): Observable<any> {
+    let url = '/api/user/checkname';
+    var headers: Headers = new Headers();
+    headers.append('content-type', 'application/x-www-form-urlencoded;charset=utf-8');
+    let params = new URLSearchParams();
+    params.set('username', newUsername);
+    let options = new RequestOptions({ search: params, headers: headers });
+    return this._http.get(url, options).map(this.extractData).catch(this.handleError);
   }
 
   /*response 对象并不是返回我们可以直接使用的数据，要想变成应用程序所需要的数据需要：检查不良响应,解析响应数据*/

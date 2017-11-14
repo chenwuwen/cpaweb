@@ -19,7 +19,7 @@ import {UnitexamModule} from "./unitexam/unitexam.module"
 import {HomeModule} from "./home/home.module";
 import {ManagerModule} from "./manager/manager.module";
 import {ItemmanagerModule} from "./manager/itemmanager/itemmanager.module";
-import { UsercenterModule } from './usercenter/usercenter.module';
+import {UsercenterModule} from './usercenter/usercenter.module';
 
 @NgModule({
   declarations: [/*声明属于本模块的组件，每个组件(管道)必须在且仅在一个模块中声明,g*/
