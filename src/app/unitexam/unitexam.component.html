@@ -1,11 +1,11 @@
 <!--modal-->
-<div *ngIf="isModalShown" [config]="{ show: true }" (onHidden)="initHidden()" bsModal #autoShownModal="bs-modal" class="modal fade"
+<div *ngIf="isScoreModalShown" [config]="{ show: true }" (onHidden)="initHidden()" bsModal #scoreModal="bs-modal" class="modal fade"
   tabindex="-1" role="dialog" aria-hidden="true">
   <div class="modal-dialog modal-sm">
     <div class="modal-content">
       <div class="modal-header">
         <h4 class="modal-title pull-left">得分</h4>
-        <button type="button" class="close pull-right" aria-label="Close" (click)="autoShownModal.hide()">
+        <button type="button" class="close pull-right" aria-label="Close" (click)="scoreModal.hide()">
           <span aria-hidden="true">&times;</span>
         </button>
       </div>
@@ -48,7 +48,8 @@
           </ul>
           <form role="form" style="text-align:right" *ngIf="commentIndexs[i]" #commentForm="ngForm">
             <div class="form-group">
-              <textarea name="commentContent" #comment="ngModel" [(ngModel)]="commentContent[i]" style="resize:none;" class="form-control" rows="3" placeholder="请输入评论内容..." required [maxlength]="200"></textarea>
+              <textarea name="commentContent" #comment="ngModel" [(ngModel)]="commentContent[i]" style="resize:none;" class="form-control"
+                rows="3" placeholder="请输入评论内容..." required [maxlength]="200"></textarea>
             </div>
             <button type="button" [disabled]="!commentForm.form.valid" class="btn btn-info btn-xs" (click)="commentItem(i,data.id,comment.value)">发布评论</button>
 

@@ -1,5 +1,5 @@
 <div *ngIf="isModalShown" [config]="{ show: true,keyboard: false,ignoreBackdropClick: true }" bsModal #loginModal="bs-modal"
-  class="modal fade" tabindex="-1" role="dialog" aria-hidden="true">
+  class="modal fade" tabindex="-1" role="dialog" aria-hidden="true" (onHidden)="handler('onHidden', $event)" (onShown)="handler('onShown', $event)">
   <div class="modal-dialog">
     <div class="modal-content">
       <!-- <div class="modal-header">
@@ -67,10 +67,11 @@
                     <span class="input-group-addon">
                       <i class="glyphicon glyphicon-user"></i>
                     </span>
-                    <input class="form-control"  type="text" #newUserName="ngModel" (blur)="checkUserName(newUserName.value)" (keyup)="onKeyPress($event)" [rangeLength]="[5,10]" name="userName" [(ngModel)]="registerUser.userName"
-                     (ngModelChange)="changeName($event)" placeholder="请输入用户名">
+                    <input class="form-control" type="text" #newUserName="ngModel" (blur)="checkUserName(newUserName.value)" (keyup)="onKeyPress($event)"
+                      [rangeLength]="[5,10]" name="userName" [(ngModel)]="registerUser.userName" (ngModelChange)="changeName($event)"
+                      placeholder="请输入用户名">
                   </div>
-                  <span class="help-block"  *ngIf="ifshow3">用户名已被占用</span>
+                  <span class="help-block" *ngIf="ifshow3">用户名已被占用</span>
                   <span class="help-block" *ngIf="newUserName.errors?.rangeLength">用户名长度必须在5到10位之间</span>
                 </div>
               </div>
@@ -135,7 +136,7 @@
         <button *ngSwitchCase=1 type="submit" [disabled]="!loginForm.form.valid" class="btn btn-primary" (click)="login()">登陆</button>
         <button *ngSwitchCase=0 type="submit" [disabled]="!registerForm.form.valid" class="btn btn-primary" (click)="register()">注册</button>
         <button *ngSwitchDefault type="submit" [disabled]="!loginForm.form.valid" class="btn btn-primary" (click)="login()">登陆</button>
-        <button (click)="onHidden()" type="button" class="btn btn-secondary" data-dismiss="modal">取消</button>
+        <button (click)="loginModal.hide()" type="button" class="btn btn-secondary" data-dismiss="modal">取消</button>
       </div>
     </div>
     <!-- /.modal-content -->

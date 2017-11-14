@@ -23,7 +23,7 @@ export class UnitexamComponent implements OnInit {
   public totleCount: number;    //加载记录数
   public pAnswers: Array<any>;  //用户回答
   public result: any;           //结果，由子组件传递过来
-  public isModalShown: boolean = false;
+  public isScoreModalShown: boolean = false; //得分modal
   private collectIndexs: boolean[] = new Array();   //收藏试题索引数组
   private commentIndexs: boolean[] = new Array();   //评论试题索引数组
   private commentContentIndexs: boolean[] = new Array();  //评论试题内容索引数组
@@ -31,8 +31,8 @@ export class UnitexamComponent implements OnInit {
   public commentContent: any[] = new Array();  //评论内容数组,用在表单验证上
 
 
-  @ViewChild('autoShownModal')
-  public autoShownModal: ModalDirective;
+  @ViewChild('scoreModal')
+  public scoreModal: ModalDirective;
   @ViewChild('loginModal')
   private loginModal: LoginmodelComponent;
 
@@ -93,16 +93,16 @@ export class UnitexamComponent implements OnInit {
     }
     this.result = data.data;
     console.log(`得分: ` + this.result.score);
-    this.isModalShown = true;
+    this.isScoreModalShown = !this.isScoreModalShown;
   }
 
   initHidden(): void {
     /*model弹出之后,再关闭需要设置isModalShown为初始值*/
-    this.isModalShown = false;
+    this.isScoreModalShown = false;
   }
 
   reviewErr(): void {
-    this.autoShownModal.hide();
+    this.scoreModal.hide();
     console.log("查看错题。。。。。。。。");
   }
 

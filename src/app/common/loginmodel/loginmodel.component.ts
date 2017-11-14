@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild, ElementRef, ViewChildren, QueryList } from '@angular/core';
+import { Component, OnInit, ViewChild, ElementRef, ViewChildren, QueryList, ApplicationRef } from '@angular/core';
 import { CustomValidators } from 'ng2-validation';
 import { ModalDirective, BsModalRef } from 'ngx-bootstrap';
 import { CpaUser } from './user-model';
@@ -26,19 +26,26 @@ export class LoginmodelComponent implements OnInit {
   private elementRef0: ElementRef;
   @ViewChild('validateCodeUrl1')
   private elementRef1: ElementRef;
+  @ViewChild('loginModal')
+  private loginModal: ModalDirective;
 
 
-  constructor(private loginModelService: LoginmodelService) { }
+  constructor(private loginModelService: LoginmodelService, private applicationRef: ApplicationRef) { }
 
   ngOnInit() {
   }
 
   public showLoginModal(): void {
+    /* 显示登陆弹窗前重置表单以及验证码 */
+    this.cpaUser = new CpaUser();
+    this.registerUser = new CpaUser();
     this.isModalShown = true;
+    // this.reloadValidateCode();
   }
 
-
+  // 关闭Modal
   public onHidden(): void {
+    this.loginModal.hide()
     this.isModalShown = false;
   }
 
@@ -50,6 +57,26 @@ export class LoginmodelComponent implements OnInit {
     this.schema = 0;
   }
 
+  /**
+   *   destroy销毁组件
+   */
+  public destroy() {
+
+  }
+
+  /**
+   * Modal关闭或者打开后做一些处理
+   */
+  public handler(type: string, $event: ModalDirective) {
+    console.log(`type:  ` + type);
+    // $event.dismissReason
+    if (type == "onHidden") {
+      this.isModalShown = false;
+    } else {
+      this.reloadValidateCode();
+    }
+
+  }
   /**
    * 检查用户名是否被占用
    */
@@ -74,10 +101,12 @@ export class LoginmodelComponent implements OnInit {
     // }
   }
 
-//  input的值改变事件
+  //  input的值改变事件
   public changeName(event: any) {
     this.ifshow3 = false;
   }
+
+  // 登陆
   public login(): any {
     console.log(this.cpaUser);
     this.loginModelService.login(this.cpaUser).subscribe(res => {
@@ -96,6 +125,7 @@ export class LoginmodelComponent implements OnInit {
       () => { console.log(`编译`) })
   }
 
+  // 注册
   public register(): any {
     console.log(this.registerUser)
     this.loginModelService.register(this.registerUser).subscribe(res => {
@@ -112,7 +142,7 @@ export class LoginmodelComponent implements OnInit {
       () => { console.log(`编译`) })
   }
 
-
+  // 点击更换验证码
   public reloadValidateCode(): any {
     console.log(`更换验证码`);
     /*    this.loginModelService.reloadValidateCode().subscribe(res => {
