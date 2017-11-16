@@ -73,6 +73,8 @@ export class ItemmanagerComponent implements OnInit {
       }
       this.serialNumber = res['data'];
       this.tip(this.serialNumber);
+      // 表单重置
+      this.addItemForm.reset();
     }, (err) => {
       this.tip(this.serialNumber);
       console.log(`error ${err}`);

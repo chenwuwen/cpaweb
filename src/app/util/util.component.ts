@@ -1,6 +1,6 @@
-import {Component, OnInit, Input, Output, EventEmitter, TemplateRef, ViewChild} from '@angular/core';
-import {UtilService} from "./util.service";
-import {BsModalRef, BsModalService, ModalDirective} from "ngx-bootstrap";
+import { Component, OnInit, Input, Output, EventEmitter, TemplateRef, ViewChild } from '@angular/core';
+import { UtilService } from "./util.service";
+import { BsModalRef, BsModalService, ModalDirective } from "ngx-bootstrap";
 import swal from 'sweetalert2';
 import * as $ from 'jquery';  //引入jquery，如需使用jquery，则直接用$.grep()这样的形式即可
 
@@ -29,7 +29,7 @@ export class UtilComponent implements OnInit {
   public bsModalRef: BsModalRef;
 
   constructor(private _utilService: UtilService,
-              private _bsModalService: BsModalService) {
+    private _bsModalService: BsModalService) {
   }
 
   ngOnInit() {
@@ -41,15 +41,15 @@ export class UtilComponent implements OnInit {
     this.staticModal.hide();
     console.log(`点击了提交按钮： ${this.newAnswer}`);
     return this._utilService.commitAnswer(this.newAnswer, this.typeCode).subscribe(res => {
-        this.result = res['data'];
-        this.launchResult(res);
-        /*如果提交了答案将typeCode置为null,这时如果父组件切换了路由typeCode会将值传递给子组件*/
-        this.typeCode = null;
-        /*如果提交了答案将newAnswer设为空数组;若不置为空数组,当再次切换到该路由后所做的题还会包括上次所做的题*/
-        this.newAnswer = [];
-      }, (err) => {
-        console.log(`error ${err}`);
-      }, () => console.log(`编译！`)
+      this.result = res['data'];
+      this.launchResult(res);
+      /*如果提交了答案将typeCode置为null,这时如果父组件切换了路由typeCode会将值传递给子组件*/
+      this.typeCode = null;
+      /*如果提交了答案将newAnswer设为空数组;若不置为空数组,当再次切换到该路由后所做的题还会包括上次所做的题*/
+      this.newAnswer = [];
+    }, (err) => {
+      console.log(`error ${err}`);
+    }, () => console.log(`编译！`)
     );
   }
 
@@ -122,6 +122,15 @@ export class UtilComponent implements OnInit {
 
   initMark(): void {
     this.mark = 0;
+  }
+
+  //下载试题
+  private downloadItem() {
+    this._utilService.downloadItem(this.typeCode).subscribe(res => {
+      console.log(`下载成功！`)
+    }, (err) => {
+      console.log(`下载失败！`)
+    })
   }
 
   tip1(): void {

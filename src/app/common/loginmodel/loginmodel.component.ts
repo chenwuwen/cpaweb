@@ -3,6 +3,8 @@ import { CustomValidators } from 'ng2-validation';
 import { ModalDirective, BsModalRef } from 'ngx-bootstrap';
 import { CpaUser } from './user-model';
 import { LoginmodelService } from './loginmodel.service';
+import swal from 'sweetalert2';
+import { NgForm } from '@angular/forms';
 
 @Component({
   selector: 'app-loginmodel',
@@ -15,10 +17,10 @@ export class LoginmodelComponent implements OnInit {
   private schema: number;
   private cpaUser: CpaUser = new CpaUser();
   private registerUser: CpaUser = new CpaUser();
-  private ifshow: boolean = false;
-  private ifshow1: boolean = false;
-  private ifshow2: boolean = false;
-  private ifshow3: boolean = false;
+  private ifshow: boolean = false;    //登陆用户名或密码错误
+  private ifshow1: boolean = false;   //登陆验证码错误
+  private ifshow2: boolean = false;   //注册验证码错误
+  private ifshow3: boolean = false;   //用户名是否被占用
   private msg: string;
   /*  ViewChild 装饰器用于获取模板视图中的元素，它支持 Type 类型或 string 类型的选择器，同时支持设置 read 查询条件，
    以获取不同类型的实例。而 ViewChildren 装饰器是用来从模板视图中获取匹配的多个元素，返回的结果是一个 QueryList 集合。 */
@@ -28,6 +30,10 @@ export class LoginmodelComponent implements OnInit {
   private elementRef1: ElementRef;
   @ViewChild('loginModal')
   private loginModal: ModalDirective;
+  @ViewChild('loginForm')
+  private loginForm: NgForm
+  @ViewChild('registerForm')
+  private registerForm: NgForm
 
 
   constructor(private loginModelService: LoginmodelService, private applicationRef: ApplicationRef) { }
@@ -36,11 +42,7 @@ export class LoginmodelComponent implements OnInit {
   }
 
   public showLoginModal(): void {
-    /* 显示登陆弹窗前重置表单以及验证码 */
-    this.cpaUser = new CpaUser();
-    this.registerUser = new CpaUser();
     this.isModalShown = true;
-    // this.reloadValidateCode();
   }
 
   // 关闭Modal
@@ -71,8 +73,14 @@ export class LoginmodelComponent implements OnInit {
     console.log(`type:  ` + type);
     // $event.dismissReason
     if (type == "onHidden") {
+      /* 登陆弹窗隐藏后重置表单[以下两种方式都可以,第二种应该来说更规范一些,但需要在组件内定义变量来获取表单]*/
+      // this.cpaUser = new CpaUser();
+      // this.registerUser = new CpaUser();
+      this.loginForm.reset();
+      this.registerForm.reset();
       this.isModalShown = false;
-    } else {
+    }else {
+      /* 验证码需要在弹窗显示出来后才可以重置否则报错故写在(onShown)方法里 */
       this.reloadValidateCode();
     }
 
@@ -111,11 +119,12 @@ export class LoginmodelComponent implements OnInit {
     console.log(this.cpaUser);
     this.loginModelService.login(this.cpaUser).subscribe(res => {
       if (res['status'] == 1) {
-        this.onHidden();
+        this.loginModal.hide();
       } else {
         this.msg = res['msg'];
         if (this.msg == '验证码错误！') {
           this.ifshow1 = !this.ifshow1;
+          this.reloadValidateCode();
         } else {
           this.ifshow = !this.ifshow;
         }
@@ -130,12 +139,14 @@ export class LoginmodelComponent implements OnInit {
     console.log(this.registerUser)
     this.loginModelService.register(this.registerUser).subscribe(res => {
       if (res['state'] == 1) {
-        this.onHidden();
+        this.loginModal.hide();
+        this.tip();
       } else {
         if (this.msg == '验证码错误！') {
-
+          this.ifshow2 = !this.ifshow2;
+          this.reloadValidateCode();
         } else {
-
+          this.tip1();
         }
       }
     }, (err) => { console.log(`error ${err}`); },
@@ -157,4 +168,25 @@ export class LoginmodelComponent implements OnInit {
     this.elementRef1.nativeElement.src = src
 
   }
+
+  tip(): void {
+    swal({
+      title: '提示',
+      text: "注册成功!",
+      type: 'success',
+      timer: 2000
+    })
+  }
+
+  tip1(): void {
+    swal({
+      title: '提示',
+      text: "注册失败!",
+      type: 'error',
+      timer: 2000
+    })
+  }
 }
+
+
+

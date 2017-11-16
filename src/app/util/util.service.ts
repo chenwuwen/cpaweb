@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { Http, Headers, Response, URLSearchParams, RequestOptions } from "@angular/http"
+import { Http, Headers, Response, URLSearchParams, RequestOptions, ResponseContentType } from "@angular/http"
 import {Observable} from "rxjs/Observable";
 import "rxjs/add/operator/catch";
 
@@ -25,6 +25,13 @@ export class UtilService {
     return this._http.post(url,{pAnswer,typeCode},this.getOptions())
       .map(this.extractData)
       .catch(this.handleError);
+  }
+
+  // 下载试题
+  downloadItem(typeCode: string): Observable<any>{
+    let url = "/api/unitExam/exportWord/";
+    let options = new RequestOptions({ responseType: ResponseContentType.Blob})
+    return this._http.get(url + typeCode, options).catch(this.handleError)
   }
 
   /*response 对象并不是返回我们可以直接使用的数据，要想变成应用程序所需要的数据需要：检查不良响应,解析响应数据*/
