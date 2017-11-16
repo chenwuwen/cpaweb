@@ -1,6 +1,7 @@
 import { Component, OnInit, Input, Output, EventEmitter, TemplateRef, ViewChild } from '@angular/core';
 import { UtilService } from "./util.service";
 import { BsModalRef, BsModalService, ModalDirective } from "ngx-bootstrap";
+import * as FileSaver from 'file-saver';
 import swal from 'sweetalert2';
 import * as $ from 'jquery';  //引入jquery，如需使用jquery，则直接用$.grep()这样的形式即可
 
@@ -128,6 +129,16 @@ export class UtilComponent implements OnInit {
   private downloadItem() {
     this._utilService.downloadItem(this.typeCode).subscribe(res => {
       console.log(`下载成功！`)
+      // var reader = new FileReader();
+      // reader.readAsDataURL(res['Blob'])
+      /**
+       * Excel:application/vnd.openxmlformats-officedocument.spreadsheetml.sheet
+       * Word:application/msword
+       */
+      var blob = new Blob([res], { type: "application/msword" });  
+      var objectUrl =window.URL.createObjectURL(blob);
+      window.open(objectUrl);
+      console.log(`下载地址是：`+objectUrl);
     }, (err) => {
       console.log(`下载失败！`)
     })

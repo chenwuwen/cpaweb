@@ -8,12 +8,12 @@ export class UtilService {
 
   constructor(private _http: Http) { }
 
-  private getOptions(): RequestOptions {
+  private getOptions(contentType: string): RequestOptions {
     var headers: Headers = new Headers();
     // angular post请求默认是json格式的即请求头时application/json;charset=utf-8，这是springMVc接受参数需要添加@RequestBody注解
     // 而springMvc的默认接受请求头为pplication/x-www-form-urlencoded;charset=utf-8'，即jquery Ajax那种 data:{}方式
-    // headers.append('content-type', 'application/x-www-form-urlencoded;charset=utf-8');
-    let opts = new RequestOptions({headers: headers});
+    headers.append('content-type', contentType);
+    let opts = new RequestOptions({ headers: headers});
     opts.headers = headers;
     return opts;
   }
@@ -22,7 +22,7 @@ export class UtilService {
     let url = "/api/solution/correctItem";
     // let params = new URLSearchParams();
     /*console.log(`从组件传到Service的数据，pAnswer:  `+pAnswer);*/
-    return this._http.post(url,{pAnswer,typeCode},this.getOptions())
+    return this._http.post(url, { pAnswer, typeCode }, this.getOptions("application/json;charset=utf-8"))
       .map(this.extractData)
       .catch(this.handleError);
   }
@@ -30,8 +30,10 @@ export class UtilService {
   // 下载试题
   downloadItem(typeCode: string): Observable<any>{
     let url = "/api/unitExam/exportWord/";
-    let options = new RequestOptions({ responseType: ResponseContentType.Blob})
-    return this._http.get(url + typeCode, options).catch(this.handleError)
+    let headers: Headers = new Headers();
+    headers.append('content-type','application/vnd.openxmlformats-officedocument.spreadsheetml.sheet');
+    let options = new RequestOptions({ headers: headers, responseType: ResponseContentType.Blob })
+    return this._http.post(url + typeCode, options).map(res=>res).catch(this.handleError)
   }
 
   /*response 对象并不是返回我们可以直接使用的数据，要想变成应用程序所需要的数据需要：检查不良响应,解析响应数据*/
