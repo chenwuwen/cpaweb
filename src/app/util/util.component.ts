@@ -129,16 +129,29 @@ export class UtilComponent implements OnInit {
   private downloadItem() {
     this._utilService.downloadItem(this.typeCode).subscribe(res => {
       console.log(`下载成功！`)
-      // var reader = new FileReader();
-      // reader.readAsDataURL(res['Blob'])
+      console.log(res)
+      // 这是需要保存的文件流
+      console.log(res['_body'])
+      // 获取文件名
+      console.log(res['headers']._headers.get("content-disposition")[0].substring(20));
       /**
-       * Excel:application/vnd.openxmlformats-officedocument.spreadsheetml.sheet
+       * Excel:application/vnd.openxmlformats-officedocument.spreadsheetml.sheet 会保存为xlsx application/vnd.ms-excel 可以保存为xls格式的excel文件（兼容老版本）
        * Word:application/msword
        */
-      var blob = new Blob([res], { type: "application/msword" });  
-      var objectUrl =window.URL.createObjectURL(blob);
-      window.open(objectUrl);
-      console.log(`下载地址是：`+objectUrl);
+      var filename = res['headers']._headers.get("content-disposition")[0].substring(20);
+      var blob = new Blob([res['_body']], { type: "application/msword" });
+      FileSaver.saveAs(blob, filename);
+      var objectUrl = window.URL.createObjectURL(blob);
+      // var a = document.createElement('a');
+      // document.body.appendChild(a);
+      // a.setAttribute('style', 'display:none');
+      // a.setAttribute('href', objectUrl);
+      // var filename = "充值记录.xls";
+      // a.setAttribute('download', filename);
+      // a.click(); 
+      /* 使用增加节点调用click方法, 而不使用window.open(objectUrl)方法，是防止被浏览器当插件屏蔽弹出连接 */
+      // window.open(objectUrl);
+      // console.log(`下载地址是：`+objectUrl);
     }, (err) => {
       console.log(`下载失败！`)
     })

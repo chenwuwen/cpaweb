@@ -11,7 +11,7 @@ export class UtilService {
   private getOptions(contentType: string): RequestOptions {
     var headers: Headers = new Headers();
     // angular post请求默认是json格式的即请求头时application/json;charset=utf-8，这是springMVc接受参数需要添加@RequestBody注解
-    // 而springMvc的默认接受请求头为pplication/x-www-form-urlencoded;charset=utf-8'，即jquery Ajax那种 data:{}方式
+    // 而springMvc的默认接受请求头为application/x-www-form-urlencoded;charset=utf-8'，即jquery Ajax那种 data:{}方式
     headers.append('content-type', contentType);
     let opts = new RequestOptions({ headers: headers});
     opts.headers = headers;
@@ -31,9 +31,10 @@ export class UtilService {
   downloadItem(typeCode: string): Observable<any>{
     let url = "/api/unitExam/exportWord/";
     let headers: Headers = new Headers();
-    headers.append('content-type','application/vnd.openxmlformats-officedocument.spreadsheetml.sheet');
+    // headers.append('content-Type', 'application/msword');
+    // headers.append('Accept', 'application/msword');
     let options = new RequestOptions({ headers: headers, responseType: ResponseContentType.Blob })
-    return this._http.post(url + typeCode, options).map(res=>res).catch(this.handleError)
+    return this._http.get(url + typeCode, options).map(res=>res).catch(this.handleError)
   }
 
   /*response 对象并不是返回我们可以直接使用的数据，要想变成应用程序所需要的数据需要：检查不良响应,解析响应数据*/
