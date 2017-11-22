@@ -17,10 +17,11 @@
     <div class="panel panel-default">
       <div class="panel-heading">头像</div>
       <div class="panel-body" style="text-align:center">
-          <img style="height:100%;width:100%;display:100%" src="touxiang.jpeg"
+          <img style="height:100%;width:100%;display:100%" src="http://kanyun123.3vcm.net/touxiang.jpeg"
             alt="...">
           <div class="caption">
-            <button type="button" class="btn btn-default">编辑头像</button>
+            <input type="file" ng2FileSelect  [uploader]="uploader" (change)="selectedFileOnChanged($event)" >
+            <button type="button" (click)="uploadFile()" class="btn btn-default">编辑头像</button>
           </div>
       </div>
     </div>
