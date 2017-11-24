@@ -20,7 +20,7 @@
           <img #headImg style="height:100%;width:100%;display:100%"  src="http://kanyun123.3vcm.net/touxiang.jpeg"
             alt="...">
           <div class="caption">
-            <input type="file" ng2FileSelect  [uploader]="uploader" (change)="selectedFileOnChanged($event)" >
+            <input type="file" ng2FileSelect  [uploader]="uploader" (change)="selectedFileOnChanged($event)" accept = "image/*">
             <button type="button" (click)="uploadFile()" class="btn btn-default">编辑头像</button>
           </div>
       </div>
