@@ -24,6 +24,8 @@ export class LoginmodelComponent implements OnInit {
   private msg: string;
   /*  ViewChild 装饰器用于获取模板视图中的元素，它支持 Type 类型或 string 类型的选择器，同时支持设置 read 查询条件，
    以获取不同类型的实例。而 ViewChildren 装饰器是用来从模板视图中获取匹配的多个元素，返回的结果是一个 QueryList 集合。 */
+  // #validateCodeUrl0,模板局部变量最好写在html元素的最前面,否则有可能获取不到
+  // 还需要注意点，this.elementRef0 对象获取模板局部变量时机，仅在ngAfterViewInit生命周期之后才有，也就是说在组件构造器，及onint等生命周期时是获取不到的。
   @ViewChild('validateCodeUrl0')
   private elementRef0: ElementRef;
   @ViewChild('validateCodeUrl1')
