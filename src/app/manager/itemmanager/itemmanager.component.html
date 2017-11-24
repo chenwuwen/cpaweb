@@ -4,8 +4,7 @@
     <legend class="">填写题干</legend>
     <div class="form-group">
       <div class="col-sm-9">
-        <input name="testStem" typ="text" class="form-control" formControlName="testStem" required
-               placeholder="请填写题干">
+        <input name="testStem" typ="text" class="form-control" formControlName="testStem" required placeholder="请填写题干">
       </div>
     </div>
   </fieldset>
@@ -13,15 +12,14 @@
   <fieldset>
     <legend class="">填写选项</legend>
     <div formArrayName="cpaOptions">
-    <div class="form-group" *ngFor="let cpaOption of addItemForm.controls.cpaOptions.controls; index as idx">
-      <div class="col-sm-9">
-        <div class="input-group" >
-          <span class="input-group-addon">{{idx | digitalTransfer}}</span>
-          <input class="form-control" [formControlName]="idx"
-                 placeholder="请填写选项内容">
+      <div class="form-group" *ngFor="let cpaOption of addItemForm.controls.cpaOptions.controls; index as idx">
+        <div class="col-sm-9">
+          <div class="input-group">
+            <span class="input-group-addon">{{idx | digitalTransfer}}</span>
+            <input class="form-control" [formControlName]="idx" placeholder="请填写选项内容">
+          </div>
         </div>
       </div>
-    </div>
     </div>
     <!--    <div class="form-group">
           <div class="col-sm-9">
@@ -70,12 +68,10 @@
     <div class="form-group">
       <div class="col-sm-9">
         <label class="radio-inline">
-          <input name="choice" type="radio" value="exclusive" checked="checked" formControlName="choice">
-          单选题
+          <input name="choice" type="radio" (click)="changeGenre('exclusive')" value="exclusive" checked="checked" formControlName="choice"> 单选题
         </label>
         <label class="radio-inline">
-          <input name="choice" type="radio" value="multiple" formControlName="choice">
-          多选题
+          <input name="choice" type="radio" (click)="changeGenre('multiple')" value="multiple" formControlName="choice"> 多选题
         </label>
       </div>
     </div>
@@ -86,7 +82,7 @@
     <div class="form-group">
       <div class="col-sm-9">
         <div class="controls">
-          <select name="testType" class="input-xlarge" required  formControlName="testType">
+          <select name="testType" class="input-xlarge" required formControlName="testType">
             <option value="basicAccount">会计基础</option>
             <option value="cpuAccount">会计电算化</option>
             <option value="statuteEthics">财经法规与职业道德</option>
@@ -96,28 +92,43 @@
     </div>
   </fieldset>
 
-  <fieldset>
+  <fieldset [ngSwitch]="genre">
     <legend class="">标准答案</legend>
-    <div class="form-group">
+    <!-- 单选题DOM -->
+    <div class="form-group" *ngSwitchCase=1>
       <div class="col-sm-9">
         <label class="radio-inline">
-          <input type="radio" value="A" name="result" formControlName="result">
-          A
+          <input type="radio" value="A" name="result" formControlName="result"> A
         </label>
         <label class="radio-inline">
-          <input type="radio" value="B" name="result" formControlName="result">
-          B
+          <input type="radio" value="B" name="result" formControlName="result"> B
         </label>
         <label class="radio-inline">
-          <input type="radio" value="C" name="result" formControlName="result">
-          C
+          <input type="radio" value="C" name="result" formControlName="result"> C
         </label>
         <label class="radio-inline">
-          <input type="radio" value="D" name="result" formControlName="result">
-          D
+          <input type="radio" value="D" name="result" formControlName="result"> D
         </label>
       </div>
     </div>
+    <!-- 多选题DOM -->
+    <div class="form-group" *ngSwitchCase=2>
+      <div class="col-sm-9">
+        <label class="radio-inline">
+          <input type="checkbox" (click)="selectCheckbox($event.target.checked,'A')"  value="A" name="result"> A
+        </label>
+        <label class="radio-inline">
+          <input type="checkbox" (click)="selectCheckbox($event.target.checked,'B')"  value="B" name="result"> B
+        </label>
+        <label class="radio-inline">
+          <input type="checkbox"  (click)="selectCheckbox($event.target.checked,'C')"  value="C" name="result"> C
+        </label>
+        <label class="radio-inline">
+          <input type="checkbox" (click)="selectCheckbox($event.target.checked,'D')"  value="D" name="result"> D
+        </label>
+      </div>
+    </div>
+
   </fieldset>
 
   <div class="col-sm-offset-2">

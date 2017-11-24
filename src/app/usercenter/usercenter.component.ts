@@ -18,7 +18,7 @@ export class UsercenterComponent implements OnInit {
     itemAlias: "uploadedfile",  //（文件标记／别名）此处的名称要与后台方法参数@RequestParam("uploadedfile")内的字符串值一样
     autoUpload: false, //是否自动上传
     // maxFileSize: 1024, //最大可上传文件的大小
-    allowedFileType: ["*.jpg", "*.png","*.jpeg"],  //允许上传的文件类型
+    // allowedFileType: ["*.jpg", "*.png","*.jpeg"],  //允许上传的文件类型
     
   });
 

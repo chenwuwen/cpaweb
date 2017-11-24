@@ -21,7 +21,7 @@ export class CpaOption {
 }
 
 export class CpaSolution {
-  result: Array<string>;
+  result: string;
 
   constructor() {
 
