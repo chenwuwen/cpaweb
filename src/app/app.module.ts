@@ -45,7 +45,7 @@ import { AppService } from './app.service';
     ItemmanagerModule,
     LoginmodelModule,
   ],
-  providers: [/*声明模块中使用的服务的提供者,对于appModule来说,也应该就是控制菜单显示了，即权限控制*/
+  providers: [/*声明模块中使用的服务的提供者,对于appModule来说,也应该就是控制导航菜单显示了，即权限控制*/
     AppService
   ],
   bootstrap: [/*根模块中的引导组件，应用启动过程中，会创建这个数组中的组件并插入到HTML中，一般只有一个引导组件*/

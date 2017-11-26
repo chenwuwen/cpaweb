@@ -42,6 +42,7 @@ export class LoginmodelService {
     user.append('userName', cpaUser.userName);
     user.append('password', cpaUser.password);
     user.append('validateCode', cpaUser.validateCode);
+    user.append('isRememberMe', cpaUser.isRememberMe ? 'on' : null);
     return this._http.post(url, user).map(this.extractData).catch(this.handleError);
   }
   // 注册

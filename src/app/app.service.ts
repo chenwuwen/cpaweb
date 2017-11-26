@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { Http, Headers, RequestOptions } from '@angular/http';
+import { Http, Headers, Response,RequestOptions } from '@angular/http';
 import { Observable } from 'rxjs/Observable';
 
 @Injectable()
@@ -19,10 +19,15 @@ export class AppService {
 
   /**
    * 退出登陆
+   * 后台shiro拦截此url,清除shiro管理的session,但是本身session还存在,但无法进入Controller
+   * 方法内,因为这个url先进了shiro内置的logout的过滤器,如果需要自己清除session，需要自定义过滤器
+   * 并继承shiro的logout过滤器
+   * 重定向到login.html
    */
-  public logout(): void {
+  public logout(): Observable<any> {
     let url = "/api/user/logout";
-    this._http.get(url);
+    return this._http.get(url).map(res=>res)
+      .catch(this.handleError);
   }
 
   /*response 对象并不是返回我们可以直接使用的数据，要想变成应用程序所需要的数据需要：检查不良响应,解析响应数据*/

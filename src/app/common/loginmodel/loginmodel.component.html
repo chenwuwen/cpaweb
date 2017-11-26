@@ -56,6 +56,15 @@
                 </div>
 
               </div>
+              <div class="form-group">
+                <div class="col-md-3 ">
+                  <div class="checkbox">
+                    <label>
+                      <input [(ngModel)]="cpaUser.isRememberMe" name="isRememberMe" type="checkbox">记住我
+                    </label>
+                  </div>
+                </div>
+              </div>
             </form>
           </tab>
           <tab (select)="changeRegisterSchema()" heading="注册" class="container">

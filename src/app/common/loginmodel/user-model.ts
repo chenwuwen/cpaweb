@@ -3,6 +3,7 @@ export class CpaUser {
     password: string;
     validateCode: string;
     email: string;
+    isRememberMe:boolean;
     constructor() {
 
     }

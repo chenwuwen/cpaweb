@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild, ElementRef, ViewChildren, QueryList, ApplicationRef } from '@angular/core';
+import { Component, OnInit, ViewChild, ElementRef, ViewChildren, QueryList, ApplicationRef, Output, EventEmitter } from '@angular/core';
 import { CustomValidators } from 'ng2-validation';
 import { ModalDirective, BsModalRef } from 'ngx-bootstrap';
 import { CpaUser } from './user-model';
@@ -36,6 +36,8 @@ export class LoginmodelComponent implements OnInit {
   private loginForm: NgForm
   @ViewChild('registerForm')
   private registerForm: NgForm
+  /*声明事件发射器*/
+  @Output() childResult = new EventEmitter<any>();
 
 
   constructor(private loginModelService: LoginmodelService, private applicationRef: ApplicationRef) { }
@@ -121,6 +123,7 @@ export class LoginmodelComponent implements OnInit {
     console.log(this.cpaUser);
     this.loginModelService.login(this.cpaUser).subscribe(res => {
       if (res['status'] == 1) {
+        this.launchResult(res['data']);
         this.loginModal.hide();
       } else {
         this.msg = res['msg'];
@@ -169,6 +172,11 @@ export class LoginmodelComponent implements OnInit {
     this.elementRef0.nativeElement.src = src
     this.elementRef1.nativeElement.src = src
 
+  }
+
+  launchResult(data): void {
+    /*发射事件*/
+    this.childResult.emit(data);
   }
 
   tip(): void {
