@@ -83,7 +83,7 @@ export class LoginmodelComponent implements OnInit {
       this.loginForm.reset();
       this.registerForm.reset();
       this.isModalShown = false;
-    }else {
+    } else {
       /* 验证码需要在弹窗显示出来后才可以重置否则报错故写在(onShown)方法里 */
       this.reloadValidateCode();
     }
@@ -123,6 +123,20 @@ export class LoginmodelComponent implements OnInit {
     console.log(this.cpaUser);
     this.loginModelService.login(this.cpaUser).subscribe(res => {
       if (res['status'] == 1) {
+        /**
+         *将token存入localStorage,其会自动是别token,在控制台使用命令
+         *localStorage.token即可显示token值，与
+         *localStorage.getItem("token")的值一样
+         */
+        localStorage.setItem('token', res['data'].token);
+
+        /**
+         * 用localStorage.setItem()正确存储JSON对象方法是：
+         * 存储前先用JSON.stringify()方法将json对象转换成字符串形式
+         * JSON.stringify() 方法可以将任意的 JavaScript 值序列化成 JSON 字符串
+         * 后续要操作该JSON对象，要将之前存储的JSON字符串先转成JSON对象再进行操作
+         */
+        localStorage.setItem('user', JSON.stringify(res['data']));
         this.launchResult(res['data']);
         this.loginModal.hide();
       } else {
