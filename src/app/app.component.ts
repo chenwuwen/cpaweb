@@ -1,8 +1,10 @@
-import { Component, ViewChild, ElementRef } from '@angular/core';  /*所有组件必须引入*/
-import { ActivatedRoute, Router, ActivatedRouteSnapshot, RouterState, RouterStateSnapshot } from '@angular/router';
-import { LoginmodelComponent } from './common/loginmodel/loginmodel.component';
-import { tokenNotExpired } from 'angular2-jwt';
-import { AppService } from './app.service';
+import {Component, ViewChild, ElementRef} from '@angular/core';
+/*所有组件必须引入*/
+import {ActivatedRoute, Router, ActivatedRouteSnapshot, RouterState, RouterStateSnapshot} from '@angular/router';
+import {LoginmodelComponent} from './common/loginmodel/loginmodel.component';
+import {tokenNotExpired} from 'angular2-jwt';
+import {AppService} from './app.service';
+import {Store} from "@ngrx/store";
 
 @Component({
   selector: 'app-root',
@@ -16,14 +18,14 @@ export class AppComponent {
   private circleHeadImg: ElementRef;
   public userName: string = "请登陆";
   public hasLogin: boolean = false;
+  private loginState
 
-  constructor(
-    // 在constructor中注入的依赖，就可以作为类的属性被使用了
+  constructor(// 在constructor中注入的依赖，就可以作为类的属性被使用了
     public router: Router,
     public activatedRoute: ActivatedRoute,
     public appService: AppService,
-  ) {
-
+    private store: Store<any>) {
+    this.loginState = this.store.select('loginSate');
   }
 
   ngOnInit() {
@@ -43,7 +45,7 @@ export class AppComponent {
 
   /**
    * 用户退出登陆
-   * 
+   *
    */
   private logout(): void {
     console.log(`用户注销`);
@@ -66,7 +68,7 @@ export class AppComponent {
 
   /**
    * 设置导航栏显示
-   * @param data 
+   * @param data
    */
   public setNavBar(data: any) {
     this.userName = data.userName;

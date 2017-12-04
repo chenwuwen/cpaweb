@@ -1,10 +1,22 @@
-import { Component, OnInit, ViewChild, ElementRef, ViewChildren, QueryList, ApplicationRef, Output, EventEmitter } from '@angular/core';
-import { CustomValidators } from 'ng2-validation';
-import { ModalDirective, BsModalRef } from 'ngx-bootstrap';
-import { CpaUser } from './user-model';
-import { LoginmodelService } from './loginmodel.service';
+import {
+  Component,
+  OnInit,
+  ViewChild,
+  ElementRef,
+  ViewChildren,
+  QueryList,
+  ApplicationRef,
+  Output,
+  EventEmitter
+} from '@angular/core';
+import {CustomValidators} from 'ng2-validation';
+import {ModalDirective, BsModalRef} from 'ngx-bootstrap';
+import {CpaUser} from './user-model';
+import {LoginmodelService} from './loginmodel.service';
 import swal from 'sweetalert2';
-import { NgForm } from '@angular/forms';
+import {NgForm} from '@angular/forms';
+import {Store} from "@ngrx/store";
+import {Observable} from "rxjs/Observable";
 
 @Component({
   selector: 'app-loginmodel',
@@ -39,8 +51,11 @@ export class LoginmodelComponent implements OnInit {
   /*声明事件发射器*/
   @Output() childResult = new EventEmitter<any>();
 
+  private loginState: Observable<any>;
 
-  constructor(private loginModelService: LoginmodelService, private applicationRef: ApplicationRef) { }
+
+  constructor(private loginModelService: LoginmodelService, private applicationRef: ApplicationRef, private store: Store<any>) {
+  }
 
   ngOnInit() {
   }
@@ -89,6 +104,7 @@ export class LoginmodelComponent implements OnInit {
     }
 
   }
+
   /**
    * 检查用户名是否被占用
    */
@@ -122,65 +138,75 @@ export class LoginmodelComponent implements OnInit {
   public login(): any {
     console.log(this.cpaUser);
     this.loginModelService.login(this.cpaUser).subscribe(res => {
-      if (res['status'] == 1) {
-        /**
-         *将token存入localStorage,其会自动是别token,在控制台使用命令
-         *localStorage.token即可显示token值，与
-         *localStorage.getItem("token")的值一样
-         */
-        localStorage.setItem('token', res['data'].token);
+        if (res['status'] == 1) {
+          /**
+           *将token存入localStorage,其会自动是别token,在控制台使用命令
+           *localStorage.token即可显示token值，与
+           *localStorage.getItem("token")的值一样
+           */
+          localStorage.setItem('token', res['data'].token);
 
-        /**
-         * 用localStorage.setItem()正确存储JSON对象方法是：
-         * 存储前先用JSON.stringify()方法将json对象转换成字符串形式
-         * JSON.stringify() 方法可以将任意的 JavaScript 值序列化成 JSON 字符串
-         * 后续要操作该JSON对象，要将之前存储的JSON字符串先转成JSON对象再进行操作
-         */
-        localStorage.setItem('user', JSON.stringify(res['data']));
-        this.launchResult(res['data']);
-        this.loginModal.hide();
-      } else {
-        this.msg = res['msg'];
-        if (this.msg == '验证码错误！') {
-          this.ifshow1 = !this.ifshow1;
-          this.reloadValidateCode();
+          /**
+           * 用localStorage.setItem()正确存储JSON对象方法是：
+           * 存储前先用JSON.stringify()方法将json对象转换成字符串形式
+           * JSON.stringify() 方法可以将任意的 JavaScript 值序列化成 JSON 字符串
+           * 后续要操作该JSON对象，要将之前存储的JSON字符串先转成JSON对象再进行操作
+           */
+          localStorage.setItem('user', JSON.stringify(res['data']));
+          /*ngRx状态中action,主要作用是发送Redux改变store中状态,payload是可选的其值可以是任意值,也可以是对象*/
+          this.store.dispatch({type: 'HASLOGIN', payload: 'HASLOGIN'});
+          this.launchResult(res['data']);
+          this.loginModal.hide();
         } else {
-          this.ifshow = !this.ifshow;
-        }
+          this.msg = res['msg'];
+          if (this.msg == '验证码错误！') {
+            this.ifshow1 = !this.ifshow1;
+            this.reloadValidateCode();
+          } else {
+            this.ifshow = !this.ifshow;
+          }
 
-      }
-    }, (err) => { console.log(`error ${err}`); },
-      () => { console.log(`编译`) })
+        }
+      }, (err) => {
+        console.log(`error ${err}`);
+      },
+      () => {
+        console.log(`编译`)
+      })
   }
 
   // 注册
   public register(): any {
     console.log(this.registerUser)
     this.loginModelService.register(this.registerUser).subscribe(res => {
-      if (res['state'] == 1) {
-        this.loginModal.hide();
-        this.tip();
-      } else {
-        if (this.msg == '验证码错误！') {
-          this.ifshow2 = !this.ifshow2;
-          this.reloadValidateCode();
+        if (res['state'] == 1) {
+          this.loginModal.hide();
+          this.tip();
         } else {
-          this.tip1();
+          if (this.msg == '验证码错误！') {
+            this.ifshow2 = !this.ifshow2;
+            this.reloadValidateCode();
+          } else {
+            this.tip1();
+          }
         }
-      }
-    }, (err) => { console.log(`error ${err}`); },
-      () => { console.log(`编译`) })
+      }, (err) => {
+        console.log(`error ${err}`);
+      },
+      () => {
+        console.log(`编译`)
+      })
   }
 
   // 点击更换验证码
   public reloadValidateCode(): any {
     console.log(`更换验证码`);
     /*    this.loginModelService.reloadValidateCode().subscribe(res => {
-         console.log(res);
-         console.log(`更换验证码返回类型为：`+typeof res);
-         this.validateCodeUrl = res;
-       }, (err) => { console.log(`error ${err}`); },
-         () => { console.log(`编译`) }) */
+     console.log(res);
+     console.log(`更换验证码返回类型为：`+typeof res);
+     this.validateCodeUrl = res;
+     }, (err) => { console.log(`error ${err}`); },
+     () => { console.log(`编译`) }) */
     let src = '/api/validateCode?data=' + new Date() + Math.floor(Math.random() * 24).toString();
     console.log(`当前验证码图片地址为：` + this.elementRef0.nativeElement.src)
     this.elementRef0.nativeElement.src = src
