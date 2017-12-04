@@ -47,7 +47,13 @@ import {loginStateReducer} from "./common/reducer/loginStateReducer";
     ManagerModule,
     ItemmanagerModule,
     LoginmodelModule,
-    /*使用ngRx进行状态管理*/
+    /*使用ngRx进行状态管理,StoreModule提供了一个provideStore方法,
+     *在这个方法中我们声明了一个 { loginState: loginStateReducer, }
+     * 对象，这个就是Store。前面讲过Store可以想象成数据库，Reducer可以想象成表，
+     *那么这样一个对象形式告诉我们数据库是由那些表构成的
+     * 那么可以看到我们定义了Reducer：loginStateReducer。在看代码之前，我们来思考一下这个流程，
+     * 所谓Reducer其实就是接收两个参数：之前的状态和要采取的动作，然后返回新的状态。
+     */
     StoreModule.provideStore({
       loginState: loginStateReducer,
     })

@@ -5,6 +5,7 @@ import {LoginmodelComponent} from './common/loginmodel/loginmodel.component';
 import {tokenNotExpired} from 'angular2-jwt';
 import {AppService} from './app.service';
 import {Store} from "@ngrx/store";
+import {Observable} from "rxjs/Observable";
 
 @Component({
   selector: 'app-root',
@@ -18,7 +19,7 @@ export class AppComponent {
   private circleHeadImg: ElementRef;
   public userName: string = "请登陆";
   public hasLogin: boolean = false;
-  private loginState
+  private loginState: Observable<any>;
 
   constructor(// 在constructor中注入的依赖，就可以作为类的属性被使用了
     public router: Router,
