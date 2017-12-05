@@ -27,6 +27,9 @@ export class AppComponent {
     public appService: AppService,
     private store: Store<any>) {
     this.loginState = this.store.select('loginSate');
+    this.loginState.subscribe(state => {
+      console.log(`订阅登录状态的值为：` + JSON.stringify(state));
+    });
   }
 
   ngOnInit() {

@@ -18,12 +18,16 @@ import {Reducer, Action} from "@ngrx/store";
 export const loginStateReducer = (state: any = null, action: Action) => {
   switch (action.type) {
     case 'NOTLOGIN':
+      console.log(`通知Reducer改变Store状态,当前状态是：` + action.payload);
       return action.payload;
     case 'HASLOGIN':
+      console.log(`通知Reducer改变Store状态,当前状态是：` + action.payload);
       return action.payload;
     default:
+      console.log(`通知Reducer改变Store状态(默认的),当前状态是：` + state);
       return state;
   }
 };
+
 
 
