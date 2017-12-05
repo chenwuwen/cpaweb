@@ -1,10 +1,11 @@
-import {Reducer,Action} from "@ngrx/store";
+import {Reducer, Action} from "@ngrx/store";
 
 /**
  * ngrx的核心也是通过reducer来获取储存在store中的值（状态），通过action来改变store的中值（状态）
- * @param state
- * @param action
- * @returns {any}
+ * Reducers规定了行为对应的具体状态变化。它是纯函数，通过接收前一个状态和派发行为返回新对象作为下一个状态的方式来改变状态，
+ * 新对象通常用Object.assign和扩展语法来实现。
+ * store中储存了应用中所有的不可变状态。ngrx/store中的store是RxJS状态的可观察对象，以及行为的观察者。
+ * 可以利用Store来派发行为。当然，我们也可以用Store的select()方法获取可观察对象，然后订阅观察，在状态变化之后做出反应。
  */
 
 /**
@@ -14,7 +15,7 @@ import {Reducer,Action} from "@ngrx/store";
  * 现在我们来考虑其中一个动作，增加一个loginState，我们需要发送一个Action，这个Action的type是 ’HASLOGIN’ ，payload就是新增加的这个loginState。
  */
 
-export const loginStateReducer: Reducer<any> = (state: any = null, action: Action): any => {
+export const loginStateReducer = (state: any = null, action: Action) => {
   switch (action.type) {
     case 'NOTLOGIN':
       return action.payload;

@@ -154,6 +154,7 @@ export class LoginmodelComponent implements OnInit {
            */
           localStorage.setItem('user', JSON.stringify(res['data']));
           /*ngRx状态中action,主要作用是发送Redux改变store中状态,payload是可选的其值可以是任意值,也可以是对象*/
+          // 派发action，从而更新store,type描述我们期待的状态变化类型,payload是发送到待更新store中的数据
           this.store.dispatch({type: 'HASLOGIN', payload: 'HASLOGIN'});
           this.launchResult(res['data']);
           this.loginModal.hide();
