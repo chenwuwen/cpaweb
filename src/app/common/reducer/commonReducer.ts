@@ -6,6 +6,7 @@ import {Reducer, Action} from "@ngrx/store";
  * 新对象通常用Object.assign和扩展语法来实现。
  * store中储存了应用中所有的不可变状态。ngrx/store中的store是RxJS状态的可观察对象，以及行为的观察者。
  * 可以利用Store来派发行为。当然，我们也可以用Store的select()方法获取可观察对象，然后订阅观察，在状态变化之后做出反应。
+ * Action与Store之间添加ngrx/Effect   实现action异步请求与store处理结果间的解耦
  */
 
 /**

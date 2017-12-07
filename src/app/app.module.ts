@@ -24,7 +24,7 @@ import {ItemmanagerModule} from "./manager/itemmanager/itemmanager.module";
 import {UsercenterModule} from './usercenter/usercenter.module';
 import {LoginmodelModule} from './common/loginmodel/loginmodel.module';
 import {AppService} from './app.service';
-import {loginStateReducer} from "./common/reducer/loginStateReducer";
+import {loginStateReducer} from "./common/reducer/commonReducer";
 
 @NgModule({
   declarations: [/*声明属于本模块的组件，每个组件(管道)必须在且仅在一个模块中声明,g*/
