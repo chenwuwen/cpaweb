@@ -15,7 +15,7 @@ import {Reducer, Action} from "@ngrx/store";
  * 现在我们来考虑其中一个动作，增加一个loginState，我们需要发送一个Action，这个Action的type是 ’HASLOGIN’ ，payload就是新增加的这个loginState。
  */
 
-export const loginStateReducer = (state: any = null, action: Action) => {
+export function loginStateReducer(state: any = null, action: Action) {
   switch (action.type) {
     case 'NOTLOGIN':
       console.log(`通知Reducer改变Store状态,当前状态是：` + action.payload);
@@ -28,6 +28,7 @@ export const loginStateReducer = (state: any = null, action: Action) => {
       return state;
   }
 };
+
 
 
 
