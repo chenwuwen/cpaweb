@@ -53,6 +53,7 @@ import {loginStateReducer} from "./common/reducer/commonReducer";
      *那么这样一个对象形式告诉我们数据库是由那些表构成的
      * 那么可以看到我们定义了Reducer：loginStateReducer。在看代码之前，我们来思考一下这个流程，
      * 所谓Reducer其实就是接收两个参数：之前的状态和要采取的动作，然后返回新的状态。
+     * StoreModule.provideStore() 在 Angular4的 @ngrx/store 版本中已经更新为更为标准化的StoreModule.forRoot()
      */
     StoreModule.provideStore({
       loginState: loginStateReducer,

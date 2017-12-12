@@ -15,8 +15,12 @@ import {CpaUser} from './user-model';
 import {LoginmodelService} from './loginmodel.service';
 import swal from 'sweetalert2';
 import {NgForm} from '@angular/forms';
-import {Store} from "@ngrx/store";
-import {Observable} from "rxjs/Observable";
+import {Store} from '@ngrx/store';
+import {Observable} from 'rxjs/Observable';
+
+interface LoginState {
+  loginState: string;
+}
 
 @Component({
   selector: 'app-loginmodel',
@@ -45,16 +49,14 @@ export class LoginmodelComponent implements OnInit {
   @ViewChild('loginModal')
   private loginModal: ModalDirective;
   @ViewChild('loginForm')
-  private loginForm: NgForm
+  private loginForm: NgForm;
   @ViewChild('registerForm')
-  private registerForm: NgForm
+  private registerForm: NgForm;
   /*声明事件发射器*/
   @Output() childResult = new EventEmitter<any>();
 
 
-
-
-  constructor(private loginModelService: LoginmodelService, private applicationRef: ApplicationRef, private store: Store<any>) {
+  constructor(private loginModelService: LoginmodelService, private applicationRef: ApplicationRef, private store: Store<LoginState>) {
   }
 
   ngOnInit() {
@@ -66,7 +68,7 @@ export class LoginmodelComponent implements OnInit {
 
   // 关闭Modal
   public onHidden(): void {
-    this.loginModal.hide()
+    this.loginModal.hide();
     this.isModalShown = false;
   }
 
@@ -91,7 +93,7 @@ export class LoginmodelComponent implements OnInit {
   public handler(type: string, $event: ModalDirective) {
     console.log(`type:  ` + type);
     // $event.dismissReason
-    if (type == "onHidden") {
+    if (type == 'onHidden') {
       /* 登陆弹窗隐藏后重置表单[以下两种方式都可以,第二种应该来说更规范一些,但需要在组件内定义变量来获取表单]*/
       // this.cpaUser = new CpaUser();
       // this.registerUser = new CpaUser();
@@ -112,12 +114,12 @@ export class LoginmodelComponent implements OnInit {
     console.log(`新用户名：` + newUsername);
     this.loginModelService.checkUsername(newUsername).subscribe(res => {
       if (res['state'] != 1) {
-        this.ifshow3 = true
+        this.ifshow3 = true;
       } else {
-        this.ifshow3 = false
+        this.ifshow3 = false;
       }
       console.log(res);
-    })
+    });
   }
 
 
@@ -154,7 +156,7 @@ export class LoginmodelComponent implements OnInit {
            */
           localStorage.setItem('user', JSON.stringify(res['data']));
           /*ngRx状态中action,主要作用是发送Redux改变store中状态,payload是可选的其值可以是任意值,也可以是对象*/
-           /*派发action，从而更新store,type描述我们期待的状态变化类型,payload是发送到待更新store中的数据*/
+          /*派发action，从而更新store,type描述我们期待的状态变化类型,payload是发送到待更新store中的数据*/
           this.store.dispatch({type: 'HASLOGIN', payload: 'HASLOGIN'});
           this.launchResult(res['data']);
           this.loginModal.hide();
@@ -172,13 +174,13 @@ export class LoginmodelComponent implements OnInit {
         console.log(`error ${err}`);
       },
       () => {
-        console.log(`编译`)
-      })
+        console.log(`编译`);
+      });
   }
 
   // 注册
   public register(): any {
-    console.log(this.registerUser)
+    console.log(this.registerUser);
     this.loginModelService.register(this.registerUser).subscribe(res => {
         if (res['state'] == 1) {
           this.loginModal.hide();
@@ -195,8 +197,8 @@ export class LoginmodelComponent implements OnInit {
         console.log(`error ${err}`);
       },
       () => {
-        console.log(`编译`)
-      })
+        console.log(`编译`);
+      });
   }
 
   // 点击更换验证码
@@ -209,9 +211,9 @@ export class LoginmodelComponent implements OnInit {
      }, (err) => { console.log(`error ${err}`); },
      () => { console.log(`编译`) }) */
     let src = '/api/validateCode?data=' + new Date() + Math.floor(Math.random() * 24).toString();
-    console.log(`当前验证码图片地址为：` + this.elementRef0.nativeElement.src)
-    this.elementRef0.nativeElement.src = src
-    this.elementRef1.nativeElement.src = src
+    console.log(`当前验证码图片地址为：` + this.elementRef0.nativeElement.src);
+    this.elementRef0.nativeElement.src = src;
+    this.elementRef1.nativeElement.src = src;
 
   }
 
@@ -223,19 +225,19 @@ export class LoginmodelComponent implements OnInit {
   tip(): void {
     swal({
       title: '提示',
-      text: "注册成功!",
+      text: '注册成功!',
       type: 'success',
       timer: 2000
-    })
+    });
   }
 
   tip1(): void {
     swal({
       title: '提示',
-      text: "注册失败!",
+      text: '注册失败!',
       type: 'error',
       timer: 2000
-    })
+    });
   }
 }
 
