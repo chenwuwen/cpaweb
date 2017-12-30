@@ -141,14 +141,14 @@ export class UtilComponent implements OnInit {
       var filename = res['headers']._headers.get("content-disposition")[0].substring(20);
       var blob = new Blob([res['_body']], { type: "application/msword" });
       FileSaver.saveAs(blob, filename);
-      var objectUrl = window.URL.createObjectURL(blob);
+      // var objectUrl = window.URL.createObjectURL(blob);
       // var a = document.createElement('a');
       // document.body.appendChild(a);
       // a.setAttribute('style', 'display:none');
       // a.setAttribute('href', objectUrl);
       // var filename = "充值记录.xls";
       // a.setAttribute('download', filename);
-      // a.click(); 
+      // a.click();
       /* 使用增加节点调用click方法, 而不使用window.open(objectUrl)方法，是防止被浏览器当插件屏蔽弹出连接 */
       // window.open(objectUrl);
       // console.log(`下载地址是：`+objectUrl);

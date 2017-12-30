@@ -17,12 +17,13 @@
     <div class="panel panel-default">
       <div class="panel-heading">头像</div>
       <div class="panel-body" style="text-align:center">
-          <img #headImg style="height:100%;width:100%;display:100%"  src="http://kanyun123.3vcm.net/touxiang.jpeg"
-            alt="...">
-          <div class="caption">
-            <input type="file" ng2FileSelect  [uploader]="uploader" (change)="selectedFileOnChanged($event)" accept = "image/*">
-            <button type="button" (click)="uploadFile()" class="btn btn-default">编辑头像</button>
-          </div>
+        <img #headImg style="height:100%;width:100%;display:100%" src="http://kanyun123.3vcm.net/touxiang.jpeg"
+             alt="...">
+        <div class="caption">
+          <input type="file" ng2FileSelect [uploader]="uploader" (change)="selectedFileOnChanged($event)"
+                 accept="image/*">
+          <button type="button" (click)="headModal.show()" class="btn btn-default">编辑头像</button>
+        </div>
       </div>
     </div>
   </div>
@@ -67,6 +68,49 @@
       <div class="panel-heading">最近访客</div>
       <div class="panel-body">
 
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<!--编辑头像Modal-->
+<div bsModal #headModal="bs-modal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-lg">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h4 class="modal-title pull-left">Large modal</h4>
+        <button type="button" class="close pull-right" (click)="headModal.hide()" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+
+        <section class=" img-section">
+
+          <div class="z_photo upimg-div clear">
+
+            <!--上传图片位置-->
+            <section class="z_file fl" *ngIf="imgFlag">
+              <img src="./img/a11.png" class="add-img">
+              <input type="file" id="file2" class="file" ng2FileSelect [uploader]="uploader"
+                     (change)="selectedFileOnChanged($event)"
+                     accept="image/*" />
+            </section>
+            <!--预览图片位置,默认隐藏-->
+            <section class="up-section fl" *ngIf="!imgFlag" >
+              <span class="up-span"></span>
+              <img src="img/a7.png" class="close-upimg" (click)="removeImg()" >
+              <img id="preview"  src="" class="up-img">
+              <p class="img-name-p"></p>
+              <input id="taglocation" name="taglocation" value type="hidden"/>
+              <input type="text" name="tags" id="tags" value type="hidden"/>
+            </section>
+
+          </div>
+        </section>
+        <button type="button" (click)="uploadFile()" class="btn btn-default">上传头像</button>
       </div>
     </div>
   </div>
