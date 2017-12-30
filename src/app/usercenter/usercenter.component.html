@@ -17,12 +17,8 @@
     <div class="panel panel-default">
       <div class="panel-heading">头像</div>
       <div class="panel-body" style="text-align:center">
-        <img #headImg style="height:100%;width:100%;display:100%" src="http://kanyun123.3vcm.net/touxiang.jpeg"
-             alt="...">
+        <img #headImg style="height:100%;width:100%;display:100%" src="http://kanyun123.3vcm.net/touxiang.jpeg" alt="..." (click)="headModal.show()">
         <div class="caption">
-          <input type="file" ng2FileSelect [uploader]="uploader" (change)="selectedFileOnChanged($event)"
-                 accept="image/*">
-          <button type="button" (click)="headModal.show()" class="btn btn-default">编辑头像</button>
         </div>
       </div>
     </div>
@@ -75,8 +71,7 @@
 
 
 <!--编辑头像Modal-->
-<div bsModal #headModal="bs-modal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel"
-     aria-hidden="true">
+<div bsModal #headModal="bs-modal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
   <div class="modal-dialog modal-lg">
     <div class="modal-content">
       <div class="modal-header">
@@ -91,21 +86,21 @@
 
           <div class="z_photo upimg-div clear">
 
-            <!--上传图片位置-->
-            <section class="z_file fl" *ngIf="imgFlag">
+            <!--上传图片位置，默认显示并存在DOM中，此处为什么不用[ngStyle]，因为使用ngStyle之后，将预览图片删除后
+              重新选择图片会出现图片选不上的问题，大概原因是因为ng2FileSelect需要重新实例话，所以此处选用ngIf，解决问题-->
+            <section class="z_file fl" *ngIf='imgFlag'>
               <img src="./img/a11.png" class="add-img">
-              <input type="file" id="file2" class="file" ng2FileSelect [uploader]="uploader"
-                     (change)="selectedFileOnChanged($event)"
-                     accept="image/*" />
+              <input type="file" class="file" ng2FileSelect [uploader]="uploader" (change)="selectedFileOnChanged($event)" accept="image/*"
+              />
             </section>
-            <!--预览图片位置,默认隐藏-->
-            <section class="up-section fl" *ngIf="!imgFlag" >
+            <!--预览图片位置,默认隐藏，原来使用的是*ngIf来控制发现会出问题，原因已在组件内说明，改用ngStyle-->
+            <section class="up-section fl" [ngStyle]="{'display':!imgFlag?'block':'none'}">
               <span class="up-span"></span>
-              <img src="img/a7.png" class="close-upimg" (click)="removeImg()" >
-              <img id="preview"  src="" class="up-img">
-              <p class="img-name-p"></p>
-              <input id="taglocation" name="taglocation" value type="hidden"/>
-              <input type="text" name="tags" id="tags" value type="hidden"/>
+              <img src="img/a7.png" class="close-upimg" (click)="removeImg()">
+              <img #preview src="" class="up-img">
+              <p id="aaa" class="img-name-p"></p>
+              <input id="taglocation" name="taglocation" value type="hidden" />
+              <input type="text" name="tags" id="tags" value type="hidden" />
             </section>
 
           </div>

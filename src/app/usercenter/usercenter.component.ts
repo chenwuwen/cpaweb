@@ -1,7 +1,7 @@
-import {Component, OnInit, ElementRef, ViewChild} from '@angular/core';
+import { Component, OnInit, ElementRef, ViewChild } from '@angular/core';
 // A: 引入FileUpload模块
-import {FileSelectDirective, FileDropDirective, FileUploader} from 'ng2-file-upload';
-import {element} from 'protractor';
+import { FileSelectDirective, FileDropDirective, FileUploader } from 'ng2-file-upload';
+import { element } from 'protractor';
 
 @Component({
   selector: 'app-usercenter',
@@ -12,6 +12,16 @@ export class UsercenterComponent implements OnInit {
 
   @ViewChild('headImg')
   private headImg: ElementRef;
+
+  /**
+   * 使用 @ViewChild的时候需要注意,该元素是否存在,即是否在DOM中存在，
+   * 如果不存在当使用的时候会报错Cannot read property 'nativeElement' of undefined
+   * 如预览图片，input相关的DOM和预览图片的DOM一开始采用的是*ngIf的写法，后来出错后一直找原因
+   * 最后使用[ngStyle]来控制两个区块的显示和隐藏，最后发现可以使用了，所以使用@ViewChild的时候，需要注意
+   * 元素是否存在，如果不希望在页面显示可以使用[ngStyle]来控制，相当于替代了ng1.x的ngShow
+   */
+  @ViewChild('preview')
+  private preview: ElementRef;
 
   /**存储已经选择的图片*/
   private selectedImgUrl: any[] = [];
@@ -46,10 +56,17 @@ export class UsercenterComponent implements OnInit {
    */
   removeImg() {
     this.imgFlag = !this.imgFlag;
+    // 点击删除预览图片按钮,将上传队列清空同时存储图片的数组置空
+    this.selectedImgUrl = [];
+    this.uploader.clearQueue();
   }
 
-  // C: 定义事件，选择文件
+  /**
+   * ng2-file-upload定义事件，选择文件事件
+   * @param event
+   */
   selectedFileOnChanged(event: any) {
+    console.log("--------------------")
     this.imgFlag = !this.imgFlag;
     let index = 0;
     //选择图片
@@ -91,18 +108,22 @@ export class UsercenterComponent implements OnInit {
     console.log('已选择 ' + this.selectedImgLength + ' 张图片');
     console.log(selectedArr);
     for (var i = 0; i < this.selectedImgLength; i++) {
+      // 预览图片返回的是blob对象，需要使用blob封装,在使用window.URL.createObjectURL()携程url;
       var blob = new Blob(selectedArr[i]);
       var url = window.URL.createObjectURL(blob);
       console.log('已选择的图片的url：' + url);
-      let element: HTMLImageElement = document.getElementById('preview');
-      element.src = url;
+
+      this.preview.nativeElement.src = url
+
 
     }
     // 打印文件选择名称
     console.log(`打印文件选择名称:` + event.target.value);
   }
 
-  // D: 定义事件，上传文件
+  /**
+   * ng2-file-upload上传文件事件
+   */
   uploadFile() {
 
     // 上传
@@ -133,4 +154,6 @@ export class UsercenterComponent implements OnInit {
       }
     };
   }
+
+
 }
