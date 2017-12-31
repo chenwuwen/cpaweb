@@ -1,3 +1,5 @@
+import { ProgressComponent } from './../common/progress/progress.component';
+import { BaseModule } from './../common/base.module';
 import { LoginmodelModule } from './../common/loginmodel/loginmodel.module';
 import {NgModule} from '@angular/core';
 import {UnitexamComponent} from './unitexam.component';
@@ -9,6 +11,7 @@ import { ModalModule } from 'ngx-bootstrap/modal';
 import {RouterModule} from '@angular/router';
 import {BrowserAnimationsModule} from "@angular/platform-browser/animations";
 import { CustomFormsModule } from 'ng2-validation';
+import { ProgressModule } from '../common/progress/progress.module';
 @NgModule({
   imports: [
     CommonModule,
@@ -18,7 +21,9 @@ import { CustomFormsModule } from 'ng2-validation';
     RouterModule,
     BrowserAnimationsModule,   /*动画所需Module*/
     LoginmodelModule,
-    CustomFormsModule  //引入ng2-validation
+    CustomFormsModule,  //引入ng2-validation
+    BaseModule,
+    // ProgressModule
   ],
   declarations: [
     UnitexamComponent,

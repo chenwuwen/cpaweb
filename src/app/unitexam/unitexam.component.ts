@@ -1,3 +1,4 @@
+import { ProgressComponent } from './../common/progress/progress.component';
 import { state } from '@angular/animations';
 import { Component, ElementRef, Input, OnInit, ViewChild } from '@angular/core';
 import { ActivatedRoute, Router } from "@angular/router";
@@ -29,12 +30,15 @@ export class UnitexamComponent implements OnInit {
   private commentContentIndexs: boolean[] = new Array();  //评论试题内容索引数组
   private Listcomment: any[] = new Array();   //获取试题评论数组
   public commentContent: any[] = new Array();  //评论内容数组,用在表单验证上
+  public progressStatus: boolean = false; //进度条是否显示
 
 
   @ViewChild('scoreModal')
   public scoreModal: ModalDirective;
   @ViewChild('loginModal')
   private loginModal: LoginmodelComponent;
+  @ViewChild('progress')
+  private progress: ProgressComponent;
 
   constructor(private _route: ActivatedRoute,
     private _router: Router,
@@ -48,6 +52,8 @@ export class UnitexamComponent implements OnInit {
       this.typeCode = params['typeCode'] || '';
       /*切换路由将上次用户回答置为空;此设值不能写在构造函数中，因为构造函数只在组建被访问时执行，而是应该写在订阅里，这样每次切换菜单，都可以重置数组*/
       this.pAnswers = [];
+      // 初始化显示加载进度条
+      this.progressStatus = !this.progressStatus
     });
   }
 
@@ -67,6 +73,8 @@ export class UnitexamComponent implements OnInit {
       /*从service获取数据，订阅将数据到Component*/
       this.Listdata = res['data'];
       this.totleCount = res['totalCount'];
+      //设置进度条的值
+      this.progress.rate(100);;
       // this.collectIndexs = new Array(this.Listdata.length)
       for (var i = 0; i < this.Listdata.length; i++) {
         this.collectIndexs.push(true);
@@ -74,7 +82,11 @@ export class UnitexamComponent implements OnInit {
         this.commentContentIndexs.push(false);
         this.Listcomment.push();
       }
+      //加载试题成功,销毁进度条
+      this.progressStatus = !this.progressStatus
     }, (err) => {
+      //加载试题失败,销毁进度条
+      // this.progressStatus = !this.progressStatus
       console.log(`error ${err}`);
     }, () => console.log(`编译！`)
     );

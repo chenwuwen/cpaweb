@@ -1,3 +1,4 @@
+import { MypaginationModule } from './common/mypagination/mypagination.module';
 import {BrowserModule} from '@angular/platform-browser';
 /*每个在浏览器中运行的应用的根模块都需要引入BrowserModule*/
 import {NgModule} from '@angular/core';
@@ -25,6 +26,8 @@ import {UsercenterModule} from './usercenter/usercenter.module';
 import {LoginmodelModule} from './common/loginmodel/loginmodel.module';
 import {AppService} from './app.service';
 import {loginStateReducer} from "./common/reducer/commonReducer";
+import { ProgressComponent } from './common/progress/progress.component';
+import { ProgressModule } from './common/progress/progress.module';
 
 @NgModule({
   declarations: [/*声明属于本模块的组件，每个组件(管道)必须在且仅在一个模块中声明,g*/
@@ -57,7 +60,9 @@ import {loginStateReducer} from "./common/reducer/commonReducer";
      */
     StoreModule.provideStore({
       loginState: loginStateReducer,
-    })
+    }),
+    ProgressModule,
+    MypaginationModule
   ],
   providers: [/*声明模块中使用的服务的提供者,对于appModule来说,也应该就是控制导航菜单显示了，即权限控制*/
     AppService
