@@ -4,7 +4,7 @@ import {Observable} from "rxjs/Observable";
 import {Http, Headers, Response, URLSearchParams, RequestOptions} from "@angular/http";
 
 @Injectable()
-export class ItemmanagerService {
+export class AddExamService {
 
   constructor(private _http: Http) {
   }

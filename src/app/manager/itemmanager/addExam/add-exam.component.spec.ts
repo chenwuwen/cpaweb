@@ -1,6 +1,6 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { ItemmanagerComponent } from './itemmanager.component';
+import { ItemmanagerComponent } from './add-exam.component';
 
 describe('ItemmanagerComponent', () => {
   let component: ItemmanagerComponent;

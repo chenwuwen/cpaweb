@@ -1,23 +1,23 @@
-import { Component, OnInit } from '@angular/core';
-import { CpaOption, CpaSolution, Item } from "./item-model";
-import { ItemmanagerService } from "./itemmanager.service";
-import { FormBuilder, FormControl, FormGroup, Validators } from "@angular/forms";
+import {Component, OnInit} from '@angular/core';
+import {CpaOption, CpaSolution, Item} from './item-model';
+import {AddExamService} from './add-exam.service';
+import {FormBuilder, FormControl, FormGroup, Validators} from '@angular/forms';
 import swal from 'sweetalert2';
-import { DigitalTransferPipe } from '../../common/pipe/DigitalTransferPipe/digital-transfer.pipe';
+import {DigitalTransferPipe} from '../../../common/pipe/DigitalTransferPipe/digital-transfer.pipe';
 
 @Component({
-  selector: 'app-itemmanager',
-  templateUrl: './itemmanager.component.html',
-  styleUrls: ['./itemmanager.component.css']
+  selector: 'app-addExam',
+  templateUrl: './add-exam.component.html',
+  styleUrls: ['./add-exam.component.css']
 })
-export class ItemmanagerComponent implements OnInit {
+export class AddExamComponent implements OnInit {
 
   private addItemForm: FormGroup;
   public serialNumber: number = 0;  //新增试题返回ID
   public checkeds: Array<any> = []; //多选题选择的答案数组
   private genre: number = 1;  //控制单选Dom，多选Dom的标志
 
-  constructor(private fromBuild: FormBuilder, private _itemManagerService: ItemmanagerService) {
+  constructor(private fromBuild: FormBuilder, private _addExamService: AddExamService) {
   }
 
   ngOnInit() {
@@ -46,18 +46,18 @@ export class ItemmanagerComponent implements OnInit {
         ['', [Validators.required]],
         ['', [Validators.required]]
       ])
-    })
+    });
   };
 
   /**
    * checkbox选择事件
-   * @param check 
-   * @param value 
+   * @param check
+   * @param value
    */
   selectCheckbox(check: boolean, value: string) {
     // console.log(result);
     //先判断选中的数组里面是否包括当前值,includes目前不支持
-    //var isInclude:boolean = this.selectHobby.includes(value); 
+    //var isInclude:boolean = this.selectHobby.includes(value);
     var index: number = this.checkeds.indexOf(value);
     //当前选择的就追加否则就移除
     if (check) {
@@ -67,7 +67,7 @@ export class ItemmanagerComponent implements OnInit {
     } else {
       this.checkeds = this.checkeds.filter((ele, index) => {
         return ele != value;
-      })
+      });
     }
 
     console.log(`当前多选题的答案有：` + this.checkeds.toString());
@@ -81,13 +81,13 @@ export class ItemmanagerComponent implements OnInit {
     //当选择的是多选题,将选择的答案,赋给表单的value里面
     this.addItemForm.patchValue({
       result: this.checkeds.toString()
-    })
+    });
 
   }
 
   /**
    * 提交新增的试题
-   * @param value 
+   * @param value
    */
   submitItem(value: any): void {
     console.log(value);
@@ -104,59 +104,59 @@ export class ItemmanagerComponent implements OnInit {
     let cpaOptions: Array<CpaOption> = [];
     let digitalTransferPipe: DigitalTransferPipe = new DigitalTransferPipe();
     for (var i = 0, k = value.cpaOptions.length; i < k; i++) {
-      const cpaOption: CpaOption = { selectData: digitalTransferPipe.transform(i), optionData: value.cpaOptions[i] }
+      const cpaOption: CpaOption = {selectData: digitalTransferPipe.transform(i), optionData: value.cpaOptions[i]};
       cpaOptions.push(cpaOption);
     }
     console.log('cpaOptions : ' + JSON.stringify(cpaOptions));
-    this._itemManagerService.addItem(item, cpaOptions, cpaSolution).subscribe(res => {
-      if (res['status'] == 0) {
-        console.log(`用户未登录,但是会有个问题就是,此页面是管理员页面,如果未登陆,是弹出登陆框,还是跳到登陆页面进行登陆,值得商榷`);
-        return
-      }
-      this.serialNumber = res['data'];
-      this.tip(this.serialNumber);
-      // 表单重置
-      this.addItemForm.reset();
-    }, (err) => {
-      this.tip(this.serialNumber);
-      console.log(`error ${err}`);
-    }, () => console.log(`编译！`)
-    )
+    this._addExamService.addItem(item, cpaOptions, cpaSolution).subscribe(res => {
+        if (res['status'] == 0) {
+          console.log(`用户未登录,但是会有个问题就是,此页面是管理员页面,如果未登陆,是弹出登陆框,还是跳到登陆页面进行登陆,值得商榷`);
+          return;
+        }
+        this.serialNumber = res['data'];
+        this.tip(this.serialNumber);
+        // 表单重置
+        this.addItemForm.reset();
+      }, (err) => {
+        this.tip(this.serialNumber);
+        console.log(`error ${err}`);
+      }, () => console.log(`编译！`)
+    );
     console.log(`click button`);
   }
 
   /**
    * 更换单选题多选题Dom
-   * @param genre 
+   * @param genre
    */
   changeGenre(genreVal: string): void {
-    console.log(`更换选择题题型` + genreVal)
+    console.log(`更换选择题题型` + genreVal);
     this.addItemForm.patchValue({
       result: ''
-    })
-    if (genreVal == "exclusive") {
+    });
+    if (genreVal == 'exclusive') {
       this.genre = 1;
     } else {
-      this.genre = 2
+      this.genre = 2;
     }
-    console.log(`当前选择的题型为：` + this.genre)
+    console.log(`当前选择的题型为：` + this.genre);
   }
 
   tip(serialNumber: number): void {
     if (serialNumber > 0) {
       swal({
         title: '提示',
-        text: "提交成功!",
+        text: '提交成功!',
         type: 'success',
         timer: 2000
-      })
+      });
     } else {
       swal({
         title: '提示',
-        text: "提交失败!",
+        text: '提交失败!',
         type: 'warning',
         timer: 2000
-      })
+      });
     }
   }
 }

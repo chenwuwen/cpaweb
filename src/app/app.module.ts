@@ -1,4 +1,4 @@
-import { MypaginationModule } from './common/mypagination/mypagination.module';
+import {MypaginationModule} from './common/mypagination/mypagination.module';
 import {BrowserModule} from '@angular/platform-browser';
 /*每个在浏览器中运行的应用的根模块都需要引入BrowserModule*/
 import {NgModule} from '@angular/core';
@@ -18,16 +18,15 @@ import {StoreModule} from '@ngrx/store';
 
 import {AppComponent} from './app.component';
 import {appRoutes} from './app.routes';
-import {UnitexamModule} from "./unitexam/unitexam.module"
-import {HomeModule} from "./home/home.module";
-import {ManagerModule} from "./manager/manager.module";
-import {ItemmanagerModule} from "./manager/itemmanager/itemmanager.module";
+import {UnitexamModule} from './unitexam/unitexam.module';
+import {HomeModule} from './home/home.module';
+import {ManagerModule} from './manager/manager.module';
+import {ItemmanagerModule} from './manager/itemmanager/itemmanager.module';
 import {UsercenterModule} from './usercenter/usercenter.module';
 import {LoginmodelModule} from './common/loginmodel/loginmodel.module';
 import {AppService} from './app.service';
-import {loginStateReducer} from "./common/reducer/commonReducer";
-import { ProgressComponent } from './common/progress/progress.component';
-import { ProgressModule } from './common/progress/progress.module';
+import {loginStateReducer} from './common/reducer/commonReducer';
+import {ProgressModule} from './common/progress/progress.module';
 
 @NgModule({
   declarations: [/*声明属于本模块的组件，每个组件(管道)必须在且仅在一个模块中声明,g*/

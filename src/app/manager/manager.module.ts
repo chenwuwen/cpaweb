@@ -3,8 +3,8 @@ import {CommonModule} from '@angular/common';
 import {ManagerComponent} from "./manager.component";
 import {RouterModule} from "@angular/router";
 import {managerRoutes} from "./manager.routes";
-import {ItemmanagerModule} from "./itemmanager/itemmanager.module";
 import {DashboardModule} from "./dashboard/dashboard.module";
+import {ItemmanagerModule} from './itemmanager/itemmanager.module';
 
 
 @NgModule({

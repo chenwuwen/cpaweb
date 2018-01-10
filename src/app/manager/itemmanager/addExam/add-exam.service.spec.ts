@@ -1,6 +1,6 @@
 import { TestBed, inject } from '@angular/core/testing';
 
-import { ItemmanagerService } from './itemmanager.service';
+import { ItemmanagerService } from './add-exam.service';
 
 describe('ItemmanagerService', () => {
   beforeEach(() => {
