@@ -53,7 +53,7 @@ export class UnitexamComponent implements OnInit {
       /*切换路由将上次用户回答置为空;此设值不能写在构造函数中，因为构造函数只在组建被访问时执行，而是应该写在订阅里，这样每次切换菜单，都可以重置数组*/
       this.pAnswers = [];
       // 初始化显示加载进度条
-      this.progressStatus = !this.progressStatus
+      this.progressStatus = !this.progressStatus;
     });
   }
 
@@ -181,7 +181,7 @@ export class UnitexamComponent implements OnInit {
         this.tip1();
       } else {
         // this.tip();
-        // 评论完成,将评论数加一,此处应该在后台查询,先这样写吧 
+        // 评论完成,将评论数加一,此处应该在后台查询,先这样写吧
         console.log(this.Listcomment[index]);
         console.log(typeof this.Listcomment[index]);
         this.Listcomment[index].commentCount = this.Listcomment[index].commentCount + 1;
@@ -196,7 +196,7 @@ export class UnitexamComponent implements OnInit {
   }
   //打开关闭评论窗口
   toggleCommentwindow(index: number): void {
-    this.commentIndexs[index] = !this.commentIndexs[index]
+    this.commentIndexs[index] = !this.commentIndexs[index];
   }
 
   // 获取试题评论

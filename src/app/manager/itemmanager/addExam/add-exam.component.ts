@@ -1,12 +1,12 @@
 import {Component, OnInit} from '@angular/core';
-import {CpaOption, CpaSolution, Item} from './item-model';
+import {CpaOption, CpaSolution, Item} from '../item-model';
 import {AddExamService} from './add-exam.service';
 import {FormBuilder, FormControl, FormGroup, Validators} from '@angular/forms';
 import swal from 'sweetalert2';
 import {DigitalTransferPipe} from '../../../common/pipe/DigitalTransferPipe/digital-transfer.pipe';
 
 @Component({
-  selector: 'app-addExam',
+  selector: 'app-add-exam',
   templateUrl: './add-exam.component.html',
   styleUrls: ['./add-exam.component.css']
 })

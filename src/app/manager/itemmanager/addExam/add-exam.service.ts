@@ -1,5 +1,5 @@
 import {Injectable} from '@angular/core';
-import {CpaOption, CpaSolution, Item} from "./item-model";
+import {CpaOption, CpaSolution, Item} from "../item-model";
 import {Observable} from "rxjs/Observable";
 import {Http, Headers, Response, URLSearchParams, RequestOptions} from "@angular/http";
 
