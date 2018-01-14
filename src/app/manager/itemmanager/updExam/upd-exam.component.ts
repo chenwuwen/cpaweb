@@ -1,7 +1,8 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, TemplateRef } from '@angular/core';
 import { UpdExamService } from './upd-exam.service';
 import { Item } from '../item-model';
 import swal from 'sweetalert2';
+import { BsModalService, BsModalRef } from 'ngx-bootstrap';
 
 @Component({
   selector: 'app-upd-exam',
@@ -15,8 +16,9 @@ export class UpdExamComponent implements OnInit {
   private cpaRepertory: Item = new Item();
   private pageNo: number = 0;
   private pageSize: number = 0;
+  private modalRef: BsModalRef;
 
-  constructor(private _updExamService: UpdExamService) {
+  constructor(private _updExamService: UpdExamService,private modalService: BsModalService) {
 
   }
 
@@ -53,6 +55,8 @@ export class UpdExamComponent implements OnInit {
    * @param number 
    */
   delExamTip(idEle: any): void {
+    console.log("idEle的类型为："+idEle)
+    console.log(`console.log()方法在打印对象时,如果跟上了字符串,则该对象将被打印成字符串(如上所示),单独打印对象,则会打印出Dom数组或者对象本身(如下所示)`)
     console.log(idEle)
     swal({
       title: '警告',
@@ -69,23 +73,41 @@ export class UpdExamComponent implements OnInit {
     }).then(function (isConfirm) {
       if (isConfirm === true && this.delExam(idEle)) {
         swal(
-          'Deleted!',
-          'Your file has been deleted.',
+          '成功!',
+          '删除成功.',
           'success'
         );
       } else if (isConfirm === false) {
         swal(
-          'Cancelled',
-          'Your imaginary file is safe :)',
+          '已取消',
+          '您取消了当前操作 :)',
           'error'
         );
+      } else if (!this.delExam(idEle)) {
+        swal(
+          '失败',
+          '删除试题失败 :(',
+          'error'
+        )
       } else {
         // Esc, close button or outside click
         // isConfirm is undefined
+        swal(
+          '已取消',
+          '您取消了当前操作 :)',
+          'error'
+        );
       }
     })
   }
 
+  /**
+   * 打开修改试题弹窗
+   * @param template 
+   */
+  openupdExamModal(template: TemplateRef<any>) {
+    this.modalRef = this.modalService.show(template);
+  }
 
   // updExam(id: any) {
   //   confirm
@@ -112,7 +134,7 @@ export class UpdExamComponent implements OnInit {
    * 删除试题
    * @param id 
    */
-  delExam(idEle: any): boolean {
+   delExam(idEle: any): boolean {
     console.log(`被删除的试题Id：` + idEle.abbr);
     let key: boolean;
     this._updExamService.delExam(idEle.abbr).subscribe(res => {
