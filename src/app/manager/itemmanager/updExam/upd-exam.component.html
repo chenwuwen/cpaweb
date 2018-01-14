@@ -1,8 +1,7 @@
 <form class="form-inline" #searchForm="ngForm" (ngSubmit)="getListExam()">
   <div class="form-group">
     <label for="testStem">题干名称</label>
-    <input type="text" [(ngModel)]="cpaRepertory.testStem" class="form-control" id="testStem" name="testStem"
-           placeholder="Jane Doe">
+    <input type="text" [(ngModel)]="cpaRepertory.testStem" class="form-control" id="testStem" name="testStem" placeholder="Jane Doe">
   </div>
   <div class="form-group">
     <label for="testType">试题类型</label>
@@ -19,30 +18,35 @@
 <div class="table-responsive">
   <table class="table table-striped">
     <thead>
-    <tr>
-      <th>#</th>
-      <th>题干</th>
-      <th>类型</th>
-      <th>时间</th>
-      <th>操作</th>
-    </tr>
+      <tr>
+        <th>#</th>
+        <th>题干</th>
+        <th>类型</th>
+        <th>时间</th>
+        <th>操作</th>
+      </tr>
     </thead>
     <tbody>
-    <tr *ngFor="let item of ListExam">
-      <td></td>
-      <td>{{item.testStem}}</td>
-      <td>{{item.testType}}</td>
-      <td #id [ngStyle]="{'display':1==1}">{{item.id}}</td>
-      <!--<td><a href="javascript:void(0)" (click)="updExam(id)">修改</a><a href="javascript:void(0)" (click)="delExam(id)">删除</a></td>-->
+      <tr *ngFor="let item of ListExam;let i = index">
+        <td>{{i+1}}</td>
+        <td triggers="mouseenter" container="body" tooltip="{{item.testStem}}" placement="auto">{{item.testStem|sliceString:0:25:'...'}}</td>
+        <td>{{item.testType}}</td>
+        <td>{{item.choice}}</td>
+        <td>{{item.insertDate}}</td>
+        <td >{{item.id}}</td>
+        <td #idEle abbr="{{item.id}}">
+          <a href="javascript:void(0)" (click)="getExamDetail(idEle)">修改</a>
+          <a href="javascript:void(0)" (click)="delExamTip(idEle)">删除</a>
+        </td>
 
-    </tr>
+      </tr>
     </tbody>
   </table>
   <!--分页-->
   <div class="row">
     <div class="col-xs-12 col-12">
-      <pagination [totalItems]="bigTotalItems" [(ngModel)]="bigCurrentPage" [maxSize]="maxSize" class="pagination-sm"
-                  [boundaryLinks]="true" [rotate]="false" (numPages)="numPages = $event"></pagination>
+      <pagination [totalItems]="bigTotalItems" [(ngModel)]="bigCurrentPage" [maxSize]="maxSize" class="pagination-sm" [boundaryLinks]="true"
+        [rotate]="false" (numPages)="numPages = $event"></pagination>
     </div>
   </div>
 

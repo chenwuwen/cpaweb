@@ -8,6 +8,7 @@ import { FileUploadModule } from 'ng2-file-upload';
 import { ProgressComponent } from './progress/progress.component';
 import { MypaginationModule } from './mypagination/mypagination.module';
 import { ProgressModule } from './progress/progress.module';
+import { SliceStringPipe } from './pipe/SubstrStringPipe/slice-string.pipe';
 
 @NgModule({
   imports: [
@@ -16,9 +17,9 @@ import { ProgressModule } from './progress/progress.module';
     MypaginationModule,
     // LoginmodelModule
   ],
-  declarations: [DigitalTransferPipe, ChangePostBodyPipe
+  declarations: [DigitalTransferPipe, ChangePostBodyPipe,SliceStringPipe
 ],
-  exports: [DigitalTransferPipe, ChangePostBodyPipe,ProgressModule]
+  exports: [DigitalTransferPipe, ChangePostBodyPipe,SliceStringPipe,ProgressModule]
 })
 export class BaseModule {
 }
