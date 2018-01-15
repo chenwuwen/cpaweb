@@ -2,6 +2,7 @@ export class Item {
   testStem: string;
   testType: string;
   choice: string;
+  insertDate: string;
 
   // cpaOptionDtos: Array<CpaOption> 这种方式也可以成为泛型
   // cpaOptionDtos: CpaOption[];

@@ -1,7 +1,8 @@
 <form class="form-inline" #searchForm="ngForm" (ngSubmit)="getListExam()">
   <div class="form-group">
     <label for="testStem">题干名称</label>
-    <input type="text" [(ngModel)]="cpaRepertory.testStem" class="form-control" id="testStem" name="testStem" placeholder="Jane Doe">
+    <input type="text" [(ngModel)]="cpaRepertory.testStem" class="form-control" id="testStem" name="testStem"
+           placeholder="输入要搜索的试题">
   </div>
   <div class="form-group">
     <label for="testType">试题类型</label>
@@ -18,38 +19,142 @@
 <div class="table-responsive">
   <table class="table table-striped">
     <thead>
-      <tr>
-        <th>#</th>
-        <th>题干</th>
-        <th>类型</th>
-        <th>时间</th>
-        <th>操作</th>
-      </tr>
+    <tr>
+      <th>#</th>
+      <th>题干</th>
+      <th>类型</th>
+      <th>时间</th>
+      <th>操作</th>
+    </tr>
     </thead>
     <tbody>
-      <tr *ngFor="let item of ListExam;let i = index">
-        <td>{{i+1}}</td>
-        <td triggers="mouseenter" container="body" tooltip="{{item.testStem}}" placement="auto">{{item.testStem|sliceString:0:25:'...'}}</td>
-        <td>{{item.testType}}</td>
-        <td>{{item.choice}}</td>
-        <td>{{item.insertDate}}</td>
-        <td >{{item.id}}</td>
-        <td #idEle abbr="{{item.id}}">
-          <a href="javascript:void(0)" (click)="getExamDetail(idEle)">修改</a>
-          <a href="javascript:void(0)" (click)="delExamTip(idEle)">删除</a>
-        </td>
+    <tr *ngFor="let item of ListExam;let i = index">
+      <td>{{i+1}}</td>
+      <td triggers="mouseenter" container="body" tooltip="{{item.testStem}}" placement="auto">
+        {{item.testStem|sliceString:0:25:'...'}}
+      </td>
+      <td>{{item.testType}}</td>
+      <td>{{item.choice}}</td>
+      <td>{{item.insertDate}}</td>
+      <td>{{item.id}}</td>
+      <td #idEle abbr="{{item.id}}">
+        <a href="javascript:void(0)" (click)="getExamDetail(idEle)">修改</a>
+        <a href="javascript:void(0)" (click)="delExamTip(idEle)">删除</a>
+      </td>
 
-      </tr>
+    </tr>
     </tbody>
   </table>
 
-
 </div>
 
-  <!--分页-->
-  <div class="row">
-    <div class="col-xs-12 col-12">
-      <pagination [totalItems]="bigTotalItems" [(ngModel)]="bigCurrentPage" [maxSize]="maxSize" class="pagination-sm" [boundaryLinks]="true"
-        [rotate]="false" (numPages)="numPages = $event"></pagination>
+
+<!--分页-->
+<div class="row">
+  <div class="col-xs-12 col-12">
+    <pagination [totalItems]="bigTotalItems" [(ngModel)]="bigCurrentPage" [maxSize]="maxSize" class="pagination-sm"
+                [boundaryLinks]="true"
+                [rotate]="false" (numPages)="numPages = $event"></pagination>
+  </div>
+</div>
+
+<!--修改试题Modal-->
+<div *ngIf="isModalShown" [config]="{ show: true }" (onHidden)="onHidden()" bsModal #udpExamModal="bs-modal"
+     class="modal fade" tabindex="-1" role="dialog" aria-hidden="true">
+  <div class="modal-dialog modal-lg">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h4 class="modal-title pull-left">试题修改</h4>
+        <button type="button" class="close pull-right" aria-label="Close" (click)="hideModal()">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <form class="form-horizontal" role="form" #updExamForm="ngForm" (ngSubmit)="updExam()">
+          <div class="form-group">
+            <div class="col-md-5">
+              <div class="input-group">
+                <span class="input-group-addon">题干</span>
+                <input class="form-control" [(ngModel)]="item.testStem" name="testStem">
+              </div>
+            </div>
+          </div>
+          <div class="form-group" *ngFor="let option of cpaOptions;let i of index">
+            <div class="col-md-5">
+              <div class="input-group">
+                <span class="input-group-addon">{{option.selectData}}</span>
+                <input class="form-control" [(ngModel)]="option.optionData" [name]="option.id">
+              </div>
+            </div>
+          </div>
+          <div class="form-group">
+            <div class="col-md-5">
+              <label for="testType">试题类型</label>
+              <select class="form-control" [(ngModel)]="item.testType" name="testType">
+                <option value="null">------</option>
+                <option value="basicAccount">会计基础</option>
+                <option value="cpuAccount">会计电算化</option>
+                <option value="statuteEthics">财经法规与职业道德</option>
+              </select>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <div class="col-sm-9">
+              <label class="radio-inline">
+                <input name="choice" type="radio" (click)="changeGenre('exclusive')" value="exclusive"
+                       [(ngModel)]="item.choice"> 单选题
+              </label>
+              <label class="radio-inline">
+                <input name="choice" type="radio" (click)="changeGenre('multiple')" value="multiple"
+                       [(ngModel)]="item.choice"> 多选题
+              </label>
+            </div>
+          </div>
+
+          <!-- 单选题DOM -->
+          <div class="form-group" *ngIf="item.choice == 'exclusive'">
+            <div class="col-sm-9">
+              <label class="radio-inline">
+                <input type="radio" value="A" name="result" [(ngModel)]="cpaSolution.result"> A
+              </label>
+              <label class="radio-inline">
+                <input type="radio" value="B" name="result" [(ngModel)]="cpaSolution.result"> B
+              </label>
+              <label class="radio-inline">
+                <input type="radio" value="C" name="result" [(ngModel)]="cpaSolution.result"> C
+              </label>
+              <label class="radio-inline">
+                <input type="radio" value="D" name="result" [(ngModel)]="cpaSolution.result"> D
+              </label>
+            </div>
+          </div>
+
+          <!-- 多选题DOM -->
+          <div class="form-group" *ngIf="item.choice=='multiple'">
+            <div class="col-sm-9">
+              <label class="radio-inline">
+                <input type="checkbox" (click)="selectCheckbox($event.target.checked,'A')" value="A" name="result"> A
+              </label>
+              <label class="radio-inline">
+                <input type="checkbox" (click)="selectCheckbox($event.target.checked,'B')" value="B" name="result"> B
+              </label>
+              <label class="radio-inline">
+                <input type="checkbox" (click)="selectCheckbox($event.target.checked,'C')" value="C" name="result"> C
+              </label>
+              <label class="radio-inline">
+                <input type="checkbox" (click)="selectCheckbox($event.target.checked,'D')" value="D" name="result"> D
+              </label>
+            </div>
+          </div>
+
+        </form>
+      </div>
+      <div class="modal-footer">
+        <button type="submit" [disabled]="!updExamForm.form.valid" class="btn btn-primary" (click)="updExam()">提交
+        </button>
+        <button (click)="udpExamModal.hide()" type="button" class="btn btn-secondary" data-dismiss="modal">关闭</button>
+      </div>
     </div>
   </div>
+</div>
