@@ -66,11 +66,6 @@ export class LoginmodelComponent implements OnInit {
     this.isModalShown = true;
   }
 
-  // 关闭Modal
-  public onHidden(): void {
-    this.loginModal.hide();
-    this.isModalShown = false;
-  }
 
   public changeLoginSchema(): void {
     this.schema = 1;
@@ -93,6 +88,7 @@ export class LoginmodelComponent implements OnInit {
   public handler(type: string, $event: ModalDirective) {
     console.log(`type:  ` + type);
     // $event.dismissReason
+    // 关闭Modal
     if (type == 'onHidden') {
       /* 登陆弹窗隐藏后重置表单[以下两种方式都可以,第二种应该来说更规范一些,但需要在组件内定义变量来获取表单]*/
       // this.cpaUser = new CpaUser();
@@ -100,6 +96,12 @@ export class LoginmodelComponent implements OnInit {
       this.loginForm.reset();
       this.registerForm.reset();
       this.isModalShown = false;
+      this.loginModal.hide();
+      //将错误信息屏蔽
+      this.ifshow = false;
+      this.ifshow1 = false;
+      this.ifshow2 = false;
+      this.ifshow3 = false;
     } else {
       /* 验证码需要在弹窗显示出来后才可以重置否则报错故写在(onShown)方法里 */
       this.reloadValidateCode();

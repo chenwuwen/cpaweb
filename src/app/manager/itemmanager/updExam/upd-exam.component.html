@@ -23,6 +23,7 @@
       <th>#</th>
       <th>题干</th>
       <th>类型</th>
+      <th>题型</th>
       <th>时间</th>
       <th>操作</th>
     </tr>
@@ -36,7 +37,8 @@
       <td>{{item.testType}}</td>
       <td>{{item.choice}}</td>
       <td>{{item.insertDate}}</td>
-      <td>{{item.id}}</td>
+      <!--试题ID-->
+      <!--<td>{{item.id}}</td>-->
       <td #idEle abbr="{{item.id}}">
         <a href="javascript:void(0)" (click)="getExamDetail(idEle)">修改</a>
         <a href="javascript:void(0)" (click)="delExamTip(idEle)">删除</a>
