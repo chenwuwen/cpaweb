@@ -3,6 +3,7 @@ import {UpdExamService} from './upd-exam.service';
 import {CpaOption, CpaSolution, Item} from '../item-model';
 import swal from 'sweetalert2';
 import {ModalDirective} from 'ngx-bootstrap';
+import {Observable} from 'rxjs/Observable';
 
 @Component({
   selector: 'app-upd-exam',
@@ -13,7 +14,9 @@ export class UpdExamComponent implements OnInit {
 
   private ListExam: Array<any>;
   private bigCurrentPage: number;
+  /**试题搜索表单*/
   private cpaRepertory: Item = new Item();
+  /**试题修改表单*/
   private item: Item = new Item();
   private cpaOptions: Array<CpaOption>;
   private cpaSolution: CpaSolution = new CpaSolution();
@@ -78,27 +81,29 @@ export class UpdExamComponent implements OnInit {
       buttonsStyling: false
     }).then(isConfirm => {
       // 这个地方使用了this,上面应该使用箭头函数而不是function,否则this指向有问题
-      if (isConfirm === true && this.delExam(idEle)) {
-        swal(
-          '成功!',
-          '删除成功.',
-          'success'
-        );
+      if (isConfirm === true) {
+        this.delExam(idEle).subscribe(key => {
+          if (key) {
+            swal(
+              '成功!',
+              '删除试题成功.',
+              'success'
+            );
+          } else {
+            swal(
+              '失败',
+              '删除试题失败 :(',
+              'error'
+            );
+          }
+        }, (error2 => {
+          swal(
+            '失败',
+            '删除试题失败 :(',
+            'error'
+          );
+        }));
       } else if (isConfirm === false) {
-        swal(
-          '已取消',
-          '您取消了当前操作 :)',
-          'error'
-        );
-      } else if (!this.delExam(idEle)) {
-        swal(
-          '失败',
-          '删除试题失败 :(',
-          'error'
-        );
-      } else {
-        // Esc, close button or outside click
-        // isConfirm is undefined
         swal(
           '已取消',
           '您取消了当前操作 :)',
@@ -110,13 +115,26 @@ export class UpdExamComponent implements OnInit {
 
 
   /**
-   *
+   * 提交修改试题
    * @param id
    */
-  // updExam(id: any):void {
-  //    this._updExamService.updEx
-  //
-  // }
+  updExam(): void {
+    console.log(this.item);
+    console.log(this.cpaOptions);
+    console.log(this.cpaSolution);
+    this._updExamService.updExam(this.item, this.cpaOptions, this.cpaSolution).subscribe(res => {
+      if (res['state'] == 1) {
+        this.successTip();
+      } else {
+        this.errorTip();
+      }
+    }, (err) => {
+      console.log(`err：${err}`);
+    }, () => {
+      console.log(`编译`);
+    });
+
+  }
 
   /**
    * 获取试题详情【修改试题】
@@ -171,19 +189,44 @@ export class UpdExamComponent implements OnInit {
 
   /**
    * 删除试题
+   * 这个方法被其他方法调用,应写成permise即返回类型应为Observable
+   * 本组件在if中判断该方法的返回值,如果该方法返回值只是booble值,那么if不会等待
+   * 该方法执行完成,再进行判断,而是直接走else了,需要特别注意
    * @param id
    */
-  delExam(idEle: any): boolean {
+  delExam(idEle: any): Observable<boolean> {
     console.log(`被删除的试题Id：` + idEle.abbr);
-    let key: boolean;
-    this._updExamService.delExam(idEle.abbr).subscribe(res => {
-      key = res['state'] == 1 ? true : false;
-    }, (err) => {
-      console.log(`error ${err}`);
-      key = true;
-    }, () => {
-      console.log(`编译`);
+    let key: boolean = false;
+    return this._updExamService.delExam(idEle.abbr).map(res => {
+      // key = res['state'] == 1 ? true : false;
+      key = res['state'] === 1;
+      console.log('删除试题是否成功：' + key);
+      return key;
+    }).catch((err) => {
+      console.error(err.message);
+      return Observable.throw(err.message);
     });
-    return key;
+  }
+
+  /**
+   * 成功提示
+   */
+  successTip() {
+    swal(
+      '成功!',
+      '',
+      'success'
+    );
+  }
+
+  /**
+   * 失败提示
+   */
+  errorTip() {
+    swal(
+      '失败!',
+      '',
+      'error'
+    );
   }
 }

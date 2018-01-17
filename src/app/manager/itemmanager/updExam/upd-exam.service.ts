@@ -1,5 +1,5 @@
 import {Injectable} from '@angular/core';
-import {Headers, Http, RequestOptions, Response} from '@angular/http';
+import {Headers, Http, RequestOptions, Response, URLSearchParams} from '@angular/http';
 import {Observable} from 'rxjs/Observable';
 
 import {CpaOption, CpaSolution, Item} from '../item-model';
@@ -24,11 +24,11 @@ export class UpdExamService {
   /**
    * 获取试题列表
    */
-  getListExam(pageNo: number, pageSize: number, cpaRepertory: any): Observable<any> {
+  getListExam(pageNo: number, pageSize: number, cpaRepertory: Item): Observable<any> {
     let url = '/api/unitExam/getListExam';
     console.log('后台管理,【试题列表】pageNo: ' + pageNo);
     console.log('后台管理,【试题列表】pageSize: ' + pageSize);
-    return this._http.post(url, {pageNo, pageSize, cpaRepertory}, this.getOptions()).map(this.extractData).catch(this.handleError);
+    return this._http.post(url, {pageNo, pageSize, cpaRepertory}).map(this.extractData).catch(this.handleError);
   }
 
   /**
