@@ -92,9 +92,11 @@ export class AddExamComponent implements OnInit {
   submitItem(value: any): void {
     console.log(value);
     const item: Item = {
+      id: null,
       testStem: value.testStem,
       testType: value.testType,
-      choice: value.choice
+      choice: value.choice,
+      insertDate: null
     };
     console.log(`Item : ` + JSON.stringify(item));
     const cpaSolution: CpaSolution = {
