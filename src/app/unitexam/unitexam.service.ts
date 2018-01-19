@@ -1,5 +1,5 @@
 import {Injectable} from '@angular/core';
-import {Http, Headers, Response, RequestOptions} from '@angular/http';
+import {Http, Headers, Response, URLSearchParams, RequestOptions} from '@angular/http';
 import {Observable} from 'rxjs/Observable';
 import 'rxjs/add/operator/catch';
 
@@ -11,7 +11,7 @@ export class UnitexamService {
 
   // 私有变量加上下划线符号
   // private _url = "/api/unitExam/getUnitExam/";
-  private getOptions(): RequestOptions {
+  private getOptions(params: URLSearchParams): RequestOptions {
     var headers: Headers = new Headers();
     // angular post请求默认是json格式的即请求头时application/json;charset=utf-8，这是springMVc接受参数需要添加@RequestBody注解
     // 而springMvc的默认接受请求头为application/x-www-form-urlencoded;charset=utf-8'，即jquery Ajax那种 data:{}方式
@@ -20,7 +20,7 @@ export class UnitexamService {
       // 通常token前面需要加bearer
       headers.append('Authorization', 'Bearer ' + localStorage.getItem('token'));
     }
-    let opts = new RequestOptions({headers: headers});
+    let opts = new RequestOptions({headers: headers, search: params});
     opts.headers = headers;
     return opts;
   }
@@ -29,9 +29,14 @@ export class UnitexamService {
   返回的结果可能会很惊讶，因为我们会比较期待返回一个 promise，这样我们可以使用 then() 来获取数据，然后我们调用了 map() 方法，而非 promise。
   事实上，http.get 方法返回的是一个HTTP响应 Observable 对象，由RxJS库提供，map() 也是RxJS的一个操作符。同时Angular也推荐使用RXJS*/
 
-  getUnitExam(typeCode: string): Observable<any> {
+  getUnitExam(typeCode: string, pageNo: number, pageSize: number): Observable<any> {
     let url = '/api/unitExam/getUnitExam/';
-    return this._http.get(url + typeCode)
+    let params = new URLSearchParams();
+    console.log(pageNo.toString());
+    params.set('pageNo', pageNo.toString());
+    params.set('pageSize', pageSize.toString());
+    let options = this.getOptions(params);
+    return this._http.get(url + typeCode, options)
       .map(this.extractData)
       .catch(this.handleError);
   }

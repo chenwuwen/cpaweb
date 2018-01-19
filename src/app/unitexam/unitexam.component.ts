@@ -1,12 +1,12 @@
-import { ProgressComponent } from './../common/progress/progress.component';
-import { state } from '@angular/animations';
-import { Component, ElementRef, Input, OnInit, ViewChild } from '@angular/core';
-import { ActivatedRoute, Router } from "@angular/router";
-import { UnitexamService } from "./unitexam.service";
-import { flyIn } from '../animations/fly-in';
-import { BsModalService, ModalDirective } from "ngx-bootstrap";
+import {ProgressComponent} from './../common/progress/progress.component';
+import {state} from '@angular/animations';
+import {Component, ElementRef, Input, OnInit, ViewChild} from '@angular/core';
+import {ActivatedRoute, Router} from '@angular/router';
+import {UnitexamService} from './unitexam.service';
+import {flyIn} from '../animations/fly-in';
+import {BsModalService, ModalDirective} from 'ngx-bootstrap';
 import swal from 'sweetalert2';
-import { LoginmodelComponent } from '../common/loginmodel/loginmodel.component';
+import {LoginmodelComponent} from '../common/loginmodel/loginmodel.component';
 
 @Component({
   selector: 'app-unitexam',
@@ -40,9 +40,12 @@ export class UnitexamComponent implements OnInit {
   @ViewChild('progress')
   private progress: ProgressComponent;
 
+  private pageNo: number = 0;
+  private pageSize: number = 0;
+
   constructor(private _route: ActivatedRoute,
-    private _router: Router,
-    private _unitexamService: UnitexamService, private _bsModalService: BsModalService) {
+              private _router: Router,
+              private _unitexamService: UnitexamService, private _bsModalService: BsModalService) {
     /*通过这种形式来接收父级页面传过来的值  或者通过  this.route.params['value']['typeCode']*/
     /*route.params是一个可观察对象，可以使用.subscribe(),将参数值提取到固定值，这种情况下，我们将params['id'];赋值给组件实例变量id*/
     // route.params与route.queryParams不同,route.params在路由配置中匹配参数，而queryParams在查询字符串中匹配参数
@@ -69,26 +72,27 @@ export class UnitexamComponent implements OnInit {
   }
 
   getUnitExam(typeCode: string): any {
-    return this._unitexamService.getUnitExam(typeCode).subscribe(res => {
-      /*从service获取数据，订阅将数据到Component*/
-      this.Listdata = res['data'];
-      this.totleCount = res['totalCount'];
-      //设置进度条的值
-      this.progress.rate(100);;
-      // this.collectIndexs = new Array(this.Listdata.length)
-      for (var i = 0; i < this.Listdata.length; i++) {
-        this.collectIndexs.push(true);
-        this.commentIndexs.push(false);
-        this.commentContentIndexs.push(false);
-        this.Listcomment.push();
-      }
-      //加载试题成功,销毁进度条
-      this.progressStatus = !this.progressStatus
-    }, (err) => {
-      //加载试题失败,销毁进度条
-      // this.progressStatus = !this.progressStatus
-      console.log(`error ${err}`);
-    }, () => console.log(`编译！`)
+    return this._unitexamService.getUnitExam(typeCode, this.pageNo, this.pageSize).subscribe(res => {
+        /*从service获取数据，订阅将数据到Component*/
+        this.Listdata = res['data'];
+        this.totleCount = res['totalCount'];
+        //设置进度条的值
+        this.progress.rate(100);
+        ;
+        // this.collectIndexs = new Array(this.Listdata.length)
+        for (var i = 0; i < this.Listdata.length; i++) {
+          this.collectIndexs.push(true);
+          this.commentIndexs.push(false);
+          this.commentContentIndexs.push(false);
+          this.Listcomment.push();
+        }
+        //加载试题成功,销毁进度条
+        this.progressStatus = !this.progressStatus;
+      }, (err) => {
+        //加载试题失败,销毁进度条
+        // this.progressStatus = !this.progressStatus
+        console.log(`error ${err}`);
+      }, () => console.log(`编译！`)
     );
   }
 
@@ -115,7 +119,7 @@ export class UnitexamComponent implements OnInit {
 
   reviewErr(): void {
     this.scoreModal.hide();
-    console.log("查看错题。。。。。。。。");
+    console.log('查看错题。。。。。。。。');
   }
 
   // 查看错题明细，增加样式
@@ -143,24 +147,31 @@ export class UnitexamComponent implements OnInit {
     }
     return falg;
   }
+
   //试题收藏
   toggleCollect(index: number, reId: number): void {
     console.log(`index: ` + index);
     console.dir(`reId: ` + reId);
     this.collectIndexs[index] = !this.collectIndexs[index];
     this._unitexamService.toggleCollect(reId).subscribe(res => {
-      // 用户未登录，弹出登陆框
-      if (res['status'] == 0) {
-        this.collectIndexs[index] = !this.collectIndexs[index];
-        console.log('弹出登陆窗口');
-        // 调用子组件打开登陆窗口
-        this.loginModal.showLoginModal();
-      } else if (res['state'] == 2) {   //操作失败
+        // 用户未登录，弹出登陆框
+        if (res['status'] == 0) {
+          this.collectIndexs[index] = !this.collectIndexs[index];
+          console.log('弹出登陆窗口');
+          // 调用子组件打开登陆窗口
+          this.loginModal.showLoginModal();
+        } else if (res['state'] == 2) {   //操作失败
+          this.collectIndexs[index] = !this.collectIndexs[index];
+          this.tip2();
+        }
+      }, (err) => {
+        console.log(`error ${err}`);
         this.collectIndexs[index] = !this.collectIndexs[index];
         this.tip2();
-      }
-    }, (err) => { console.log(`error ${err}`); this.collectIndexs[index] = !this.collectIndexs[index]; this.tip2(); },
-      () => { console.log(`编译`) })
+      },
+      () => {
+        console.log(`编译`);
+      });
   }
 
 
@@ -169,31 +180,37 @@ export class UnitexamComponent implements OnInit {
     console.log(`reId: ` + reId);
     console.log(`comment: ` + comment);
     this._unitexamService.commentItem(reId, comment).subscribe(res => {
-      this.commentIndexs[index] = !this.commentIndexs[index];
-      // 用户未登录，弹出登陆框
-      if (res['status'] == 0) {
         this.commentIndexs[index] = !this.commentIndexs[index];
-        console.log('弹出登陆窗口');
-        // 调用子组件打开登陆窗口
-        this.loginModal.showLoginModal();
-      } else if (res['state'] == 2) {   //操作失败
-        this.commentIndexs[index] = !this.commentIndexs[index];
-        this.tip1();
-      } else {
-        // this.tip();
-        // 评论完成,将评论数加一,此处应该在后台查询,先这样写吧
-        console.log(this.Listcomment[index]);
-        console.log(typeof this.Listcomment[index]);
-        this.Listcomment[index].commentCount = this.Listcomment[index].commentCount + 1;
-        //如果当前评论窗口是打开状态,触发查看评论方法
-        if (this.commentContentIndexs[index]) {
-          this.getComment(index, reId, 0);
+        // 用户未登录，弹出登陆框
+        if (res['status'] == 0) {
+          this.commentIndexs[index] = !this.commentIndexs[index];
+          console.log('弹出登陆窗口');
+          // 调用子组件打开登陆窗口
+          this.loginModal.showLoginModal();
+        } else if (res['state'] == 2) {   //操作失败
+          this.commentIndexs[index] = !this.commentIndexs[index];
+          this.tip1();
+        } else {
+          // this.tip();
+          // 评论完成,将评论数加一,此处应该在后台查询,先这样写吧
+          console.log(this.Listcomment[index]);
+          console.log(typeof this.Listcomment[index]);
+          this.Listcomment[index].commentCount = this.Listcomment[index].commentCount + 1;
+          //如果当前评论窗口是打开状态,触发查看评论方法
+          if (this.commentContentIndexs[index]) {
+            this.getComment(index, reId, 0);
+          }
         }
-      }
 
-    }, (err) => { console.log(`error ${err}`); this.tip1(); },
-      () => { console.log(`编译`) })
+      }, (err) => {
+        console.log(`error ${err}`);
+        this.tip1();
+      },
+      () => {
+        console.log(`编译`);
+      });
   }
+
   //打开关闭评论窗口
   toggleCommentwindow(index: number): void {
     this.commentIndexs[index] = !this.commentIndexs[index];
@@ -203,56 +220,58 @@ export class UnitexamComponent implements OnInit {
   getComment(index: number, reId: number, falg: number): any {
     if (!this.commentContentIndexs[index]) {   //如果评论内容Dom未打开
       this._unitexamService.getComment(reId).subscribe(res => {
-        if (res['status'] == 0) {
-          this.loginModal.showLoginModal();
-        }
-        this.Listcomment[index] = res['data'];
-        //如果评论内容加载完Dom打开
-        this.commentContentIndexs[index] = !this.commentContentIndexs[index];
-      }, (err) => {
-        console.log(`error ${err}`);
-      }, () => console.log(`编译`)
-      )
+          if (res['status'] == 0) {
+            this.loginModal.showLoginModal();
+          }
+          this.Listcomment[index] = res['data'];
+          //如果评论内容加载完Dom打开
+          this.commentContentIndexs[index] = !this.commentContentIndexs[index];
+        }, (err) => {
+          console.log(`error ${err}`);
+        }, () => console.log(`编译`)
+      );
     } else if (falg == index) {    // 这里用falg变量来判断,请求该方法的操作是来自Dom的点击还是Js的回调
-      console.log(`是dom点击操作调用的`)
+      console.log(`是dom点击操作调用的`);
       //再次点击dom时如果评论内容Dom打开则关闭
       this.commentContentIndexs[index] = !this.commentContentIndexs[index];
     } else {
       this._unitexamService.getComment(reId).subscribe(res => {
-        if (res['status'] == 0) {
-          this.loginModal.showLoginModal();
-        }
-        this.Listcomment[index] = res['data'];
-      }, (err) => {
-        console.log(`error ${err}`);
-      }, () => console.log(`编译`)
-      )
+          if (res['status'] == 0) {
+            this.loginModal.showLoginModal();
+          }
+          this.Listcomment[index] = res['data'];
+        }, (err) => {
+          console.log(`error ${err}`);
+        }, () => console.log(`编译`)
+      );
     }
   }
 
   tip(): void {
     swal({
       title: '提示',
-      text: "评论已提交!",
+      text: '评论已提交!',
       type: 'success',
       timer: 2000
-    })
+    });
   }
+
   tip1(): void {
     swal({
       title: '提示',
-      text: "评论失败!",
+      text: '评论失败!',
       type: 'error',
       timer: 2000
-    })
+    });
   }
+
   tip2(): void {
     swal({
       title: '提示',
-      text: "收藏失败!",
+      text: '收藏失败!',
       type: 'error',
       timer: 2000
-    })
+    });
   }
 
 }
