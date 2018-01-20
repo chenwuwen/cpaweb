@@ -19,17 +19,15 @@ export class AppComponent {
   private circleHeadImg: ElementRef;
   public userName: string = "请登陆";
   public hasLogin: boolean = false;
-  private loginState: Observable<any>;
+  private loginState: Observable<String>;
 
   constructor(// 在constructor中注入的依赖，就可以作为类的属性被使用了
     public router: Router,
     public activatedRoute: ActivatedRoute,
     public appService: AppService,
     private store: Store<any>) {
-    this.loginState = store.select('loginSate');
-    this.loginState.subscribe(state => {
-      console.log(`订阅登录状态的值为：` + JSON.stringify(state));
-    });
+    this.loginState = store.select('loginState');
+ 
   }
 
   ngOnInit() {
@@ -38,9 +36,33 @@ export class AppComponent {
       this.setNavBar(JSON.parse(localStorage.getItem('user')));
     } else {
       console.log(`Token已过期`)
-      localStorage.clear;
+      localStorage.clear();
     }
   }
+
+  /**
+   * 通过Angular生命周期方法ngAfterContentInit(当把内容投影进组件之后调用)
+   * 来获取当前状态是否为已登陆(由于只有点登陆按钮,后台返回数据,才可以触发Action),所以
+   * 其他组件的投影不受影响.关于这个生命周期的方法我也是一个一个似的，百度：Angular生命周期
+   * 其中还有一个方法ngDoCheck,它是实时检测的,但是当我点击注销的时候setNavBar()方法报错
+   * 原因是因为ngDoCheck检查时机造成的,ngDoCheck检测的太频繁了,以至于当去点击注销的一瞬间他还去执行
+   * setNavBar()方法以至于报错(因为点击注销会清除localStorage而setNavBar()方法需要使用localStorage的数据)
+   */
+  ngAfterContentInit() {
+    console.log(`=======================`)
+    console.log(this.loginState)
+    this.loginState.subscribe(state => {
+      console.log(`订阅登录状态的值为：` + JSON.stringify(state));
+      if(state=="HASLOGIN"){
+        var data = localStorage.getItem("user");
+        console.log(`#################################`)
+        console.log(data);
+        this.setNavBar(JSON.parse(data));
+      }
+    });
+    console.log('-------------ngRx状态改变------已登录状态-------');
+
+}
 
   private login() {
     this.loginModal.showLoginModal();
@@ -55,17 +77,23 @@ export class AppComponent {
     console.log(`用户注销`);
     this.userName = "请登录";
     this.hasLogin = !this.hasLogin;
+    localStorage.clear();
     this.appService.logout().subscribe(res => {
-      console.log(res)
+      console.log(`用户注销成功`)
       localStorage.setItem('token', null);
     }, (err) => {
+      console.log(`用户注销失败`)      
       console.log(`error ${err}`);
     }, () => {
       console.log(`编译！`)
     })
   }
 
-  /*父组件事件回调接收*/
+  /**
+   * 父组件事件回调接收(此处为接收登陆组件返回的值)
+   * 该方法已启用
+   * 登陆状态已由ngRx进行管理
+   */
   public hitResult(value: any): void {
     this.setNavBar(value);
   }

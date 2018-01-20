@@ -53,6 +53,7 @@ export class LoginmodelComponent implements OnInit {
   @ViewChild('registerForm')
   private registerForm: NgForm;
   /*声明事件发射器*/
+  /*已弃用,原为登陆成功后向父组件传递登陆人信息,现已由ngRx进行管理*/  
   @Output() childResult = new EventEmitter<any>();
 
 
@@ -160,7 +161,8 @@ export class LoginmodelComponent implements OnInit {
           /*ngRx状态中action,主要作用是发送Redux改变store中状态,payload是可选的其值可以是任意值,也可以是对象*/
           /*派发action，从而更新store,type描述我们期待的状态变化类型,payload是发送到待更新store中的数据*/
           this.store.dispatch({type: 'HASLOGIN', payload: 'HASLOGIN'});
-          this.launchResult(res['data']);
+          /*调用本地方法,向父级组件传递登陆信息,已弃用,由ngRx来管理登陆状态*/
+          // this.launchResult(res['data']);
           this.loginModal.hide();
         } else {
           this.msg = res['msg'];
@@ -219,6 +221,11 @@ export class LoginmodelComponent implements OnInit {
 
   }
 
+  /**
+   * 向父组件传递值的方法(登陆状态)
+   * 目前已弃用,由ngRx来进行管理
+   * @param data 
+   */
   launchResult(data): void {
     /*发射事件*/
     this.childResult.emit(data);
