@@ -19,7 +19,7 @@ import {LoginmodelComponent} from '../common/loginmodel/loginmodel.component';
 export class UnitexamComponent implements OnInit {
 
 
-  public typeCode: string;
+  public testType: string;
   public Listdata: Array<any>;   //试题集合
   public totleCount: number;    //加载记录数
   public pAnswers: Array<any>;  //用户回答
@@ -46,13 +46,13 @@ export class UnitexamComponent implements OnInit {
   constructor(private _route: ActivatedRoute,
               private _router: Router,
               private _unitexamService: UnitexamService, private _bsModalService: BsModalService) {
-    /*通过这种形式来接收父级页面传过来的值  或者通过  this.route.params['value']['typeCode']*/
+    /*通过这种形式来接收父级页面传过来的值  或者通过  this.route.params['value']['testType']*/
     /*route.params是一个可观察对象，可以使用.subscribe(),将参数值提取到固定值，这种情况下，我们将params['id'];赋值给组件实例变量id*/
     // route.params与route.queryParams不同,route.params在路由配置中匹配参数，而queryParams在查询字符串中匹配参数
-    // this.route.params.subscribe(data=>console.log("传递的参数为："+data.typeCode));
-    // 如果没有typeCode参数，那么我们将this.typeCode设置为 空字符串
+    // this.route.params.subscribe(data=>console.log("传递的参数为："+data.testType));
+    // 如果没有testType参数，那么我们将this.testType设置为 空字符串
     this._route.params.subscribe(params => {
-      this.typeCode = params['typeCode'] || '';
+      this.testType = params['testType'] || '';
       /*切换路由将上次用户回答置为空;此设值不能写在构造函数中，因为构造函数只在组建被访问时执行，而是应该写在订阅里，这样每次切换菜单，都可以重置数组*/
       this.pAnswers = [];
       // 初始化显示加载进度条
@@ -64,15 +64,15 @@ export class UnitexamComponent implements OnInit {
   ngOnInit() {
     /*订阅事件将路由传递参数值传递给Service*/
     this._route.params.subscribe((params) => {
-      this.typeCode = params['typeCode'] || '';
-      this.getUnitExam(this.typeCode);
+      this.testType = params['testType'] || '';
+      this.getUnitExam(this.testType);
       this.result = undefined;
       /*切换路由,将测试结果置为undefined;以免切换后还可以看到错题样式*/
     });
   }
 
-  getUnitExam(typeCode: string): any {
-    return this._unitexamService.getUnitExam(typeCode, this.pageNo, this.pageSize).subscribe(res => {
+  getUnitExam(testType: string): any {
+    return this._unitexamService.getUnitExam(testType, this.pageNo, this.pageSize).subscribe(res => {
         /*从service获取数据，订阅将数据到Component*/
         this.Listdata = res['data'];
         this.totleCount = res['totalCount'];

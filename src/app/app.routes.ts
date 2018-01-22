@@ -15,7 +15,7 @@ export const appRoutes = [
     component: HomeComponent
   },
   {
-    path: "unitexam/:typeCode",
+    path: "unitexam/:testType",
     component: UnitexamComponent
   },
   {

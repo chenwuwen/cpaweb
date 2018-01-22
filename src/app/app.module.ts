@@ -1,21 +1,20 @@
 import {MypaginationModule} from './common/mypagination/mypagination.module';
-import {BrowserModule} from '@angular/platform-browser';
 /*每个在浏览器中运行的应用的根模块都需要引入BrowserModule*/
-import {NgModule} from '@angular/core';
+import {BrowserModule} from '@angular/platform-browser';
 /*每个模块都需要引入的核心库中的NgModule*/
-import {FormsModule, ReactiveFormsModule} from '@angular/forms';
+import {NgModule} from '@angular/core';
 /*表单模块，在应用中使用表单时引入*/
-import {HttpModule} from '@angular/http';
+import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 /*http模块，当需要进行http远程请求时引入*/
-import {Ng2BootstrapModule} from 'ngx-bootstrap';
+import {HttpModule} from '@angular/http';
 /*路由模块*/
 import {RouterModule} from '@angular/router';
 /*该模块是包含一些常用内置指令模块，如*ngFor*/
 import {CommonModule} from '@angular/common';
 /*ngRx状态管理模块*/
 import {StoreModule} from '@ngrx/store';
-
-
+/*ngx-bootstrap模块,页面*/
+import {Ng2BootstrapModule} from 'ngx-bootstrap';
 import {AppComponent} from './app.component';
 import {appRoutes} from './app.routes';
 import {UnitexamModule} from './unitexam/unitexam.module';

@@ -29,14 +29,14 @@ export class UnitexamService {
   返回的结果可能会很惊讶，因为我们会比较期待返回一个 promise，这样我们可以使用 then() 来获取数据，然后我们调用了 map() 方法，而非 promise。
   事实上，http.get 方法返回的是一个HTTP响应 Observable 对象，由RxJS库提供，map() 也是RxJS的一个操作符。同时Angular也推荐使用RXJS*/
 
-  getUnitExam(typeCode: string, pageNo: number, pageSize: number): Observable<any> {
+  getUnitExam(testType: string, pageNo: number, pageSize: number): Observable<any> {
     let url = '/api/unitExam/getUnitExam/';
     let params = new URLSearchParams();
     console.log(pageNo.toString());
     params.set('pageNo', pageNo.toString());
     params.set('pageSize', pageSize.toString());
     let options = this.getOptions(params);
-    return this._http.get(url + typeCode, options)
+    return this._http.get(url + testType, options)
       .map(this.extractData)
       .catch(this.handleError);
   }

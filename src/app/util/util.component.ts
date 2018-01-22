@@ -16,7 +16,7 @@ export class UtilComponent implements OnInit {
   Output相当于指令的方法绑定，子作用域触发事件执行响应函数，而响应函数方法体则位于父作用域中，相当于将事件“输出到”父作用域中，在父作用域中处理。*/
   @Input() pAnswer;
   @Input() totleCount;
-  @Input() typeCode;
+  @Input() testType;
   /*声明事件发射器*/
   @Output() childResult = new EventEmitter<any>();
 
@@ -41,11 +41,11 @@ export class UtilComponent implements OnInit {
   submitUnitExam(): any {
     this.staticModal.hide();
     console.log(`点击了提交按钮： ${this.newAnswer}`);
-    return this._utilService.commitAnswer(this.newAnswer, this.typeCode).subscribe(res => {
+    return this._utilService.commitAnswer(this.newAnswer, this.testType).subscribe(res => {
       this.result = res['data'];
       this.launchResult(res);
-      /*如果提交了答案将typeCode置为null,这时如果父组件切换了路由typeCode会将值传递给子组件*/
-      this.typeCode = null;
+      /*如果提交了答案将testType置为null,这时如果父组件切换了路由testType会将值传递给子组件*/
+      this.testType = null;
       /*如果提交了答案将newAnswer设为空数组;若不置为空数组,当再次切换到该路由后所做的题还会包括上次所做的题*/
       this.newAnswer = [];
     }, (err) => {
@@ -113,7 +113,7 @@ export class UtilComponent implements OnInit {
   chooseModel(): void {
     if (this.pAnswer.length == 0) {
       this.tip1();
-    } else if (this.result != undefined && this.typeCode == null) {
+    } else if (this.result != undefined && this.testType == null) {
       this.tip2();
     } else {
       this.mark = 1;
@@ -127,7 +127,7 @@ export class UtilComponent implements OnInit {
 
   //下载试题
   private downloadItem() {
-    this._utilService.downloadItem(this.typeCode).subscribe(res => {
+    this._utilService.downloadItem(this.testType).subscribe(res => {
       console.log(`下载成功！`)
       console.log(res)
       // 这是需要保存的文件流
