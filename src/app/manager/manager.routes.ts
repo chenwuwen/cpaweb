@@ -2,6 +2,7 @@ import {AddExamComponent} from './itemmanager/addExam/add-exam.component';
 import {ManagerComponent} from './manager.component';
 import {DashboardComponent} from './dashboard/dashboard.component';
 import {UpdExamComponent} from './itemmanager/updExam/upd-exam.component';
+import {UpdUserComponent} from './user/upd-user/upd-user.component';
 
 
 export const managerRoutes = [{
@@ -12,6 +13,7 @@ export const managerRoutes = [{
     {path: 'dashboard', component: DashboardComponent},
     {path: 'addExam', component: AddExamComponent},
     {path: 'updExam', component: UpdExamComponent},
+    {path: 'updUser', component: UpdUserComponent},
 
   ]
 }

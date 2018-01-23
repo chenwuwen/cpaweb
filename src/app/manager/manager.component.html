@@ -1,30 +1,30 @@
 <div class="row">
-  <div class="col-md-5">
+  <div class="col-md-1">
     <aside class="sidebar show perfectScrollbar">
       <div id="solso-sidebar">
         <div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true">
 
           <div class="panel panel-default">
-              <div class="panel-heading" role="tab">
-                <div class="input-group custom-search-form">
-                  <input type="text" class="form-control" placeholder="Search..."/>
-                  <span class="input-group-btn">
+            <div class="panel-heading" role="tab">
+              <div class="input-group custom-search-form">
+                <input type="text" class="form-control" placeholder="Search..."/>
+                <span class="input-group-btn">
                                 <button class="btn btn-default" type="button">
                                     <i class="fa fa-search"></i>
                                 </button>
                   </span>
-                </div>
               </div>
+            </div>
           </div>
 
           <div class="panel panel-default" routerLinkActive="active">
-              <div class="panel-heading" role="tab" id="heading1">
-                <h4 class="panel-title">
-                  <a href="javascript:void(0)" class="single-item" [routerLink]="['/manager/dashboard']">
-                    <i class="fa fa-dashboard"></i> 主面板
-                  </a>
-                </h4>
-              </div>
+            <div class="panel-heading" role="tab" id="heading1">
+              <h4 class="panel-title">
+                <a href="javascript:void(0)" class="single-item" [routerLink]="['/manager/dashboard']">
+                  <i class="fa fa-dashboard"></i> 主面板
+                </a>
+              </h4>
+            </div>
           </div>
 
           <div class="panel panel-default">
@@ -42,7 +42,24 @@
               <div>
                 <a href="javascript:void(0)" class="list-group-item" [routerLink]="['/manager/addExam']">新增试题</a>
                 <a href="javascript:void(0)" class="list-group-item" [routerLink]="['/manager/updExam']">编辑试题</a>
-                <a href="javascript:void(0)" class="list-group-item">google Chart</a>
+              </div>
+            </div>
+          </div>
+
+          <div class="panel panel-default">
+            <div class="panel-heading" role="tab" id="heading3">
+              <h4 class="panel-title">
+                <a data-toggle="collapse" data-parent="#accordion" href="#collapse3" aria-expanded="true"
+                   aria-controls="collapse3">
+                  <i class="fa fa-bar-chart-o"></i> 用户管理
+                  <i class="pull-right fa fa-caret-down"></i>
+                </a>
+              </h4>
+            </div>
+
+            <div id="collapse3" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="heading3">
+              <div>
+                <a href="javascript:void(0)" class="list-group-item" [routerLink]="['/manager/updUser']">用户管理</a>
               </div>
             </div>
           </div>
@@ -53,7 +70,7 @@
     </aside>
   </div>
   <!--后台管理右侧内容-->
-  <div class="col-md-7">
+  <div class="col-md-11">
     <router-outlet></router-outlet>
   </div>
 </div>

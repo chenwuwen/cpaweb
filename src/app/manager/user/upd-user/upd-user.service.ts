@@ -1,12 +1,10 @@
 import {Injectable} from '@angular/core';
-import {Headers, Http, RequestOptions, Response, URLSearchParams} from '@angular/http';
 import {Observable} from 'rxjs/Observable';
-
-import {CpaOption, CpaSolution, Item} from '../item-model';
-import {ChangePostBodyPipe} from '../../../common/pipe/ChangePostBodyPipe/change-post-body.pipe';
+import {Headers, Http, RequestOptions, Response} from '@angular/http';
+import {CpaUserDto} from '../cpauserdto-model';
 
 @Injectable()
-export class UpdExamService {
+export class UpdUserService {
 
   constructor(private _http: Http) {
   }
@@ -22,41 +20,30 @@ export class UpdExamService {
   }
 
   /**
-   * 获取试题列表
+   * 获取用户列表
    */
-  getListExam(pageNo: number, pageSize: number, cpaRepertoryDto: Item): Observable<any> {
-    let url = '/api/unitExam/getListExam';
-    console.log('后台管理,【试题列表】pageNo: ' + pageNo);
-    console.log('后台管理,【试题列表】pageSize: ' + pageSize);
-    return this._http.post(url, {pageNo, pageSize, cpaRepertoryDto}, this.getOptions()).map(this.extractData).catch(this.handleError);
+  getUserList(cpaUserDto: CpaUserDto): Observable<any> {
+    let url = '/api/user/getUserList';
+    return this._http.post(url, cpaUserDto).map(this.handleError).catch(this.extractData);
   }
 
   /**
-   * 获取试题详情
+   * 获取用户详细信息
+   * @param abbr
    */
-  getExamDetail(id: number): Observable<any> {
-    let url = '/api/unitExam/getExamDetail/';
+  getUserDetail(id: number): Observable<any> {
+    let url = '/api/user/getUserDetail/';
+    return this._http.get(url + id).map(this.extractData).catch(this.handleError);
+  }
+
+  /**
+   * 删除用户
+   * @param {number} id
+   */
+  delUser(id: number): Observable<any> {
+    let url = '/api/user/delUser/';
     return this._http.delete(url + id).map(this.extractData).catch(this.handleError);
   }
-
-  /**
-   * 删除试题
-   */
-  delExam(id: number): Observable<any> {
-    let url = '/api/unitExam/delUnitExam/';
-    return this._http.delete(url + id).map(this.extractData).catch(this.handleError);
-  }
-
-  /**
-   * 修改试题
-   */
-  updExam(cpaRepertory: Item, cpaOptions: Array<CpaOption>, cpaSolution: CpaSolution): Observable<any> {
-    let url = '/api/unitExam/updUnitExam';
-    return this._http.post(url, {cpaRepertory, cpaOptions, cpaSolution}, this.getOptions())
-      .map(this.extractData)
-      .catch(this.handleError);
-  }
-
 
   /*response 对象并不是返回我们可以直接使用的数据，要想变成应用程序所需要的数据需要：检查不良响应,解析响应数据*/
   private extractData(res: Response) {
@@ -79,4 +66,6 @@ export class UpdExamService {
     console.error(errMsg); // log to console instead
     return Observable.throw(errMsg);
   }
+
+
 }

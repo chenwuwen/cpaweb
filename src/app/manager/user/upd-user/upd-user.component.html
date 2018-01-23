@@ -1,0 +1,51 @@
+<form class="form-inline" #searchForm="ngForm" (ngSubmit)="getUserList()">
+  <div class="form-group">
+    <label for="userName">用户名</label>
+    <input type="text" [(ngModel)]="cpaUserDto.userName" class="form-control" id="userName" name="userName"
+           placeholder="输入要搜索的试题">
+  </div>
+  <div class="form-group">
+    <label for="">注册时间</label>
+    <input type="text" class="form-control" placeholder="注册时间" [minDate]="registerMinDate"
+           [maxDate]="registerMaxDate" bsDaterangepicker [(ngModel)]="registerDaterangepickerModel"/>
+  </div>
+  <div class="form-group">
+    <label for="">最后一次登录时间</label>
+    <input type="text" class="form-control" placeholder="注册时间" [minDate]="lastLoginMinDate"
+           [maxDate]="lastLoginMaxDate" bsDaterangepicker [(ngModel)]="lastLoginDaterangepickerModel"/>
+  </div>
+  <button type="submit" class="btn btn-default">搜索</button>
+</form>
+
+<div class="table-responsive">
+  <table class="table table-striped">
+    <thead>
+    <tr>
+      <th>#</th>
+      <th>用户名</th>
+      <th>注册时间</th>
+      <th>上次登录时间</th>
+      <th>级别</th>
+      <th>操作</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr *ngFor="let item of userDtos;let i = index">
+      <td>{{i+1}}</td>
+      <td>
+        {{item.userName}}
+      </td>
+      <td>{{item.regDate}}</td>
+      <td>{{item.lastLoginDate}}</td>
+      <td>{{item.insertDate}}</td>
+      <!--用户ID-->
+      <!--<td>{{item.id}}</td>-->
+      <td #idUser abbr="{{item.id}}">
+        <a href="javascript:void(0)" (click)="getUserDetail(idUser)">修改</a>
+        <a href="javascript:void(0)" (click)="delUserTip(idUser)">删除</a>
+      </td>
+
+    </tr>
+    </tbody>
+  </table>
+</div>

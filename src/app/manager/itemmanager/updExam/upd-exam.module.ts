@@ -11,7 +11,7 @@ import { PaginationModule, TooltipModule, ModalModule  } from 'ngx-bootstrap';
     CommonModule,
     FormsModule, /*template中如果使用了[(ngModule)]需要导入此模块,模型驱动表单*/
     BaseModule,
-    ModalModule.forRoot(),/**ngx-bootstrap Modal组件*/
+    ModalModule.forRoot(), /**ngx-bootstrap Modal组件*/
     TooltipModule.forRoot(), /**ngx-bootstrap tooltip组件*/
     PaginationModule.forRoot() /**ngx-bootstrap 分页组件*/
   ],
