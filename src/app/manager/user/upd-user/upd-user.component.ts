@@ -2,8 +2,9 @@ import {Component, OnInit} from '@angular/core';
 import {CpaUserDto} from '../cpauserdto-model';
 import {UpdUserService} from './upd-user.service';
 import swal from 'sweetalert2';
-import {parseDate} from 'ngx-bootstrap/chronos';
 import {Observable} from 'rxjs/Observable';
+import {BsLocaleService, defineLocale, zhCnLocale} from 'ngx-bootstrap';
+
 
 @Component({
   selector: 'app-upd-user',
@@ -27,7 +28,7 @@ export class UpdUserComponent implements OnInit {
 
   private userDtos: Array<CpaUserDto>;
 
-  constructor(private _updUserService: UpdUserService) {
+  constructor(/*private _localeService: BsLocaleService,*/ private _updUserService: UpdUserService) {
     this.registerMinDate = new Date();
     this.registerMaxDate = new Date();
     this.lastLoginMaxDate = new Date();
@@ -37,11 +38,15 @@ export class UpdUserComponent implements OnInit {
     this.registerMaxDate.setDate(this.registerMaxDate.getDate());
     this.lastLoginMaxDate.setDate(this.registerMaxDate.getDate());
     this.lastLoginMinDate.setDate(Date.parse('2017-01-01'));
+    defineLocale('zh-cn', zhCnLocale);
   }
 
   ngOnInit() {
+    /* this._localeService.use('zh-cn');*/
+
   }
 
+  // defineLocale('de', de);
   /**
    * 获取用户列表
    */
