@@ -5,8 +5,7 @@ import {BaseModule} from '../../../common/base.module';
 import {UpdUserComponent} from './upd-user.component';
 import {FormsModule} from '@angular/forms';
 import {BsDatepickerModule} from 'ngx-bootstrap';
-import {defineLocale} from 'ngx-bootstrap/chronos';
-import {zhCnLocale} from 'ngx-bootstrap/chronos/i18n/zh-cn';
+
 
 @NgModule({
   imports: [

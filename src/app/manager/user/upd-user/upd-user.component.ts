@@ -3,6 +3,7 @@ import {CpaUserDto} from '../cpauserdto-model';
 import {UpdUserService} from './upd-user.service';
 import swal from 'sweetalert2';
 import {Observable} from 'rxjs/Observable';
+/*datepicker 设置中文的必备条件的引用*/
 import {BsLocaleService, defineLocale, zhCnLocale} from 'ngx-bootstrap';
 
 
@@ -28,30 +29,37 @@ export class UpdUserComponent implements OnInit {
 
   private userDtos: Array<CpaUserDto>;
 
-  constructor(/*private _localeService: BsLocaleService,*/ private _updUserService: UpdUserService) {
-    this.registerMinDate = new Date();
+  constructor(private _localeService: BsLocaleService, private _updUserService: UpdUserService) {
     this.registerMaxDate = new Date();
     this.lastLoginMaxDate = new Date();
-    this.lastLoginMinDate = new Date();
+    const minDate: Date = new Date(2017, 1, 1);
     //设置最小查询时间为：2017/2/1
-    this.registerMinDate.setDate(Date.parse('2017-01-01'));
+    // this.registerMinDate.setDate(minDate.getDate() - 1);
     this.registerMaxDate.setDate(this.registerMaxDate.getDate());
     this.lastLoginMaxDate.setDate(this.registerMaxDate.getDate());
-    this.lastLoginMinDate.setDate(Date.parse('2017-01-01'));
+    // this.lastLoginMinDate.setDate(minDate.getDate() - 1);
+    /*datepicker 设置中文的必备条件*/
     defineLocale('zh-cn', zhCnLocale);
   }
 
   ngOnInit() {
-    /* this._localeService.use('zh-cn');*/
-
+    /*datepicker 设置中文方法*/
+    this._localeService.use('zh-cn');
   }
 
-  // defineLocale('de', de);
   /**
    * 获取用户列表
    */
   getUserList(): void {
-
+    const startlastLoginDate = this.lastLoginDaterangepickerModel[0].toDateString();
+    this.cpaUserDto.startlastLoginDate = startlastLoginDate;
+    const endlastLoginDate = this.lastLoginDaterangepickerModel[1].toDateString();
+    this.cpaUserDto.endlastLoginDate = endlastLoginDate;
+    const startRegisterDate = this.registerDaterangepickerModel[0].toDateString();
+    this.cpaUserDto.startRegisterDate = startRegisterDate;
+    const endRegisterDate = this.registerDaterangepickerModel[1].toDateString();
+    this.cpaUserDto.endRegisterDate = endRegisterDate;
+    console.log(this.cpaUserDto);
     this._updUserService.getUserList(this.cpaUserDto).subscribe(res => {
       if (res['state'] === 1) {
         res['data'] = this.userDtos;
