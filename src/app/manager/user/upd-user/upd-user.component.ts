@@ -4,7 +4,7 @@ import {UpdUserService} from './upd-user.service';
 import swal from 'sweetalert2';
 import {Observable} from 'rxjs/Observable';
 /*datepicker 设置中文的必备条件的引用*/
-import {BsLocaleService, defineLocale, zhCnLocale} from 'ngx-bootstrap';
+import {BsDatepickerConfig, BsLocaleService, defineLocale, zhCnLocale} from 'ngx-bootstrap';
 
 
 @Component({
@@ -15,29 +15,32 @@ import {BsLocaleService, defineLocale, zhCnLocale} from 'ngx-bootstrap';
 export class UpdUserComponent implements OnInit {
   private cpaUserDto: CpaUserDto = new CpaUserDto();
   // 注册时间日期范围选择
-  private registerDaterangepickerModel: Date[];
+  private registerDaterangepickerModel: Date[] = [];
   //注册时间选择最小时间
   private registerMinDate: Date;
   //注册时间选择最大时间
   private registerMaxDate: Date;
   // 最后一次登录时间日期范围选择
-  private lastLoginDaterangepickerModel: Date[];
+  private lastLoginDaterangepickerModel: Date[] = [];
   //最后一次登录选择最小时间
   private lastLoginMaxDate: Date;
   //最后一次登录选择最大时间
   private lastLoginMinDate: Date;
+
+  private bsConfig: Partial<BsDatepickerConfig>;
 
   private userDtos: Array<CpaUserDto>;
 
   constructor(private _localeService: BsLocaleService, private _updUserService: UpdUserService) {
     this.registerMaxDate = new Date();
     this.lastLoginMaxDate = new Date();
-    const minDate: Date = new Date(2017, 1, 1);
+    this.registerMinDate = new Date(2017, 0, 1);
+    this.lastLoginMinDate = new Date(2017, 0, 1);
     //设置最小查询时间为：2017/2/1
-    // this.registerMinDate.setDate(minDate.getDate() - 1);
+    this.registerMinDate.setDate(this.registerMinDate.getDate());
     this.registerMaxDate.setDate(this.registerMaxDate.getDate());
     this.lastLoginMaxDate.setDate(this.registerMaxDate.getDate());
-    // this.lastLoginMinDate.setDate(minDate.getDate() - 1);
+    this.lastLoginMinDate.setDate(this.lastLoginMinDate.getDate());
     /*datepicker 设置中文的必备条件*/
     defineLocale('zh-cn', zhCnLocale);
   }
@@ -45,20 +48,46 @@ export class UpdUserComponent implements OnInit {
   ngOnInit() {
     /*datepicker 设置中文方法*/
     this._localeService.use('zh-cn');
+    this.datePickerConfig();
+  }
+
+  /**
+   * 日期选择器设定主题
+   * @param 主题列表
+   * theme-default  theme-green theme-blue theme-dark-blue theme-red theme-orange
+   * @returns {Observable<any>}
+   * containerClass: datePicker主题 displayMonths：datePicker显示数量
+   * maxDate:所有日期/范围选择器的默认最大日期  minDate:所有日期/范围选择器的默认最短日期
+   * showWeekNumbers: 允许在datepicker中隐藏星期数字
+   */
+  datePickerConfig() {
+
+    this.bsConfig = Object.assign({},
+      {containerClass: 'theme-red'},
+      {displayMonths: 2},
+      {minDate: new Date(2017, 0, 1)},
+      {maxDate: new Date()},
+      {showWeekNumbers: false});
   }
 
   /**
    * 获取用户列表
+   * month 加1 是因为，js的月是从0开始的
    */
   getUserList(): void {
-    const startlastLoginDate = this.lastLoginDaterangepickerModel[0].toDateString();
-    this.cpaUserDto.startlastLoginDate = startlastLoginDate;
-    const endlastLoginDate = this.lastLoginDaterangepickerModel[1].toDateString();
-    this.cpaUserDto.endlastLoginDate = endlastLoginDate;
-    const startRegisterDate = this.registerDaterangepickerModel[0].toDateString();
-    this.cpaUserDto.startRegisterDate = startRegisterDate;
-    const endRegisterDate = this.registerDaterangepickerModel[1].toDateString();
-    this.cpaUserDto.endRegisterDate = endRegisterDate;
+    // console.log(this.lastLoginDaterangepickerModel[0].toTimeString());
+    if (this.lastLoginDaterangepickerModel.length > 0) {
+      const startLastLoginDate = this.lastLoginDaterangepickerModel[0].getFullYear() + '-' + this.lastLoginDaterangepickerModel[0].getMonth() + 1 + '-' + this.lastLoginDaterangepickerModel[0].getDay();
+      this.cpaUserDto.startLastLoginDate = startLastLoginDate;
+      const endLastLoginDate = this.lastLoginDaterangepickerModel[1].getFullYear() + '-' + this.lastLoginDaterangepickerModel[1].getMonth() + 1 + '-' + this.lastLoginDaterangepickerModel[1].getDay();
+      this.cpaUserDto.endLastLoginDate = endLastLoginDate;
+    }
+    if (this.registerDaterangepickerModel.length > 0) {
+      const startRegisterDate = this.registerDaterangepickerModel[0].getFullYear() + '-' + this.registerDaterangepickerModel[0].getMonth() + 1 + '-' + this.registerDaterangepickerModel[0].getDay();
+      this.cpaUserDto.startRegisterDate = startRegisterDate;
+      const endRegisterDate = this.registerDaterangepickerModel[1].getFullYear() + '-' + this.registerDaterangepickerModel[1].getMonth() + 1 + '-' + this.registerDaterangepickerModel[1].getDay();
+      this.cpaUserDto.endRegisterDate = endRegisterDate;
+    }
     console.log(this.cpaUserDto);
     this._updUserService.getUserList(this.cpaUserDto).subscribe(res => {
       if (res['state'] === 1) {

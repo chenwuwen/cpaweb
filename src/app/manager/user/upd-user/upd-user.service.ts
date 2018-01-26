@@ -2,6 +2,7 @@ import {Injectable} from '@angular/core';
 import {Observable} from 'rxjs/Observable';
 import {Headers, Http, RequestOptions, Response} from '@angular/http';
 import {CpaUserDto} from '../cpauserdto-model';
+import {ChangePostBodyPipe} from '../../../common/pipe/ChangePostBodyPipe/change-post-body.pipe';
 
 @Injectable()
 export class UpdUserService {
@@ -13,7 +14,7 @@ export class UpdUserService {
     var headers: Headers = new Headers();
     // angular post请求默认是json格式的即请求头时application/json;charset=utf-8，这是springMVc接受参数需要添加@RequestBody注解
     // 而springMvc的默认接受请求头为application/x-www-form-urlencoded;charset=utf-8'，即jquery Ajax那种 data:{}方式
-    // headers.append('content-type', 'application/x-www-form-urlencoded;charset=utf-8');
+    headers.append('content-type', 'application/x-www-form-urlencoded;charset=utf-8');
     let opts = new RequestOptions({headers: headers});
     opts.headers = headers;
     return opts;
@@ -22,9 +23,11 @@ export class UpdUserService {
   /**
    * 获取用户列表
    */
-  getUserList(cpaUserDto: CpaUserDto): Observable<any> {
+  getUserList(cpaUser: CpaUserDto): Observable<any> {
     let url = '/api/user/getUserList';
-    return this._http.post(url, cpaUserDto).map(this.handleError).catch(this.extractData);
+    let changePostBodyPipe = new ChangePostBodyPipe();
+    let cpaUserDto = changePostBodyPipe.transform(cpaUser);
+    return this._http.post(url, cpaUserDto, this.getOptions()).map(this.handleError).catch(this.extractData);
   }
 
   /**

@@ -5,8 +5,8 @@ export class CpaUserDto {
   endRegisterDate: string;
   startRegisterDate: string;
   regDate: string;
-  startlastLoginDate: string;
-  endlastLoginDate: string;
+  startLastLoginDate: string;
+  endLastLoginDate: string;
   lastLoginDate: string;
 
   constructor() {
