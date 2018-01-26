@@ -27,7 +27,7 @@ export class UpdUserService {
     let url = '/api/user/getUserList';
     let changePostBodyPipe = new ChangePostBodyPipe();
     let cpaUserDto = changePostBodyPipe.transform(cpaUser);
-    return this._http.post(url, cpaUserDto, this.getOptions()).map(this.handleError).catch(this.extractData);
+    return this._http.post(url, cpaUserDto, this.getOptions()).map(this.extractData).catch(this.handleError);
   }
 
   /**

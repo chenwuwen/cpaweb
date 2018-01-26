@@ -36,7 +36,7 @@ export class UpdExamService {
    */
   getExamDetail(id: number): Observable<any> {
     let url = '/api/unitExam/getExamDetail/';
-    return this._http.delete(url + id).map(this.extractData).catch(this.handleError);
+    return this._http.get(url + id).map(this.extractData).catch(this.handleError);
   }
 
   /**

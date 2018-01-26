@@ -7,7 +7,8 @@
   <div class="form-group">
     <label for="">注册时间</label>
     <input type="text" class="form-control" placeholder="注册时间" [minDate]="registerMinDate"
-           [maxDate]="registerMaxDate" [bsConfig]="bsConfig" bsDaterangepicker [(ngModel)]="registerDaterangepickerModel"
+           [maxDate]="registerMaxDate" [bsConfig]="bsConfig" bsDaterangepicker
+           [(ngModel)]="registerDaterangepickerModel"
            name="registerDaterangepickerModel"/>
   </div>
   <div class="form-group">
@@ -50,4 +51,44 @@
     </tr>
     </tbody>
   </table>
+</div>
+
+<!--修改用户Model-->
+<div *ngIf="isModalShown" [config]="{ show: true }" bsModal #updUserModal="bs-modal"
+     class="modal fade" tabindex="-1" role="dialog" aria-hidden="true">
+  <div class="modal-dialog modal-lg">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h4 class="modal-title pull-left">Auto shown modal</h4>
+        <button type="button" class="close pull-right" aria-label="Close" (click)="hideModal()">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <form class="form-horizontal" role="form" #updUserForm="ngForm" (ngSubmit)="updUser()">
+          <div class="form-group">
+            <div class="col-md-5">
+              <div class="input-group">
+                <span class="input-group-addon">用户名</span>
+                <input class="form-control" [(ngModel)]="cpaUserDto.userName" name="userName">
+              </div>
+            </div>
+          </div>
+          <div class="form-group">
+            <div class="col-md-5">
+              <div class="input-group">
+                <span class="input-group-addon">Email</span>
+                <input class="form-control" [(ngModel)]="cpaUserDto.email" name="email">
+              </div>
+            </div>
+          </div>
+        </form>
+      </div>
+      <div class="modal-footer">
+        <button type="submit" [disabled]="!updUserForm.form.valid" class="btn btn-primary" (click)="updUser()">提交
+        </button>
+        <button (click)="updUserModal.hide()" type="button" class="btn btn-secondary" data-dismiss="modal">关闭</button>
+      </div>
+    </div>
+  </div>
 </div>

@@ -1,10 +1,10 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, OnInit, ViewChild} from '@angular/core';
 import {CpaUserDto} from '../cpauserdto-model';
 import {UpdUserService} from './upd-user.service';
 import swal from 'sweetalert2';
 import {Observable} from 'rxjs/Observable';
 /*datepicker 设置中文的必备条件的引用*/
-import {BsDatepickerConfig, BsLocaleService, defineLocale, zhCnLocale} from 'ngx-bootstrap';
+import {BsDatepickerConfig, BsLocaleService, defineLocale, ModalDirective, zhCnLocale} from 'ngx-bootstrap';
 
 
 @Component({
@@ -27,7 +27,14 @@ export class UpdUserComponent implements OnInit {
   //最后一次登录选择最大时间
   private lastLoginMinDate: Date;
 
+  // bsdatepicker配置
   private bsConfig: Partial<BsDatepickerConfig>;
+
+  // 是否显示修改User Modal
+  private isModalShown: boolean = false;
+
+  @ViewChild('updUserModal')
+  private updUserModal: ModalDirective;
 
   private userDtos: Array<CpaUserDto>;
 
@@ -49,6 +56,7 @@ export class UpdUserComponent implements OnInit {
     /*datepicker 设置中文方法*/
     this._localeService.use('zh-cn');
     this.datePickerConfig();
+    this.getUserList();
   }
 
   /**
@@ -91,10 +99,11 @@ export class UpdUserComponent implements OnInit {
     console.log(this.cpaUserDto);
     this._updUserService.getUserList(this.cpaUserDto).subscribe(res => {
       if (res['state'] === 1) {
-        res['data'] = this.userDtos;
+        this.userDtos = res['data'];
       }
     }, (err) => {
-      console.error(`${err}`);
+      // console.log(`error ${err}`);
+      console.log(`111111`);
     }, () => console.log(`编译`));
   }
 
@@ -104,7 +113,8 @@ export class UpdUserComponent implements OnInit {
   getUserDetail(idUser: any): void {
     this._updUserService.getUserDetail(idUser.abbr).subscribe(res => {
       this.cpaUserDto = res['data'];
-    }, (err) => console.error(`${err}`), () => console.log(`编译`));
+      this.isModalShown = !this.isModalShown;
+    }, (err) => console.error(`error ${err}`), () => console.log(`编译`));
   }
 
   /**
@@ -175,5 +185,12 @@ export class UpdUserComponent implements OnInit {
       console.error(err.message);
       return Observable.throw(err.message);
     });
+  }
+
+  /**
+   * 更改用户
+   */
+  updUser(): void {
+
   }
 }
