@@ -9,6 +9,8 @@ export class CpaUserDto {
   startLastLoginDate: string;
   endLastLoginDate: string;
   lastLoginDate: string;
+  roles: [];
+  status: number;
 
   constructor() {
 
