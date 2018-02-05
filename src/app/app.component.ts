@@ -2,10 +2,12 @@ import {Component, ViewChild, ElementRef} from '@angular/core';
 /*所有组件必须引入*/
 import {ActivatedRoute, Router, ActivatedRouteSnapshot, RouterState, RouterStateSnapshot} from '@angular/router';
 import {LoginmodelComponent} from './common/loginmodel/loginmodel.component';
+import {ShareComponent} from './common/share/share.component';
 import {tokenNotExpired} from 'angular2-jwt';
 import {AppService} from './app.service';
 import {Store} from '@ngrx/store';
 import {Observable} from 'rxjs/Observable';
+import {el} from '@angular/platform-browser/testing/src/browser_util';
 
 @Component({
   selector: 'app-root',
@@ -15,6 +17,8 @@ import {Observable} from 'rxjs/Observable';
 export class AppComponent {
   @ViewChild('loginModal')
   private loginModal: LoginmodelComponent;
+  @ViewChild('shareModal')
+  private shareModal: ShareComponent;
   @ViewChild('circleHeadImg')
   private circleHeadImg: ElementRef;
   public userName: string = '请登陆';
@@ -131,5 +135,21 @@ export class AppComponent {
       console.log(`appComponent接收loginComponent传过来的值` + data);
     }
 
+  }
+
+  /**
+   * 生成分享链接
+   */
+  public generateChain(): void {
+    this.appService.generateChain().subscribe(res => {
+      let flag = res['status'] === 0;
+      if (flag) {
+        this.loginModal.showLoginModal();
+      } else {
+
+      }
+    }, (err) => {
+    }, () => {
+    });
   }
 }

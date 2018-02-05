@@ -1,18 +1,19 @@
-import { Injectable } from '@angular/core';
-import { Http, Headers, Response,RequestOptions } from '@angular/http';
-import { Observable } from 'rxjs/Observable';
+import {Injectable} from '@angular/core';
+import {Http, Headers, Response, RequestOptions} from '@angular/http';
+import {Observable} from 'rxjs/Observable';
 
 @Injectable()
 export class AppService {
 
-  constructor(private _http: Http) { }
+  constructor(private _http: Http) {
+  }
 
   private getOptions(contentType: string): RequestOptions {
     var headers: Headers = new Headers();
     // angular post请求默认是json格式的即请求头时application/json;charset=utf-8，这是springMVc接受参数需要添加@RequestBody注解
     // 而springMvc的默认接受请求头为application/x-www-form-urlencoded;charset=utf-8'，即jquery Ajax那种 data:{}方式
     headers.append('content-type', contentType);
-    let opts = new RequestOptions({ headers: headers });
+    let opts = new RequestOptions({headers: headers});
     opts.headers = headers;
     return opts;
   }
@@ -25,9 +26,18 @@ export class AppService {
    * 重定向到login.html
    */
   public logout(): Observable<any> {
-    let url = "/api/user/logout";
-    return this._http.get(url).map(res=>res)
+    let url = '/api/user/logout';
+    return this._http.get(url).map(res => res)
       .catch(this.handleError);
+  }
+
+  /**
+   * 分享链接
+   * @returns {Observable<any>}
+   */
+  public generateChain(): Observable<any> {
+    let url = '/api/share/generateChain';
+    return this._http.get(url).map(res => res).catch(this.handleError);
   }
 
   /*response 对象并不是返回我们可以直接使用的数据，要想变成应用程序所需要的数据需要：检查不良响应,解析响应数据*/

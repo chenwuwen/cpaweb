@@ -1,25 +1,24 @@
-import {LoginmodelComponent} from './loginmodel/loginmodel.component';
 import {LoginmodelModule} from './loginmodel/loginmodel.module';
 import {NgModule} from '@angular/core';
 import {CommonModule} from '@angular/common';
 import {DigitalTransferPipe} from './pipe/DigitalTransferPipe/digital-transfer.pipe';
 import {ChangePostBodyPipe} from './pipe/ChangePostBodyPipe/change-post-body.pipe';
-import {FileUploadModule} from 'ng2-file-upload';
-import {ProgressComponent} from './progress/progress.component';
 import {MypaginationModule} from './mypagination/mypagination.module';
 import {ProgressModule} from './progress/progress.module';
 import {SliceStringPipe} from './pipe/SubstrStringPipe/slice-string.pipe';
+import {ShareModule} from './share/share.module';
 
 @NgModule({
   imports: [
     CommonModule,
     ProgressModule,
     MypaginationModule,
-    // LoginmodelModule
+    LoginmodelModule,
+    ShareModule
   ],
   declarations: [DigitalTransferPipe, ChangePostBodyPipe, SliceStringPipe
   ],
-  exports: [DigitalTransferPipe, ChangePostBodyPipe, SliceStringPipe, ProgressModule]
+  exports: [DigitalTransferPipe, ChangePostBodyPipe, SliceStringPipe, ProgressModule, LoginmodelModule, ShareModule]
 })
 export class BaseModule {
 }

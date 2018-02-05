@@ -112,6 +112,7 @@
 代码比上面的代码少了组件间的通信方法 -->
 <app-loginmodel #loginModal></app-loginmodel>
 
+<app-share #shareModel></app-share>
 
 <!--页脚开始-->
 <div class="footer ">
@@ -148,6 +149,9 @@
               <li>
                 <a href="">电子邮件</a>
               </li>
+              <li>
+                <a href="javascript:void(0)" (click)="generateChain()">您的专属链接</a>
+              </li>
             </ul>
           </div>
         </div>
@@ -163,3 +167,4 @@
   </div>
 </div>
 <!--页脚结束-->
+

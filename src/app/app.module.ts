@@ -26,6 +26,7 @@ import {LoginmodelModule} from './common/loginmodel/loginmodel.module';
 import {AppService} from './app.service';
 import {loginStateReducer} from './common/reducer/commonReducer';
 import {ProgressModule} from './common/progress/progress.module';
+import {BaseModule} from './common/base.module';
 
 @NgModule({
   declarations: [/*声明属于本模块的组件，每个组件(管道)必须在且仅在一个模块中声明,g*/
@@ -47,7 +48,7 @@ import {ProgressModule} from './common/progress/progress.module';
     HomeModule,
     ManagerModule,
     ItemmanagerModule,
-    LoginmodelModule,
+    BaseModule,
     /*使用ngRx进行状态管理,StoreModule提供了一个provideStore方法,
      *在这个方法中我们声明了一个 { loginState: loginStateReducer, }
      * 对象，这个就是Store。前面讲过Store可以想象成数据库，Reducer可以想象成表，

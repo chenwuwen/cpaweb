@@ -9,7 +9,7 @@ export class CpaUserDto {
   startLastLoginDate: string;
   endLastLoginDate: string;
   lastLoginDate: string;
-  roles: [];
+  roles: Array<string>;
   status: number;
 
   constructor() {
