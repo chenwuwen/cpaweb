@@ -1,4 +1,3 @@
-import {MypaginationModule} from './common/mypagination/mypagination.module';
 /*每个在浏览器中运行的应用的根模块都需要引入BrowserModule*/
 import {BrowserModule} from '@angular/platform-browser';
 /*每个模块都需要引入的核心库中的NgModule*/
@@ -14,7 +13,7 @@ import {CommonModule} from '@angular/common';
 /*ngRx状态管理模块*/
 import {StoreModule} from '@ngrx/store';
 /*ngx-bootstrap下拉菜单模块模块*/
-import { BsDropdownModule  } from 'ngx-bootstrap';
+import {BsDropdownModule} from 'ngx-bootstrap';
 import {AppComponent} from './app.component';
 import {appRoutes} from './app.routes';
 import {UnitexamModule} from './unitexam/unitexam.module';
@@ -22,11 +21,10 @@ import {HomeModule} from './home/home.module';
 import {ManagerModule} from './manager/manager.module';
 import {ItemmanagerModule} from './manager/itemmanager/itemmanager.module';
 import {UsercenterModule} from './usercenter/usercenter.module';
-import {LoginmodelModule} from './common/loginmodel/loginmodel.module';
 import {AppService} from './app.service';
 import {loginStateReducer} from './common/reducer/commonReducer';
-import {ProgressModule} from './common/progress/progress.module';
 import {BaseModule} from './common/base.module';
+import {LoginmodelModule} from './common/loginmodel/loginmodel.module';
 
 @NgModule({
   declarations: [/*声明属于本模块的组件，每个组件(管道)必须在且仅在一个模块中声明,g*/
@@ -49,6 +47,7 @@ import {BaseModule} from './common/base.module';
     ManagerModule,
     ItemmanagerModule,
     BaseModule,
+    LoginmodelModule,
     /*使用ngRx进行状态管理,StoreModule提供了一个provideStore方法,
      *在这个方法中我们声明了一个 { loginState: loginStateReducer, }
      * 对象，这个就是Store。前面讲过Store可以想象成数据库，Reducer可以想象成表，
@@ -59,9 +58,7 @@ import {BaseModule} from './common/base.module';
      */
     StoreModule.provideStore({
       loginState: loginStateReducer,
-    }),
-    ProgressModule,
-    MypaginationModule
+    })
   ],
   providers: [/*声明模块中使用的服务的提供者,对于appModule来说,也应该就是控制导航菜单显示了，即权限控制*/
     AppService
