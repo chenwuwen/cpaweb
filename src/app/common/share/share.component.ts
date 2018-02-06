@@ -1,4 +1,5 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, OnInit, ViewChild} from '@angular/core';
+import {ModalDirective} from 'ngx-bootstrap';
 
 @Component({
   selector: 'app-share',
@@ -7,10 +8,23 @@ import {Component, OnInit} from '@angular/core';
 })
 export class ShareComponent implements OnInit {
 
-  constructor() {
-  }
+  @ViewChild('shareModal')
+  private shareModal: ModalDirective;
+  isModalShown: boolean = false;
 
   ngOnInit() {
+  }
+
+  showShareModal(): void {
+    this.isModalShown = true;
+  }
+
+  hideShareModal(): void {
+    this.shareModal.hide();
+  }
+
+  onHidden(): void {
+    this.isModalShown = false;
   }
 
 }

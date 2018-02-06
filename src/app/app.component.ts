@@ -142,12 +142,17 @@ export class AppComponent {
    */
   public generateChain(): void {
     this.appService.generateChain().subscribe(res => {
-      let flag = res['status'] === 0;
-      if (flag) {
+      /*这里需要注意一点的是：没有使用 res['status'] === 0,是因为 对于booblean类型来说0就是false 如果res['status']为null时也为false,且const类型是不能改变他的值的*/
+      // let flag: boolean = res['status'] > 0;
+      /*由上面所述还可以简化成如下代码*/
+      // let flag: boolean = res['status'];
+      if (res['status'] < 1) {
+        // console.warn(`用户未登录，弹出登录框`);
         this.loginModal.showLoginModal();
-      } else {
-
+        return;
       }
+      this.shareModal.showShareModal();
+
     }, (err) => {
     }, () => {
     });
