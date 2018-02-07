@@ -22,7 +22,7 @@ import {ManagerModule} from './manager/manager.module';
 import {ItemmanagerModule} from './manager/itemmanager/itemmanager.module';
 import {UsercenterModule} from './usercenter/usercenter.module';
 import {AppService} from './app.service';
-import {loginStateReducer} from './common/reducer/commonReducer';
+import {loginStateReducer} from './common/reducer/loginStateReducer';
 import {BaseModule} from './common/base.module';
 import {LoginmodelModule} from './common/loginmodel/loginmodel.module';
 import {ShareModule} from './common/share/share.module';

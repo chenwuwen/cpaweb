@@ -1,4 +1,5 @@
-<div *ngIf="isModalShown" [config]="{ show: true,keyboard: false,ignoreBackdropClick: true }" (onHidden)="onHidden()" bsModal #shareModal="bs-modal"
+<div *ngIf="isModalShown" [config]="{ show: true,keyboard: false,ignoreBackdropClick: true }" (onHidden)="onHidden()"
+     bsModal #shareModal="bs-modal"
      class="modal fade" tabindex="-1" role="dialog" aria-hidden="true">
   <div class="modal-dialog modal-sm">
     <div class="modal-content">
@@ -9,7 +10,7 @@
         </button>
       </div>
       <div class="modal-body">
-
+        <img #shareUrl class="img-responsive img-rounded" src=""/>
       </div>
     </div>
   </div>
