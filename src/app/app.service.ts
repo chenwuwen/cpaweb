@@ -32,12 +32,12 @@ export class AppService {
   }
 
   /**
-   * 分享链接
+   * 检测用户是否登录
    * @returns {Observable<any>}
    */
-  public generateChain(): Observable<any> {
-    let url = '/api/share/generateChain';
-    return this._http.get(url).map(res => res).catch(this.handleError);
+  public checkUserStatus(): Observable<any> {
+    let url = '/api/userLoginState';
+    return this._http.get(url).map(this.extractData).catch(this.handleError);
   }
 
   /*response 对象并不是返回我们可以直接使用的数据，要想变成应用程序所需要的数据需要：检查不良响应,解析响应数据*/

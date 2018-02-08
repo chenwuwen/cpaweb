@@ -33,15 +33,21 @@ export class ShareComponent implements OnInit {
     this.isModalShown = false;
   }
 
-  onShown(): void {
+  getPic(): void {
     /*如果有图片就不再请求后台了,*/
     let source: string = this.shareUrl.nativeElement.src;
-    if (source != null && source != undefined && source.trim().length > 0) {
-      return
+    console.log(source);
+    if (source != null && source != undefined && source != 'http://localhost:4200/') {
+      return;
     }
+
     this._shareService.generateChain().subscribe(res => {
+      if (res['state'] == 2) {
+        this.shareUrl.nativeElement.src = '';
+        return;
+      }
       let src: string = res['data'];
-      let baseUrl: string = 'http://115.47.155.3';
+      let baseUrl: string = 'http://115.47.155.3/';
       this.shareUrl.nativeElement.src = baseUrl + src;
     }, (err) => {
       console.error(`${err}`);
