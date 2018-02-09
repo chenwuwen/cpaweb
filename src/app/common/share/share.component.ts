@@ -46,7 +46,7 @@ export class ShareComponent implements OnInit {
         this.shareUrl.nativeElement.src = '';
         return;
       }
-      let src: string = res['data'];
+      let src: string = res['data'].shareQrUrl;
       let baseUrl: string = 'http://115.47.155.3/';
       this.shareUrl.nativeElement.src = baseUrl + src;
     }, (err) => {
