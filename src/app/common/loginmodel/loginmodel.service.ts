@@ -39,9 +39,9 @@ export class LoginmodelService {
   login(cpaUser: CpaUser): Observable<any> {
     let url = '/api/login';
     let user = new FormData();
-    user.append('userName', cpaUser.userName);
-    user.append('password', cpaUser.password);
-    user.append('validateCode', cpaUser.validateCode);
+    user.append('userName', cpaUser.userName.trim());
+    user.append('password', cpaUser.password.trim());
+    user.append('validateCode', cpaUser.validateCode.trim());
     user.append('isRememberMe', cpaUser.isRememberMe ? 'on' : null);
     return this._http.post(url, user).map(this.extractData).catch(this.handleError);
   }
@@ -59,7 +59,7 @@ export class LoginmodelService {
     var headers: Headers = new Headers();
     headers.append('content-type', 'application/x-www-form-urlencoded;charset=utf-8');
     let params = new URLSearchParams();
-    params.set('username', newUsername);
+    params.set('username', newUsername.trim());
     let options = new RequestOptions({ search: params, headers: headers });
     return this._http.get(url, options).map(this.extractData).catch(this.handleError);
   }

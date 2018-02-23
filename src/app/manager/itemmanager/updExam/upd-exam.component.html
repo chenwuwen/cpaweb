@@ -31,8 +31,11 @@
     <tbody>
     <tr *ngFor="let item of ListExam;let i = index">
       <td>{{i+1}}</td>
-      <td triggers="mouseenter" container="body" tooltip="{{item.testStem}}" placement="auto">
-        {{item.testStem|sliceString:0:25:'...'}}
+      <td>
+        <span triggers="mouseenter:mouseleave" container="" popover="{{item.testStem}}" placement="auto">
+          {{item.testStem|sliceString:0:25:'...'}}
+        </span>
+
       </td>
       <td>{{item.testType}}</td>
       <td>{{item.choice}}</td>
