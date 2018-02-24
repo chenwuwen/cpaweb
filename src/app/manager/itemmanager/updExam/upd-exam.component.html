@@ -58,8 +58,9 @@
 <div class="row">
   <div class="col-xs-12 col-12">
     <pagination [totalItems]="bigTotalItems" [(ngModel)]="bigCurrentPage" [maxSize]="maxSize" class="pagination-sm"
-                [boundaryLinks]="true"
-                [rotate]="false" (numPages)="numPages = $event"></pagination>
+                [boundaryLinks]="true" [rotate]="false" (numPages)="numPages = $event"
+                (pageChanged)="pageChanged($event)"
+                firstText="首页" lastText="末页" nextText="下一页" previousText="上一页"></pagination>
   </div>
 </div>
 

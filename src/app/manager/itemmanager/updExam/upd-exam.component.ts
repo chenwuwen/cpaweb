@@ -13,7 +13,11 @@ import {Observable} from 'rxjs/Observable';
 export class UpdExamComponent implements OnInit {
 
   private ListExam: Array<any>;
-  private bigCurrentPage: number;
+  private bigCurrentPage: number = 1;
+  private bigTotalItems: number = 0;
+  private numPages: number = 0;
+  private maxSize: number = 20;
+
   /**试题搜索表单*/
   private cpaRepertory: Item = new Item();
   /**试题修改表单*/
@@ -45,7 +49,8 @@ export class UpdExamComponent implements OnInit {
   getListExam(): void {
     this._updExamService.getListExam(this.pageNo, this.pageSize, this.cpaRepertory).subscribe(res => {
       this.ListExam = res['data'];
-      this.bigCurrentPage = res['totalPage'];
+      // this.numPages = res['totalPage'];
+      this.bigTotalItems = res['totalCount'];
     }, (err) => {
       console.log(`error ${err}`);
     }, () => {
@@ -56,6 +61,9 @@ export class UpdExamComponent implements OnInit {
   pageChanged(event: any): void {
     console.log('页码转换到: ' + event.page);
     console.log('每页显示数量: ' + event.itemsPerPage);
+    this.pageNo = event.page;
+    this.pageSize = event.itemsPerPage;
+    this.getListExam();
   }
 
   /**

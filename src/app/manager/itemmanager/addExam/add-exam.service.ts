@@ -19,6 +19,13 @@ export class AddExamService {
     return opts;
   }
 
+  /**
+   * 添加试题
+   * @param {Item} cpaRepertory
+   * @param {Array<CpaOption>} cpaOptions
+   * @param {CpaSolution} cpaSolution
+   * @returns {Observable<any>}
+   */
   addItem(cpaRepertory: Item, cpaOptions: Array<CpaOption>, cpaSolution: CpaSolution): Observable<any> {
     let url = "/api/unitExam/addUnitExam";
     return this._http.post(url, {cpaRepertory, cpaOptions, cpaSolution}, this.getOptions())
