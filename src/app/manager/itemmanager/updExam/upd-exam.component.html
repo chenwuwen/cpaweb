@@ -30,7 +30,7 @@
     </thead>
     <tbody>
     <tr *ngFor="let item of ListExam;let i = index">
-      <td>{{i+1}}</td>
+      <td>{{(bigCurrentPage-1)*pageSize+i+1}}</td>
       <td>
         <span triggers="mouseenter:mouseleave" container="" popover="{{item.testStem}}" placement="auto">
           {{item.testStem|sliceString:0:25:'...'}}
@@ -58,7 +58,7 @@
 <div class="row">
   <div class="col-xs-12 col-12">
     <pagination [totalItems]="bigTotalItems" [(ngModel)]="bigCurrentPage" [maxSize]="maxSize" class="pagination-sm"
-                [boundaryLinks]="true" [rotate]="false" (numPages)="numPages = $event"
+                [boundaryLinks]="true" [rotate]="false" (numPages)="numPages = $event" [itemsPerPage]="itemsPerPage"
                 (pageChanged)="pageChanged($event)"
                 firstText="首页" lastText="末页" nextText="下一页" previousText="上一页"></pagination>
   </div>

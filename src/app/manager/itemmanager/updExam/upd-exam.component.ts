@@ -12,11 +12,17 @@ import {Observable} from 'rxjs/Observable';
 })
 export class UpdExamComponent implements OnInit {
 
+  /*后台传递的试题列表数据*/
   private ListExam: Array<any>;
-  private bigCurrentPage: number = 1;
+  /*当前页*/
+  private bigCurrentPage: number;
+  /*总记录数*/
   private bigTotalItems: number = 0;
   private numPages: number = 0;
-  private maxSize: number = 20;
+  /*每页显示数量*/
+  private itemsPerPage: number = 20;
+  /*页面最多显示页码数量即：1,2,3这种页码链接的数量,设为10表示,可以显示1-10页的数字的链接,即显示1,2,3...10的数字按钮*/
+  private maxSize: number = 10;
 
   /**试题搜索表单*/
   private cpaRepertory: Item = new Item();
@@ -24,8 +30,8 @@ export class UpdExamComponent implements OnInit {
   private item: Item = new Item();
   private cpaOptions: Array<CpaOption>;
   private cpaSolution: CpaSolution = new CpaSolution();
-  private pageNo: number = 0;
-  private pageSize: number = 0;
+  private pageNo: number = 1;
+  private pageSize: number = 20;
 
   @ViewChild('udpExamModal')
   private udpExamModal: ModalDirective;
