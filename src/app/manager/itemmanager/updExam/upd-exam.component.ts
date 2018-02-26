@@ -103,6 +103,7 @@ export class UpdExamComponent implements OnInit {
               '删除试题成功.',
               'success'
             );
+            this.getListExam();
           } else {
             swal(
               '失败',
@@ -139,6 +140,7 @@ export class UpdExamComponent implements OnInit {
     this._updExamService.updExam(this.item, this.cpaOptions, this.cpaSolution).subscribe(res => {
       if (res['state'] == 1) {
         this.successTip();
+        this.getListExam();
       } else {
         this.errorTip();
       }
