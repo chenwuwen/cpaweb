@@ -56,9 +56,9 @@
         </ul>
         <form class="navbar-form navbar-left" role="search">
           <div class="form-group">
-            <input type="text" class="form-control" placeholder="Search">
+            <input type="text" class="form-control" #searchValue placeholder="Search">
           </div>
-          <button type="submit" class="btn btn-default">Submit</button>
+          <button type="submit" class="btn btn-default" (click)="search(searchValue)">搜索</button>
         </form>
         <!-- 顶部导航栏右侧 -->
         <ul class="nav navbar-nav navbar-right">
@@ -105,12 +105,12 @@
 
 <!-- 登陆窗口弹出层 -->
 <!-- 此变量须与组件内@ViewChild的值相同 -->
-<!-- <app-loginmodel  (childResult)="hitResult($event)" #loginModal></app-loginmodel> -->
+<!-- <app-loginmodal  (childResult)="hitResult($event)" #loginModal></app-loginmodal> -->
 <!-- 对于登陆状态而言(当前项目登陆窗口为单独组件),之前登陆状态的改变(即上方导航显示当前登陆人的信息),是通过父子组件 间的通信完成的,
   但是一个项目不可能只有一个地方要用到登陆,按钮A,B,C，点哪一个都需要进行登陆,而多个这些个需要登陆 的地方可能涉及到多个组件,
   那么组件间的通信就会变得复杂而且冗余,所以引入ngRx状态管理来实现此功能,可以看出下面的
 代码比上面的代码少了组件间的通信方法 -->
-<app-loginmodel #loginModal></app-loginmodel>
+<app-loginmodal #loginModal></app-loginmodal>
 
 <app-share #shareModal></app-share>
 

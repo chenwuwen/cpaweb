@@ -6,7 +6,7 @@ import {UnitexamService} from './unitexam.service';
 import {flyIn} from '../animations/fly-in';
 import {BsModalService, ModalDirective} from 'ngx-bootstrap';
 import swal from 'sweetalert2';
-import {LoginmodelComponent} from '../common/loginmodel/loginmodel.component';
+import {LoginmodalComponent} from '../common/loginmodal/loginmodal.component';
 
 @Component({
   selector: 'app-unitexam',
@@ -36,7 +36,7 @@ export class UnitexamComponent implements OnInit {
   @ViewChild('scoreModal')
   public scoreModal: ModalDirective;
   @ViewChild('loginModal')
-  private loginModal: LoginmodelComponent;
+  private loginModal: LoginmodalComponent;
   @ViewChild('progress')
   private progress: ProgressComponent;
 

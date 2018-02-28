@@ -40,6 +40,16 @@ export class AppService {
     return this._http.get(url).map(this.extractData).catch(this.handleError);
   }
 
+  /**
+   * 搜索
+   * @param {string} val
+   * @returns {Observable<any>}
+   */
+  public search(val: string): Observable<any> {
+    let url = 'api/lucene/search';
+    return this._http.get(url).map(this.extractData).catch(this.handleError);
+  }
+
   /*response 对象并不是返回我们可以直接使用的数据，要想变成应用程序所需要的数据需要：检查不良响应,解析响应数据*/
   private extractData(res: Response) {
     /*示例中的状态码200-300范围从应用角度来说是错误，但对于 http 角度来说并非错误，所以先判断状态码并抛出一个错误。而对于 404 - Not Found 像其他一样会有响应，我们发送一请求出去，然后返回一个响应，这对于 http 来说是错误的，所以会立即得到一个 observable 错误。

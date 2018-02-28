@@ -1,7 +1,7 @@
 import {Component, ViewChild, ElementRef} from '@angular/core';
 /*所有组件必须引入*/
 import {ActivatedRoute, Router, ActivatedRouteSnapshot, RouterState, RouterStateSnapshot} from '@angular/router';
-import {LoginmodelComponent} from './common/loginmodel/loginmodel.component';
+import {LoginmodalComponent} from './common/loginmodal/loginmodal.component';
 import {ShareComponent} from './common/share/share.component';
 import {tokenNotExpired} from 'angular2-jwt';
 import {AppService} from './app.service';
@@ -16,7 +16,7 @@ import {el} from '@angular/platform-browser/testing/src/browser_util';
 })
 export class AppComponent {
   @ViewChild('loginModal')
-  private loginModal: LoginmodelComponent;
+  private loginModal: LoginmodalComponent;
   @ViewChild('shareModal')
   private shareModal: ShareComponent;
   @ViewChild('circleHeadImg')
@@ -125,7 +125,7 @@ export class AppComponent {
    * 设置导航栏显示
    * @param data
    */
-  public setNavBar(data: any) {
+  public setNavBar(data: any): void {
     this.userName = data.userName;
     this.hasLogin = !this.hasLogin;
     if (data.imgPath != null && data.imgPath != undefined) {
@@ -135,6 +135,14 @@ export class AppComponent {
       console.log(`appComponent接收loginComponent传过来的值` + data);
     }
 
+  }
+
+  /**
+   * 搜索
+   * @param val
+   */
+  public search(val: any): void {
+    console.log(`搜索内容为` + val.value);
   }
 
   /**

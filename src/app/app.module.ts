@@ -24,7 +24,7 @@ import {UsercenterModule} from './usercenter/usercenter.module';
 import {AppService} from './app.service';
 import {loginStateReducer} from './common/reducer/loginStateReducer';
 import {BaseModule} from './common/base.module';
-import {LoginmodelModule} from './common/loginmodel/loginmodel.module';
+import {LoginmodalModule} from './common/loginmodal/loginmodal.module';
 import {ShareModule} from './common/share/share.module';
 
 @NgModule({
@@ -48,7 +48,7 @@ import {ShareModule} from './common/share/share.module';
     ManagerModule,
     ItemmanagerModule,
     BaseModule,
-    LoginmodelModule,
+    LoginmodalModule,
     /*使用ngRx进行状态管理,StoreModule提供了一个provideStore方法,
      *在这个方法中我们声明了一个 { loginState: loginStateReducer, }
      * 对象，这个就是Store。前面讲过Store可以想象成数据库，Reducer可以想象成表，

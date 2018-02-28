@@ -1,5 +1,5 @@
 import {BaseModule} from './../common/base.module';
-import {LoginmodelModule} from './../common/loginmodel/loginmodel.module';
+import {LoginmodalModule} from '../common/loginmodal/loginmodal.module';
 import {NgModule} from '@angular/core';
 import {UnitexamComponent} from './unitexam.component';
 import {UnitexamService} from './unitexam.service';
@@ -19,7 +19,7 @@ import {CustomFormsModule} from 'ng2-validation';
     UtilModule,
     RouterModule,
     BrowserAnimationsModule, /*动画所需Module*/
-    LoginmodelModule,
+    LoginmodalModule,
     CustomFormsModule,  //引入ng2-validation
     BaseModule
   ],

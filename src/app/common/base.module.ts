@@ -1,4 +1,4 @@
-import {LoginmodelModule} from './loginmodel/loginmodel.module';
+import {LoginmodalModule} from './loginmodal/loginmodal.module';
 import {NgModule} from '@angular/core';
 import {CommonModule} from '@angular/common';
 import {DigitalTransferPipe} from './pipe/DigitalTransferPipe/digital-transfer.pipe';
@@ -7,6 +7,7 @@ import {MypaginationModule} from './mypagination/mypagination.module';
 import {ProgressModule} from './progress/progress.module';
 import {SliceStringPipe} from './pipe/SubstrStringPipe/slice-string.pipe';
 import {ShareModule} from './share/share.module';
+import {SearchmodalModule} from './searchmodal/searchmodal.module';
 
 
 /**
@@ -19,12 +20,13 @@ import {ShareModule} from './share/share.module';
     CommonModule,
     ProgressModule,
     MypaginationModule,
-    // LoginmodelModule,
-    ShareModule
+    // LoginmodalModule,
+    ShareModule,
+    SearchmodalModule
   ],
   declarations: [DigitalTransferPipe, ChangePostBodyPipe, SliceStringPipe
   ],
-  exports: [DigitalTransferPipe, ChangePostBodyPipe, SliceStringPipe,  ShareModule,  MypaginationModule, ProgressModule]
+  exports: [DigitalTransferPipe, ChangePostBodyPipe, SliceStringPipe, ShareModule, MypaginationModule, ProgressModule, SearchmodalModule]
 })
 export class BaseModule {
 }
