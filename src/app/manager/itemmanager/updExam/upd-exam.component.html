@@ -55,8 +55,17 @@
 
 
 <!--分页-->
-<div class="row">
-  <div class="col-xs-12 col-12">
+<div class="row page">
+  <div class="col-xs-6 col-6 tip">
+    当前显示第{{(bigCurrentPage-1)*pageSize+1}}到第{{(bigCurrentPage-1)*pageSize+pageSize}}条记录，总共{{bigTotalItems}}调记录，
+    每页显示
+    <select>
+    <option>10</option>
+    <option>20</option>
+    <option>50</option>
+  </select>条记录
+  </div>
+  <div class="col-xs-6 col-6">
     <pagination [totalItems]="bigTotalItems" [(ngModel)]="bigCurrentPage" [maxSize]="maxSize" class="pagination-sm"
                 [boundaryLinks]="true" [rotate]="false" (numPages)="numPages = $event" [itemsPerPage]="itemsPerPage"
                 (pageChanged)="pageChanged($event)"

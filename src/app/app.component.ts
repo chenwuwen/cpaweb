@@ -8,6 +8,7 @@ import {AppService} from './app.service';
 import {Store} from '@ngrx/store';
 import {Observable} from 'rxjs/Observable';
 import {el} from '@angular/platform-browser/testing/src/browser_util';
+import {SearchmodalComponent} from './common/searchmodal/searchmodal.component';
 
 @Component({
   selector: 'app-root',
@@ -19,6 +20,8 @@ export class AppComponent {
   private loginModal: LoginmodalComponent;
   @ViewChild('shareModal')
   private shareModal: ShareComponent;
+  @ViewChild('searchModal')
+  private searchModal: SearchmodalComponent;
   @ViewChild('circleHeadImg')
   private circleHeadImg: ElementRef;
   public userName: string = '请登陆';
@@ -143,6 +146,7 @@ export class AppComponent {
    */
   public search(val: any): void {
     console.log(`搜索内容为` + val.value);
+    this.searchModal.showModal();
   }
 
   /**
