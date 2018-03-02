@@ -24,6 +24,8 @@ export class UpdExamComponent implements OnInit {
   /*页面最多显示页码数量即：1,2,3这种页码链接的数量,设为10表示,可以显示1-10页的数字的链接,即显示1,2,3...10的数字按钮*/
   private maxSize: number = 10;
 
+  private pageSizeList = [10, 20, 30];
+
   /**试题搜索表单*/
   private cpaRepertory: Item = new Item();
   /**试题修改表单*/
@@ -64,11 +66,24 @@ export class UpdExamComponent implements OnInit {
     });
   }
 
+  /**
+   * 更改页码
+   * @param event
+   */
   pageChanged(event: any): void {
     console.log('页码转换到: ' + event.page);
     console.log('每页显示数量: ' + event.itemsPerPage);
     this.pageNo = event.page;
     this.pageSize = event.itemsPerPage;
+    this.getListExam();
+  }
+
+  /**
+   *  每页显示数量更改
+   * @param {number} pageSize
+   */
+  changePageSize(pageSize: number): void {
+    this.pageSize = pageSize;
     this.getListExam();
   }
 
