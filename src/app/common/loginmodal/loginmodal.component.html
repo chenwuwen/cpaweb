@@ -142,11 +142,18 @@
         </tabset>
       </div>
       <div class="modal-footer" [ngSwitch]="schema">
+        <div class="row">
+          <div class="col-md-6">
+        其他账号登陆：<img src="/qq_login.png" alt="">
+      </div>
+      <div class="col-md-6">
         <button *ngSwitchCase=1 type="submit" [disabled]="!loginForm.form.valid" class="btn btn-primary" (click)="login()">登陆</button>
         <button *ngSwitchCase=0 type="submit" [disabled]="!registerForm.form.valid" class="btn btn-primary" (click)="register()">注册</button>
         <button *ngSwitchDefault type="submit" [disabled]="!loginForm.form.valid" class="btn btn-primary" (click)="login()">登陆</button>
         <button (click)="loginModal.hide()" type="button" class="btn btn-secondary" data-dismiss="modal">取消</button>
       </div>
+    </div>
+    </div>
     </div>
     <!-- /.modal-content -->
   </div>

@@ -54,7 +54,7 @@ export class UpdExamComponent implements OnInit {
    * @param typeCode
    * @param value
    */
-  getListExam(): void {
+  getListExam(): void {  
     this._updExamService.getListExam(this.pageNo, this.pageSize, this.cpaRepertory).subscribe(res => {
       this.ListExam = res['data'];
       // this.numPages = res['totalPage'];
@@ -84,6 +84,8 @@ export class UpdExamComponent implements OnInit {
    */
   changePageSize(pageSize: number): void {
     this.pageSize = pageSize;
+    // 改变显示页码数,如100条记录,原来每页显示10条,共显示10个页码,现每页显示20条,将显示5个页码
+    this.itemsPerPage=pageSize;
     this.getListExam();
   }
 
