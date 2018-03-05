@@ -18,6 +18,8 @@ export class UpdExamComponent implements OnInit {
   private bigCurrentPage: number;
   /*总记录数*/
   private bigTotalItems: number = 0;
+  // 当前请求返回加载记录数
+  private currentLoadSize:number;
   private numPages: number = 0;
   /*每页显示数量*/
   private itemsPerPage: number = 20;
@@ -54,10 +56,10 @@ export class UpdExamComponent implements OnInit {
    * @param typeCode
    * @param value
    */
-  getListExam(): void {  
+  getListExam(): void {
     this._updExamService.getListExam(this.pageNo, this.pageSize, this.cpaRepertory).subscribe(res => {
       this.ListExam = res['data'];
-      // this.numPages = res['totalPage'];
+      this.currentLoadSize = this.ListExam.length;
       this.bigTotalItems = res['totalCount'];
     }, (err) => {
       console.log(`error ${err}`);

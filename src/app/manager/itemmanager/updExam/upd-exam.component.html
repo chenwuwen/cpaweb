@@ -57,10 +57,11 @@
 <!--分页-->
 <div class="row page">
   <div class="col-xs-6 col-6 tip">
-    当前显示第{{(bigCurrentPage-1)*pageSize+1}}到第{{(bigCurrentPage-1)*pageSize+pageSize}}条记录，总共{{bigTotalItems}}调记录，
+    <!--currentLoadSize*1是为了将currentLoadSize转型为int,否则为字符串类型-->
+    当前显示第{{(bigCurrentPage-1)*pageSize+1}}到第{{(bigCurrentPage-1)*pageSize+currentLoadSize*1}}条记录，总共{{bigTotalItems}}调记录，
     每页显示
     <select [(ngModel)]="pageSize" (change)="changePageSize($event.target.value)">
-      <option *ngFor="let size of pageSizeList" >{{size}}</option>
+      <option *ngFor="let size of pageSizeList">{{size}}</option>
     </select>条记录
   </div>
   <div class="col-xs-6 col-6">
