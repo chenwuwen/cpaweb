@@ -57,7 +57,7 @@ import {ShareModule} from './common/share/share.module';
      * 所谓Reducer其实就是接收两个参数：之前的状态和要采取的动作，然后返回新的状态。
      * StoreModule.provideStore() 在 Angular4的 @ngrx/store 版本中已经更新为更为标准化的StoreModule.forRoot()
      */
-    StoreModule.provideStore({
+    StoreModule.forRoot({
       loginState: loginStateReducer,
     })
   ],

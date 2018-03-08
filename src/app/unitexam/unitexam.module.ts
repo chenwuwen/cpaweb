@@ -10,6 +10,7 @@ import {ModalModule} from 'ngx-bootstrap/modal';
 import {RouterModule} from '@angular/router';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import {CustomFormsModule} from 'ng2-validation';
+import {GrowlModule} from 'primeng/growl';
 
 @NgModule({
   imports: [
@@ -18,13 +19,14 @@ import {CustomFormsModule} from 'ng2-validation';
     ModalModule.forRoot(),
     UtilModule,
     RouterModule,
+    GrowlModule, /*primeng消息提示模块*/
     BrowserAnimationsModule, /*动画所需Module*/
     LoginmodalModule,
     CustomFormsModule,  //引入ng2-validation
     BaseModule
   ],
   declarations: [
-    UnitexamComponent,
+    UnitexamComponent
   ],
   providers: [
     UnitexamService

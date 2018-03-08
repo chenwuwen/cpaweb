@@ -1,11 +1,11 @@
 import {ProgressComponent} from './../common/progress/progress.component';
-import {state} from '@angular/animations';
 import {Component, ElementRef, Input, OnInit, ViewChild} from '@angular/core';
 import {ActivatedRoute, Router} from '@angular/router';
 import {UnitexamService} from './unitexam.service';
 import {flyIn} from '../animations/fly-in';
 import {BsModalService, ModalDirective} from 'ngx-bootstrap';
 import swal from 'sweetalert2';
+import {Message} from 'primeng/api';
 import {LoginmodalComponent} from '../common/loginmodal/loginmodal.component';
 
 @Component({
@@ -31,6 +31,7 @@ export class UnitexamComponent implements OnInit {
   private Listcomment: any[] = new Array();   //获取试题评论数组
   public commentContent: any[] = new Array();  //评论内容数组,用在表单验证上
   public progressStatus: boolean = false; //进度条是否显示
+  public msgs: Message[] = [];  //primeng消息提示,之前消息提示用的是sweetalert2
 
 
   @ViewChild('scoreModal')
@@ -148,7 +149,11 @@ export class UnitexamComponent implements OnInit {
     return falg;
   }
 
-  //试题收藏
+  /**
+   * 试题收藏
+   * @param {number} index
+   * @param {number} reId
+   */
   toggleCollect(index: number, reId: number): void {
     console.log(`index: ` + index);
     console.dir(`reId: ` + reId);
@@ -162,12 +167,19 @@ export class UnitexamComponent implements OnInit {
           this.loginModal.showLoginModal();
         } else if (res['state'] == 2) {   //操作失败
           this.collectIndexs[index] = !this.collectIndexs[index];
-          this.tip2();
+          // this.tip2();
+          this.msgs = [];
+          this.msgs.push({severity: 'error', summary: '失败', detail: '收藏失败'});
+        } else {
+          console.log('试题收藏成功')
+          this.msgs.push({severity: 'success', summary: '成功', detail: '已收藏'});
         }
       }, (err) => {
         console.log(`error ${err}`);
         this.collectIndexs[index] = !this.collectIndexs[index];
-        this.tip2();
+        // this.tip2();
+        this.msgs = [];
+        this.msgs.push({severity: 'error', summary: '失败', detail: '收藏失败'});
       },
       () => {
         console.log(`编译`);
@@ -189,9 +201,12 @@ export class UnitexamComponent implements OnInit {
           this.loginModal.showLoginModal();
         } else if (res['state'] == 2) {   //操作失败
           this.commentIndexs[index] = !this.commentIndexs[index];
-          this.tip1();
+          // this.tip1();
+          this.msgs = [];
+          this.msgs.push({severity: 'error', summary: '失败', detail: '评论失败'});
         } else {
-          // this.tip();
+          this.msgs = [];
+          this.msgs.push({severity: 'success', summary: '成功', detail: '评论已提交'});
           // 评论完成,将评论数加一,此处应该在后台查询,先这样写吧
           console.log(this.Listcomment[index]);
           console.log(typeof this.Listcomment[index]);
@@ -204,7 +219,9 @@ export class UnitexamComponent implements OnInit {
 
       }, (err) => {
         console.log(`error ${err}`);
-        this.tip1();
+        // this.tip1();
+        this.msgs = [];
+        this.msgs.push({severity: 'error', summary: '失败', detail: '评论失败'});
       },
       () => {
         console.log(`编译`);

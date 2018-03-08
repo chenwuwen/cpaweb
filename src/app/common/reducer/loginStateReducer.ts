@@ -1,4 +1,5 @@
-import {Reducer, Action} from "@ngrx/store";
+import {Action} from '@ngrx/store';
+import {LoginStateAction} from './loginStateAction';
 
 /**
  * ngrx的核心也是通过reducer来获取储存在store中的值（状态），通过action来改变store的中值（状态）
@@ -9,6 +10,7 @@ import {Reducer, Action} from "@ngrx/store";
  * Action与Store之间添加ngrx/Effect   实现action异步请求与store处理结果间的解耦
  */
 
+
 /**
  *第一个参数是state，就像我们在组件或服务中自己维护了一个内存数组一样,可以赋一个初始值（避免出现undefined错误）
  * 第二个参数是一个有type和payload两个属性的对象，其实就是Action。也就是说我们其实可以不用定义Action，直接给出构造的对象形式即可，即(state :any = null, {type, payload}) =>{}
@@ -16,7 +18,13 @@ import {Reducer, Action} from "@ngrx/store";
  * 现在我们来考虑其中一个动作，增加一个loginState，我们需要发送一个Action，这个Action的type是 ’HASLOGIN’ ，payload就是新增加的这个loginState。
  */
 
-export function loginStateReducer(state: any = null, action: Action) {
+
+
+export interface LoginState {
+  loginState: string;  /*登录状态*/
+}
+
+export function loginStateReducer(state: any = null, action: LoginStateAction) {
   switch (action.type) {
     case 'NOTLOGIN':
       console.log(`通知Reducer改变Store状态,当前状态是：` + action.payload);

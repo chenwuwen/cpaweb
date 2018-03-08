@@ -17,10 +17,9 @@ import swal from 'sweetalert2';
 import {NgForm} from '@angular/forms';
 import {Store} from '@ngrx/store';
 import {Observable} from 'rxjs/Observable';
+import {LoginState} from '../reducer/loginStateReducer';
 
-interface LoginState {
-  loginState: string;
-}
+
 
 @Component({
   selector: 'app-loginmodal',
