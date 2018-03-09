@@ -1,5 +1,5 @@
 import {Injectable} from '@angular/core';
-import {HttpClient, HttpHeaders, HttpParams, HttpResponse, HttpRequest} from '@angular/common/http';
+import {HttpClient, HttpHeaders, HttpParams, HttpResponse} from '@angular/common/http';
 import {Observable} from 'rxjs/Observable';
 import 'rxjs/add/operator/catch';
 
@@ -12,38 +12,55 @@ export class UnitexamService {
 
   // 私有变量加上下划线符号
   // private _url = "/api/unitExam/getUnitExam/";
-  private getOptions(params: URLSearchParams): HttpRequest<any> {
-    var headers: HttpHeaders = new HttpHeaders();
-    // angular post请求默认是json格式的即请求头时application/json;charset=utf-8，这是springMVc接受参数需要添加@RequestBody注解
-    // 而springMvc的默认接受请求头为application/x-www-form-urlencoded;charset=utf-8'，即jquery Ajax那种 data:{}方式
-    headers.append('content-type', 'application/x-www-form-urlencoded;charset=utf-8');
-    if (localStorage.getItem('token')) {
-      // 通常token前面需要加bearer
-      headers.append('Authorization', 'Bearer ' + localStorage.getItem('token'));
-    }
-    let options = new HttpRequestOptions();
-    let opts = new HttpRequest({headers: headers, search: params});
-    opts.headers = headers;
-    return opts;
-  }
+  // private getOptions(params: HttpParams): HttpRequest<any> {
+  //   var headers: HttpHeaders = new HttpHeaders();
+  //   // angular post请求默认是json格式的即请求头时application/json;charset=utf-8，这是springMVc接受参数需要添加@RequestBody注解
+  //   // 而springMvc的默认接受请求头为application/x-www-form-urlencoded;charset=utf-8'，即jquery Ajax那种 data:{}方式
+  //   headers.append('content-type', 'application/x-www-form-urlencoded;charset=utf-8');
+  //   if (localStorage.getItem('token')) {
+  //     // 通常token前面需要加bearer
+  //     headers.append('Authorization', 'Bearer ' + localStorage.getItem('token'));
+  //   }
+  //   let options = new HttpRequest();
+  //   // options.headers = headers;
+  //   // let opts = new HttpRequest({headers: headers, params: params});
+  //   // opts.headers = headers;
+  //   // return opts;
+  //   return options;
+  // }
 
-  /*向 get 方法传递资源URL，它会访问服务端并返回 数据。
-  返回的结果可能会很惊讶，因为我们会比较期待返回一个 promise，这样我们可以使用 then() 来获取数据，然后我们调用了 map() 方法，而非 promise。
-  事实上，http.get 方法返回的是一个HTTP响应 Observable 对象，由RxJS库提供，map() 也是RxJS的一个操作符。同时Angular也推荐使用RXJS*/
 
+  /**
+   * 向 get 方法传递资源URL，它会访问服务端并返回 数据。
+   * 返回的结果可能会很惊讶，因为我们会比较期待返回一个 promise，这样我们可以使用 then() 来获取数据，然后我们调用了 map() 方法，而非 promise。
+   * 事实上，http.get 方法返回的是一个HTTP响应 Observable 对象，由RxJS库提供，map() 也是RxJS的一个操作符。同时Angular也推荐使用RXJS
+   */
+
+  /**
+   * 获取试题（单元测试,包括试题，选项等）
+   * @param {string} testType
+   * @param {number} pageNo
+   * @param {number} pageSize
+   * @returns {Observable<any>}
+   */
   getUnitExam(testType: string, pageNo: number, pageSize: number): Observable<any> {
     let url = '/api/unitExam/getUnitExam/';
-    let params = new URLSearchParams();
+    // let params = new URLSearchParams();
+    let params = new HttpParams();
     console.log(pageNo.toString());
     params.set('pageNo', pageNo.toString());
     params.set('pageSize', pageSize.toString());
-    let options = this.getOptions(params);
-    return this._http.get(url + testType, options)
+    // let options = this.getOptions(params);
+    return this._http.get(url + testType, {params})
       .map(this.extractData)
       .catch(this.handleError);
   }
 
-  // 收藏题目
+  /**
+   *  收藏题目
+   * @param {number} reId
+   * @returns {Observable<any>}
+   */
   toggleCollect(reId: number): Observable<any> {
     let url = '/api/usercollect/toggleCollect/';
     return this._http.get(url + reId)
@@ -51,7 +68,12 @@ export class UnitexamService {
       .catch(this.handleError);
   }
 
-  //评论试题
+  /**
+   * 评论试题
+   * @param {number} reId
+   * @param {string} comment
+   * @returns {Observable<any>}
+   */
   commentItem(reId: number, comment: string): Observable<any> {
     let url = '/api/usercomment/saveComment';
     return this._http.post(url, {reId, comment})
@@ -59,7 +81,11 @@ export class UnitexamService {
       .catch(this.handleError);
   }
 
-  //获取试题评论内容
+  /**
+   * 获取试题评论内容
+   * @param {number} reId
+   * @returns {Observable<any>}
+   */
   getComment(reId: number): Observable<any> {
     let url = '/api/usercomment/getItemComment/';
     return this._http.get(url + reId).map(this.extractData)

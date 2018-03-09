@@ -138,7 +138,10 @@ export class LoginmodalComponent implements OnInit {
     this.ifshow3 = false;
   }
 
-  // 登陆
+  /**
+   * 用户登陆
+   * @returns {any}
+   */
   public login(): any {
     console.log(this.cpaUser);
     this.loginModalService.login(this.cpaUser).subscribe(res => {
@@ -181,7 +184,10 @@ export class LoginmodalComponent implements OnInit {
       });
   }
 
-  // 注册
+  /**
+   * 用户注册
+   * @returns {any}
+   */
   public register(): any {
     console.log(this.registerUser);
     this.loginModalService.register(this.registerUser).subscribe(res => {
@@ -204,7 +210,10 @@ export class LoginmodalComponent implements OnInit {
       });
   }
 
-  // 点击更换验证码
+  /**
+   * 点击更换验证码
+   * @returns {any}
+   */
   public reloadValidateCode(): any {
     console.log(`更换验证码`);
     /*    this.loginModalService.reloadValidateCode().subscribe(res => {

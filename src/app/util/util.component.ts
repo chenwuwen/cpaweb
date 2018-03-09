@@ -125,7 +125,9 @@ export class UtilComponent implements OnInit {
     this.mark = 0;
   }
 
-  //下载试题
+  /**
+   * 下载试题
+   */
   private downloadItem() {
     this._utilService.downloadItem(this.testType).subscribe(res => {
       console.log(`下载成功！`)
