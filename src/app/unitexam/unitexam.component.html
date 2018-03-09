@@ -87,4 +87,10 @@
     <app-util [pAnswer]="pAnswers" [totleCount]="totleCount" [testType]="testType" (childResult)="hitResult($event)"></app-util>
   </div>
 
+
+</div>
+
+<div style="z-index: 99">
+<!--primeng Growl消息提示插件,旨在替代sweetalert2插件-->
+<p-growl [(value)]="msgs" ></p-growl>
 </div>

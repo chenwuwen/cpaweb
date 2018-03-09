@@ -5,7 +5,7 @@ import {NgModule} from '@angular/core';
 /*表单模块，在应用中使用表单时引入*/
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 /*http模块，当需要进行http远程请求时引入*/
-import {HttpModule} from '@angular/http';
+import {HttpClientModule} from '@angular/common/http';
 /*路由模块*/
 import {RouterModule} from '@angular/router';
 /*该模块是包含一些常用内置指令模块，如*ngFor*/
@@ -26,6 +26,7 @@ import {loginStateReducer} from './common/reducer/loginStateReducer';
 import {BaseModule} from './common/base.module';
 import {LoginmodalModule} from './common/loginmodal/loginmodal.module';
 import {ShareModule} from './common/share/share.module';
+import {authHttpProvider} from './common/auth/auth-http';
 
 @NgModule({
   declarations: [/*声明属于本模块的组件，每个组件(管道)必须在且仅在一个模块中声明,g*/
@@ -34,7 +35,7 @@ import {ShareModule} from './common/share/share.module';
   imports: [/*引入买本模块中用到的模块，该模块是处于import语句引入的模块中*/
     BrowserModule,
     FormsModule,
-    HttpModule,
+    HttpClientModule,
     CommonModule,
     ReactiveFormsModule, /*加入响应式表单ReactiveFormsModule*/
     BsDropdownModule.forRoot(), /*导入ngx-bootstrap下拉菜单模块*/
@@ -62,7 +63,8 @@ import {ShareModule} from './common/share/share.module';
     })
   ],
   providers: [/*声明模块中使用的服务的提供者,对于appModule来说,也应该就是控制导航菜单显示了，即权限控制*/
-    AppService
+    AppService,
+    authHttpProvider()
   ],
   bootstrap: [/*根模块中的引导组件，应用启动过程中，会创建这个数组中的组件并插入到HTML中，一般只有一个引导组件*/
     AppComponent
