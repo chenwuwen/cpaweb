@@ -35,6 +35,7 @@ import {authHttpProvider} from './common/auth/auth-http';
   imports: [/*引入买本模块中用到的模块，该模块是处于import语句引入的模块中*/
     BrowserModule,
     FormsModule,
+    /*HttpModule,*/  /*Angular4及之前,使用Http需要引入此模块,之后使用HttpClientModule模块*/
     HttpClientModule,
     CommonModule,
     ReactiveFormsModule, /*加入响应式表单ReactiveFormsModule*/
