@@ -46,8 +46,9 @@ export class UtilService {
     let url = '/api/unitExam/exportWord/';
     // headers.append('content-Type', 'application/msword');
     // headers.append('Accept', 'application/msword');
+    // Angular5设置ResponseType方式如下
     // let options = new RequestOptions({responseType: ResponseContentType.Blob});
-    return this._http.get(url + testType).map(res => res).catch(this.handleError);
+    return this._http.get(url + testType, {responseType: 'blob'}).map(res => res).catch(this.handleError);
   }
 
   /*response 对象并不是返回我们可以直接使用的数据，要想变成应用程序所需要的数据需要：检查不良响应,解析响应数据*/

@@ -1,6 +1,6 @@
-import { Component, OnInit, Input, Output, EventEmitter, TemplateRef, ViewChild } from '@angular/core';
-import { UtilService } from "./util.service";
-import { BsModalRef, BsModalService, ModalDirective } from "ngx-bootstrap";
+import {Component, OnInit, Input, Output, EventEmitter, TemplateRef, ViewChild} from '@angular/core';
+import {UtilService} from './util.service';
+import {BsModalRef, BsModalService, ModalDirective} from 'ngx-bootstrap';
 import * as FileSaver from 'file-saver';
 import swal from 'sweetalert2';
 import * as $ from 'jquery';  //引入jquery，如需使用jquery，则直接用$.grep()这样的形式即可
@@ -30,7 +30,7 @@ export class UtilComponent implements OnInit {
   public bsModalRef: BsModalRef;
 
   constructor(private _utilService: UtilService,
-    private _bsModalService: BsModalService) {
+              private _bsModalService: BsModalService) {
   }
 
   ngOnInit() {
@@ -42,15 +42,15 @@ export class UtilComponent implements OnInit {
     this.staticModal.hide();
     console.log(`点击了提交按钮： ${this.newAnswer}`);
     return this._utilService.commitAnswer(this.newAnswer, this.testType).subscribe(res => {
-      this.result = res['data'];
-      this.launchResult(res);
-      /*如果提交了答案将testType置为null,这时如果父组件切换了路由testType会将值传递给子组件*/
-      this.testType = null;
-      /*如果提交了答案将newAnswer设为空数组;若不置为空数组,当再次切换到该路由后所做的题还会包括上次所做的题*/
-      this.newAnswer = [];
-    }, (err) => {
-      console.log(`error ${err}`);
-    }, () => console.log(`编译！`)
+        this.result = res['data'];
+        this.launchResult(res);
+        /*如果提交了答案将testType置为null,这时如果父组件切换了路由testType会将值传递给子组件*/
+        this.testType = null;
+        /*如果提交了答案将newAnswer设为空数组;若不置为空数组,当再次切换到该路由后所做的题还会包括上次所做的题*/
+        this.newAnswer = [];
+      }, (err) => {
+        console.log(`error ${err}`);
+      }, () => console.log(`编译！`)
     );
   }
 
@@ -130,18 +130,22 @@ export class UtilComponent implements OnInit {
    */
   private downloadItem() {
     this._utilService.downloadItem(this.testType).subscribe(res => {
-      console.log(`下载成功！`)
-      console.log(res)
-      // 这是需要保存的文件流
-      console.log(res['_body'])
+      console.log(`下载成功！`);
+      console.log(res);
+      // 这是需要保存的文件流(Angular5已直接返回了Blob对象不需要在从Response中取了)
+      console.log(res['_body']);
       // 获取文件名
-      console.log(res['headers']._headers.get("content-disposition")[0].substring(20));
+      // console.log(res['headers']._headers.get("content-disposition")[0].substring(20));
       /**
        * Excel:application/vnd.openxmlformats-officedocument.spreadsheetml.sheet 会保存为xlsx application/vnd.ms-excel 可以保存为xls格式的excel文件（兼容老版本）
        * Word:application/msword
        */
-      var filename = res['headers']._headers.get("content-disposition")[0].substring(20);
-      var blob = new Blob([res['_body']], { type: "application/msword" });
+      // var filename = res['headers']._headers.get("content-disposition")[0].substring(20);
+      console.log(res.body);
+      var filename = res._headers;
+      //Angular5设置ResponseType为Blob,返回回来的直接就是Blob对象不用再去body中去取了
+      // var blob = new Blob([res['_body']], { type: "application/msword" });
+      var blob = new Blob([res], {type: 'application/msword'});
       FileSaver.saveAs(blob, filename);
       // var objectUrl = window.URL.createObjectURL(blob);
       // var a = document.createElement('a');
@@ -155,26 +159,26 @@ export class UtilComponent implements OnInit {
       // window.open(objectUrl);
       // console.log(`下载地址是：`+objectUrl);
     }, (err) => {
-      console.log(`下载失败！`)
-    })
+      console.log(`下载失败！`);
+    });
   }
 
   tip1(): void {
     swal({
       title: '提示',
-      text: "至少选择一个答案!",
+      text: '至少选择一个答案!',
       type: 'warning',
       timer: 2000
-    })
+    });
   }
 
   tip2(): void {
     swal({
       title: '提示',
-      text: "您已经提交过一次，请勿重复提交!",
+      text: '您已经提交过一次，请勿重复提交!',
       type: 'warning',
       timer: 2000
-    })
+    });
   }
 
 }
