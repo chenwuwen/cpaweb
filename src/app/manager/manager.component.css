@@ -31,13 +31,12 @@ a:hover {
 /*}*/
 .sidebar {
   background-color:#f8f8f8;
-  width: 300px;
+  width: 13em;
   height: 100%;
   padding: 0px;
   position: fixed;
-  left: -300px;
   right: auto;
-  top: 50px;
+  top: 3.6em;
   z-index: 1;
   border: 1px solid #e7e7e7;
   transition: left 0.5s;

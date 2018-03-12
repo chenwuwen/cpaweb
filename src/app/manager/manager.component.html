@@ -7,12 +7,12 @@
           <div class="panel panel-default">
             <div class="panel-heading" role="tab">
               <div class="input-group custom-search-form">
-                <input type="text" class="form-control" placeholder="Search..."/>
+                <input type="text" class="form-control" placeholder="Search..." />
                 <span class="input-group-btn">
-                                <button class="btn btn-default" type="button">
-                                    <i class="fa fa-search"></i>
-                                </button>
-                  </span>
+                  <button class="btn btn-default" type="button">
+                    <i class="fa fa-search"></i>
+                  </button>
+                </span>
               </div>
             </div>
           </div>
@@ -30,8 +30,7 @@
           <div class="panel panel-default">
             <div class="panel-heading" role="tab" id="heading2">
               <h4 class="panel-title">
-                <a data-toggle="collapse" data-parent="#accordion" href="#collapse2" aria-expanded="true"
-                   aria-controls="collapse2">
+                <a data-toggle="collapse" data-parent="#accordion" href="#collapse2" aria-expanded="true" aria-controls="collapse2">
                   <i class="fa fa-bar-chart-o"></i> 试题管理
                   <i class="pull-right fa fa-caret-down"></i>
                 </a>
@@ -49,8 +48,7 @@
           <div class="panel panel-default">
             <div class="panel-heading" role="tab" id="heading3">
               <h4 class="panel-title">
-                <a data-toggle="collapse" data-parent="#accordion" href="#collapse3" aria-expanded="true"
-                   aria-controls="collapse3">
+                <a data-toggle="collapse" data-parent="#accordion" href="#collapse3" aria-expanded="true" aria-controls="collapse3">
                   <i class="fa fa-bar-chart-o"></i> 用户管理
                   <i class="pull-right fa fa-caret-down"></i>
                 </a>
@@ -69,10 +67,12 @@
       </div>
     </aside>
   </div>
+
+
   <!--后台管理右侧内容-->
   <div class="col-md-11">
-    <router-outlet></router-outlet>
+    <div class="container container-fluid">
+      <router-outlet></router-outlet>
+    </div>
   </div>
 </div>
-
-

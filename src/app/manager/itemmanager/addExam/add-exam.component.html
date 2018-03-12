@@ -3,7 +3,7 @@
   <fieldset>
     <legend class="">填写题干</legend>
     <div class="form-group">
-      <div class="col-sm-9">
+      <div class="col-md-11">
         <input name="testStem" typ="text" class="form-control" formControlName="testStem" required placeholder="请填写题干">
       </div>
     </div>
@@ -13,7 +13,7 @@
     <legend class="">填写选项</legend>
     <div formArrayName="cpaOptions">
       <div class="form-group" *ngFor="let cpaOption of addItemForm.controls.cpaOptions.controls; index as idx">
-        <div class="col-sm-9">
+        <div class="col-md-11">
           <div class="input-group">
             <span class="input-group-addon">{{idx | digitalTransfer}}</span>
             <input class="form-control" [formControlName]="idx" placeholder="请填写选项内容">
@@ -66,7 +66,7 @@
   <fieldset>
     <legend class="">试题类型</legend>
     <div class="form-group">
-      <div class="col-sm-9">
+      <div class="col-md-11">
         <label class="radio-inline">
           <input name="choice" type="radio" (click)="changeGenre('exclusive')" value="exclusive" checked="checked" formControlName="choice"> 单选题
         </label>
@@ -80,7 +80,7 @@
   <fieldset>
     <legend class="">试题类型</legend>
     <div class="form-group">
-      <div class="col-sm-9">
+      <div class="col-md-11">
         <div class="controls">
           <select name="testType" class="input-xlarge" required formControlName="testType">
             <option value="basicAccount">会计基础</option>
@@ -96,7 +96,7 @@
     <legend class="">标准答案</legend>
     <!-- 单选题DOM -->
     <div class="form-group" *ngSwitchCase=1>
-      <div class="col-sm-9">
+      <div class="col-md-11">
         <label class="radio-inline">
           <input type="radio" value="A" name="result" formControlName="result"> A
         </label>
@@ -113,7 +113,7 @@
     </div>
     <!-- 多选题DOM -->
     <div class="form-group" *ngSwitchCase=2>
-      <div class="col-sm-9">
+      <div class="col-md-11">
         <label class="radio-inline">
           <input type="checkbox" (click)="selectCheckbox($event.target.checked,'A')"  value="A" name="result"> A
         </label>
