@@ -133,19 +133,19 @@ export class UtilComponent implements OnInit {
       console.log(`下载成功！`);
       console.log(res);
       // 这是需要保存的文件流(Angular5已直接返回了Blob对象不需要在从Response中取了)
-      console.log(res['_body']);
+      console.log(res['body']);
       // 获取文件名
       // console.log(res['headers']._headers.get("content-disposition")[0].substring(20));
       /**
        * Excel:application/vnd.openxmlformats-officedocument.spreadsheetml.sheet 会保存为xlsx application/vnd.ms-excel 可以保存为xls格式的excel文件（兼容老版本）
        * Word:application/msword
        */
-      // var filename = res['headers']._headers.get("content-disposition")[0].substring(20);
-      console.log(res.body);
-      var filename = res._headers;
-      //Angular5设置ResponseType为Blob,返回回来的直接就是Blob对象不用再去body中去取了
-      // var blob = new Blob([res['_body']], { type: "application/msword" });
-      var blob = new Blob([res], {type: 'application/msword'});
+        // Angular4获取文件名的方式
+        // var filename = res['headers']._headers.get("content-disposition")[0].substring(20);
+      var filename = res['headers'].getAll('content-disposition')[0].substring(20);
+      var blob = new Blob([res['body']], {type: 'application/msword'});
+      //Angular5设置ResponseType为Blob,返回回来的直接就是Blob对象不用再去body中去取了，但是由于直接返回Blob对象,那么无法获取header也就没法获取文件名了
+      // var blob = new Blob([res], {type: 'application/msword'});
       FileSaver.saveAs(blob, filename);
       // var objectUrl = window.URL.createObjectURL(blob);
       // var a = document.createElement('a');

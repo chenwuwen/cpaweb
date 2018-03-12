@@ -2,7 +2,7 @@ import {Injectable} from '@angular/core';
 import {HttpClient, HttpHeaders, HttpParams, HttpResponse} from '@angular/common/http';
 import {Observable} from 'rxjs/Observable';
 import 'rxjs/add/operator/catch';
-import {ResponseContentType, ResponseType} from '@angular/http';
+import {Config} from 'protractor';
 
 @Injectable()
 export class UtilService {
@@ -23,6 +23,7 @@ export class UtilService {
     return headers;
   }
 
+
   /**
    * 提交答案
    * @param pAnswer
@@ -42,13 +43,15 @@ export class UtilService {
    * @param {string} testType
    * @returns {Observable<any>}
    */
-  downloadItem(testType: string): Observable<any> {
+  downloadItem(testType: string): Observable<HttpResponse<Config>> {
     let url = '/api/unitExam/exportWord/';
     // headers.append('content-Type', 'application/msword');
     // headers.append('Accept', 'application/msword');
-    // Angular5设置ResponseType方式如下
+    // Angular4设置ResponseType方式如下
     // let options = new RequestOptions({responseType: ResponseContentType.Blob});
-    return this._http.get(url + testType, {responseType: 'blob'}).map(res => res).catch(this.handleError);
+    // Angular5设置ResponseType方式如下,但是Angular5设置ResponseType为Blob后,返回的数据直接就是Blob对象,意思也就是说返回的信息不完整：比如无法获取返回文件的文件名(文件名一般在header里),所以在
+    // 方法的返回对象里添加 [Observable<HttpResponse<Config>>] 同时在get方法的options中加入 [ observe: 'response'] 这样就可以完整的获取返回对象,进行各种操作了,但是操作方法跟之前还是有一些区别的
+    return this._http.get(url + testType, {responseType: 'blob', observe: 'response'}).map(res => res).catch(this.handleError);
   }
 
   /*response 对象并不是返回我们可以直接使用的数据，要想变成应用程序所需要的数据需要：检查不良响应,解析响应数据*/
