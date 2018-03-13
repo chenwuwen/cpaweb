@@ -1,8 +1,7 @@
 <form class="form-inline" #searchForm="ngForm" (ngSubmit)="getListExam()">
   <div class="form-group">
     <label for="testStem">题干名称</label>
-    <input type="text" [(ngModel)]="cpaRepertory.testStem" class="form-control" id="testStem" name="testStem"
-           placeholder="输入要搜索的试题">
+    <input type="text" [(ngModel)]="cpaRepertory.testStem" class="form-control" id="testStem" name="testStem" placeholder="输入要搜索的试题">
   </div>
   <div class="form-group">
     <label for="testType">试题类型</label>
@@ -19,35 +18,35 @@
 <div class="table-responsive">
   <table class="table table-striped">
     <thead>
-    <tr>
-      <th>#</th>
-      <th>题干</th>
-      <th>类型</th>
-      <th>题型</th>
-      <th>时间</th>
-      <th>操作</th>
-    </tr>
+      <tr>
+        <th>#</th>
+        <th>题干</th>
+        <th>类型</th>
+        <th>题型</th>
+        <th>时间</th>
+        <th>操作</th>
+      </tr>
     </thead>
     <tbody>
-    <tr *ngFor="let item of ListExam;let i = index">
-      <td>{{(bigCurrentPage-1)*pageSize+i+1}}</td>
-      <td>
-        <span triggers="mouseenter:mouseleave" container="" popover="{{item.testStem}}" placement="auto">
-          {{item.testStem|sliceString:0:25:'...'}}
-        </span>
+      <tr *ngFor="let item of ListExam;let i = index">
+        <td>{{(bigCurrentPage-1)*pageSize+i+1}}</td>
+        <td>
+          <span triggers="mouseenter:mouseleave" container="" popover="{{item.testStem}}" placement="auto">
+            {{item.testStem|sliceString:0:25:'...'}}
+          </span>
 
-      </td>
-      <td>{{item.testType}}</td>
-      <td>{{item.choice}}</td>
-      <td>{{item.insertDate}}</td>
-      <!--试题ID-->
-      <!--<td>{{item.id}}</td>-->
-      <td #idEle abbr="{{item.id}}">
-        <a href="javascript:void(0)" (click)="getExamDetail(idEle)">修改</a>
-        <a href="javascript:void(0)" (click)="delExamTip(idEle)">删除</a>
-      </td>
+        </td>
+        <td>{{item.testType}}</td>
+        <td>{{item.choice}}</td>
+        <td>{{item.insertDate}}</td>
+        <!--试题ID-->
+        <!--<td>{{item.id}}</td>-->
+        <td #idEle abbr="{{item.id}}">
+          <a href="javascript:void(0)" (click)="getExamDetail(idEle)">修改</a>
+          <a href="javascript:void(0)" (click)="delExamTip(idEle)">删除</a>
+        </td>
 
-    </tr>
+      </tr>
     </tbody>
   </table>
 
@@ -56,25 +55,25 @@
 
 <!--分页-->
 <div class="row page">
-  <div class="col-xs-6 col-6 tip">
+  <div class="col-xs-6 col-6 ">
     <!--currentLoadSize*1是为了将currentLoadSize转型为int,否则为字符串类型-->
-    当前显示第{{(bigCurrentPage-1)*pageSize+1}}到第{{(bigCurrentPage-1)*pageSize+currentLoadSize*1}}条记录，总共{{bigTotalItems}}调记录，
-    每页显示
-    <select [(ngModel)]="pageSize" (change)="changePageSize($event.target.value)">
-      <option *ngFor="let size of pageSizeList">{{size}}</option>
-    </select>条记录
+    <div class="tip">
+      当前显示第{{(bigCurrentPage-1)*pageSize+1}}到第{{(bigCurrentPage-1)*pageSize+currentLoadSize*1}}条记录，总共{{bigTotalItems}}调记录， 每页显示
+      <select [(ngModel)]="pageSize" (change)="changePageSize($event.target.value)">
+        <option *ngFor="let size of pageSizeList">{{size}}</option>
+      </select>条记录
+    </div>
   </div>
   <div class="col-xs-6 col-6">
-    <pagination [totalItems]="bigTotalItems" [(ngModel)]="bigCurrentPage" [maxSize]="maxSize" class="pagination-sm"
-                [boundaryLinks]="true" [rotate]="false" (numPages)="numPages = $event" [itemsPerPage]="itemsPerPage"
-                (pageChanged)="pageChanged($event)"
-                firstText="首页" lastText="末页" nextText="下一页" previousText="上一页"></pagination>
+    <pagination [totalItems]="bigTotalItems" [(ngModel)]="bigCurrentPage" [maxSize]="maxSize" class="pagination-sm" [boundaryLinks]="true"
+      [rotate]="false" (numPages)="numPages = $event" [itemsPerPage]="itemsPerPage" (pageChanged)="pageChanged($event)" firstText="首页"
+      lastText="末页" nextText="下一页" previousText="上一页"></pagination>
   </div>
 </div>
 
 <!--修改试题Modal-->
-<div *ngIf="isModalShown" [config]="{ show: true }" (onHidden)="onHidden()" bsModal #udpExamModal="bs-modal"
-     class="modal fade" tabindex="-1" role="dialog" aria-hidden="true">
+<div *ngIf="isModalShown" [config]="{ show: true }" (onHidden)="onHidden()" bsModal #udpExamModal="bs-modal" class="modal fade"
+  tabindex="-1" role="dialog" aria-hidden="true">
   <div class="modal-dialog modal-lg">
     <div class="modal-content">
       <div class="modal-header">
@@ -116,12 +115,10 @@
           <div class="form-group">
             <div class="col-sm-9">
               <label class="radio-inline">
-                <input name="choice" type="radio" (click)="changeGenre('exclusive')" value="exclusive"
-                       [(ngModel)]="item.choice"> 单选题
+                <input name="choice" type="radio" (click)="changeGenre('exclusive')" value="exclusive" [(ngModel)]="item.choice"> 单选题
               </label>
               <label class="radio-inline">
-                <input name="choice" type="radio" (click)="changeGenre('multiple')" value="multiple"
-                       [(ngModel)]="item.choice"> 多选题
+                <input name="choice" type="radio" (click)="changeGenre('multiple')" value="multiple" [(ngModel)]="item.choice"> 多选题
               </label>
             </div>
           </div>
