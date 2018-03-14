@@ -54,17 +54,19 @@
 
 
 <!--分页-->
-<div class="row page">
-  <div class="col-xs-6 col-6 ">
-    <!--currentLoadSize*1是为了将currentLoadSize转型为int,否则为字符串类型-->
-    <div class="tip">
-      当前显示第{{(bigCurrentPage-1)*pageSize+1}}到第{{(bigCurrentPage-1)*pageSize+currentLoadSize*1}}条记录，总共{{bigTotalItems}}调记录， 每页显示
+<div class="row">
+  <div class="col-md-6">
+    <!--这里添加的两个class类,是为了跟分页条保持水平对齐,分页条使用了ngxbootstrap组件,其会自动在dom中生成div,且自带类及样式,所以我将其类用到该div上,使其保持水平-->
+    <div class="pagination pagination-sm fonttwig">
+      <!--currentLoadSize*1是为了将currentLoadSize转型为int,否则为字符串类型-->
+      当前显示第{{(bigCurrentPage-1)*pageSize+1}}到第{{(bigCurrentPage-1)*pageSize+currentLoadSize*1}}条记录，总共{{bigTotalItems}}条记录， 每页显示
       <select [(ngModel)]="pageSize" (change)="changePageSize($event.target.value)">
         <option *ngFor="let size of pageSizeList">{{size}}</option>
       </select>条记录
     </div>
   </div>
-  <div class="col-xs-6 col-6">
+  <div class="col-md-1"></div>
+  <div class="col-md-5">
     <pagination [totalItems]="bigTotalItems" [(ngModel)]="bigCurrentPage" [maxSize]="maxSize" class="pagination-sm" [boundaryLinks]="true"
       [rotate]="false" (numPages)="numPages = $event" [itemsPerPage]="itemsPerPage" (pageChanged)="pageChanged($event)" firstText="首页"
       lastText="末页" nextText="下一页" previousText="上一页"></pagination>
