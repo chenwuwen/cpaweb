@@ -136,7 +136,7 @@ export class AddExamComponent implements OnInit {
     this.addItemForm.patchValue({
       result: ''
     });
-    if (genreVal == 'exclusive') {
+    if (genreVal == 'single') {
       this.genre = 1;
     } else {
       this.genre = 2;

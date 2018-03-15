@@ -147,7 +147,6 @@ export class UpdExamComponent implements OnInit {
     });
   }
 
-
   /**
    * 提交修改试题
    * @param id
@@ -180,13 +179,15 @@ export class UpdExamComponent implements OnInit {
     // tabledataObject.abbr=text获取表格中abbr的值
     console.log(`修改试题ID为：` + idEle.abbr);
     this._updExamService.getExamDetail(idEle.abbr).subscribe(res => {
-        this.item = res['data'];
+        this.item.choice = res['data'].choice;
+        this.item.testType = res['data'].testType;
+        this.item.id = res['data'].id;
         console.log('item:');
         console.log(this.item);
         this.cpaOptions = res['data'].cpaOptionDtos;
         console.log('cpaOptions:');
         console.log(this.cpaOptions);
-        this.cpaSolution = res['data'].bresult;
+        this.cpaSolution.result = res['data'].bresult;
         console.log('cpaSolution:');
         console.log(this.cpaSolution);
 

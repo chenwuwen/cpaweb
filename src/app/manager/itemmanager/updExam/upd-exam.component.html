@@ -117,7 +117,7 @@
           <div class="form-group">
             <div class="col-sm-9">
               <label class="radio-inline">
-                <input name="choice" type="radio" (click)="changeGenre('exclusive')" value="exclusive" [(ngModel)]="item.choice"> 单选题
+                <input name="choice" type="radio" (click)="changeGenre('single')" value="single" [(ngModel)]="item.choice"> 单选题
               </label>
               <label class="radio-inline">
                 <input name="choice" type="radio" (click)="changeGenre('multiple')" value="multiple" [(ngModel)]="item.choice"> 多选题
@@ -126,7 +126,7 @@
           </div>
 
           <!-- 单选题DOM -->
-          <div class="form-group" *ngIf="item.choice == 'exclusive'">
+          <div class="form-group" *ngIf="item.choice == 'single'">
             <div class="col-sm-9">
               <label class="radio-inline">
                 <input type="radio" value="A" name="result" [(ngModel)]="cpaSolution.result"> A
