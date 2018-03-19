@@ -2,7 +2,7 @@ export class CpaUserDto {
   id: number;
   userName: string;
   email: string;
-  sex: number;
+  gender: number;
   endRegisterDate: string;
   startRegisterDate: string;
   regDate: string;

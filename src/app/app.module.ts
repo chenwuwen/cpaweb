@@ -27,6 +27,7 @@ import {BaseModule} from './common/base.module';
 import {LoginmodalModule} from './common/loginmodal/loginmodal.module';
 import {ShareModule} from './common/share/share.module';
 import {authHttpProvider} from './common/auth/auth-http';
+import {ElModule} from 'element-angular/release/element-angular.module';
 
 @NgModule({
   declarations: [/*声明属于本模块的组件，每个组件(管道)必须在且仅在一个模块中声明,g*/
@@ -40,6 +41,7 @@ import {authHttpProvider} from './common/auth/auth-http';
     CommonModule,
     ReactiveFormsModule, /*加入响应式表单ReactiveFormsModule*/
     BsDropdownModule.forRoot(), /*导入ngx-bootstrap下拉菜单模块*/
+    ElModule.forRoot(), /*导入element-angular ui库所有组件，该app其他组件可以直接使用*/
     /*angular2默认采用HTML5的pushState来管理路由，它会导致前端路由与后端路由的冲突，例如当部署到nginx环境时，
      我们通过首页进入子路由一切正常，但是在子路由路径下，刷新就会报404了。默认情况下nginx会当成这个路径是实际web路径下的资源而去定位它，
      但可想而知实际是并不存在的。折中的方案可以改回hash风格*/

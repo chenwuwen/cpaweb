@@ -2,3 +2,5 @@
 /*应用程序中全局添加一个Angular Material的预建主题。如果使用的是Angular CLI，则可以将其添加到您的styles.css文件中，
 如果你没有使用Angular CLI，你可以通过<link>你的一个元素包含一个预构建的主题index.html。*/
 @import "~@angular/material/prebuilt-themes/purple-green.css";
+@import "~element-angular/theme/index.css";
+

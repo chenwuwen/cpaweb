@@ -65,7 +65,7 @@
         </button>
       </div>
       <div class="modal-body">
-        <form class="form-horizontal" role="form" #updUserForm="ngForm" (ngSubmit)="updUser()">
+        <form class="form-horizontal" role="form" #updUserForm="ngForm" >
           <div class="form-group">
             <div class="col-md-5">
               <div class="input-group">
@@ -82,14 +82,14 @@
               </div>
             </div>
           </div>
+          <label>性别：</label>
           <div class="form-group">
             <div class="col-md-5">
-              性别：
               <label class="radio-inline">
-                <input type="radio" value="1" name="result" [(ngModel)]="cpaUserDto.sex"> 男
+                <input name="gender" type="radio" value="1"  [(ngModel)]="cpaUserDto.gender"> 男
               </label>
               <label class="radio-inline">
-                <input type="radio" value="0" name="result" [(ngModel)]="cpaUserDto.sex"> 女
+                <input name="gender" type="radio" value="0"  [(ngModel)]="cpaUserDto.gender"> 女
               </label>
             </div>
           </div>
@@ -110,10 +110,10 @@
             <div class="col-md-5">
 
               <label class="radio-inline">
-                <input type="radio" value="1" name="status" [(ngModel)]="cpaUserDto.status"> 正常
+                <input type="radio" value=1 name="status" [(ngModel)]="cpaUserDto.status"> 正常
               </label>
               <label class="radio-inline">
-                <input type="radio" value="0" name="status" [(ngModel)]="cpaUserDto.status"> 锁定
+                <input type="radio" value=0 name="status" [(ngModel)]="cpaUserDto.status"> 锁定
               </label>
             </div>
           </div>

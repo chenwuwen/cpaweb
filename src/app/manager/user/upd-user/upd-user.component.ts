@@ -191,6 +191,10 @@ export class UpdUserComponent implements OnInit {
    * 更改用户
    */
   updUser(): void {
-
+    this._updUserService.updUser(this.cpaUserDto).subscribe(res => {
+      res['state'] === 1 ? console.log('修改成功') : console.log('修改失败');
+    }, (err) => {
+      console.log(`err：${err}`);
+    }, () => console.log(`编译`));
   }
 }
