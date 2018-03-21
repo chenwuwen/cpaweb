@@ -113,6 +113,7 @@ export class UpdUserComponent implements OnInit {
   getUserDetail(idUser: any): void {
     this._updUserService.getUserDetail(idUser.abbr).subscribe(res => {
       this.cpaUserDto = res['data'];
+      console.log('leixing : ' + typeof (this.cpaUserDto.status));
       this.isModalShown = !this.isModalShown;
     }, (err) => console.error(`error ${err}`), () => console.log(`编译`));
   }

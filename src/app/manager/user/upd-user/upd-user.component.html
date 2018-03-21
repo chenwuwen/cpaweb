@@ -59,7 +59,7 @@
   <div class="modal-dialog modal-lg">
     <div class="modal-content">
       <div class="modal-header">
-        <h4 class="modal-title pull-left">Auto shown modal</h4>
+        <h4 class="modal-title pull-left">用户信息</h4>
         <button type="button" class="close pull-right" aria-label="Close" (click)="hideModal()">
           <span aria-hidden="true">&times;</span>
         </button>
@@ -86,10 +86,11 @@
           <div class="form-group">
             <div class="col-md-5">
               <label class="radio-inline">
-                <input name="gender" type="radio" value="1"  [(ngModel)]="cpaUserDto.gender"> 男
+                <!--如果双向绑定的是Number类型的值,则value需要写成[value],否则无法自动选中-->
+                <input name="gender" type="radio" [value]="1"  [(ngModel)]="cpaUserDto.gender"> 男
               </label>
               <label class="radio-inline">
-                <input name="gender" type="radio" value="0"  [(ngModel)]="cpaUserDto.gender"> 女
+                <input name="gender" type="radio" [value]="0"  [(ngModel)]="cpaUserDto.gender"> 女
               </label>
             </div>
           </div>
@@ -106,14 +107,12 @@
 
           <label>状态：</label>
           <div class="form-group">
-
             <div class="col-md-5">
-
               <label class="radio-inline">
-                <input type="radio" value=1 name="status" [(ngModel)]="cpaUserDto.status"> 正常
+                <input type="radio" [value]="1" [checked]="cpaUserDto.status>0" name="status" [(ngModel)]="cpaUserDto.status"> 正常
               </label>
               <label class="radio-inline">
-                <input type="radio" value=0 name="status" [(ngModel)]="cpaUserDto.status"> 锁定
+                <input type="radio" [value]="0" [checked]="cpaUserDto.status>0" name="status" [(ngModel)]="cpaUserDto.status"> 锁定
               </label>
             </div>
           </div>

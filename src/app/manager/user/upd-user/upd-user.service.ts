@@ -16,9 +16,9 @@ export class UpdUserService {
     // 而springMvc的默认接受请求头为application/x-www-form-urlencoded;charset=utf-8'，即jquery Ajax那种 data:{}方式
     // 如果不需要设置请求头,则不必调用此方法
     if (contentType == '' || contentType == null) {
-      headers.append('content-type', 'application/x-www-form-urlencoded;charset=utf-8');
+      headers.set('Content-Type', 'application/x-www-form-urlencoded;charset=utf-8');
     } else {
-      headers.append('content-type', contentType);
+      headers.append('Content-Type', contentType);
     }
     return headers;
   }
@@ -59,8 +59,11 @@ export class UpdUserService {
    */
   updUser(cpaUserDto: CpaUserDto): Observable<any> {
     console.log(cpaUserDto);
-    let url = '/api/user/updUser/';
-    return this._http.post(url, cpaUserDto).map(this.extractData).catch(this.handleError);
+    let headers = this.getHttpHeaders('');
+    console.log(headers)
+    console.log(headers.get('content-type'))
+    let url = '/api/user/updUser';
+    return this._http.post(url, cpaUserDto, {headers: headers}).map(this.extractData).catch(this.handleError);
   }
 
   /*response 对象并不是返回我们可以直接使用的数据，要想变成应用程序所需要的数据需要：检查不良响应,解析响应数据*/
