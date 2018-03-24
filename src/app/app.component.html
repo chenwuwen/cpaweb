@@ -1,98 +1,92 @@
 <!--页头开始-->
-<div id="header" class="page-header" role="navigation">
-  <nav class="navbar navbar-default navbar-fixed-top">
-    <div class="container-fluid">
-      <!-- Brand and toggle get grouped for better mobile display -->
-      <div class="navbar-header">
-        <button type="button" class="navbar-toggle collapsed" data-toggle="collapse"
-                data-target="#bs-example-navbar-collapse-1"
-                aria-expanded="false">
-          <span class="sr-only">Toggle navigation</span>
-          <span class="icon-bar"></span>
-          <span class="icon-bar"></span>
-          <span class="icon-bar"></span>
-        </button>
-        <a class="navbar-brand" href="javascript:void(0)">
-          <img alt="Brand" src="../images/cpa.png">
-        </a>
-      </div>
+<div id="header" class="Container">
+  <nav class="navbar navbar-expand-lg navbar-light bg-light fixed-top">
 
-      <!-- Collect the nav links, forms, and other content for toggling -->
-      <div class="collapse navbar-collapse">
-        <!--这里使用[routerLink]将超链接和路由建立联接-->
-        <ul class="nav navbar-nav">
-          <!--这里使用routerLinkActive显示正处于哪个菜单的选中样式-->
-          <li routerLinkActive="active">
-            <a [routerLink]="['/home']" href="javascript:void(0)">首页</a>
-          </li>
-          <li class="dropdown">
-            <a href="javascript:void(0)" class="dropdown-toggle" data-toggle="dropdown" role="button"
-               aria-haspopup="true" aria-expanded="false">在线练习
-              <span class="caret"></span>
-            </a>
-            <ul class="dropdown-menu" role="menu" aria-labelledby="dLabel">
-              <li routerLinkActive="active">
-                <a [routerLink]="['/unitexam','basicAccount']" href="javascript:void(0)">会计基础</a>
-              </li>
-              <li class="divider"></li>
-              <li routerLinkActive="active">
-                <a [routerLink]="['/unitexam','cpuAccount']" href="javascript:void(0)">会计电算化</a>
-              </li>
-              <li class="divider"></li>
-              <li routerLinkActive="active">
-                <a [routerLink]="['/unitexam','statuteEthics']" href="javascript:void(0)">财经法规与职业道德</a>
-              </li>
-            </ul>
-          </li>
-          <li routerLinkActive="active">
-            <a href="javascript:void(0)">模拟测验</a>
-          </li>
-          <li routerLinkActive="active">
-            <a [routerLink]="['/usercenter']" href="javascript:void(0)">个人中心</a>
-          </li>
-          <li routerLinkActive="active">
-            <a [routerLink]="['/manager']" href="javascript:void(0)">管理中心</a>
-          </li>
-        </ul>
-        <form class="navbar-form navbar-left" role="search">
-          <div class="form-group">
-            <input type="text" class="form-control" #searchValue placeholder="Search">
+    <!-- Brand and toggle get grouped for better mobile display -->
+    <a class="navbar-brand" href="#">
+      <img src="/assets/brand/bootstrap-solid.svg" width="30" height="30" alt="">
+    </a>
+
+    <!-- 此按钮是切换到小屏幕时点击展开导航栏的按钮 -->
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
+      aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+
+    <!-- Collect the nav links, forms, and other content for toggling -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <!--这里使用[routerLink]将超链接和路由建立联接-->
+      <ul class="navbar-nav mr-auto">
+        <!--这里使用routerLinkActive显示正处于哪个菜单的选中样式-->
+        <li class="nav-item active" routerLinkActive="active">
+          <a class="nav-link" [routerLink]="['/home']" href="javascript:void(0)">首页</a>
+        </li>
+        <li class="nav-item dropdown">
+          <a href="javascript:void(0)" class="nav-link dropdown-toggle" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true"
+            aria-expanded="false">在线练习
+            <!-- <span class="caret"></span> -->
+          </a>
+          <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+            <li routerLinkActive="active">
+              <a class="dropdown-item" [routerLink]="['/unitexam','basicAccount']" href="javascript:void(0)">会计基础</a>
+            </li>
+            <li class="dropdown-divider"></li>
+            <li routerLinkActive="active">
+              <a class="dropdown-item" [routerLink]="['/unitexam','cpuAccount']" href="javascript:void(0)">会计电算化</a>
+            </li>
+            <li class="dropdown-divider"></li>
+            <li routerLinkActive="active">
+              <a class="dropdown-item" [routerLink]="['/unitexam','statuteEthics']" href="javascript:void(0)">财经法规与职业道德</a>
+            </li>
           </div>
-          <button type="submit" class="btn btn-default" (click)="search(searchValue)">搜索</button>
-        </form>
-        <!-- 顶部导航栏右侧 -->
-        <ul class="nav navbar-nav navbar-right">
-          <a class="navbar-left" href="javascript:void(0)" [routerLink]="['/usercenter']">
-            <img #circleHeadImg class="img-circle  img-responsive" src="http://kanyun123.3vcm.net/circular.png" alt=""/>
+        </li>
+        <li class="nav-item" routerLinkActive="active">
+          <a class="nav-link disabled" href="javascript:void(0)">模拟测验</a>
+        </li>
+        <li class="nav-item" routerLinkActive="active">
+          <a class="nav-link" [routerLink]="['/usercenter']" href="javascript:void(0)">个人中心</a>
+        </li>
+        <li routerLinkActive="active">
+          <a class="nav-link" [routerLink]="['/manager']" href="javascript:void(0)">管理中心</a>
+        </li>
+      </ul>
+      <form class="form-inline my-2 my-lg-0">
+        <input class="form-control mr-sm-2" type="search" #searchValue placeholder="Search" aria-label="Search">
+        <button type="submit" class="btn btn-default" (click)="search(searchValue)">搜索</button>
+      </form>
+      <!-- 顶部导航栏右侧 -->
+      <ul class="nav navbar-nav navbar-right">
+        <a class="navbar-left" href="javascript:void(0)" [routerLink]="['/usercenter']">
+          <img #circleHeadImg class="img-circle  img-responsive" src="http://kanyun123.3vcm.net/circular.png" alt="" />
+        </a>
+
+        <!-- 此下拉菜单使用的是Ngx-BootStrap -->
+        <span dropdown (onShown)="onShown()" (onHidden)="onHidden()" (isOpenChange)="isOpenChange()">
+          <a class="navbar-text" href dropdownToggle (click)="false">{{userName}}
+            <span class="caret"></span>
           </a>
 
+          <ul *dropdownMenu class="dropdown-menu">
+            <li *ngIf="!hasLogin">
+              <a class="dropdown-item" (click)="login()" href="javascript:void(0)">登陆</a>
+            </li>
+            <li *ngIf="hasLogin">
+              <a class="dropdown-item" [routerLink]="['/usercenter']" href="javascript:void(0)">个人中心</a>
+            </li>
+            <li class="dropdown-divider" *ngIf="hasLogin"></li>
+            <li *ngIf="hasLogin">
+              <a class="dropdown-item" (click)="logout()" href="javascript:void(0)">注销</a>
+            </li>
+          </ul>
+        </span>
 
-          <span dropdown (onShown)="onShown()" (onHidden)="onHidden()" (isOpenChange)="isOpenChange()">
-            <a class="navbar-text" href dropdownToggle (click)="false">{{userName}}
-              <span class="caret"></span>
-            </a>
+        <!-- 导航栏最右侧占位 -->
+        <p class="navbar-text ">&nbsp;&nbsp;&nbsp;&nbsp;</p>
+      </ul>
 
-            <ul *dropdownMenu class="dropdown-menu">
-              <li *ngIf="!hasLogin">
-                <a class="dropdown-item" (click)="login()" href="javascript:void(0)">登陆</a>
-              </li>
-              <li *ngIf="hasLogin">
-                <a class="dropdown-item" [routerLink]="['/usercenter']" href="javascript:void(0)">个人中心</a>
-              </li>
-              <li class="divider dropdown-divider" *ngIf="hasLogin"></li>
-              <li *ngIf="hasLogin">
-                <a class="dropdown-item" (click)="logout()" href="javascript:void(0)">注销</a>
-              </li>
-            </ul>
-          </span>
-          <!-- 导航栏最右侧占位 -->
-          <p class="navbar-text ">&nbsp;&nbsp;&nbsp;&nbsp;</p>
-        </ul>
-
-      </div>
-      <!-- /.navbar-collapse -->
     </div>
-    <!-- /.container-fluid -->
+    <!-- /.navbar-collapse -->
+
   </nav>
 </div>
 <!--页头结束-->
@@ -120,13 +114,13 @@
 <div class="footer ">
   <div class="container">
     <div class="row footer-top">
-      <div class="col-sm-6 col-lg-6">
+      <div class="col-5">
         <h4></h4>
         <p>欢迎你加入，这里有你想要的.</p>
       </div>
-      <div class="col-sm-6  col-lg-5 col-lg-offset-1">
-        <div class="row about">
-          <div class="col-xs-3">
+      <div class="col">
+        <div class="row">
+          <div class="col-2">
             <h4>二维码</h4>
             <ul class="list-unstyled">
               <li>
@@ -134,7 +128,7 @@
               </li>
             </ul>
           </div>
-          <div class="col-xs-3">
+          <div class="col">
             <h4>关于</h4>
             <ul class="list-unstyled">
               <li>
@@ -142,7 +136,7 @@
               </li>
             </ul>
           </div>
-          <div class="col-xs-3">
+          <div class="col">
             <h4>联系方式</h4>
             <ul class="list-unstyled">
               <li>
@@ -169,4 +163,3 @@
   </div>
 </div>
 <!--页脚结束-->
-
