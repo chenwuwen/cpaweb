@@ -12,22 +12,22 @@ export class UnitexamService {
 
   // 私有变量加上下划线符号
   // private _url = "/api/unitExam/getUnitExam/";
-  // private getOptions(params: HttpParams): HttpRequest<any> {
-  //   var headers: HttpHeaders = new HttpHeaders();
-  //   // angular post请求默认是json格式的即请求头时application/json;charset=utf-8，这是springMVc接受参数需要添加@RequestBody注解
-  //   // 而springMvc的默认接受请求头为application/x-www-form-urlencoded;charset=utf-8'，即jquery Ajax那种 data:{}方式
-  //   headers.append('content-type', 'application/x-www-form-urlencoded;charset=utf-8');
-  //   if (localStorage.getItem('token')) {
-  //     // 通常token前面需要加bearer
-  //     headers.append('Authorization', 'Bearer ' + localStorage.getItem('token'));
-  //   }
-  //   let options = new HttpRequest();
-  //   // options.headers = headers;
-  //   // let opts = new HttpRequest({headers: headers, params: params});
-  //   // opts.headers = headers;
-  //   // return opts;
-  //   return options;
-  // }
+
+  /**
+   * 构建请求头
+   * @param {string} contentType
+   * @returns {any}
+   */
+  private getHttpRequestOptions(contentType: string): any {
+    // angular post请求默认是json格式的即请求头时application/json;charset=utf-8，这是springMVc接受参数需要添加@RequestBody注解
+    // 而springMvc的默认接受请求头为application/x-www-form-urlencoded;charset=utf-8'，即jquery Ajax那种 data:{}方式
+    // 如果不需要设置请求头,则不必调用此方法
+    const httpOptions = {
+      // 通常token前面需要加bearer
+      headers: new HttpHeaders({'Content-Type': contentType, 'Authorization': 'Bearer ' + localStorage.getItem('token')})
+    };
+    return httpOptions;
+  }
 
 
   /**
@@ -50,7 +50,6 @@ export class UnitexamService {
     console.log(pageNo.toString());
     params.set('pageNo', pageNo.toString());
     params.set('pageSize', pageSize.toString());
-    // let options = this.getOptions(params);
     return this._http.get(url + testType, {params})
       .map(this.extractData)
       .catch(this.handleError);

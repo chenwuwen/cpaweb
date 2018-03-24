@@ -10,17 +10,20 @@ export class LoginmodalService {
   constructor(private _http: HttpClient) {
   }
 
-  private getHttpHeaders(contentType: string): HttpHeaders {
-    var headers: HttpHeaders = new HttpHeaders();
+  /**
+   * 构建请求头
+   * @param {string} contentType
+   * @returns {any}
+   */
+  private getHttpRequestOptions(contentType: string, params: HttpParams): object {
     // angular post请求默认是json格式的即请求头时application/json;charset=utf-8，这是springMVc接受参数需要添加@RequestBody注解
     // 而springMvc的默认接受请求头为application/x-www-form-urlencoded;charset=utf-8'，即jquery Ajax那种 data:{}方式
     // 如果不需要设置请求头,则不必调用此方法
-    if (contentType == '' || contentType == null) {
-      headers.append('content-type', 'application/x-www-form-urlencoded;charset=utf-8');
-    } else {
-      headers.append('content-type', contentType);
-    }
-    return headers;
+    const httpOptions = {
+      headers: new HttpHeaders({'Content-Type': contentType}),
+      params: params
+    };
+    return httpOptions;
   }
 
 
@@ -32,17 +35,17 @@ export class LoginmodalService {
    * 该方法不再使用,点击更换验证码的功能在Component内完成了
    * @returns {Observable<any>}
    */
-  reloadValidateCode(): Observable<any> {
-    let url = '/api/validateCode';
-    let random = new Date() + Math.floor(Math.random() * 24).toString();
-    let params = new HttpParams();
-    params.set('data', random);
-    // 需要注意的是如何仅设置了请求参数的话需要在url后面加上?
-    // return this._http.get(url+params);
-    // let options = new RequestOptions({search: params, responseType: ResponseContentType.Blob});
-    return this._http.get(url, {params}).catch(this.handleError);
-
-  }
+  // reloadValidateCode(): Observable<any> {
+  //   let url = '/api/validateCode';
+  //   let random = new Date() + Math.floor(Math.random() * 24).toString();
+  //   let params = new HttpParams();
+  //   params.set('data', random);
+  //   // 需要注意的是如何仅设置了请求参数的话需要在url后面加上?
+  //   // return this._http.get(url+params);
+  //   // let options = new RequestOptions({search: params, responseType: ResponseContentType.Blob});
+  //   return this._http.get(url, {params}).catch(this.handleError);
+  //
+  // }
 
   /**
    * 登陆
@@ -68,8 +71,8 @@ export class LoginmodalService {
     let url = '/api/user/register';
     let changePostBodyPipe = new ChangePostBodyPipe();
     let userDto = changePostBodyPipe.transform(cpaUser);
-    let headers = this.getHttpHeaders('');
-    return this._http.post(url, userDto, {headers}).map(this.extractData).catch(this.handleError);
+    const httpRequestOptions = this.getHttpRequestOptions('', null);
+    return this._http.post(url, userDto, httpRequestOptions).map(this.extractData).catch(this.handleError);
   }
 
   /**
@@ -79,11 +82,10 @@ export class LoginmodalService {
    */
   public checkUsername(newUsername: string): Observable<any> {
     let url = '/api/user/checkname';
-    let headers = this.getHttpHeaders('');
     let params = new HttpParams();
     params.set('username', newUsername.trim());
-    // let options = new RequestOptions({search: params, headers: headers});
-    return this._http.get(url, {headers, params}).map(this.extractData).catch(this.handleError);
+    const httpRequestOptions = this.getHttpRequestOptions('', params);
+    return this._http.get(url, httpRequestOptions).map(this.extractData).catch(this.handleError);
   }
 
   /*response 对象并不是返回我们可以直接使用的数据，要想变成应用程序所需要的数据需要：检查不良响应,解析响应数据*/

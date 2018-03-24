@@ -11,17 +11,19 @@ export class UpdExamService {
   constructor(private _http: HttpClient) {
   }
 
-  private getHttpHeaders(contentType: string): HttpHeaders {
-    var headers: HttpHeaders = new HttpHeaders();
+  /**
+   * 构建请求头
+   * @param {string} contentType
+   * @returns {any}
+   */
+  private getHttpRequestOptions(contentType: string): object {
     // angular post请求默认是json格式的即请求头时application/json;charset=utf-8，这是springMVc接受参数需要添加@RequestBody注解
     // 而springMvc的默认接受请求头为application/x-www-form-urlencoded;charset=utf-8'，即jquery Ajax那种 data:{}方式
     // 如果不需要设置请求头,则不必调用此方法
-    if (contentType == '' || contentType == null) {
-      headers.append('content-type', 'application/x-www-form-urlencoded;charset=utf-8');
-    } else {
-      headers.append('content-type', contentType);
-    }
-    return headers;
+    const httpOptions = {
+      headers: new HttpHeaders({'Content-Type': contentType})
+    };
+    return httpOptions;
   }
 
   /**
@@ -55,9 +57,8 @@ export class UpdExamService {
    */
   updExam(cpaRepertory: Item, cpaOptions: Array<CpaOption>, cpaSolution: CpaSolution): Observable<any> {
     let url = '/api/unitExam/updUnitExam';
-    let headers = this.getHttpHeaders('');
-
-    return this._http.post(url, {cpaRepertory, cpaOptions, cpaSolution}, {headers})
+    const httpRequestOptions = this.getHttpRequestOptions('');
+    return this._http.post(url, {cpaRepertory, cpaOptions, cpaSolution}, httpRequestOptions)
       .map(this.extractData)
       .catch(this.handleError);
   }

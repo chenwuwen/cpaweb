@@ -2,6 +2,7 @@ import { Pipe, PipeTransform } from '@angular/core';
 /* 注意引入URLSearchParams, 之前没引入导致生成的数据不正确, 这个地方可能不会自动引入(在component中new URLSearchParams() 是会
 提示引入的，在Pipe中写没有提示,但是写完也不报错，所以需要手动引入,也可能是编辑器的问题) */
 import { Http, Headers, Response, URLSearchParams, RequestOptions, ResponseContentType } from "@angular/http";
+import {HttpParams} from '@angular/common/http';
 
 @Pipe({
   name: 'changePostBody'
@@ -12,15 +13,37 @@ import { Http, Headers, Response, URLSearchParams, RequestOptions, ResponseConte
 而是将要post的对象,放在此pipe中进行转换,这样后台就可以按照原来的方法接收参数了 */
 export class ChangePostBodyPipe implements PipeTransform {
 
+  // transform(value: any, args?: any): any {
+  //   console.log(`管道中的value：` + value);
+  //   let data = new URLSearchParams();
+  //   if (value != null && value != undefined) {
+  //     for (var key in value) {
+  //       data.append(key, value[key])
+  //     }
+  //   }
+  //   console.log(`管道处理后的结果：`+JSON.stringify(data))
+  //   return data;
+  // }
+
+  /**
+   * angular4.3之后,由于引入了新的httpClien模块，所以不能使用之前的URLSearchParams
+   * @param value
+   * @param args
+   * @returns {any}
+   */
   transform(value: any, args?: any): any {
-    console.log(`管道中的value：` + value);
-    let data = new URLSearchParams();
+    console.log(`↓↓管道中的value↓↓`);
+    console.log(value);
+    let data = new HttpParams();
     if (value != null && value != undefined) {
       for (var key in value) {
+        console.log(key)
+        console.log(value[key])
         data.append(key, value[key])
       }
     }
-    console.log(`管道处理后的结果：`+JSON.stringify(data))
+    console.log(`↓↓管道处理后的结果：↓↓`)
+    console.log(data)
     return data;
   }
 

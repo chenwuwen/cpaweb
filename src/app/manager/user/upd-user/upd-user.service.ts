@@ -10,17 +10,18 @@ export class UpdUserService {
   constructor(private _http: HttpClient) {
   }
 
-  private getHttpHeaders(contentType: string): HttpHeaders {
-    var headers: HttpHeaders = new HttpHeaders();
+  private getHttpRequestOptions(contentType: string): object {
     // angular post请求默认是json格式的即请求头时application/json;charset=utf-8，这是springMVc接受参数需要添加@RequestBody注解
     // 而springMvc的默认接受请求头为application/x-www-form-urlencoded;charset=utf-8'，即jquery Ajax那种 data:{}方式
     // 如果不需要设置请求头,则不必调用此方法
     if (contentType == '' || contentType == null) {
-      headers.set('Content-Type', 'application/x-www-form-urlencoded;charset=utf-8');
-    } else {
-      headers.append('Content-Type', contentType);
+      contentType = 'application/json;charset=utf-8';
     }
-    return headers;
+    const httpOptions = {
+
+      headers: new HttpHeaders({'Content-Type': contentType})
+    };
+    return httpOptions;
   }
 
   /**
@@ -30,8 +31,10 @@ export class UpdUserService {
     let url = '/api/user/getUserList';
     let changePostBodyPipe = new ChangePostBodyPipe();
     let cpaUserDto = changePostBodyPipe.transform(cpaUser);
-    let headers = this.getHttpHeaders('');
-    return this._http.post(url, cpaUserDto, {headers}).map(this.extractData).catch(this.handleError);
+
+    const httpRequestOptions = this.getHttpRequestOptions('application/x-www-form-urlencoded;charset=utf-8');
+
+    return this._http.post(url, cpaUser, httpRequestOptions).map(this.extractData).catch(this.handleError);
   }
 
   /**
@@ -59,11 +62,12 @@ export class UpdUserService {
    */
   updUser(cpaUserDto: CpaUserDto): Observable<any> {
     console.log(cpaUserDto);
-    let headers = this.getHttpHeaders('');
-    console.log(headers)
-    console.log(headers.get('content-type'))
+
     let url = '/api/user/updUser';
-    return this._http.post(url, cpaUserDto, {headers: headers}).map(this.extractData).catch(this.handleError);
+    let changePostBodyPipe = new ChangePostBodyPipe();
+    cpaUserDto = changePostBodyPipe.transform(cpaUserDto);
+    const httpRequestOptions = this.getHttpRequestOptions('application/x-www-form-urlencoded;charset=utf-8');
+    return this._http.post(url, cpaUserDto, httpRequestOptions).map(this.extractData).catch(this.handleError);
   }
 
   /*response 对象并不是返回我们可以直接使用的数据，要想变成应用程序所需要的数据需要：检查不良响应,解析响应数据*/
