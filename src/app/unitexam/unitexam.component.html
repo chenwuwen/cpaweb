@@ -34,12 +34,12 @@
   <div class="col-md-5 col-md-offset-1">
     <!--此标签只作为逻辑工具使用;渲染之后不改变原有结构-->
     <ng-container *ngFor="let data of Listdata;let i = index">
-      <div class="card panel-default " [ngClass]="{'bg-danger': reviewErrList(data.id),'bg-warning':reviewNotDoList(i)}">
+      <div class="card" [ngClass]="{'bg-danger': reviewErrList(data.id),'bg-warning':reviewNotDoList(i)}">
         <!--一个标签内[ngClass]不可以写多个,如果需要多个,将方法写在一个[ngClass]内-->
         <div class="card-header">
           <h3 class="card-title">第{{i+1}}题.{{data.testStem}}</h3>
         </div>
-        <div class="card-body">
+        <div class="card-block">
           <ul class="list" style="margin:0;padding:0;list-style:none">
             <li *ngFor="let options of data.cpaOptionDtos;let k = index">
               <input class="magic-radio" type="radio" [(ngModel)]="pAnswers[i]" value="{{data.id}}-{{options.selectData}}" (click)="showMsg()"

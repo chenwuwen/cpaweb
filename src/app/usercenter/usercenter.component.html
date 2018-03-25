@@ -14,27 +14,27 @@
 
 <div class="row">
   <div class="col-sm-6 col-md-3">
-    <div class="panel panel-default">
-      <div class="panel-heading">头像</div>
-      <div class="panel-body" style="text-align:center">
-        <img #headImg style="height:100%;width:100%;display:100%" src="http://kanyun123.3vcm.net/touxiang.jpeg" alt="..." (click)="headModal.show()">
-        <div class="caption">
-        </div>
+    <div class="card">
+      <div class="card-header">头像</div>
+      <img class="card-img-top" #headImg src="http://kanyun123.3vcm.net/touxiang.jpeg" alt="Card image cap">
+      <div class="card-block">
+        <a (click)="headModal.show()" href="javascript:void(0)" class="btn btn-primary">更换头像</a>
       </div>
     </div>
+
   </div>
   <div class="col-sm-6 col-md-6">
-    <div class="panel panel-default">
-      <div class="panel-heading">个人资料</div>
-      <div class="panel-body">
+    <div class="card card-default">
+      <div class="card-header">个人资料</div>
+      <div class="card-block">
 
       </div>
     </div>
   </div>
   <div class="col-sm-6 col-md-3">
-    <div class="panel panel-default">
-      <div class="panel-heading">好友</div>
-      <div class="panel-body">
+    <div class="card card-default">
+      <div class="card-header">好友</div>
+      <div class="card-block">
 
       </div>
     </div>
@@ -44,25 +44,25 @@
 
 <div class="row">
   <div class="col-sm-6 col-md-3">
-    <div class="panel panel-info">
-      <div class="panel-heading">统计信息</div>
-      <div class="panel-body">
-        Panel content
+    <div class="card card-info">
+      <div class="card-header">统计信息</div>
+      <div class="card-block">
+        card content
       </div>
     </div>
   </div>
   <div class="col-sm-6 col-md-6">
-    <div class="panel panel-info">
-      <div class="panel-heading">动态</div>
-      <div class="panel-body">
-        Panel content
+    <div class="card card-info">
+      <div class="card-header">动态</div>
+      <div class="card-block">
+        card content
       </div>
     </div>
   </div>
   <div class="col-sm-6 col-md-3">
-    <div class="panel panel-default">
-      <div class="panel-heading">最近访客</div>
-      <div class="panel-body">
+    <div class="card card-default">
+      <div class="card-header">最近访客</div>
+      <div class="card-block">
 
       </div>
     </div>
@@ -80,7 +80,7 @@
           <span aria-hidden="true">&times;</span>
         </button>
       </div>
-      <div class="modal-body">
+      <div class="modal-block">
 
         <section class=" img-section">
 
@@ -89,14 +89,14 @@
             <!--上传图片位置，默认显示并存在DOM中，此处为什么不用[ngStyle]，因为使用ngStyle之后，将预览图片删除后
               重新选择图片会出现图片选不上的问题，大概原因是因为ng2FileSelect需要重新实例话，所以此处选用ngIf，解决问题-->
             <section class="z_file fl" *ngIf='imgFlag'>
-              <img src="./img/a11.png" class="add-img">
+              <img src="assets/image/upload_header_img/a11.png" class="add-img">
               <input type="file" class="file" ng2FileSelect [uploader]="uploader" (change)="selectedFileOnChanged($event)" accept="image/*"
               />
             </section>
             <!--预览图片位置,默认隐藏，原来使用的是*ngIf来控制发现会出问题，原因已在组件内说明，改用ngStyle-->
             <section class="up-section fl" [ngStyle]="{'display':!imgFlag?'block':'none'}">
               <span class="up-span"></span>
-              <img src="img/a7.png" class="close-upimg" (click)="removeImg()">
+              <img src="assets/image/upload_header_img/a7.png" class="close-upimg" (click)="removeImg()">
               <img #preview src="" class="up-img">
               <p id="aaa" class="img-name-p"></p>
               <input id="taglocation" name="taglocation" value type="hidden" />

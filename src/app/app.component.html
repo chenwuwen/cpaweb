@@ -1,5 +1,6 @@
-<!--页头开始-->
 <div id="header" class="Container">
+
+  <!--页头开始-->
   <nav class="navbar navbar-expand-lg navbar-light bg-light fixed-top">
 
     <!-- Brand and toggle get grouped for better mobile display -->
@@ -27,17 +28,11 @@
             <!-- <span class="caret"></span> -->
           </a>
           <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-            <li routerLinkActive="active">
-              <a class="dropdown-item" [routerLink]="['/unitexam','basicAccount']" href="javascript:void(0)">会计基础</a>
-            </li>
+            <a class="dropdown-item" [routerLink]="['/unitexam','basicAccount']" href="javascript:void(0)">会计基础</a>
             <li class="dropdown-divider"></li>
-            <li routerLinkActive="active">
-              <a class="dropdown-item" [routerLink]="['/unitexam','cpuAccount']" href="javascript:void(0)">会计电算化</a>
-            </li>
+            <a class="dropdown-item" [routerLink]="['/unitexam','cpuAccount']" href="javascript:void(0)">会计电算化</a>
             <li class="dropdown-divider"></li>
-            <li routerLinkActive="active">
-              <a class="dropdown-item" [routerLink]="['/unitexam','statuteEthics']" href="javascript:void(0)">财经法规与职业道德</a>
-            </li>
+            <a class="dropdown-item" [routerLink]="['/unitexam','statuteEthics']" href="javascript:void(0)">财经法规与职业道德</a>
           </div>
         </li>
         <li class="nav-item" routerLinkActive="active">
@@ -50,9 +45,9 @@
           <a class="nav-link" [routerLink]="['/manager']" href="javascript:void(0)">管理中心</a>
         </li>
       </ul>
-      <form class="form-inline my-2 my-lg-0">
-        <input class="form-control mr-sm-2" type="search" #searchValue placeholder="Search" aria-label="Search">
-        <button type="submit" class="btn btn-default" (click)="search(searchValue)">搜索</button>
+      <form class="form-inline navbar-form pull-left">
+        <input class="form-control" type="search" #searchValue placeholder="输入想搜索的内容" aria-label="Search">
+        <button type="submit" class="btn btn-success-outline" (click)="search(searchValue)">搜索</button>
       </form>
       <!-- 顶部导航栏右侧 -->
       <ul class="nav navbar-nav navbar-right">
@@ -88,8 +83,12 @@
     <!-- /.navbar-collapse -->
 
   </nav>
+  <!--页头结束-->
+
+
+
 </div>
-<!--页头结束-->
+
 
 <!-- 主体内容区域 -->
 <div class="container container-fluid" id="main">
@@ -114,7 +113,7 @@
 <div class="footer ">
   <div class="container">
     <div class="row footer-top">
-      <div class="col-5">
+      <div class="col-md-5">
         <h4></h4>
         <p>欢迎你加入，这里有你想要的.</p>
       </div>
