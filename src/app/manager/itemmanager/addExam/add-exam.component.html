@@ -65,16 +65,24 @@
 
   <fieldset>
     <legend class="">试题类型</legend>
+
     <div class="form-group">
       <div class="col-md-11">
-        <label class="radio-inline">
-          <input name="choice" type="radio" (click)="changeGenre('single')" value="single" checked="checked" formControlName="choice"> 单选题
-        </label>
-        <label class="radio-inline">
-          <input name="choice" type="radio" (click)="changeGenre('multiple')" value="multiple" formControlName="choice"> 多选题
-        </label>
+
+        <div class="custom-control custom-radio custom-control-inline">
+          <input type="radio" id="single" (click)="changeGenre('single')" formControlName="choice" name="choice" value="single" checked="checked"
+            class="custom-control-input">
+          <label class="custom-control-label" for="single">单选题</label>
+        </div>
+        <div class="custom-control custom-radio custom-control-inline">
+          <input type="radio" id="multiple" (click)="changeGenre('multiple')" value="multiple" formControlName="choice" name="choice"
+            class="custom-control-input">
+          <label class="custom-control-label" for="multiple">多选题</label>
+        </div>
       </div>
     </div>
+
+
   </fieldset>
 
   <fieldset>
@@ -97,35 +105,47 @@
     <!-- 单选题DOM -->
     <div class="form-group" *ngSwitchCase=1>
       <div class="col-md-11">
-        <label class="radio-inline">
-          <input type="radio" value="A" name="result" formControlName="result"> A
-        </label>
-        <label class="radio-inline">
-          <input type="radio" value="B" name="result" formControlName="result"> B
-        </label>
-        <label class="radio-inline">
-          <input type="radio" value="C" name="result" formControlName="result"> C
-        </label>
-        <label class="radio-inline">
-          <input type="radio" value="D" name="result" formControlName="result"> D
-        </label>
+        <div class="custom-control custom-radio custom-control-inline">
+          <input type="radio" id="radioA" value="A" formControlName="result" name="result" class="custom-control-input">
+          <label class="custom-control-label" for="radioA">A</label>
+        </div>
+        <div class="custom-control custom-radio custom-control-inline">
+          <input type="radio" id="radioB" value="B" formControlName="result" name="result" class="custom-control-input">
+          <label class="custom-control-label" for="radioB">B</label>
+        </div>
+        <div class="custom-control custom-radio custom-control-inline">
+          <input type="radio" id="radioC" value="C" formControlName="result" name="result" class="custom-control-input">
+          <label class="custom-control-label" for="radioC">C</label>
+        </div>
+        <div class="custom-control custom-radio custom-control-inline">
+          <input type="radio" id="radioD" value="D" formControlName="result" name="result" class="custom-control-input">
+          <label class="custom-control-label" for="radioD">D</label>
+        </div>
       </div>
     </div>
     <!-- 多选题DOM -->
     <div class="form-group" *ngSwitchCase=2>
       <div class="col-md-11">
-        <label class="radio-inline">
-          <input type="checkbox" (click)="selectCheckbox($event.target.checked,'A')"  value="A" name="result"> A
-        </label>
-        <label class="radio-inline">
-          <input type="checkbox" (click)="selectCheckbox($event.target.checked,'B')"  value="B" name="result"> B
-        </label>
-        <label class="radio-inline">
-          <input type="checkbox"  (click)="selectCheckbox($event.target.checked,'C')"  value="C" name="result"> C
-        </label>
-        <label class="radio-inline">
-          <input type="checkbox" (click)="selectCheckbox($event.target.checked,'D')"  value="D" name="result"> D
-        </label>
+        <div class="custom-control custom-checkbox custom-control-inline">
+          <input type="checkbox" class="custom-control-input" (click)="selectCheckbox($event.target.checked,'A')" value="A" name="result"
+            id="checkboxA">
+          <label class="custom-control-label" for="checkboxA">A</label>
+        </div>
+        <div class="custom-control custom-checkbox custom-control-inline">
+          <input type="checkbox" class="custom-control-input" (click)="selectCheckbox($event.target.checked,'A')" value="B" name="result"
+            id="checkboxB">
+          <label class="custom-control-label" for="checkboxB">B</label>
+        </div>
+        <div class="custom-control custom-checkbox custom-control-inline">
+          <input type="checkbox" class="custom-control-input" (click)="selectCheckbox($event.target.checked,'C')" value="C" name="result"
+            id="checkboxC">
+          <label class="custom-control-label" for="checkboxC">C</label>
+        </div>
+        <div class="custom-control custom-checkbox custom-control-inline">
+          <input type="checkbox" class="custom-control-input" (click)="selectCheckbox($event.target.checked,'D')" value="D" name="result"
+            id="checkboxD">
+          <label class="custom-control-label" for="checkboxD">D</label>
+        </div>
       </div>
     </div>
 

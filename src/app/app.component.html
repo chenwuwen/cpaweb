@@ -1,7 +1,7 @@
 <div id="header" class="Container">
 
   <!--页头开始-->
-  <nav class="navbar navbar-expand-lg navbar-light bg-light fixed-top">
+  <nav class="navbar navbar-expand-lg navbar-light bg-light fixed-top navbar-expand">
 
     <!-- Brand and toggle get grouped for better mobile display -->
     <a class="navbar-brand" href="#">
@@ -45,13 +45,13 @@
           <a class="nav-link" [routerLink]="['/manager']" href="javascript:void(0)">管理中心</a>
         </li>
       </ul>
-      <form class="form-inline navbar-form pull-left">
-        <input class="form-control" type="search" #searchValue placeholder="输入想搜索的内容" aria-label="Search">
-        <button type="submit" class="btn btn-success-outline" (click)="search(searchValue)">搜索</button>
+      <form class="form-inline mx-auto">
+        <input class="form-control mr-sm-2" type="search" #searchValue placeholder="输入想搜索的内容" aria-label="Search">
+        <button type="submit" class="btn btn-outline-success my-2 my-sm-0" (click)="search(searchValue)">搜索</button>
       </form>
       <!-- 顶部导航栏右侧 -->
-      <ul class="nav navbar-nav navbar-right">
-        <a class="navbar-left" href="javascript:void(0)" [routerLink]="['/usercenter']">
+      <ul class="navbar-nav mr-5">
+        <a class="" href="javascript:void(0)" [routerLink]="['/usercenter']">
           <img #circleHeadImg class="img-circle  img-responsive" src="http://kanyun123.3vcm.net/circular.png" alt="" />
         </a>
 
@@ -84,8 +84,6 @@
 
   </nav>
   <!--页头结束-->
-
-
 
 </div>
 
