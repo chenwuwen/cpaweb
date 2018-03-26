@@ -4,7 +4,7 @@
     <legend class="">填写题干</legend>
     <div class="form-group">
       <div class="col-md-11">
-        <input name="testStem" typ="text" class="form-control" formControlName="testStem" required placeholder="请填写题干">
+        <textarea name="testStem" class="form-control" formControlName="testStem" required placeholder="请填写题干" rows="3"></textarea>
       </div>
     </div>
   </fieldset>
@@ -15,7 +15,9 @@
       <div class="form-group" *ngFor="let cpaOption of addItemForm.controls.cpaOptions.controls; index as idx">
         <div class="col-md-11">
           <div class="input-group">
-            <span class="input-group-addon">{{idx | digitalTransfer}}</span>
+            <div class="input-group-prepend">
+              <span class="input-group-text">{{idx | digitalTransfer}}</span>
+            </div>
             <input class="form-control" [formControlName]="idx" placeholder="请填写选项内容">
           </div>
         </div>
@@ -88,9 +90,9 @@
   <fieldset>
     <legend class="">试题类型</legend>
     <div class="form-group">
-      <div class="col-md-11">
+      <div class="col-md-4">
         <div class="controls">
-          <select name="testType" class="input-xlarge" required formControlName="testType">
+          <select name="testType" class="form-control custom-select" required formControlName="testType">
             <option value="basicAccount">会计基础</option>
             <option value="cpuAccount">会计电算化</option>
             <option value="statuteEthics">财经法规与职业道德</option>

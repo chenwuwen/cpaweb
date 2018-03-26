@@ -37,9 +37,9 @@
       <div class="card" [ngClass]="{'bg-danger': reviewErrList(data.id),'bg-warning':reviewNotDoList(i)}">
         <!--一个标签内[ngClass]不可以写多个,如果需要多个,将方法写在一个[ngClass]内-->
         <div class="card-header">
-          <h3 class="card-title">第{{i+1}}题.{{data.testStem}}</h3>
+          第{{i+1}}题.{{data.testStem}}
         </div>
-        <div class="card-block">
+        <div class="card-body">
           <ul class="list" style="margin:0;padding:0;list-style:none">
             <li *ngFor="let options of data.cpaOptionDtos;let k = index">
               <input class="magic-radio" type="radio" [(ngModel)]="pAnswers[i]" value="{{data.id}}-{{options.selectData}}" (click)="showMsg()"
@@ -61,7 +61,7 @@
 
           </form>
           <div>
-            <a href="javascript:void(0)" (click)="getComment(i,data.id,i)" *ngIf="data.commentCount>0">共{{data.commentCount}}条评论</a>
+            <a class="card-link" href="javascript:void(0)" (click)="getComment(i,data.id,i)" *ngIf="data.commentCount>0">共{{data.commentCount}}条评论</a>
             <div *ngIf="commentContentIndexs[i]">
               <!-- 显示评论内容(使用了BootStrap媒体对象列表) -->
               <div class="media" *ngFor='let userComment of Listcomment[i]'>
