@@ -13,8 +13,8 @@ import {DigitalTransferPipe} from '../../../common/pipe/DigitalTransferPipe/digi
 export class AddExamComponent implements OnInit {
 
   private addItemForm: FormGroup;
-  public serialNumber: number = 0;  //新增试题返回ID
-  public checkeds: Array<any> = []; //多选题选择的答案数组
+  private serialNumber: number = 0;  //新增试题返回ID
+  private checkeds: Array<any> = []; //多选题选择的答案数组
   private genre: number = 1;  //控制单选Dom，多选Dom的标志
 
   constructor(private fromBuild: FormBuilder, private _addExamService: AddExamService) {

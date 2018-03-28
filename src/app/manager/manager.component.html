@@ -1,11 +1,10 @@
 <div class="container container-fluid">
   <div class="row">
-    <div class="col-1">
-      <div class="col-1">
+      <div class="col-md-1">
         <aside class="sidebar show perfectScrollbar">
           <div id="solso-sidebar">
             <div class="card-group" id="accordion" role="tablist" aria-multiselectable="true">
-  
+
               <div class="card">
                 <div class="card-header " role="tab">
                   <div class="input-group custom-search-form">
@@ -18,7 +17,7 @@
                   </div>
                 </div>
               </div>
-  
+
               <div class="card" routerLinkActive="active">
                 <div class="card-header " role="tab" id="heading1">
                   <h4 class="card-title">
@@ -28,7 +27,7 @@
                   </h4>
                 </div>
               </div>
-  
+
               <div class="card">
                 <div class="card-header " role="tab" id="heading2">
                   <h4 class="card-title">
@@ -38,7 +37,7 @@
                     </a>
                   </h4>
                 </div>
-  
+
                 <div id="collapse2" class="card-collapse collapse in" role="tabcard" aria-labelledby="heading2">
                   <div>
                     <a href="javascript:void(0)" class="list-group-item" [routerLink]="['/manager/addExam']">新增试题</a>
@@ -46,7 +45,7 @@
                   </div>
                 </div>
               </div>
-  
+
               <div class="card">
                 <div class="card-header " role="tab" id="heading3">
                   <h4 class="card-title">
@@ -56,25 +55,25 @@
                     </a>
                   </h4>
                 </div>
-  
+
                 <div id="collapse3" class="card-collapse collapse in" role="tabcard" aria-labelledby="heading3">
                   <div>
                     <a href="javascript:void(0)" class="list-group-item" [routerLink]="['/manager/updUser']">用户管理</a>
                   </div>
                 </div>
               </div>
-  
-  
+
+
             </div>
           </div>
         </aside>
       </div>
 
-    </div>
   </div>
 
   <!--后台管理右侧内容-->
-  <div class="col-10">
+  <div class="col-md-11">
+    <div class="container-fluid container"></div>
     <router-outlet></router-outlet>
   </div>
 </div>

@@ -19,7 +19,7 @@ export class UpdExamComponent implements OnInit {
   /*总记录数*/
   private bigTotalItems: number = 0;
   // 当前请求返回加载记录数
-  private currentLoadSize:number;
+  private currentLoadSize: number;
   private numPages: number = 0;
   /*每页显示数量*/
   private itemsPerPage: number = 20;
@@ -36,6 +36,8 @@ export class UpdExamComponent implements OnInit {
   private cpaSolution: CpaSolution = new CpaSolution();
   private pageNo: number = 1;
   private pageSize: number = 20;
+
+  private checkeds: Array<any> = []; //多选题选择的答案数组
 
   @ViewChild('udpExamModal')
   private udpExamModal: ModalDirective;
@@ -87,7 +89,7 @@ export class UpdExamComponent implements OnInit {
   changePageSize(pageSize: number): void {
     this.pageSize = pageSize;
     // 改变显示页码数,如100条记录,原来每页显示10条,共显示10个页码,现每页显示20条,将显示5个页码
-    this.itemsPerPage=pageSize;
+    this.itemsPerPage = pageSize;
     this.getListExam();
   }
 
@@ -201,12 +203,31 @@ export class UpdExamComponent implements OnInit {
     );
   }
 
+
   /**
-   * 多选单选切换
+   * checkbox选择事件
+   * @param check
    * @param value
    */
-  changeGenre(value: any): void {
-    this.item.choice = value;
+  selectCheckbox(check: boolean, value: string) {
+    // console.log(result);
+    //先判断选中的数组里面是否包括当前值,includes目前不支持
+    //var isInclude:boolean = this.selectHobby.includes(value);
+    var index: number = this.checkeds.indexOf(value);
+    //当前选择的就追加否则就移除
+    if (check) {
+      if (index < 0) {
+        this.checkeds.push(value);
+      }
+    } else {
+      this.checkeds = this.checkeds.filter((ele, index) => {
+        return ele != value;
+      });
+    }
+
+    console.log(`当前多选题的答案有：` + this.checkeds.toString());
+
+    this.cpaSolution.result = this.checkeds.toString();
   }
 
   /**
