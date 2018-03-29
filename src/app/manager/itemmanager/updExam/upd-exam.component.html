@@ -16,57 +16,57 @@
   <button type="submit" class="btn btn-default">搜索</button>
 </form>
 
-  <table class="table table-striped">
-    <thead>
-    <tr>
-      <th>#</th>
-      <th>题干</th>
-      <th>类型</th>
-      <th>题型</th>
-      <th>时间</th>
-      <th>操作</th>
-    </tr>
-    </thead>
-    <tbody>
-    <tr *ngFor="let item of ListExam;let i = index">
-      <td>{{(bigCurrentPage-1)*pageSize+i+1}}</td>
-      <td>
+<table class="table table-striped">
+  <thead>
+  <tr>
+    <th>#</th>
+    <th>题干</th>
+    <th>类型</th>
+    <th>题型</th>
+    <th>时间</th>
+    <th>操作</th>
+  </tr>
+  </thead>
+  <tbody>
+  <tr *ngFor="let item of ListExam;let i = index">
+    <td>{{(bigCurrentPage-1)*pageSize+i+1}}</td>
+    <td>
           <span triggers="mouseenter:mouseleave" container="" popover="{{item.testStem}}" placement="auto">
             {{item.testStem|sliceString:0:25:'...'}}
           </span>
 
-      </td>
-      <td>{{item.testType}}</td>
-      <td>{{item.choice}}</td>
-      <td>{{item.insertDate}}</td>
-      <!--试题ID-->
-      <!--<td>{{item.id}}</td>-->
-      <td #idEle abbr="{{item.id}}">
-        <a href="javascript:void(0)" (click)="getExamDetail(idEle)">修改</a>
-        <a href="javascript:void(0)" (click)="delExamTip(idEle)">删除</a>
-      </td>
+    </td>
+    <td>{{item.testType}}</td>
+    <td>{{item.choice}}</td>
+    <td>{{item.insertDate}}</td>
+    <!--试题ID-->
+    <!--<td>{{item.id}}</td>-->
+    <td #idEle abbr="{{item.id}}">
+      <a href="javascript:void(0)" (click)="getExamDetail(idEle)">修改</a>
+      <a href="javascript:void(0)" (click)="delExamTip(idEle)">删除</a>
+    </td>
 
-    </tr>
-    </tbody>
-  </table>
+  </tr>
+  </tbody>
+</table>
 
 
-
-<!--分页-->
-<div class="row">
-  <div class="col-md-6">
-    <!--这里添加的两个class类,是为了跟分页条保持水平对齐,分页条使用了ngxbootstrap组件,其会自动在dom中生成div,且自带类及样式,所以我将其类用到该div上,使其保持水平-->
-    <div class="pagination pagination-sm fonttwig">
-      <!--currentLoadSize*1是为了将currentLoadSize转型为int,否则为字符串类型-->
-      当前显示第{{(bigCurrentPage-1)*pageSize+1}}到第{{(bigCurrentPage-1)*pageSize+currentLoadSize*1}}条记录，总共{{bigTotalItems}}条记录，
-      每页显示
-      <select [(ngModel)]="pageSize" (change)="changePageSize($event.target.value)">
+<!--分页DOM-->
+<div class="paging_column_flex">
+  <div class="form-row align-items-center">
+    <!--currentLoadSize*1是为了将currentLoadSize转型为int,否则为字符串类型-->
+    当前显示第{{(bigCurrentPage-1)*pageSize+1}}到第{{(bigCurrentPage-1)*pageSize+currentLoadSize*1}}条记录，总共{{bigTotalItems}}条记录，
+    每页显示
+    <div class="col-auto my-1">
+      <select class="custom-select mr-sm-2" [(ngModel)]="pageSize" (change)="changePageSize($event.target.value)">
         <option *ngFor="let size of pageSizeList">{{size}}</option>
-      </select>条记录
+      </select>
+    </div>
+    <div class="col-auto my-1">
+      条记录
     </div>
   </div>
-  <div class="col-md-1"></div>
-  <div class="col-md-5">
+  <div>
     <pagination [totalItems]="bigTotalItems" [(ngModel)]="bigCurrentPage" [maxSize]="maxSize" class="pagination-sm"
                 [boundaryLinks]="true"
                 [rotate]="false" (numPages)="numPages = $event" [itemsPerPage]="itemsPerPage"

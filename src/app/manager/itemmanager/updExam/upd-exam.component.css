@@ -1,3 +1,8 @@
-.fonttwig{
-  margin-top: 1.8em;
+.paging_column_flex {
+  display: -webkit-flex;
+  display: flex;
+  flex-flow: row nowrap;
+  align-items: baseline; /*align-items属性定义项目在交叉轴上如何对齐。*/
+  justify-content: space-between; /*justify-content属性定义了项目在主轴上的对齐方式*/
+  -webkit-align-items: baseline;
 }
