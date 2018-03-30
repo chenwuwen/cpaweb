@@ -2,3 +2,11 @@
   height: 3em;
   margin-left: 0.5em;
 }
+.login_modal_footer{
+  display: -webkit-flex;
+  display: flex;
+  flex-flow: row nowrap;
+  justify-content: space-between;
+  align-items: baseline;
+  -webkit-align-items: baseline;
+}

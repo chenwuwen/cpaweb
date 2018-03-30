@@ -1,5 +1,7 @@
-<div *ngIf="isModalShown" [config]="{ show: true,keyboard: false,ignoreBackdropClick: true }" bsModal #loginModal="bs-modal"
-  class="modal fade" tabindex="-1" role="dialog" aria-hidden="true" (onHidden)="handler('onHidden', $event)" (onShown)="handler('onShown', $event)">
+<div *ngIf="isModalShown" [config]="{ show: true,keyboard: false,ignoreBackdropClick: true }" bsModal
+     #loginModal="bs-modal"
+     class="modal fade" tabindex="-1" role="dialog" aria-hidden="true" (onHidden)="handler('onHidden', $event)"
+     (onShown)="handler('onShown', $event)">
   <div class="modal-dialog modal-md">
     <div class="modal-content">
       <!-- <div class="modal-header">
@@ -13,61 +15,67 @@
           <tab (select)="changeLoginSchema()" heading="登陆" class="container">
             <br>
             <form class="form-horizontal" role="form" autocomplete="on" #loginForm="ngForm">
-              <div class="form-group" [ngClass]="{'has-error':loginUserName.errors?.required && loginUserName.touched || ifshow}">
+              <div class="form-group"
+                   [ngClass]="{'has-error':loginUserName.errors?.required && loginUserName.touched || ifshow}">
                 <div class="col-md-12">
                   <div class="input-group">
-                    <span class="input-group-addon">
-                      <i class="glyphicon glyphicon-user"></i>
-                    </span>
-                    <input class="form-control" type="text" #loginUserName='ngModel' name="userName" [(ngModel)]="cpaUser.userName" placeholder="请输入用户名"
-                      required>
+                    <div class="input-group-prepend">
+                      <span class="input-group-text">
+                        <i class="fa fa-user fa-fw"></i>
+                      </span>
+                    </div>
+                    <input class="form-control" type="text" #loginUserName='ngModel' name="userName"
+                           [(ngModel)]="cpaUser.userName" placeholder="请输入用户名"
+                           required>
                   </div>
                   <span class="help-block" *ngIf="ifshow">{{msg}}</span>
-                  <span class="help-block" *ngIf="loginUserName.errors?.required && loginUserName.touched">用户名不能为空</span>
+                  <span class="help-block"
+                        *ngIf="loginUserName.errors?.required && loginUserName.touched">用户名不能为空</span>
                 </div>
               </div>
-              <div class="form-group" [ngClass]="{'has-error':loginPassword.errors?.required && loginPassword.touched || ifshow}">
+              <div class="form-group"
+                   [ngClass]="{'has-error':loginPassword.errors?.required && loginPassword.touched || ifshow}">
                 <div class="col-md-12">
                   <div class="input-group">
-                    <span class="input-group-addon">
-                      <i class="glyphicon glyphicon-lock"></i>
-                    </span>
-                    <input class="form-control" #loginPassword='ngModel' type="password" name="password" [(ngModel)]="cpaUser.password" placeholder="请输入密码"
-                      required>
+                    <div class="input-group-prepend">
+                      <span class="input-group-text">
+                        <i class="fa fa-key fa-fw"></i>
+                      </span>
+                    </div>
+                    <input class="form-control" #loginPassword='ngModel' type="password" name="password"
+                           [(ngModel)]="cpaUser.password" placeholder="请输入密码"
+                           required>
                   </div>
                   <span class="help-block" *ngIf="ifshow">{{msg}}</span>
                   <span class="help-block" *ngIf="loginPassword.errors?.required && loginPassword.touched">密码不能为空</span>
                 </div>
               </div>
-              <div class="form-group" [ngClass]="{'has-error':loginValidateCode.errors?.required && loginValidateCode.touched || ifshow1}">
+              <div class="form-group"
+                   [ngClass]="{'has-error':loginValidateCode.errors?.required && loginValidateCode.touched || ifshow1}">
                 <div class="container">
                   <div class="row">
                     <div class="col-md-6">
                       <div class="input-group">
-                        <span class="input-group-addon">
-                          <i class="glyphicon glyphicon-alert"></i>
-                        </span>
-                        <input class="form-control" type="text" #loginValidateCode="ngModel" name="validateCode" [(ngModel)]="cpaUser.validateCode"
-                          placeholder="请输入验证码" required>
+                        <input class="form-control" type="text" #loginValidateCode="ngModel" name="validateCode"
+                               [(ngModel)]="cpaUser.validateCode"
+                               placeholder="请输入验证码" required>
                       </div>
                       <span class="help-block" *ngIf="ifshow1">{{msg}}</span>
                       <span class="help-block" *ngIf="loginValidateCode.errors?.required && loginValidateCode.touched">验证码不能为空</span>
                     </div>
                     <div class="col-md-6">
-                      <img src="/api/validateCode" #validateCodeUrl0 class="img-responsive" title="点击重新获取验证码" alt="验证码" (click)="reloadValidateCode()">
+                      <img src="/api/validateCode" #validateCodeUrl0 class="img-fluid rounded" title="点击重新获取验证码" alt="验证码"
+                           (click)="reloadValidateCode()" >
                     </div>
                   </div>
                 </div>
 
               </div>
-              <div class="form-group">
-                <div class="col-md-3 ">
-                  <div class="checkbox">
-                    <label>
-                      <input [(ngModel)]="cpaUser.isRememberMe" name="isRememberMe" type="checkbox">记住我
-                    </label>
+              <div class="form-group ml-3">
+                  <div class="custom-control custom-checkbox custom-control-inline">
+                    <input type="checkbox" class="custom-control-input"  [(ngModel)]="cpaUser.isRememberMe" name="isRememberMe" id="isRememberMe">
+                    <label class="custom-control-label" for="isRememberMe">记住我</label>
                   </div>
-                </div>
               </div>
             </form>
           </tab>
@@ -77,12 +85,16 @@
               <div class="form-group" [ngClass]="{'has-error':newUserName.errors?.rangeLength || ifshow3}">
                 <div class="col-md-12">
                   <div class="input-group">
-                    <span class="input-group-addon">
-                      <i class="glyphicon glyphicon-user"></i>
-                    </span>
-                    <input class="form-control" type="text" #newUserName="ngModel" (blur)="checkUserName(newUserName.value)" (keyup)="onKeyPress($event)"
-                      [rangeLength]="[5,10]" name="userName" [(ngModel)]="registerUser.userName" (ngModelChange)="changeName($event)"
-                      placeholder="请输入用户名">
+                    <div class="input-group-prepend">
+                      <span class="input-group-text">
+                        <i class="fa fa-user fa-fw"></i>
+                      </span>
+                    </div>
+                    <input class="form-control" type="text" #newUserName="ngModel"
+                           (blur)="checkUserName(newUserName.value)" (keyup)="onKeyPress($event)"
+                           [rangeLength]="[5,10]" name="userName" [(ngModel)]="registerUser.userName"
+                           (ngModelChange)="changeName($event)"
+                           placeholder="请输入用户名">
                   </div>
                   <span class="help-block" *ngIf="ifshow3">用户名已被占用</span>
                   <span class="help-block" *ngIf="newUserName.errors?.rangeLength">用户名长度必须在5到10位之间</span>
@@ -91,11 +103,14 @@
               <div class="form-group" [ngClass]="{'has-error':firstPassword.errors?.rangeLength}">
                 <div class="col-md-12">
                   <div class="input-group">
-                    <span class="input-group-addon">
-                      <i class="glyphicon glyphicon-lock"></i>
-                    </span>
-                    <input class="form-control" #firstPassword="ngModel" [rangeLength]="[6,18]" type="password" name="password" [(ngModel)]="registerUser.password"
-                      placeholder="请输入密码">
+                    <div class="input-group-prepend">
+                      <span class="input-group-text">
+                        <i class="fa fa-key fa-fw"></i>
+                      </span>
+                    </div>
+                    <input class="form-control" #firstPassword="ngModel" [rangeLength]="[6,18]" type="password"
+                           name="password" [(ngModel)]="registerUser.password"
+                           placeholder="请输入密码">
                   </div>
                   <span class="help-block" *ngIf="firstPassword.errors?.rangeLength">密码长度必须在6到18位之间</span>
                 </div>
@@ -103,11 +118,14 @@
               <div class="form-group" [ngClass]="{'has-error':secondPassword.errors?.equalTo}">
                 <div class="col-md-12">
                   <div class="input-group">
-                    <span class="input-group-addon">
-                      <i class="glyphicon glyphicon-lock"></i>
-                    </span>
-                    <input class="form-control" #secondPassword="ngModel" type="password" name="confirmPassword" [(ngModel)]="registerUser.confirmPassword"
-                      placeholder="确认密码" [equalTo]="firstPassword">
+                    <div class="input-group-prepend">
+                      <span class="input-group-text">
+                        <i class="fa fa-key fa-fw"></i>
+                      </span>
+                    </div>
+                    <input class="form-control" #secondPassword="ngModel" type="password" name="confirmPassword"
+                           [(ngModel)]="registerUser.confirmPassword"
+                           placeholder="确认密码" [equalTo]="firstPassword">
                   </div>
                   <span class="help-block" *ngIf="secondPassword.errors?.equalTo">两次输入的密码不一致</span>
                 </div>
@@ -115,32 +133,42 @@
               <div class="form-group" [ngClass]="{'has-error':registerEmail.errors?.email && registerEmail.touched}">
                 <div class="col-md-12">
                   <div class="input-group">
-                    <span class="input-group-addon">
-                      <i class="glyphicon glyphicon-envelope"></i>
-                    </span>
-                    <input class="form-control" #registerEmail="ngModel" type="text" name="email" [(ngModel)]="registerUser.email" placeholder="请输入邮箱地址"
-                      email>
+                    <div class="input-group-prepend">
+                      <span class="input-group-text">
+                        <i class="fa fa-envelope fa-fw"></i>
+                      </span>
+                    </div>
+                    <input class="form-control" #registerEmail="ngModel" type="text" name="email"
+                           [(ngModel)]="registerUser.email" placeholder="请输入邮箱地址"
+                           email>
                   </div>
                   <span class="help-block" *ngIf="registerEmail.errors?.email && registerEmail.touched">邮箱地址有误</span>
                 </div>
               </div>
 
-              <div class="form-group" [ngClass]="{'has-error':registerValidateCode.errors?.required && registerValidateCode.touched}">
+              <div class="form-group"
+                   [ngClass]="{'has-error':registerValidateCode.errors?.required && registerValidateCode.touched}">
                 <div class="container">
                   <div class="row">
                     <div class="col-md-6">
                       <div class="input-group">
-                        <span class="input-group-addon">
-                          <i class="glyphicon glyphicon-alert"></i>
-                        </span>
-                        <input class="form-control" #registerValidateCode="ngModel" type="text" name="validateCode" [(ngModel)]="registerUser.validateCode"
-                          placeholder="请输入验证码" required>
+                        <input class="form-control is-invalid" #registerValidateCode="ngModel"  type="text" name="validateCode"
+                               [(ngModel)]="registerUser.validateCode"
+                               placeholder="请输入验证码" required>
                       </div>
-                      <span class="help-block" *ngIf="ifshow2">验证码错误</span>
-                      <span class="help-block" *ngIf="registerValidateCode.errors?.required && registerValidateCode.touched">验证码不能为空</span>
+                      <!--<span class="help-block" *ngIf="ifshow2">验证码错误</span>-->
+                      <!--<span class="help-block"-->
+                            <!--*ngIf="registerValidateCode.errors?.required && registerValidateCode.touched">验证码不能为空</span>-->
+                      <div class="valid-tooltip" >
+                        验证码不能为空
+                      </div>
+                      <!--<div class="invalid-feedback" *ngIf="ifshow2">-->
+                        <!--验证码错误-->
+                      <!--</div>-->
                     </div>
                     <div class="col-sm-5">
-                      <img src="/api/validateCode" #validateCodeUrl1 class="img-responsive" title="点击重新获取验证码" alt="验证码" (click)="reloadValidateCode()">
+                      <img src="/api/validateCode" #validateCodeUrl1 class="img-fluid rounded" title="点击重新获取验证码" alt="验证码"
+                           (click)="reloadValidateCode()">
                     </div>
                   </div>
                 </div>
@@ -150,9 +178,8 @@
           </tab>
         </tabset>
       </div>
-      <div class="modal-footer" [ngSwitch]="schema">
-        <div class="row">
-          <div class="col-md-8">
+      <div class="modal-footer login_modal_footer" [ngSwitch]="schema">
+          <div>
             <p>
               其他账号登陆：
               <img class="third_party" src="/assets/image/third_party/qq_connect.png" alt="">
@@ -160,16 +187,18 @@
               <img class="third_party" src="/assets/image/third_party/zhifubao_connect.png" alt="">
             </p>
           </div>
-          <div class="col-md-4">
-            <button *ngSwitchCase=1 type="submit" [disabled]="!loginForm.form.valid" class="btn btn-primary" (click)="login()">登陆
+          <div>
+            <button *ngSwitchCase=1 type="submit" [disabled]="!loginForm.form.valid" class="btn btn-primary"
+                    (click)="login()">登陆
             </button>
-            <button *ngSwitchCase=0 type="submit" [disabled]="!registerForm.form.valid" class="btn btn-primary" (click)="register()">注册
+            <button *ngSwitchCase=0 type="submit" [disabled]="!registerForm.form.valid" class="btn btn-primary"
+                    (click)="register()">注册
             </button>
-            <button *ngSwitchDefault type="submit" [disabled]="!loginForm.form.valid" class="btn btn-primary" (click)="login()">登陆
+            <button *ngSwitchDefault type="submit" [disabled]="!loginForm.form.valid" class="btn btn-primary"
+                    (click)="login()">登陆
             </button>
             <button (click)="loginModal.hide()" type="button" class="btn btn-secondary" data-dismiss="modal">取消</button>
           </div>
-        </div>
       </div>
     </div>
     <!-- /.modal-content -->

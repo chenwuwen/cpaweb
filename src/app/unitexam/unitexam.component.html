@@ -47,9 +47,9 @@
               <label for="optionsRadio{{i}}{{k}}">{{options.selectData}}.{{options.optionData}}</label>
             </li>
             <li style="text-align:right">
-              <span class="glyphicon glyphicon-comment" style="cursor:pointer" aria-hidden="true" (click)="toggleCommentwindow(i,data.id)"></span>
-              <span class="glyphicon glyphicon-star" style="cursor:pointer" [ngClass]="{'glyphicon-star-empty':collectIndexs[i]}" aria-hidden="true"
-                (click)="toggleCollect(i,data.id)"></span>
+              <i class="fa fa-comment-o fa-fw" style="cursor:pointer" aria-hidden="true" (click)="toggleCommentwindow(i,data.id)"></i>
+              <i class="fa fa-heart-o fa-fw" style="cursor:pointer" [ngClass]="{'fa fa-heart fa-fw':collectIndexs[i]}" aria-hidden="true"
+                (click)="toggleCollect(i,data.id)"></i>
             </li>
           </ul>
           <form role="form" style="text-align:right" *ngIf="commentIndexs[i]" #commentForm="ngForm">

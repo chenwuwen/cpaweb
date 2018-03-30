@@ -52,7 +52,7 @@
       </ul>
       <!--导航栏搜索框开始-->
       <form class="form-inline mx-auto">
-        <input class="form-control mr-sm-2" type="search" #searchValue placeholder="输入想搜索的内容" aria-label="Search">
+        <input class="form-control mr-sm-4" type="search" #searchValue placeholder="输入想搜索的内容" aria-label="Search">
         <button type="submit" class="btn btn-outline-success my-2 my-sm-0" (click)="search(searchValue)">搜索</button>
       </form>
       <!--导航栏搜索框结束-->
@@ -60,7 +60,7 @@
     </div>
 
     <!-- 顶部导航栏右侧开始 -->
-    <ul class="navbar-nav mr-5">
+    <ul class="nav justify-content-end">
       <a class="" href="javascript:void(0)" [routerLink]="['/usercenter']">
         <img #circleHeadImg class="img-circle  img-responsive" src="http://kanyun123.3vcm.net/circular.png" alt=""/>
       </a>
