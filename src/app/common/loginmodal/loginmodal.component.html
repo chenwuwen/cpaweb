@@ -18,62 +18,63 @@
             <form class="form-horizontal" role="form" autocomplete="on" #loginForm="ngForm">
               <div class="form-row mb-3"
                    [ngClass]="{'was-validated':loginUserName.errors?.required && loginUserName.touched || ifshow}">
-                  <div class="input-group">
-                    <div class="input-group-prepend">
+                <div class="input-group">
+                  <div class="input-group-prepend">
                       <span class="input-group-text">
                         <i class="fa fa-user fa-fw"></i>
                       </span>
-                    </div>
-                    <input class="form-control" type="text" #loginUserName='ngModel' name="userName"
-                           [(ngModel)]="cpaUser.userName" placeholder="请输入用户名"
-                           required>
-                    <div class="invalid-tooltip" *ngIf="ifshow">
-                      {{msg}}
-                    </div>
-                    <div class="invalid-tooltip" *ngIf="loginUserName.errors?.required && loginUserName.touched">
-                      用户名不能为空
-                    </div>
                   </div>
+                  <input class="form-control" type="text" #loginUserName='ngModel' name="userName"
+                         [(ngModel)]="cpaUser.userName" placeholder="请输入用户名"
+                         required>
+                  <div class="invalid-tooltip" *ngIf="ifshow">
+                    {{msg}}
+                  </div>
+                  <div class="invalid-tooltip" *ngIf="loginUserName.errors?.required && loginUserName.touched">
+                    用户名不能为空
+                  </div>
+                </div>
               </div>
               <div class="form-row mb-3 "
                    [ngClass]="{'was-validated':loginPassword.errors?.required && loginPassword.touched || ifshow}">
-                  <div class="input-group">
-                    <div class="input-group-prepend">
+                <div class="input-group">
+                  <div class="input-group-prepend">
                       <span class="input-group-text">
                         <i class="fa fa-key fa-fw"></i>
                       </span>
-                    </div>
-                    <input class="form-control" #loginPassword='ngModel' type="password" name="password"
-                           [(ngModel)]="cpaUser.password" placeholder="请输入密码"
-                           required>
-                    <div class="invalid-tooltip" *ngIf="ifshow">
-                      {{msg}}
-                    </div>
-                    <div class="invalid-tooltip" *ngIf="loginPassword.errors?.required && loginPassword.touched">
-                      密码不能为空
-                    </div>
                   </div>
+                  <input class="form-control" #loginPassword='ngModel' type="password" name="password"
+                         [(ngModel)]="cpaUser.password" placeholder="请输入密码"
+                         required>
+                  <div class="invalid-tooltip" *ngIf="ifshow">
+                    {{msg}}
+                  </div>
+                  <div class="invalid-tooltip" *ngIf="loginPassword.errors?.required && loginPassword.touched">
+                    密码不能为空
+                  </div>
+                </div>
               </div>
               <div class="form-row mb-3"
                    [ngClass]="{'was-validated':loginValidateCode.errors?.required && loginValidateCode.touched || ifshow1}">
-                    <div class="col-md-5">
-                      <div class="input-group">
-                        <input class="form-control" type="text" #loginValidateCode="ngModel" name="validateCode"
-                               [(ngModel)]="cpaUser.validateCode"
-                               placeholder="请输入验证码" required>
-                        <div class="invalid-tooltip" *ngIf="ifshow">
-                          {{msg}}
-                        </div>
-                        <div class="invalid-tooltip" *ngIf="loginValidateCode.errors?.required && loginValidateCode.touched">
-                          验证码不能为空
-                        </div>
-                        </div>
+                <div class="col-md-5">
+                  <div class="input-group">
+                    <input class="form-control" type="text" #loginValidateCode="ngModel" name="validateCode"
+                           [(ngModel)]="cpaUser.validateCode"
+                           placeholder="证明你不是机器人" required>
+                    <div class="invalid-tooltip" *ngIf="ifshow">
+                      {{msg}}
                     </div>
-                    <div class="col-md-5 ml-2">
-                      <img src="/api/validateCode" #validateCodeUrl0 class="img-fluid rounded" title="点击重新获取验证码"
-                           alt="验证码"
-                           (click)="reloadValidateCode()">
+                    <div class="invalid-tooltip"
+                         *ngIf="loginValidateCode.errors?.required && loginValidateCode.touched">
+                      验证码不能为空
                     </div>
+                  </div>
+                </div>
+                <div class="col-md-5 ml-2">
+                  <img src="/api/validateCode" #validateCodeUrl0 class="img-fluid rounded" title="点击重新获取验证码"
+                       alt="验证码"
+                       (click)="reloadValidateCode()">
+                </div>
               </div>
               <div class="form-row ml-sm-auto">
                 <div class="custom-control custom-checkbox custom-control-inline">
@@ -89,69 +90,70 @@
             <br>
             <form class="form-horizontal" role="form" #registerForm="ngForm">
               <div class="form-row mb-3" [ngClass]="{'was-validated':newUserName.errors?.rangeLength || ifshow3}">
-                  <div class="input-group">
-                    <div class="input-group-prepend">
+                <div class="input-group">
+                  <div class="input-group-prepend">
                       <span class="input-group-text">
                         <i class="fa fa-user fa-fw"></i>
                       </span>
-                    </div>
-                    <input class="form-control" type="text" #newUserName="ngModel"
-                           (blur)="checkUserName(newUserName.value)" (keyup)="onKeyPress($event)"
-                           [rangeLength]="[5,10]" name="userName" [(ngModel)]="registerUser.userName"
-                           (ngModelChange)="changeName($event)"
-                           placeholder="请输入用户名" required>
-                    <div class="invalid-tooltip" *ngIf="ifshow3">
-                      用户名已被占用
-                    </div>
-                    <div class="invalid-tooltip" *ngIf="newUserName.errors?.rangeLength">
-                      用户名长度必须在5到10位之间
-                    </div>
                   </div>
+                  <input class="form-control" type="text" #newUserName="ngModel"
+                         (blur)="checkUserName(newUserName.value)" (keyup)="onKeyPress($event)"
+                         [rangeLength]="[5,10]" name="userName" [(ngModel)]="registerUser.userName"
+                         (ngModelChange)="changeName($event)"
+                         placeholder="请输入用户名" required>
+                  <div class="invalid-tooltip" *ngIf="ifshow3">
+                    用户名已被占用
+                  </div>
+                  <div class="invalid-tooltip" *ngIf="newUserName.errors?.rangeLength">
+                    用户名长度必须在5到10位之间
+                  </div>
+                </div>
               </div>
               <div class="form-row mb-3" [ngClass]="{'was-validated':firstPassword.errors?.rangeLength}">
-                  <div class="input-group">
-                    <div class="input-group-prepend">
+                <div class="input-group">
+                  <div class="input-group-prepend">
                       <span class="input-group-text">
                         <i class="fa fa-key fa-fw"></i>
                       </span>
-                    </div>
-                    <input class="form-control" #firstPassword="ngModel" [rangeLength]="[6,18]" type="password"
-                           name="password" [(ngModel)]="registerUser.password"
-                           placeholder="请输入密码">
-                    <div class="invalid-tooltip" *ngIf="firstPassword.errors?.rangeLength">
-                      密码长度必须在6到18位之间
-                    </div>
                   </div>
+                  <input class="form-control" #firstPassword="ngModel" [rangeLength]="[6,18]" type="password"
+                         name="password" [(ngModel)]="registerUser.password"
+                         placeholder="请输入密码">
+                  <div class="invalid-tooltip" *ngIf="firstPassword.errors?.rangeLength">
+                    密码长度必须在6到18位之间
+                  </div>
+                </div>
               </div>
               <div class="form-row mb-3" [ngClass]="{'was-validated':secondPassword.errors?.equalTo}">
-                  <div class="input-group">
-                    <div class="input-group-prepend">
+                <div class="input-group">
+                  <div class="input-group-prepend">
                       <span class="input-group-text">
                         <i class="fa fa-key fa-fw"></i>
                       </span>
-                    </div>
-                    <input class="form-control" #secondPassword="ngModel" type="password" name="confirmPassword"
-                           [(ngModel)]="registerUser.confirmPassword"
-                           placeholder="确认密码" [equalTo]="firstPassword">
-                    <div class="invalid-tooltip" *ngIf="secondPassword.errors?.equalTo">
-                      两次输入的密码不一致
-                    </div>
                   </div>
+                  <input class="form-control" #secondPassword="ngModel" type="password" name="confirmPassword"
+                         [(ngModel)]="registerUser.confirmPassword"
+                         placeholder="确认密码" [equalTo]="firstPassword">
+                  <div class="invalid-tooltip" *ngIf="secondPassword.errors?.equalTo">
+                    两次输入的密码不一致
+                  </div>
+                </div>
               </div>
-              <div class="form-row mb-3" [ngClass]="{'was-validated':registerEmail.errors?.email && registerEmail.touched}">
-                  <div class="input-group">
-                    <div class="input-group-prepend">
+              <div class="form-row mb-3"
+                   [ngClass]="{'was-validated':registerEmail.errors?.email && registerEmail.touched}">
+                <div class="input-group">
+                  <div class="input-group-prepend">
                       <span class="input-group-text">
                         <i class="fa fa-envelope fa-fw"></i>
                       </span>
-                    </div>
-                    <input class="form-control" #registerEmail="ngModel" type="text" name="email"
-                           [(ngModel)]="registerUser.email" placeholder="请输入邮箱地址"
-                           email>
-                    <div class="invalid-tooltip" *ngIf="registerEmail.errors?.email && registerEmail.touched">
-                      邮箱地址有误
-                    </div>
                   </div>
+                  <input class="form-control" #registerEmail="ngModel" type="text" name="email"
+                         [(ngModel)]="registerUser.email" placeholder="请输入邮箱地址"
+                         email>
+                  <div class="invalid-tooltip" *ngIf="registerEmail.errors?.email && registerEmail.touched">
+                    邮箱地址有误
+                  </div>
+                </div>
               </div>
 
               <div class="form-row"
@@ -159,7 +161,7 @@
                 <div class="col-md-5">
                   <input class="form-control" #registerValidateCode="ngModel" type="text" name="validateCode"
                          [(ngModel)]="registerUser.validateCode"
-                         placeholder="请输入验证码" required>
+                         placeholder="证明你不是机器人" required>
                   <div class="invalid-tooltip"
                        *ngIf="registerValidateCode.errors?.required && registerValidateCode.touched">
                     验证码不能为空

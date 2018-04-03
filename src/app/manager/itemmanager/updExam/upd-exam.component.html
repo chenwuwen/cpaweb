@@ -1,19 +1,21 @@
 <form class="form-inline" #searchForm="ngForm" (ngSubmit)="getListExam()">
-  <div class="form-group">
-    <label for="testStemSearch">题干名称</label>
-    <input type="text" [(ngModel)]="cpaRepertory.testStem" class="form-control" id="testStemSearch" name="testStem"
-           placeholder="输入要搜索的试题">
-  </div>
-  <div class="form-group">
-    <label for="testType">试题类型</label>
-    <select class="form-control custom-select" [(ngModel)]="cpaRepertory.testType" name="testType" id="testType">
-      <option></option>
-      <option value="basicAccount">会计基础</option>
-      <option value="cpuAccount">会计电算化</option>
-      <option value="statuteEthics">财经法规与职业道德</option>
-    </select>
-  </div>
-  <button type="submit" class="btn btn-default">搜索</button>
+    <div class="form-group">
+      <label for="testStemSearch" class="col-auto col-form-label">题干名称</label>
+      <div class="col-sm-5">
+        <input type="text" [(ngModel)]="cpaRepertory.testStem" class="form-control" id="testStemSearch" name="testStem"
+               placeholder="输入要搜索的试题">
+      </div>
+    </div>
+    <div class="form-group">
+      <label for="testType" class="col-auto col-form-label">试题类型</label>
+      <select class="form-control custom-select" [(ngModel)]="cpaRepertory.testType" name="testType" id="testType">
+        <option></option>
+        <option value="basicAccount">会计基础</option>
+        <option value="cpuAccount">会计电算化</option>
+        <option value="statuteEthics">财经法规与职业道德</option>
+      </select>
+    </div>
+      <button type="submit" class="btn btn-outline-default ml-4">搜索</button>
 </form>
 
 <table class="table table-striped">

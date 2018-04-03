@@ -1,18 +1,18 @@
 <form class="form-inline" #searchForm="ngForm" (ngSubmit)="getUserList()">
   <div class="form-group">
-    <label for="userName">用户名</label>
-    <input type="text" ml-sm-2 [(ngModel)]="cpaUserDto.userName" class="form-control" id="userName" name="userName"
+    <label for="userName" class="col-auto col-form-label">用户名</label>
+    <input type="text"  [(ngModel)]="cpaUserDto.userName" class="form-control ml-sm-2" id="userName" name="userName"
            placeholder="输入要搜索用户名">
   </div>
   <div class="form-group">
-    <label for="">注册时间</label>
+    <label for="" class="col-auto col-form-label">注册时间</label>
     <input type="text" class="form-control" placeholder="注册时间" [minDate]="registerMinDate"
            [maxDate]="registerMaxDate" [bsConfig]="bsConfig" bsDaterangepicker
            [(ngModel)]="registerDaterangepickerModel"
            name="registerDaterangepickerModel"/>
   </div>
   <div class="form-group">
-    <label for="">最后一次登录时间</label>
+    <label for="" class="col-auto col-form-label">最后一次登录时间</label>
     <input type="text" class="form-control" placeholder="注册时间" [minDate]="lastLoginMinDate"
            [maxDate]="lastLoginMaxDate" bsDaterangepicker [(ngModel)]="lastLoginDaterangepickerModel"
            name="lastLoginDaterangepickerModel"/>
