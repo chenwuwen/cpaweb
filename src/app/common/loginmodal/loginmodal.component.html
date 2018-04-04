@@ -185,9 +185,9 @@
         <div>
           <p>
             其他账号登陆：
-            <img class="third_party" src="/assets/image/third_party/qq_connect.png" alt="">
-            <img class="third_party" src="/assets/image/third_party/chat_connect.png" alt="">
-            <img class="third_party" src="/assets/image/third_party/zhifubao_connect.png" alt="">
+            <img class="third_party" (mouseenter)="logoMouseenter($event)" (mouseleave)="logoMouseleave($event)" (click)="logoClick('qq')"  src="/assets/image/third_party/qq_connect.png" alt="">
+            <img class="third_party" (mouseenter)="logoMouseenter($event)" (mouseleave)="logoMouseleave($event)" (click)="logoClick('chat')" src="/assets/image/third_party/chat_connect.png" alt="">
+            <img class="third_party" (mouseenter)="logoMouseenter($event)" (mouseleave)="logoMouseleave($event)" (click)="logoClick('alipay')" src="/assets/image/third_party/zhifubao_connect.png" alt="">
           </p>
         </div>
         <div>

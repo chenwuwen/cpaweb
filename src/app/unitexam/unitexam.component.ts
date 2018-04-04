@@ -1,4 +1,3 @@
-import {ProgressComponent} from './../common/progress/progress.component';
 import {Component, ElementRef, Input, OnInit, ViewChild} from '@angular/core';
 import {ActivatedRoute, Router} from '@angular/router';
 import {UnitexamService} from './unitexam.service';
@@ -7,6 +6,7 @@ import {BsModalService, ModalDirective} from 'ngx-bootstrap';
 import swal from 'sweetalert2';
 import {Message} from 'primeng/api';
 import {LoginmodalComponent} from '../common/loginmodal/loginmodal.component';
+import {Observable} from 'rxjs/Observable';
 
 @Component({
   selector: 'app-unitexam',
@@ -33,16 +33,17 @@ export class UnitexamComponent implements OnInit {
   public progressStatus: boolean = false; //进度条是否显示
   public msgs: Message[] = [];  //primeng消息提示,之前消息提示用的是sweetalert2
 
-
+  public scrollCallback: Observable<String>;
   @ViewChild('scoreModal')
   public scoreModal: ModalDirective;
   @ViewChild('loginModal')
   private loginModal: LoginmodalComponent;
-  @ViewChild('progress')
-  private progress: ProgressComponent;
+  // 进度条
+  // @ViewChild('progress')
+  // private progress: ProgressComponent;
 
   private pageNo: number = 0;
-  private pageSize: number = 0;
+  private pageSize: number = 10;
 
   constructor(private _route: ActivatedRoute,
               private _router: Router,
@@ -58,6 +59,7 @@ export class UnitexamComponent implements OnInit {
       this.pAnswers = [];
       // 初始化显示加载进度条
       this.progressStatus = !this.progressStatus;
+      this.scrollCallback = this.getUnitExam.bind(this);
     });
   }
 
@@ -72,13 +74,20 @@ export class UnitexamComponent implements OnInit {
     });
   }
 
+  /**
+   * 获取试题
+   * @param {string} testType
+   * @returns {any}
+   */
   getUnitExam(testType: string): any {
+    // 页码初始化为0,请求一次,页码加一
+    this.pageNo++
     return this._unitexamService.getUnitExam(testType, this.pageNo, this.pageSize).subscribe(res => {
         /*从service获取数据，订阅将数据到Component*/
         this.Listdata = res['data'];
         this.totleCount = res['totalCount'];
         //设置进度条的值
-        this.progress.rate(100);
+        // this.progress.rate(100);
         ;
         // this.collectIndexs = new Array(this.Listdata.length)
         for (var i = 0; i < this.Listdata.length; i++) {
@@ -171,7 +180,7 @@ export class UnitexamComponent implements OnInit {
           this.msgs = [];
           this.msgs.push({severity: 'error', summary: '失败', detail: '收藏失败'});
         } else {
-          console.log('试题收藏成功')
+          console.log('试题收藏成功');
           this.msgs.push({severity: 'success', summary: '成功', detail: '已收藏'});
         }
       }, (err) => {

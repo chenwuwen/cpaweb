@@ -31,10 +31,10 @@
 
 <!--试题列表-->
 <div class="row" [@flyIn]="'active'">
-  <div class="col-md-5 col-md-offset-1">
+  <div class="col-md-5 col-md-offset-1" appScrollPage scrollPerecnt="70"  immediateCallback="false" [scrollCallback]="scrollCallback">
     <!--此标签只作为逻辑工具使用;渲染之后不改变原有结构-->
-    <ng-container *ngFor="let data of Listdata;let i = index">
-      <div class="card" [ngClass]="{'bg-danger': reviewErrList(data.id),'bg-warning':reviewNotDoList(i)}">
+    <ng-container *ngFor="let data of Listdata;let i = index" >
+      <div class="card mb-3" [ngClass]="{'bg-danger': reviewErrList(data.id),'bg-warning':reviewNotDoList(i)}">
         <!--一个标签内[ngClass]不可以写多个,如果需要多个,将方法写在一个[ngClass]内-->
         <div class="card-header">
           第{{i+1}}题.{{data.testStem}}

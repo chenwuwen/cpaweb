@@ -20,7 +20,6 @@ import {Observable} from 'rxjs/Observable';
 import {LoginState} from '../reducer/loginStateReducer';
 
 
-
 @Component({
   selector: 'app-loginmodal',
   templateUrl: './loginmodal.component.html',
@@ -237,6 +236,34 @@ export class LoginmodalComponent implements OnInit {
   launchResult(data): void {
     /*发射事件*/
     this.childResult.emit(data);
+  }
+
+  /**
+   * 第三方登录图标,鼠标移入事件
+   * @param event
+   */
+  logoMouseenter(event): void {
+    // event包含了很多信息
+    console.log(event);
+    // event.target获取了当前操作的DOM
+    console.log(event.target);
+    event.target.style.height = '3em';
+  }
+
+  /**
+   * 第三方登录图标,鼠标移出事件
+   * @param event
+   */
+  logoMouseleave(event): void {
+    event.target.style.height = '2em';
+  }
+
+  /**
+   * 第三方登录图标,鼠标点击事件
+   * @param event
+   */
+  logoClick(type: string): void {
+    console.log('当前点击的图标是：', type);
   }
 
   tip(): void {
