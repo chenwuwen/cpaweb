@@ -6,7 +6,6 @@ import {BsModalService, ModalDirective} from 'ngx-bootstrap';
 import swal from 'sweetalert2';
 import {Message} from 'primeng/api';
 import {LoginmodalComponent} from '../common/loginmodal/loginmodal.component';
-import {Observable} from 'rxjs/Observable';
 
 @Component({
   selector: 'app-unitexam',
@@ -33,7 +32,7 @@ export class UnitexamComponent implements OnInit {
   public progressStatus: boolean = false; //进度条是否显示
   public msgs: Message[] = [];  //primeng消息提示,之前消息提示用的是sweetalert2
 
-  public scrollCallback: Observable<String>;
+  public scrollCallback;
   @ViewChild('scoreModal')
   public scoreModal: ModalDirective;
   @ViewChild('loginModal')

@@ -16,7 +16,6 @@ import {LoginmodalService} from './loginmodal.service';
 import swal from 'sweetalert2';
 import {NgForm} from '@angular/forms';
 import {Store} from '@ngrx/store';
-import {Observable} from 'rxjs/Observable';
 import {LoginState} from '../reducer/loginStateReducer';
 
 

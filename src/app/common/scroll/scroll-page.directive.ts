@@ -1,5 +1,11 @@
-import {Directive, ElementRef, Input} from '@angular/core';
+import {AfterViewInit, Directive, ElementRef, Input} from '@angular/core';
 import {Observable} from 'rxjs/Observable';
+import 'rxjs/add/observable/fromEvent';
+import 'rxjs/add/operator/pairwise';
+import 'rxjs/add/operator/map';
+import 'rxjs/add/operator/exhaustMap';
+import 'rxjs/add/operator/filter';
+import 'rxjs/add/operator/startWith';
 
 interface ScrollPosition {
   sH: number;
@@ -24,7 +30,7 @@ const DEFAULT_SCROLL_POSITION: ScrollPosition = {
 @Directive({
   selector: '[appScrollPage]'
 })
-export class ScrollPageDirective {
+export class ScrollPageDirective implements AfterViewInit {
 
   private scrollEvent$;
 
@@ -76,7 +82,7 @@ export class ScrollPageDirective {
 
 
   private registerScrollEvent() {
-    console.log(`registerScrollEvent()方法监听页面滚动`)
+    console.log(`registerScrollEvent()方法监听页面滚动`);
     this.scrollEvent$ = Observable.fromEvent(this.elm.nativeElement, 'scroll');
 
   }
@@ -93,7 +99,7 @@ export class ScrollPageDirective {
   }
 
   private requestCallbackOnScroll() {
-    console.log(`requestCallbackOnScroll()方法,一旦达到我们设定的条件后，调用 scrollCallback 来发起 API 请求`)
+    console.log(`requestCallbackOnScroll()方法,一旦达到我们设定的条件后，调用 scrollCallback 来发起 API 请求`);
     this.requestOnScroll$ = this.userScrolledDown$;
 
     if (this.immediateCallback) {
