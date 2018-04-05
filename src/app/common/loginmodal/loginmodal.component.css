@@ -10,3 +10,11 @@
   align-items: baseline;
   -webkit-align-items: baseline;
 }
+/* bootstrap4表单校验,需要在没有input标签内添加required属性,但是无法跟其他属性结合
+也就是说只有输入框中有数据就会出现成功标示，所以将以下两个类进行覆盖,表单通过没有提示,不通过提示 */
+.invalid-tooltip{
+  display: block
+}
+.was-validated .form-control:valid{
+  border-color:#dc3545
+}

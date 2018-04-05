@@ -3,4 +3,6 @@
 如果你没有使用Angular CLI，你可以通过<link>你的一个元素包含一个预构建的主题index.html。*/
 @import "~@angular/material/prebuilt-themes/purple-green.css";
 @import "~element-angular/theme/index.css";
+/* 引入animate.css第三方css动画库 */
+@import "~animate.css/animate.min.css"
 

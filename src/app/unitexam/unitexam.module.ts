@@ -11,6 +11,7 @@ import {RouterModule} from '@angular/router';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import {CustomFormsModule} from 'ng2-validation';
 import {GrowlModule} from 'primeng/growl';
+// import { ElModule } from 'element-angular/release/element-angular.module';
 
 @NgModule({
   imports: [
@@ -23,6 +24,7 @@ import {GrowlModule} from 'primeng/growl';
     BrowserAnimationsModule, /*动画所需Module*/
     LoginmodalModule,
     CustomFormsModule,  //引入ng2-validation
+    // ElModule.forRoot(),
     BaseModule
   ],
   declarations: [

@@ -238,7 +238,7 @@ export class LoginmodalComponent implements OnInit {
   }
 
   /**
-   * 第三方登录图标,鼠标移入事件
+   * 第三方登录图标,鼠标移入事件(使用了animate.css动画库)
    * @param event
    */
   logoMouseenter(event): void {
@@ -246,7 +246,9 @@ export class LoginmodalComponent implements OnInit {
     console.log(event);
     // event.target获取了当前操作的DOM
     console.log(event.target);
-    event.target.style.height = '3em';
+    // event.target.style.height = '3em';
+    event.target.classList.add("animated")
+    event.target.classList.add("tada")
   }
 
   /**
@@ -254,7 +256,9 @@ export class LoginmodalComponent implements OnInit {
    * @param event
    */
   logoMouseleave(event): void {
-    event.target.style.height = '2em';
+    // event.target.style.height = '2em';
+    event.target.classList.remove("animated")
+    event.target.classList.remove("tada")
   }
 
   /**

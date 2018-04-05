@@ -1,3 +1,13 @@
+<!-- 此组件是登陆/注册弹出层表单 -->
+<!-- 代码中的touched 是Angular表单控件状态的一种 -->
+<!-- 在 Angular 中表单控件有以下 6 种状态，我们可以通过 #userName="ngModel" 方式获取 ngModel 对象，进而获取控件的状态信息。具体状态如下： -->
+<!-- valid - 表单控件有效 -->
+<!-- invalid - 表单控件无效 -->
+<!-- pristine - 表单控件值未改变 -->
+<!-- dirty - 表单控件值已改变 -->
+<!-- touched - 表单控件已被访问过 -->
+<!-- untouched - 表单控件未被访问过 -->
+
 <div *ngIf="isModalShown" [config]="{ show: true,keyboard: false,ignoreBackdropClick: true }" bsModal
      #loginModal="bs-modal"
      class="modal fade" tabindex="-1" role="dialog" aria-hidden="true" (onHidden)="handler('onHidden', $event)"
@@ -56,7 +66,7 @@
               </div>
               <div class="form-row mb-3"
                    [ngClass]="{'was-validated':loginValidateCode.errors?.required && loginValidateCode.touched || ifshow1}">
-                <div class="col-md-5">
+                <div class="">
                   <div class="input-group">
                     <input class="form-control" type="text" #loginValidateCode="ngModel" name="validateCode"
                            [(ngModel)]="cpaUser.validateCode"
@@ -70,13 +80,13 @@
                     </div>
                   </div>
                 </div>
-                <div class="col-md-5 ml-2">
+                <div class="ml-5">
                   <img src="/api/validateCode" #validateCodeUrl0 class="img-fluid rounded" title="点击重新获取验证码"
                        alt="验证码"
                        (click)="reloadValidateCode()">
                 </div>
               </div>
-              <div class="form-row ml-sm-auto">
+              <div class="form-row">
                 <div class="custom-control custom-checkbox custom-control-inline">
                   <input type="checkbox" class="custom-control-input" [(ngModel)]="cpaUser.isRememberMe"
                          name="isRememberMe" id="isRememberMe">
@@ -100,7 +110,7 @@
                          (blur)="checkUserName(newUserName.value)" (keyup)="onKeyPress($event)"
                          [rangeLength]="[5,10]" name="userName" [(ngModel)]="registerUser.userName"
                          (ngModelChange)="changeName($event)"
-                         placeholder="请输入用户名" required>
+                         placeholder="请输入用户名">
                   <div class="invalid-tooltip" *ngIf="ifshow3">
                     用户名已被占用
                   </div>
@@ -124,7 +134,7 @@
                   </div>
                 </div>
               </div>
-              <div class="form-row mb-3" [ngClass]="{'was-validated':secondPassword.errors?.equalTo}">
+              <div class="form-row mb-3" [ngClass]="{'was-validated':secondPassword.errors?.equalTo&&secondPassword.dirty}">
                 <div class="input-group">
                   <div class="input-group-prepend">
                       <span class="input-group-text">
@@ -134,7 +144,7 @@
                   <input class="form-control" #secondPassword="ngModel" type="password" name="confirmPassword"
                          [(ngModel)]="registerUser.confirmPassword"
                          placeholder="确认密码" [equalTo]="firstPassword">
-                  <div class="invalid-tooltip" *ngIf="secondPassword.errors?.equalTo">
+                  <div class="invalid-tooltip" *ngIf="secondPassword.errors?.equalTo&&secondPassword.dirty">
                     两次输入的密码不一致
                   </div>
                 </div>
@@ -149,7 +159,7 @@
                   </div>
                   <input class="form-control" #registerEmail="ngModel" type="text" name="email"
                          [(ngModel)]="registerUser.email" placeholder="请输入邮箱地址"
-                         email>
+                         email >
                   <div class="invalid-tooltip" *ngIf="registerEmail.errors?.email && registerEmail.touched">
                     邮箱地址有误
                   </div>
@@ -158,7 +168,7 @@
 
               <div class="form-row"
                    [ngClass]="{'was-validated':registerValidateCode.errors?.required && registerValidateCode.touched || ifshow2}">
-                <div class="col-md-5">
+                <div class="">
                   <input class="form-control" #registerValidateCode="ngModel" type="text" name="validateCode"
                          [(ngModel)]="registerUser.validateCode"
                          placeholder="证明你不是机器人" required>
@@ -171,7 +181,7 @@
                   </div>
 
                 </div>
-                <div class="col-md-5 ml-2">
+                <div class="ml-5">
                   <img src="/api/validateCode" #validateCodeUrl1 class="img-fluid rounded" title="点击重新获取验证码" alt="验证码"
                        (click)="reloadValidateCode()">
                 </div>
