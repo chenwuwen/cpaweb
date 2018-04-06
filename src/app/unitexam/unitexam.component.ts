@@ -1,11 +1,11 @@
-import {Component, ElementRef, Input, OnInit, ViewChild} from '@angular/core';
-import {ActivatedRoute, Router} from '@angular/router';
-import {UnitexamService} from './unitexam.service';
-import {flyIn} from '../animations/fly-in';
-import {BsModalService, ModalDirective} from 'ngx-bootstrap';
+import { Component, ElementRef, Input, OnInit, ViewChild } from '@angular/core';
+import { ActivatedRoute, Router } from '@angular/router';
+import { UnitexamService } from './unitexam.service';
+import { flyIn } from '../animations/fly-in';
+import { BsModalService, ModalDirective } from 'ngx-bootstrap';
 import swal from 'sweetalert2';
-import {Message} from 'primeng/api';
-import {LoginmodalComponent} from '../common/loginmodal/loginmodal.component';
+import { Message } from 'primeng/api';
+import { LoginmodalComponent } from '../common/loginmodal/loginmodal.component';
 
 @Component({
   selector: 'app-unitexam',
@@ -29,24 +29,23 @@ export class UnitexamComponent implements OnInit {
   private commentContentIndexs: boolean[] = new Array();  //评论试题内容索引数组
   private Listcomment: any[] = new Array();   //获取试题评论数组
   public commentContent: any[] = new Array();  //评论内容数组,用在表单验证上
-  public progressStatus: boolean = false; //进度条是否显示
   public msgs: Message[] = [];  //primeng消息提示,之前消息提示用的是sweetalert2
 
   public scrollCallback;
+
+  private is_loading: boolean = false; //是否显示loading加载组件
   @ViewChild('scoreModal')
   public scoreModal: ModalDirective;
   @ViewChild('loginModal')
   private loginModal: LoginmodalComponent;
-  // 进度条
-  // @ViewChild('progress')
-  // private progress: ProgressComponent;
+
 
   private pageNo: number = 0;
   private pageSize: number = 10;
 
   constructor(private _route: ActivatedRoute,
-              private _router: Router,
-              private _unitexamService: UnitexamService, private _bsModalService: BsModalService) {
+    private _router: Router,
+    private _unitexamService: UnitexamService, private _bsModalService: BsModalService) {
     /*通过这种形式来接收父级页面传过来的值  或者通过  this.route.params['value']['testType']*/
     /*route.params是一个可观察对象，可以使用.subscribe(),将参数值提取到固定值，这种情况下，我们将params['id'];赋值给组件实例变量id*/
     // route.params与route.queryParams不同,route.params在路由配置中匹配参数，而queryParams在查询字符串中匹配参数
@@ -56,8 +55,8 @@ export class UnitexamComponent implements OnInit {
       this.testType = params['testType'] || '';
       /*切换路由将上次用户回答置为空;此设值不能写在构造函数中，因为构造函数只在组建被访问时执行，而是应该写在订阅里，这样每次切换菜单，都可以重置数组*/
       this.pAnswers = [];
-      // 初始化显示加载进度条
-      this.progressStatus = !this.progressStatus;
+      // 初始化loading加载组件
+      this.is_loading = !this.is_loading
       this.scrollCallback = this.getUnitExam.bind(this);
     });
   }
@@ -80,28 +79,24 @@ export class UnitexamComponent implements OnInit {
    */
   getUnitExam(testType: string): any {
     // 页码初始化为0,请求一次,页码加一
-    this.pageNo++
+    this.pageNo++;
     return this._unitexamService.getUnitExam(testType, this.pageNo, this.pageSize).subscribe(res => {
-        /*从service获取数据，订阅将数据到Component*/
-        this.Listdata = res['data'];
-        this.totleCount = res['totalCount'];
-        //设置进度条的值
-        // this.progress.rate(100);
-        ;
-        // this.collectIndexs = new Array(this.Listdata.length)
-        for (var i = 0; i < this.Listdata.length; i++) {
-          this.collectIndexs.push(true);
-          this.commentIndexs.push(false);
-          this.commentContentIndexs.push(false);
-          this.Listcomment.push();
-        }
-        //加载试题成功,销毁进度条
-        this.progressStatus = !this.progressStatus;
-      }, (err) => {
-        //加载试题失败,销毁进度条
-        // this.progressStatus = !this.progressStatus
-        console.log(`error ${err}`);
-      }, () => console.log(`编译！`)
+      /*从service获取数据，订阅将数据到Component*/
+      this.Listdata = res['data'];
+      this.totleCount = res['totalCount'];
+      for (let i = 0; i < this.Listdata.length; i++) {
+        this.collectIndexs.push(true);
+        this.commentIndexs.push(false);
+        this.commentContentIndexs.push(false);
+        this.Listcomment.push();
+      }
+      //加载试题成功,隐藏loading加载组件
+      this.is_loading = !this.is_loading;
+    }, (err) => {
+      //加载试题失败,隐藏loading加载组件
+      this.is_loading = !this.is_loading;
+      console.log(`error ${err}`);
+    }, () => console.log(`编译！`)
     );
   }
 
@@ -109,10 +104,13 @@ export class UnitexamComponent implements OnInit {
     console.log(`click: ` + this.pAnswers);
   }
 
-  /*父组件事件回调接收*/
+  /**
+   * 父组件事件回调接收
+   * @param data 
+   */
   hitResult(data): void {
     console.log(`接收子组件数据`);
-    if (data.status == 0) {
+    if (data.status === 0) {
       this.loginModal.showLoginModal();
       return;
     }
@@ -131,12 +129,15 @@ export class UnitexamComponent implements OnInit {
     console.log('查看错题。。。。。。。。');
   }
 
-  // 查看错题明细，增加样式
+  /**
+   * 查看错题明细，增加样式
+   * @param examId 
+   */
   reviewErrList(examId: number): boolean {
     let falg: boolean = false;
     if (this.result != undefined) {
       let errList = this.result.errorList;
-      for (var i = 0; i < errList.length; i++) {
+      for (let i = 0; i < errList.length; i++) {
         if (examId == errList[i].errorItemId) {
           falg = true;
           break;
@@ -146,7 +147,10 @@ export class UnitexamComponent implements OnInit {
     return falg;
   }
 
-  // 未做的题增加样式
+  /**
+   * 未做的题增加样式
+   * @param index 
+   */
   reviewNotDoList(index: number): boolean {
     let falg: boolean = false;
     if (this.result != undefined) {
@@ -167,93 +171,100 @@ export class UnitexamComponent implements OnInit {
     console.dir(`reId: ` + reId);
     this.collectIndexs[index] = !this.collectIndexs[index];
     this._unitexamService.toggleCollect(reId).subscribe(res => {
-        // 用户未登录，弹出登陆框
-        if (res['status'] == 0) {
-          this.collectIndexs[index] = !this.collectIndexs[index];
-          console.log('弹出登陆窗口');
-          // 调用子组件打开登陆窗口
-          this.loginModal.showLoginModal();
-        } else if (res['state'] == 2) {   //操作失败
-          this.collectIndexs[index] = !this.collectIndexs[index];
-          // this.tip2();
-          this.msgs = [];
-          this.msgs.push({severity: 'error', summary: '失败', detail: '收藏失败'});
-        } else {
-          console.log('试题收藏成功');
-          this.msgs.push({severity: 'success', summary: '成功', detail: '已收藏'});
-        }
-      }, (err) => {
-        console.log(`error ${err}`);
+      // 用户未登录，弹出登陆框
+      if (res['status'] == 0) {
+        this.collectIndexs[index] = !this.collectIndexs[index];
+        console.log('弹出登陆窗口');
+        // 调用子组件打开登陆窗口
+        this.loginModal.showLoginModal();
+      } else if (res['state'] == 2) {   //操作失败
         this.collectIndexs[index] = !this.collectIndexs[index];
         // this.tip2();
         this.msgs = [];
-        this.msgs.push({severity: 'error', summary: '失败', detail: '收藏失败'});
-      },
+        this.msgs.push({ severity: 'error', summary: '失败', detail: '收藏失败' });
+      } else {
+        console.log('试题收藏成功');
+        this.msgs.push({ severity: 'success', summary: '成功', detail: '已收藏' });
+      }
+    }, (err) => {
+      console.log(`error ${err}`);
+      this.collectIndexs[index] = !this.collectIndexs[index];
+      // this.tip2();
+      this.msgs = [];
+      this.msgs.push({ severity: 'error', summary: '失败', detail: '收藏失败' });
+    },
       () => {
         console.log(`编译`);
       });
   }
 
 
-  //评论试题
+  /**
+   * 评论试题
+   */
   commentItem(index: number, reId: number, comment: string): any {
     console.log(`reId: ` + reId);
     console.log(`comment: ` + comment);
     this._unitexamService.commentItem(reId, comment).subscribe(res => {
+      this.commentIndexs[index] = !this.commentIndexs[index];
+      // 用户未登录，弹出登陆框
+      if (res['status'] == 0) {
         this.commentIndexs[index] = !this.commentIndexs[index];
-        // 用户未登录，弹出登陆框
-        if (res['status'] == 0) {
-          this.commentIndexs[index] = !this.commentIndexs[index];
-          console.log('弹出登陆窗口');
-          // 调用子组件打开登陆窗口
-          this.loginModal.showLoginModal();
-        } else if (res['state'] == 2) {   //操作失败
-          this.commentIndexs[index] = !this.commentIndexs[index];
-          // this.tip1();
-          this.msgs = [];
-          this.msgs.push({severity: 'error', summary: '失败', detail: '评论失败'});
-        } else {
-          this.msgs = [];
-          this.msgs.push({severity: 'success', summary: '成功', detail: '评论已提交'});
-          // 评论完成,将评论数加一,此处应该在后台查询,先这样写吧
-          console.log(this.Listcomment[index]);
-          console.log(typeof this.Listcomment[index]);
-          this.Listcomment[index].commentCount = this.Listcomment[index].commentCount + 1;
-          //如果当前评论窗口是打开状态,触发查看评论方法
-          if (this.commentContentIndexs[index]) {
-            this.getComment(index, reId, 0);
-          }
-        }
-
-      }, (err) => {
-        console.log(`error ${err}`);
+        console.log('弹出登陆窗口');
+        // 调用子组件打开登陆窗口
+        this.loginModal.showLoginModal();
+      } else if (res['state'] == 2) {   //操作失败
+        this.commentIndexs[index] = !this.commentIndexs[index];
         // this.tip1();
         this.msgs = [];
-        this.msgs.push({severity: 'error', summary: '失败', detail: '评论失败'});
-      },
+        this.msgs.push({ severity: 'error', summary: '失败', detail: '评论失败' });
+      } else {
+        this.msgs = [];
+        this.msgs.push({ severity: 'success', summary: '成功', detail: '评论已提交' });
+        // 评论完成,将评论数加一,此处应该在后台查询,先这样写吧
+        console.log(this.Listcomment[index]);
+        console.log(typeof this.Listcomment[index]);
+        this.Listcomment[index].commentCount = this.Listcomment[index].commentCount + 1;
+        //如果当前评论窗口是打开状态,触发查看评论方法
+        if (this.commentContentIndexs[index]) {
+          this.getComment(index, reId, 0);
+        }
+      }
+
+    }, (err) => {
+      console.log(`error ${err}`);
+      // this.tip1();
+      this.msgs = [];
+      this.msgs.push({ severity: 'error', summary: '失败', detail: '评论失败' });
+    },
       () => {
         console.log(`编译`);
       });
   }
 
-  //打开关闭评论窗口
+  /**
+   * 打开关闭评论窗口
+   * @param index 
+   */
   toggleCommentwindow(index: number): void {
     this.commentIndexs[index] = !this.commentIndexs[index];
   }
 
-  // 获取试题评论
+  /**
+   * 获取试题评论
+   */
   getComment(index: number, reId: number, falg: number): any {
     if (!this.commentContentIndexs[index]) {   //如果评论内容Dom未打开
       this._unitexamService.getComment(reId).subscribe(res => {
-          if (res['status'] == 0) {
-            this.loginModal.showLoginModal();
-          }
-          this.Listcomment[index] = res['data'];
-          //如果评论内容加载完Dom打开
-          this.commentContentIndexs[index] = !this.commentContentIndexs[index];
-        }, (err) => {
-          console.log(`error ${err}`);
-        }, () => console.log(`编译`)
+        if (res['status'] == 0) {
+          this.loginModal.showLoginModal();
+        }
+        this.Listcomment[index] = res['data'];
+        //如果评论内容加载完Dom打开
+        this.commentContentIndexs[index] = !this.commentContentIndexs[index];
+      }, (err) => {
+        console.log(`error ${err}`);
+      }, () => console.log(`编译`)
       );
     } else if (falg == index) {    // 这里用falg变量来判断,请求该方法的操作是来自Dom的点击还是Js的回调
       console.log(`是dom点击操作调用的`);
@@ -261,13 +272,13 @@ export class UnitexamComponent implements OnInit {
       this.commentContentIndexs[index] = !this.commentContentIndexs[index];
     } else {
       this._unitexamService.getComment(reId).subscribe(res => {
-          if (res['status'] == 0) {
-            this.loginModal.showLoginModal();
-          }
-          this.Listcomment[index] = res['data'];
-        }, (err) => {
-          console.log(`error ${err}`);
-        }, () => console.log(`编译`)
+        if (res['status'] == 0) {
+          this.loginModal.showLoginModal();
+        }
+        this.Listcomment[index] = res['data'];
+      }, (err) => {
+        console.log(`error ${err}`);
+      }, () => console.log(`编译`)
       );
     }
   }

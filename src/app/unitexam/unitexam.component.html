@@ -1,4 +1,3 @@
-
 <!--modal-->
 <div *ngIf="isScoreModalShown" [config]="{ show: true }" (onHidden)="initHidden()" bsModal #scoreModal="bs-modal" class="modal fade"
   tabindex="-1" role="dialog" aria-hidden="true">
@@ -20,20 +19,16 @@
     </div>
   </div>
 </div>
-<!-- 登陆窗口弹出层 -->
-<!-- 此变量须与组件内@ViewChild的值相同 -->
-<app-loginmodal #loginModal></app-loginmodal>
 
-<!-- Loading 加载组件 -->
-<!-- <div class="demo" [el-loading]="true" [text]="'拼命加载中'">
-  <el-tag>加载中..</el-tag>
-</div> -->
+
+
 
 <!--试题列表-->
 <div class="row" [@flyIn]="'active'">
-  <div id="unitexam_container" class="col-md-5 col-md-offset-1" appScrollPage scrollPerecnt="70"  [immediateCallback]="false" [scrollCallback]="scrollCallback">
+  <div id="unitexam_container" class="col-md-5 col-md-offset-1" appScrollPage scrollPerecnt="70" [immediateCallback]="false"
+    [scrollCallback]="scrollCallback">
     <!--此标签只作为逻辑工具使用;渲染之后不改变原有结构-->
-    <ng-container *ngFor="let data of Listdata;let i = index" >
+    <ng-container *ngFor="let data of Listdata;let i = index">
       <div class="card mb-3" [ngClass]="{'bg-danger': reviewErrList(data.id),'bg-warning':reviewNotDoList(i)}">
         <!--一个标签内[ngClass]不可以写多个,如果需要多个,将方法写在一个[ngClass]内-->
         <div class="card-header">
@@ -90,9 +85,19 @@
   </div>
 
 
+
 </div>
 
-<div style="z-index: 99">
-<!--primeng Growl消息提示插件,旨在替代sweetalert2插件-->
-<p-growl [(value)]="msgs" ></p-growl>
+  <!--primeng Growl消息提示插件,旨在替代sweetalert2插件-->
+  <p-growl [(value)]="msgs"></p-growl>
+
+<!-- 登陆窗口弹出层 -->
+<!-- 此变量须与组件内@ViewChild的值相同 -->
+<app-loginmodal #loginModal></app-loginmodal>
+
+
+<!-- Loading 加载组件 -->
+<!-- 默认将占满整个父级窗口 ，但设置了[full-screen]="true"将会覆盖全屏-->
+<div class="demo" [el-loading]="is_loading" [text]="'拼命加载中'" [lock]="true" [full-screen]="true">
+  <!-- <el-tag>加载中..</el-tag> -->
 </div>
