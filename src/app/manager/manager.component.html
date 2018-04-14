@@ -1,79 +1,74 @@
-<div class="container container-fluid">
-  <div class="row">
-      <div class="col-md-1">
-        <aside class="sidebar show perfectScrollbar">
-          <div id="solso-sidebar">
-            <div class="card-group" id="accordion" role="tablist" aria-multiselectable="true">
+<div class="container container-fluid manager">
+  <!-- 左侧边栏导航 -->
+  <div>
 
-              <div class="card">
-                <div class="card-header " role="tab">
-                  <div class="input-group custom-search-form">
-                    <input type="text" class="form-control" placeholder="Search..." />
-                    <span class="input-group-btn">
-                      <button class="btn btn-default" type="button">
-                        <i class="fa fa-search"></i>
-                      </button>
-                    </span>
-                  </div>
-                </div>
-              </div>
+    <nav class="main-menu">
 
-              <div class="card" routerLinkActive="active">
-                <div class="card-header " role="tab" id="heading1">
-                  <h4 class="card-title">
-                    <a href="javascript:void(0)" class="single-item" [routerLink]="['/manager/dashboard']">
-                      <i class="fa fa-dashboard"></i> 主面板
-                    </a>
-                  </h4>
-                </div>
-              </div>
+      <div class="logo"></div>
+      <div class="settings"></div>
 
-              <div class="card">
-                <div class="card-header " role="tab" id="heading2">
-                  <h4 class="card-title">
-                    <a data-toggle="collapse" data-parent="#accordion" href="#collapse2" aria-expanded="true" aria-controls="collapse2">
-                      <i class="fa fa-bar-chart-o"></i> 试题管理
-                      <i class="pull-right fa fa-caret-down"></i>
-                    </a>
-                  </h4>
-                </div>
+      <ul>
 
-                <div id="collapse2" class="card-collapse collapse in" role="tabcard" aria-labelledby="heading2">
-                  <div>
-                    <a href="javascript:void(0)" class="list-group-item" [routerLink]="['/manager/addExam']">新增试题</a>
-                    <a href="javascript:void(0)" class="list-group-item" [routerLink]="['/manager/updExam']">编辑试题</a>
-                  </div>
-                </div>
-              </div>
+        <li routerLinkActive="active">
 
-              <div class="card">
-                <div class="card-header " role="tab" id="heading3">
-                  <h4 class="card-title">
-                    <a data-toggle="collapse" data-parent="#accordion" href="#collapse3" aria-expanded="true" aria-controls="collapse3">
-                      <i class="fa fa-bar-chart-o"></i> 用户管理
-                      <i class="pull-right fa fa-caret-down"></i>
-                    </a>
-                  </h4>
-                </div>
+          <a href="javascript:void(0)" [routerLink]="['/manager/dashboard']">
+            <i class="fa fa-home fa-lg"></i>
+            <span class="nav-text">主面板</span>
 
-                <div id="collapse3" class="card-collapse collapse in" role="tabcard" aria-labelledby="heading3">
-                  <div>
-                    <a href="javascript:void(0)" class="list-group-item" [routerLink]="['/manager/updUser']">用户管理</a>
-                  </div>
-                </div>
-              </div>
+          </a>
+        </li>
 
 
-            </div>
-          </div>
-        </aside>
-      </div>
+        <li class="has-subnav">
+          <a href="javascript:void(0)" [routerLink]="['/manager/addExam']">
+            <i class="fa fa-clock-o fa-lg"></i>
+            <span class="nav-text">
+              新增试题
+            </span>
+          </a>
+
+        </li>
+
+        <li>
+          <a href="javascript:void(0)" [routerLink]="['/manager/updExam']">
+            <i class="fa fa-desktop fa-lg"></i>
+            <span class="nav-text">
+              编辑试题
+            </span>
+          </a>
+        </li>
+
+        <li>
+          <a href="javascript:void(0)" [routerLink]="['/manager/updUser']">
+            <i class="fa fa-desktop fa-lg"></i>
+            <span class="nav-text">
+              用户管理
+            </span>
+          </a>
+        </li>
+
+
+      </ul>
+
+      <ul class="logout">
+        <li>
+          <a href="javascript:void(0)" [routerLink]="['/manager/updUser']">
+            <i class="fa fa-lightbulb-o fa-lg"></i>
+            <span class="nav-text">
+              BLOG
+            </span>
+
+          </a>
+        </li>
+      </ul>
+    </nav>
+
 
   </div>
 
+
   <!--后台管理右侧内容-->
-  <div class="col-md-11">
-    <div class="container-fluid container"></div>
+  <div class="container-fluid container">
     <router-outlet></router-outlet>
   </div>
 </div>

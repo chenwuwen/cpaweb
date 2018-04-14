@@ -35,9 +35,9 @@ export class UnitexamComponent implements OnInit {
 
   private is_loading: boolean = false; //是否显示loading加载组件
   @ViewChild('scoreModal')
-  public scoreModal: ModalDirective;
+  public scoreModal: ModalDirective; //得分弹出层
   @ViewChild('loginModal')
-  private loginModal: LoginmodalComponent;
+  private loginModal: LoginmodalComponent; //登陆弹出层
 
 
   private pageNo: number = 0;
@@ -45,7 +45,8 @@ export class UnitexamComponent implements OnInit {
 
   constructor(private _route: ActivatedRoute,
     private _router: Router,
-    private _unitexamService: UnitexamService, private _bsModalService: BsModalService) {
+    private _unitexamService: UnitexamService,
+    private _bsModalService: BsModalService) {
     /*通过这种形式来接收父级页面传过来的值  或者通过  this.route.params['value']['testType']*/
     /*route.params是一个可观察对象，可以使用.subscribe(),将参数值提取到固定值，这种情况下，我们将params['id'];赋值给组件实例变量id*/
     // route.params与route.queryParams不同,route.params在路由配置中匹配参数，而queryParams在查询字符串中匹配参数
