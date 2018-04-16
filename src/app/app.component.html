@@ -96,7 +96,8 @@
 
 
 <!-- 主体内容区域 -->
-<div class="container container-fluid" id="main">
+<!--之前一直在这个RouterOutlet上加一个div，并且设置 container container-fluid 等类,导致页面不能全屏(内容只显示在屏幕中间,两边有白边),后来去掉div就可以了,或者去掉container container-fluid 名,如果仅仅去掉类名需要在这个div上设置padding=0,否则还是会有一些间距的-->
+<div class="" id="main">
   <!--RouterOutlet - 路由插座,显示路由器生成的视图。在展示父路由的位置中的某个地方展示子路由对应的地方。-->
   <router-outlet></router-outlet>
 </div>
