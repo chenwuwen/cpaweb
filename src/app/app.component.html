@@ -1,72 +1,72 @@
 <!--页头Container布局开始-->
-<div id="header" class="Container">
+<div class="Container">
+  <div id="header">
+    <!--页头导航栏开始-->
+    <nav class="navbar navbar-expand-lg navbar-light  fixed-top navbar-expand" >
 
-  <!--页头导航栏开始-->
-  <nav class="navbar navbar-expand-lg navbar-light  fixed-top navbar-expand" style="background-color: #e3f2fd;">
-
-    <!-- Brand and toggle get grouped for better mobile display -->
-    <a class="navbar-brand" href="#">
-      <img src="/assets/brand/bootstrap-solid.svg" width="30" height="30" alt="">
-    </a>
-
-    <!-- 此按钮是切换到小屏幕时点击展开导航栏的按钮 -->
-    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
-            aria-controls="navbarSupportedContent"
-            aria-expanded="false" aria-label="Toggle navigation">
-      <span class="navbar-toggler-icon"></span>
-    </button>
-
-    <div class="collapse navbar-collapse" id="navbarSupportedContent">
-      <!--这里使用[routerLink]将超链接和路由建立联接-->
-      <ul class="navbar-nav mr-auto">
-        <!--这里使用routerLinkActive显示正处于哪个菜单的选中样式-->
-        <li class="nav-item active" routerLinkActive="active">
-          <a class="nav-link" [routerLink]="['/home']" href="javascript:void(0)">首页</a>
-        </li>
-        <!-- 导航栏下拉菜单开始 -->
-        <li class="nav-item dropdown">
-          <a href="javascript:void(0)" class="nav-link dropdown-toggle" id="navbarDropdown" role="button"
-             data-toggle="dropdown" aria-haspopup="true"
-             aria-expanded="false">在线练习
-          </a>
-          <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-            <a class="dropdown-item" [routerLink]="['/unitexam','basicAccount']" href="javascript:void(0)">会计基础</a>
-            <div class="dropdown-divider"></div>
-            <a class="dropdown-item" [routerLink]="['/unitexam','cpuAccount']" href="javascript:void(0)">会计电算化</a>
-            <div class="dropdown-divider"></div>
-            <a class="dropdown-item" [routerLink]="['/unitexam','statuteEthics']"
-               href="javascript:void(0)">财经法规与职业道德</a>
-          </div>
-        </li>
-        <!-- 导航栏下拉菜单结束 -->
-
-        <li class="nav-item" routerLinkActive="active">
-          <a class="nav-link disabled" href="javascript:void(0)">模拟测验</a>
-        </li>
-        <li class="nav-item" routerLinkActive="active">
-          <a class="nav-link" [routerLink]="['/usercenter']" href="javascript:void(0)">个人中心</a>
-        </li>
-        <li routerLinkActive="active">
-          <a class="nav-link" [routerLink]="['/manager']" href="javascript:void(0)">管理中心</a>
-        </li>
-      </ul>
-      <!--导航栏搜索框开始-->
-      <form class="form-inline mx-auto">
-        <input class="form-control mr-sm-4" type="search" #searchValue placeholder="输入想搜索的内容" aria-label="Search">
-        <button type="submit" class="btn btn-outline-success my-2 my-sm-0" (click)="search(searchValue)">搜索</button>
-      </form>
-      <!--导航栏搜索框结束-->
-
-    </div>
-
-    <!-- 顶部导航栏右侧开始 -->
-    <ul class="nav justify-content-end">
-      <a class="" href="javascript:void(0)" [routerLink]="['/usercenter']">
-        <img #circleHeadImg class="img-circle  img-responsive" src="http://kanyun123.3vcm.net/circular.png" alt=""/>
+      <!-- Brand and toggle get grouped for better mobile display -->
+      <a class="navbar-brand" href="#">
+        <img src="/assets/brand/bootstrap-solid.svg" width="30" height="30" alt="">
       </a>
 
-      <!--此下拉菜单使用的是Ngx-BootStrap -->
-      <span dropdown (onShown)="onShown()" (onHidden)="onHidden()" (isOpenChange)="isOpenChange()">
+      <!-- 此按钮是切换到小屏幕时点击展开导航栏的按钮 -->
+      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
+              aria-controls="navbarSupportedContent"
+              aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+
+      <div class="collapse navbar-collapse" id="navbarSupportedContent">
+        <!--这里使用[routerLink]将超链接和路由建立联接-->
+        <ul class="navbar-nav mr-auto">
+          <!--这里使用routerLinkActive显示正处于哪个菜单的选中样式-->
+          <li class="nav-item active" routerLinkActive="active">
+            <a class="nav-link" [routerLink]="['/home']" href="javascript:void(0)">首页</a>
+          </li>
+          <!-- 导航栏下拉菜单开始 -->
+          <li class="nav-item dropdown">
+            <a href="javascript:void(0)" class="nav-link dropdown-toggle" id="navbarDropdown" role="button"
+               data-toggle="dropdown" aria-haspopup="true"
+               aria-expanded="false">在线练习
+            </a>
+            <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+              <a class="dropdown-item" [routerLink]="['/unitexam','basicAccount']" href="javascript:void(0)">会计基础</a>
+              <div class="dropdown-divider"></div>
+              <a class="dropdown-item" [routerLink]="['/unitexam','cpuAccount']" href="javascript:void(0)">会计电算化</a>
+              <div class="dropdown-divider"></div>
+              <a class="dropdown-item" [routerLink]="['/unitexam','statuteEthics']"
+                 href="javascript:void(0)">财经法规与职业道德</a>
+            </div>
+          </li>
+          <!-- 导航栏下拉菜单结束 -->
+
+          <li class="nav-item" routerLinkActive="active">
+            <a class="nav-link disabled" href="javascript:void(0)">模拟测验</a>
+          </li>
+          <li class="nav-item" routerLinkActive="active">
+            <a class="nav-link" [routerLink]="['/usercenter']" href="javascript:void(0)">个人中心</a>
+          </li>
+          <li routerLinkActive="active">
+            <a class="nav-link" [routerLink]="['/manager']" href="javascript:void(0)">管理中心</a>
+          </li>
+        </ul>
+        <!--导航栏搜索框开始-->
+        <form class="form-inline mx-auto">
+          <input class="form-control mr-sm-4" type="search" #searchValue placeholder="输入想搜索的内容" aria-label="Search">
+          <button type="submit" class="btn btn-outline-success my-2 my-sm-0" (click)="search(searchValue)">搜索</button>
+        </form>
+        <!--导航栏搜索框结束-->
+
+      </div>
+
+      <!-- 顶部导航栏右侧开始 -->
+      <ul class="nav justify-content-end">
+        <a class="" href="javascript:void(0)" [routerLink]="['/usercenter']">
+          <img #circleHeadImg class="img-circle  img-responsive" src="http://kanyun123.3vcm.net/circular.png" alt=""/>
+        </a>
+
+        <!--此下拉菜单使用的是Ngx-BootStrap -->
+        <span dropdown (onShown)="onShown()" (onHidden)="onHidden()" (isOpenChange)="isOpenChange()">
          <a href dropdownToggle (click)="false">{{userName}}</a>
         <ul *dropdownMenu class="dropdown-menu">
         <li *ngIf="!hasLogin">
@@ -82,21 +82,22 @@
         </ul>
     </span>
 
-      <!-- 导航栏最右侧占位 -->
-      <p class="navbar-text ">&nbsp;&nbsp;&nbsp;&nbsp;</p>
-    </ul>
-    <!-- 顶部导航栏右侧结束 -->
+        <!-- 导航栏最右侧占位 -->
+        <p class="navbar-text ">&nbsp;&nbsp;&nbsp;&nbsp;</p>
+      </ul>
+      <!-- 顶部导航栏右侧结束 -->
 
 
-  </nav>
-  <!--页头导航栏结束-->
+    </nav>
+    <!--页头导航栏结束-->
 
+  </div>
 </div>
 <!--页头Container布局结束-->
 
 
 <!-- 主体内容区域 -->
-<!--之前一直在这个RouterOutlet上加一个div，并且设置 container container-fluid 等类,导致页面不能全屏(内容只显示在屏幕中间,两边有白边),后来去掉div就可以了,或者去掉container container-fluid 名,如果仅仅去掉类名需要在这个div上设置padding=0,否则还是会有一些间距的-->
+<!--之前一直在这个RouterOutlet上加一个div，并且设置 container container-fluid 等类,导致页面不能全屏(内容只显示在屏幕中间,两边有白边),后来去掉div就可以了,或者去掉container container-fluid 名(如果其他页面有需要使用此类的，则在各个但页面添加该类),如果仅仅去掉类名需要在这个div上设置padding=0,否则还是会有一些间距的-->
 <div class="" id="main">
   <!--RouterOutlet - 路由插座,显示路由器生成的视图。在展示父路由的位置中的某个地方展示子路由对应的地方。-->
   <router-outlet></router-outlet>

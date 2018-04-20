@@ -1,12 +1,4 @@
-/*flex布局*/
-.manager {
-  display: -webkit-flex;
-  display: flex;
-  flex-flow: row nowrap;
-  justify-content: flex-start;
-  align-items: baseline;
-  -webkit-align-items: baseline;
-}
+
 
 .sidebar {
   /*flex: auto;*/
@@ -83,17 +75,16 @@
   position: relative;
   display: table-cell;
   vertical-align: middle;
-  width: 190px;
+  width: auto;
   font-family: 'Titillium Web', sans-serif;
 }
 
-.checkbox_label{
+.checkbox_label {
   width: 100%;
   position: absolute;
   top: 50%;
   transform: translateY(-50%);
 }
-
 
 a:hover, a:focus {
   text-decoration: none;
@@ -117,32 +108,51 @@ nav ul, nav li {
 
 }
 
-.main-menu li:hover > a, nav.main-menu li.active > a, .dropdown-menu > li > a:hover, .dropdown-menu > li > a:focus, .dropdown-menu > .active > a, .dropdown-menu > .active > a:hover, .dropdown-menu > .active > a:focus, .no-touch .dashboard-page nav.dashboard-menu ul li:hover a, .dashboard-page nav.dashboard-menu ul li.active a {
+.main-menu li:hover > a, nav.main-menu li.active > a, .dropdown-menu > .active > a:hover, .dropdown-menu > .active > a:focus, .no-touch .dashboard-page nav.dashboard-menu ul li:hover a, .dashboard-page nav.dashboard-menu ul li.active a {
   color: #fff;
   background-color: #00bbbb;
   text-shadow: 0px 0px 0px;
 }
 
-@font-face {
-  font-family: 'Titillium Web';
-  font-style: normal;
-  font-weight: 300;
-  src: local('Titillium WebLight'), local('TitilliumWeb-Light'), url(http://themes.googleusercontent.com/static/fonts/titilliumweb/v2/anMUvcNT0H1YN4FII8wpr24bNCNEoFTpS2BTjF6FB5E.woff) format('woff');
-}
 
-
-
-
-
-
-
-.toggle_accordion{
-  display: none;
-}
-.item_son{
+/*隐藏checkbox,通过在文件上添加label标签实现点击文字勾选复选框*/
+.toggle_accordion {
   display: none;
 }
 
-.item input:checked ~ .item_son{
+/*所有子菜单默认隐藏状态*/
+.item_son {
+  display: none;
+}
+
+
+/*checkbox选中显示子菜单,使用伪类实现*/
+/*最后两行使用动画效果其中 new-item-animation 是指动画的类*/
+.item input:checked ~ .item_son {
   display: block;
+  opacity: 0 ;
+  animation: item-son-animation 300ms linear forwards;
+}
+
+/*动画类*/
+@keyframes item-son-animation {
+  0% {
+    opacity: 0;
+    -webkit-transform: rotateY(90deg);
+    transform: rotateY(90deg);
+  }
+  100% {
+    opacity: 1;
+    -webkit-transform: rotateY(0);
+    transform: rotateY(0);
+  }
+}
+
+/*子菜单a标签边框为0*/
+.item .item_son a {
+  border: 0px;
+}
+
+.fa-angle-right{
+
 }
