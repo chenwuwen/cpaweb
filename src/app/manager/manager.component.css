@@ -134,6 +134,15 @@ nav ul, nav li {
   animation: item-son-animation 300ms linear forwards;
 }
 
+/* 点击父级菜单时,旋转箭头 */
+.item input:checked ~ li .arrow {
+  /* 设置旋转角度,正数顺时针负数逆时针 */
+  transform:rotate(90deg);
+  /* 设置旋转中心点,默认是xy值交叉的中心点 */
+  transform-origin:50% 25%;
+
+}
+
 /*动画类*/
 @keyframes item-son-animation {
   0% {
