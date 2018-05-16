@@ -33,7 +33,7 @@ export class UpdExamService {
     let url = '/api/unitExam/getListExam';
     console.log('后台管理,【试题列表】pageNo: ' + pageNo);
     console.log('后台管理,【试题列表】pageSize: ' + pageSize);
-    return this._http.post(url, {pageNo, pageSize, cpaRepertoryDto},).map(this.extractData).catch(this.handleError);
+    return this._http.post(url, {pageNo, pageSize, cpaRepertoryDto}).map(this.extractData).catch(this.handleError);
   }
 
   /**

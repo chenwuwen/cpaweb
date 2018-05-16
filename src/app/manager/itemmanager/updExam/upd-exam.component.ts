@@ -177,7 +177,7 @@ export class UpdExamComponent implements OnInit {
    * @param id 试题ID
    */
   getExamDetail(idEle: any) {
-    //方法接收实际的参数对象是HTMLTableCellElement
+    // 方法接收实际的参数对象是HTMLTableCellElement
     // tabledataObject.abbr=text获取表格中abbr的值
     console.log(`修改试题ID为：` + idEle.abbr);
     this._updExamService.getExamDetail(idEle.abbr).subscribe(res => {
@@ -211,10 +211,10 @@ export class UpdExamComponent implements OnInit {
    */
   selectCheckbox(check: boolean, value: string) {
     // console.log(result);
-    //先判断选中的数组里面是否包括当前值,includes目前不支持
-    //var isInclude:boolean = this.selectHobby.includes(value);
+    // 先判断选中的数组里面是否包括当前值,includes目前不支持
+    // var isInclude:boolean = this.selectHobby.includes(value);
     var index: number = this.checkeds.indexOf(value);
-    //当前选择的就追加否则就移除
+    // 当前选择的就追加否则就移除
     if (check) {
       if (index < 0) {
         this.checkeds.push(value);

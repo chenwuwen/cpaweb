@@ -55,11 +55,12 @@ export class AddExamComponent implements OnInit {
    * @param value
    */
   selectCheckbox(check: boolean, value: string) {
-    // console.log(result);
-    //先判断选中的数组里面是否包括当前值,includes目前不支持
-    //var isInclude:boolean = this.selectHobby.includes(value);
+    // console.log(check)
+    // console.log(value);
+    // 先判断选中的数组里面是否包括当前值,includes目前不支持
+    // var isInclude:boolean = this.selectHobby.includes(value);
     var index: number = this.checkeds.indexOf(value);
-    //当前选择的就追加否则就移除
+    // 当前选择的就追加否则就移除
     if (check) {
       if (index < 0) {
         this.checkeds.push(value);
@@ -78,7 +79,7 @@ export class AddExamComponent implements OnInit {
      * 但可以传一个对象，且不匹配时不会报告错误。而我们要做的就是在ng2组件的ngOnChanges回调中手动执行setValue设置数据值
      * 同时ng2还提供了一个reset方法来重新调用setValue方法(setValue本身好像只是用来一次性赋值的)。
      */
-    //当选择的是多选题,将选择的答案,赋给表单的value里面
+    // 当选择的是多选题,将选择的答案,赋给表单的value里面
     this.addItemForm.patchValue({
       result: this.checkeds.toString()
     });

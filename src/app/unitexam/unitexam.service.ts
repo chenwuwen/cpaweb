@@ -46,11 +46,11 @@ export class UnitexamService {
   getUnitExam(testType: string, pageNo: number, pageSize: number): Observable<any> {
     let url = '/api/unitExam/getUnitExam/';
     // let params = new URLSearchParams();
-    let params = new HttpParams();
-    console.log(pageNo.toString());
-    params.set('pageNo', pageNo.toString());
-    params.set('pageSize', pageSize.toString());
-    return this._http.get(url + testType, {params})
+    // let params = new HttpParams();
+    // console.log(pageNo.toString());
+    // params.set('pageNo', pageNo.toString());
+    // params.set('pageSize', pageSize.toString());
+    return this._http.get(url + testType + '/' + pageNo + '/' + pageSize)
       .map(this.extractData)
       .catch(this.handleError);
   }

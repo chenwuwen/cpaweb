@@ -80,23 +80,45 @@ export class ScrollPageDirective implements AfterViewInit {
 
   }
 
-
+  /**
+   * 使用窗口滚动，而不是使用容器滚动，使用如下两个方法
+   */
   private registerScrollEvent() {
-    console.log(`registerScrollEvent()方法监听页面滚动`);
-    this.scrollEvent$ = Observable.fromEvent(this.elm.nativeElement, 'scroll');
+
+    this.scrollEvent$ = Observable.fromEvent(window, 'scroll'); // change to window
 
   }
 
   private streamScrollEvents() {
     this.userScrolledDown$ = this.scrollEvent$
       .map((e: any): ScrollPosition => ({
-        sH: e.target.scrollHeight,
-        sT: e.target.scrollTop,
-        cH: e.target.clientHeight
+        sH: e.target.body.scrollHeight, // instead get scrollHeight of body
+        sT: window.pageYOffset, // instead get pageYOffset of window
+        cH: e.target.body.clientHeight // instead get clientHeightof body
       }))
       .pairwise()
-      .filter(positions => this.isUserScrollingDown(positions) && this.isScrollExpectedPercent(positions[1]));
+      .filter(positions => this.isUserScrollingDown(positions) && this.isScrollExpectedPercent(positions[1]))
   }
+
+  /**
+   * 使用容器滚动,即定义一个固定宽高的容器,在内容进行无线滚动
+   */
+  // private registerScrollEvent() {
+  //   console.log(`registerScrollEvent()方法监听页面滚动`);
+  //   this.scrollEvent$ = Observable.fromEvent(this.elm.nativeElement, 'scroll');
+  //
+  // }
+  //
+  // private streamScrollEvents() {
+  //   this.userScrolledDown$ = this.scrollEvent$
+  //     .map((e: any): ScrollPosition => ({
+  //       sH: e.target.scrollHeight,
+  //       sT: e.target.scrollTop,
+  //       cH: e.target.clientHeight
+  //     }))
+  //     .pairwise()
+  //     .filter(positions => this.isUserScrollingDown(positions) && this.isScrollExpectedPercent(positions[1]));
+  // }
 
   private requestCallbackOnScroll() {
     console.log(`requestCallbackOnScroll()方法,一旦达到我们设定的条件后，调用 scrollCallback 来发起 API 请求`);

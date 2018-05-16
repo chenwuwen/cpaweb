@@ -23,7 +23,7 @@ import { ElModule } from 'element-angular/release/element-angular.module';
     GrowlModule, /*primeng消息提示模块*/
     BrowserAnimationsModule, /*动画所需Module*/
     LoginmodalModule,
-    CustomFormsModule,  //引入ng2-validation
+    CustomFormsModule,  // 引入ng2-validation
     ElModule.forRoot(),
     BaseModule
   ],
