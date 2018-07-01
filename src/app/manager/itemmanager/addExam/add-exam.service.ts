@@ -1,7 +1,8 @@
-import {Injectable} from '@angular/core';
-import {CpaOption, CpaSolution, Item} from "../item-model";
-import {Observable} from "rxjs/Observable";
-import {HttpClient, HttpHeaders, HttpParams, HttpResponse} from '@angular/common/http';
+import { Injectable } from '@angular/core';
+import { CpaOption, CpaSolution, Item } from "../item-model";
+import { Observable } from "rxjs";
+import { map, catchError } from 'rxjs/operators';
+import { HttpClient, HttpHeaders, HttpParams, HttpResponse } from '@angular/common/http';
 
 
 @Injectable()
@@ -20,7 +21,7 @@ export class AddExamService {
     // 而springMvc的默认接受请求头为application/x-www-form-urlencoded;charset=utf-8'，即jquery Ajax那种 data:{}方式
     // 如果不需要设置请求头,则不必调用此方法
     const httpOptions = {
-      headers: new HttpHeaders({'Content-Type': contentType})
+      headers: new HttpHeaders({ 'Content-Type': contentType })
     };
     return httpOptions;
   }
@@ -35,9 +36,9 @@ export class AddExamService {
   addItem(cpaRepertory: Item, cpaOptions: Array<CpaOption>, cpaSolution: CpaSolution): Observable<any> {
     let url = "/api/unitExam/addUnitExam";
     const httpRequestOptions = this.getHttpRequestOptions('');
-    return this._http.post(url, {cpaRepertory, cpaOptions, cpaSolution}, httpRequestOptions)
-      .map(this.extractData)
-      .catch(this.handleError);
+    return this._http.post(url, { cpaRepertory, cpaOptions, cpaSolution }, httpRequestOptions)
+      .pipe(map(this.extractData)
+        , catchError(this.handleError));
   }
 
   /*response 对象并不是返回我们可以直接使用的数据，要想变成应用程序所需要的数据需要：检查不良响应,解析响应数据*/

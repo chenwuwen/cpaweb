@@ -1,8 +1,7 @@
-import {Injectable} from '@angular/core';
-import {HttpClient, HttpHeaders, HttpParams, HttpResponse} from '@angular/common/http';
-import {Observable} from 'rxjs/Observable';
-import 'rxjs/add/operator/catch';
-
+import { Injectable } from '@angular/core';
+import { HttpClient, HttpHeaders, HttpParams, HttpResponse } from '@angular/common/http';
+import { Observable } from 'rxjs';
+import { map, catchError } from 'rxjs/operators';
 
 @Injectable()
 export class UnitexamService {
@@ -24,7 +23,7 @@ export class UnitexamService {
     // 如果不需要设置请求头,则不必调用此方法
     const httpOptions = {
       // 通常token前面需要加bearer
-      headers: new HttpHeaders({'Content-Type': contentType, 'Authorization': 'Bearer ' + localStorage.getItem('token')})
+      headers: new HttpHeaders({ 'Content-Type': contentType, 'Authorization': 'Bearer ' + localStorage.getItem('token') })
     };
     return httpOptions;
   }
@@ -51,8 +50,8 @@ export class UnitexamService {
     // params.set('pageNo', pageNo.toString());
     // params.set('pageSize', pageSize.toString());
     return this._http.get(url + testType + '/' + pageNo + '/' + pageSize)
-      .map(this.extractData)
-      .catch(this.handleError);
+      .pipe(map(this.extractData)
+        , catchError(this.handleError));
   }
 
   /**
@@ -63,8 +62,8 @@ export class UnitexamService {
   toggleCollect(reId: number): Observable<any> {
     let url = '/api/usercollect/toggleCollect/';
     return this._http.get(url + reId)
-      .map(this.extractData)
-      .catch(this.handleError);
+      .pipe(map(this.extractData)
+        , catchError(this.handleError));
   }
 
   /**
@@ -75,9 +74,9 @@ export class UnitexamService {
    */
   commentItem(reId: number, comment: string): Observable<any> {
     let url = '/api/usercomment/saveComment';
-    return this._http.post(url, {reId, comment})
-      .map(this.extractData)
-      .catch(this.handleError);
+    return this._http.post(url, { reId, comment })
+      .pipe(map(this.extractData)
+        , catchError(this.handleError));
   }
 
   /**
@@ -87,8 +86,8 @@ export class UnitexamService {
    */
   getComment(reId: number): Observable<any> {
     let url = '/api/usercomment/getItemComment/';
-    return this._http.get(url + reId).map(this.extractData)
-      .catch(this.handleError);
+    return this._http.get(url + reId).pipe(map(this.extractData)
+      , catchError(this.handleError));
   }
 
   /*response 对象并不是返回我们可以直接使用的数据，要想变成应用程序所需要的数据需要：检查不良响应,解析响应数据*/

@@ -1,8 +1,9 @@
-import {Injectable} from '@angular/core';
-import {Observable} from 'rxjs/Observable';
-import {HttpClient, HttpHeaders, HttpParams, HttpResponse} from '@angular/common/http';
-import {CpaUser} from './user-model';
-import {ChangePostBodyPipe} from '../pipe/ChangePostBodyPipe/change-post-body.pipe';
+import { Injectable } from '@angular/core';
+import { Observable } from 'rxjs';
+import { HttpClient, HttpHeaders, HttpParams, HttpResponse } from '@angular/common/http';
+import { CpaUser } from './user-model';
+import { ChangePostBodyPipe } from '../pipe/ChangePostBodyPipe/change-post-body.pipe';
+import { map, catchError } from 'rxjs/operators';
 
 @Injectable()
 export class LoginmodalService {
@@ -20,7 +21,7 @@ export class LoginmodalService {
     // 而springMvc的默认接受请求头为application/x-www-form-urlencoded;charset=utf-8'，即jquery Ajax那种 data:{}方式
     // 如果不需要设置请求头,则不必调用此方法
     const httpOptions = {
-      headers: new HttpHeaders({'Content-Type': contentType}),
+      headers: new HttpHeaders({ 'Content-Type': contentType }),
       params: params
     };
     return httpOptions;
@@ -59,7 +60,7 @@ export class LoginmodalService {
     user.append('password', cpaUser.password.trim());
     user.append('validateCode', cpaUser.validateCode.trim());
     user.append('isRememberMe', cpaUser.isRememberMe ? 'on' : null);
-    return this._http.post(url, user).map(this.extractData).catch(this.handleError);
+    return this._http.post(url, user).pipe(map(this.extractData), catchError(this.handleError));
   }
 
   /**
@@ -72,7 +73,7 @@ export class LoginmodalService {
     let changePostBodyPipe = new ChangePostBodyPipe();
     let userDto = changePostBodyPipe.transform(cpaUser);
     const httpRequestOptions = this.getHttpRequestOptions('', null);
-    return this._http.post(url, userDto, httpRequestOptions).map(this.extractData).catch(this.handleError);
+    return this._http.post(url, userDto, httpRequestOptions).pipe(map(this.extractData), catchError(this.handleError));
   }
 
   /**
@@ -85,7 +86,7 @@ export class LoginmodalService {
     let params = new HttpParams();
     params.set('username', newUsername.trim());
     const httpRequestOptions = this.getHttpRequestOptions('', params);
-    return this._http.get(url, httpRequestOptions).map(this.extractData).catch(this.handleError);
+    return this._http.get(url, httpRequestOptions).pipe(map(this.extractData), catchError(this.handleError));
   }
 
   /*response 对象并不是返回我们可以直接使用的数据，要想变成应用程序所需要的数据需要：检查不良响应,解析响应数据*/

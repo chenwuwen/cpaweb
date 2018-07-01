@@ -1,9 +1,10 @@
-import {Injectable} from '@angular/core';
-import {HttpClient, HttpHeaders, HttpParams, HttpResponse} from '@angular/common/http';
+import { Injectable } from '@angular/core';
+import { HttpClient, HttpHeaders, HttpParams, HttpResponse } from '@angular/common/http';
 
-import {Observable} from 'rxjs/Observable';
+import { Observable } from 'rxjs';
+import { map, catchError } from 'rxjs/operators';
 
-import {CpaOption, CpaSolution, Item} from '../item-model';
+import { CpaOption, CpaSolution, Item } from '../item-model';
 
 @Injectable()
 export class UpdExamService {
@@ -21,7 +22,7 @@ export class UpdExamService {
     // 而springMvc的默认接受请求头为application/x-www-form-urlencoded;charset=utf-8'，即jquery Ajax那种 data:{}方式
     // 如果不需要设置请求头,则不必调用此方法
     const httpOptions = {
-      headers: new HttpHeaders({'Content-Type': contentType})
+      headers: new HttpHeaders({ 'Content-Type': contentType })
     };
     return httpOptions;
   }
@@ -33,7 +34,7 @@ export class UpdExamService {
     let url = '/api/unitExam/getListExam';
     console.log('后台管理,【试题列表】pageNo: ' + pageNo);
     console.log('后台管理,【试题列表】pageSize: ' + pageSize);
-    return this._http.post(url, {pageNo, pageSize, cpaRepertoryDto}).map(this.extractData).catch(this.handleError);
+    return this._http.post(url, { pageNo, pageSize, cpaRepertoryDto }).pipe(map(this.extractData), catchError(this.handleError));
   }
 
   /**
@@ -41,7 +42,7 @@ export class UpdExamService {
    */
   getExamDetail(id: number): Observable<any> {
     let url = '/api/unitExam/getExamDetail/';
-    return this._http.get(url + id).map(this.extractData).catch(this.handleError);
+    return this._http.get(url + id).pipe(map(this.extractData), catchError(this.handleError));
   }
 
   /**
@@ -49,7 +50,7 @@ export class UpdExamService {
    */
   delExam(id: number): Observable<any> {
     let url = '/api/unitExam/delUnitExam/';
-    return this._http.delete(url + id).map(this.extractData).catch(this.handleError);
+    return this._http.delete(url + id).pipe(map(this.extractData), catchError(this.handleError));
   }
 
   /**
@@ -58,9 +59,9 @@ export class UpdExamService {
   updExam(cpaRepertory: Item, cpaOptions: Array<CpaOption>, cpaSolution: CpaSolution): Observable<any> {
     let url = '/api/unitExam/updUnitExam';
     const httpRequestOptions = this.getHttpRequestOptions('');
-    return this._http.post(url, {cpaRepertory, cpaOptions, cpaSolution}, httpRequestOptions)
-      .map(this.extractData)
-      .catch(this.handleError);
+    return this._http.post(url, { cpaRepertory, cpaOptions, cpaSolution }, httpRequestOptions)
+      .pipe(map(this.extractData)
+        , catchError(this.handleError));
   }
 
 

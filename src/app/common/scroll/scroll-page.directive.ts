@@ -1,5 +1,5 @@
 import {AfterViewInit, Directive, ElementRef, Input} from '@angular/core';
-import {Observable} from 'rxjs/Observable';
+import {Observable} from 'rxjs';
 import 'rxjs/add/observable/fromEvent';
 import 'rxjs/add/operator/pairwise';
 import 'rxjs/add/operator/map';

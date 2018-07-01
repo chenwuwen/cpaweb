@@ -1,10 +1,11 @@
-import {Component, OnInit, ViewChild} from '@angular/core';
-import {CpaUserDto} from '../cpauserdto-model';
-import {UpdUserService} from './upd-user.service';
+import { Component, OnInit, ViewChild } from '@angular/core';
+import { CpaUserDto } from '../cpauserdto-model';
+import { UpdUserService } from './upd-user.service';
 import swal from 'sweetalert2';
-import {Observable} from 'rxjs/Observable';
+import { Observable } from 'rxjs';
+import { map, catchError } from 'rxjs/operators';
 /*datepicker 设置中文的必备条件的引用*/
-import {BsDatepickerConfig, BsLocaleService, defineLocale, ModalDirective, zhCnLocale} from 'ngx-bootstrap';
+import { BsDatepickerConfig, BsLocaleService, defineLocale, ModalDirective, zhCnLocale } from 'ngx-bootstrap';
 
 
 @Component({
@@ -71,11 +72,11 @@ export class UpdUserComponent implements OnInit {
   datePickerConfig() {
 
     this.bsConfig = Object.assign({},
-      {containerClass: 'theme-red'},
-      {displayMonths: 2},
-      {minDate: new Date(2017, 0, 1)},
-      {maxDate: new Date()},
-      {showWeekNumbers: false});
+      { containerClass: 'theme-red' },
+      { displayMonths: 2 },
+      { minDate: new Date(2017, 0, 1) },
+      { maxDate: new Date() },
+      { showWeekNumbers: false });
   }
 
   /**
@@ -179,13 +180,13 @@ export class UpdUserComponent implements OnInit {
    */
   delUser(idUser: any): Observable<boolean> {
     let key: boolean = false;
-    return this._updUserService.delUser(idUser.abbr).map(res => {
+    return this._updUserService.delUser(idUser.abbr).pipe(map(res => {
       key = res['state'] === 1;
       return key;
-    }).catch((err) => {
+    }), catchError((err) => {
       console.error(err.message);
       return Observable.throw(err.message);
-    });
+    }));
   }
 
   /**

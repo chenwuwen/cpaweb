@@ -1,14 +1,14 @@
-import {Component, ViewChild, ElementRef} from '@angular/core';
+import { Component, ViewChild, ElementRef } from '@angular/core';
 /*所有组件必须引入*/
-import {ActivatedRoute, Router, ActivatedRouteSnapshot, RouterState, RouterStateSnapshot} from '@angular/router';
-import {LoginmodalComponent} from './common/loginmodal/loginmodal.component';
-import {ShareComponent} from './common/share/share.component';
-import {tokenNotExpired} from 'angular2-jwt';
-import {AppService} from './app.service';
-import {Store} from '@ngrx/store';
-import {Observable} from 'rxjs/Observable';
-import {el} from '@angular/platform-browser/testing/src/browser_util';
-import {SearchmodalComponent} from './common/searchmodal/searchmodal.component';
+import { ActivatedRoute, Router, ActivatedRouteSnapshot, RouterState, RouterStateSnapshot } from '@angular/router';
+import { LoginmodalComponent } from './common/loginmodal/loginmodal.component';
+import { ShareComponent } from './common/share/share.component';
+import { tokenNotExpired } from 'angular2-jwt';
+import { AppService } from './app.service';
+import { Store } from '@ngrx/store';
+import { Observable } from 'rxjs';
+import { el } from '@angular/platform-browser/testing/src/browser_util';
+import { SearchmodalComponent } from './common/searchmodal/searchmodal.component';
 
 @Component({
   selector: 'app-root',

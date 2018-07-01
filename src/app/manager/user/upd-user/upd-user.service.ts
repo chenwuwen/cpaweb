@@ -1,8 +1,9 @@
-import {Injectable} from '@angular/core';
-import {Observable} from 'rxjs/Observable';
-import {HttpClient, HttpHeaders, HttpParams, HttpResponse} from '@angular/common/http';
-import {CpaUserDto} from '../cpauserdto-model';
-import {ChangePostBodyPipe} from '../../../common/pipe/ChangePostBodyPipe/change-post-body.pipe';
+import { Injectable } from '@angular/core';
+import { Observable } from 'rxjs';
+import { map, catchError } from 'rxjs/operators';
+import { HttpClient, HttpHeaders, HttpParams, HttpResponse } from '@angular/common/http';
+import { CpaUserDto } from '../cpauserdto-model';
+import { ChangePostBodyPipe } from '../../../common/pipe/ChangePostBodyPipe/change-post-body.pipe';
 
 @Injectable()
 export class UpdUserService {
@@ -19,7 +20,7 @@ export class UpdUserService {
     }
     const httpOptions = {
 
-      headers: new HttpHeaders({'Content-Type': contentType})
+      headers: new HttpHeaders({ 'Content-Type': contentType })
     };
     return httpOptions;
   }
@@ -34,7 +35,7 @@ export class UpdUserService {
 
     const httpRequestOptions = this.getHttpRequestOptions('application/x-www-form-urlencoded;charset=utf-8');
 
-    return this._http.post(url, cpaUser, httpRequestOptions).map(this.extractData).catch(this.handleError);
+    return this._http.post(url, cpaUser, httpRequestOptions).pipe(map(this.extractData), catchError(this.handleError));
   }
 
   /**
@@ -43,7 +44,7 @@ export class UpdUserService {
    */
   getUserDetail(id: number): Observable<any> {
     let url = '/api/user/getUserDetail/';
-    return this._http.get(url + id).map(this.extractData).catch(this.handleError);
+    return this._http.get(url + id).pipe(map(this.extractData), catchError(this.handleError));
   }
 
   /**
@@ -52,7 +53,7 @@ export class UpdUserService {
    */
   delUser(id: number): Observable<any> {
     let url = '/api/user/delUser/';
-    return this._http.delete(url + id).map(this.extractData).catch(this.handleError);
+    return this._http.delete(url + id).pipe(map(this.extractData), catchError(this.handleError));
   }
 
   /**
@@ -67,7 +68,7 @@ export class UpdUserService {
     let changePostBodyPipe = new ChangePostBodyPipe();
     cpaUserDto = changePostBodyPipe.transform(cpaUserDto);
     const httpRequestOptions = this.getHttpRequestOptions('application/x-www-form-urlencoded;charset=utf-8');
-    return this._http.post(url, cpaUserDto, httpRequestOptions).map(this.extractData).catch(this.handleError);
+    return this._http.post(url, cpaUserDto, httpRequestOptions).pipe(map(this.extractData), catchError(this.handleError));
   }
 
   /*response 对象并不是返回我们可以直接使用的数据，要想变成应用程序所需要的数据需要：检查不良响应,解析响应数据*/

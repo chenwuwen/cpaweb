@@ -1,7 +1,7 @@
-import {Injectable} from '@angular/core';
-import {HttpClient, HttpHeaders, HttpParams, HttpResponse} from '@angular/common/http';
-import {Observable} from 'rxjs/Observable';
-
+import { Injectable } from '@angular/core';
+import { HttpClient, HttpHeaders, HttpParams, HttpResponse } from '@angular/common/http';
+import { Observable } from 'rxjs';
+import { map, catchError } from 'rxjs/operators';
 @Injectable()
 export class ShareService {
 
@@ -28,7 +28,7 @@ export class ShareService {
    */
   public generateChain(): Observable<any> {
     let url = '/api/share/generateChain';
-    return this._http.get(url).map(res => res).catch(this.handleError);
+    return this._http.get(url).pipe(map(res => res), catchError(this.handleError));
   }
 
   /*response 对象并不是返回我们可以直接使用的数据，要想变成应用程序所需要的数据需要：检查不良响应,解析响应数据*/

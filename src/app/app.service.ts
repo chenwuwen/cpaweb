@@ -1,6 +1,8 @@
-import {Injectable} from '@angular/core';
-import {HttpClient, HttpHeaders, HttpParams, HttpResponse} from '@angular/common/http';
-import {Observable} from 'rxjs/Observable';
+import { Injectable } from '@angular/core';
+import { HttpClient, HttpHeaders, HttpParams, HttpResponse } from '@angular/common/http';
+import { Observable } from 'rxjs';
+import { map, catchError } from 'rxjs/operators';
+
 
 @Injectable()
 export class AppService {
@@ -18,7 +20,7 @@ export class AppService {
     // 而springMvc的默认接受请求头为application/x-www-form-urlencoded;charset=utf-8'，即jquery Ajax那种 data:{}方式
     // 如果不需要设置请求头,则不必调用此方法
     const httpOptions = {
-      headers: new HttpHeaders({'Content-Type': contentType})
+      headers: new HttpHeaders({ 'Content-Type': contentType })
     };
     return httpOptions;
   }
@@ -32,8 +34,8 @@ export class AppService {
    */
   public logout(): Observable<any> {
     let url = '/api/user/logout';
-    return this._http.get(url).map(res => res)
-      .catch(this.handleError);
+    return this._http.get(url).pipe(map(res => res)
+      , catchError(this.handleError));
   }
 
   /**
@@ -42,7 +44,7 @@ export class AppService {
    */
   public checkUserStatus(): Observable<any> {
     let url = '/api/userLoginState';
-    return this._http.get(url).map(this.extractData).catch(this.handleError);
+    return this._http.get(url).pipe(map(this.extractData), catchError(this.handleError));
   }
 
   /**
@@ -52,7 +54,7 @@ export class AppService {
    */
   public search(val: string): Observable<any> {
     let url = 'api/lucene/search';
-    return this._http.get(url).map(this.extractData).catch(this.handleError);
+    return this._http.get(url).pipe(map(this.extractData), catchError(this.handleError));
   }
 
   /*response 对象并不是返回我们可以直接使用的数据，要想变成应用程序所需要的数据需要：检查不良响应,解析响应数据*/

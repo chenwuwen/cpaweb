@@ -1,8 +1,8 @@
-import {Http, Headers, ConnectionBackend, XHRBackend, RequestOptions, RequestOptionsArgs, Request, Response} from '@angular/http';
-import {Observable} from 'rxjs/Observable';
-import {Router} from '@angular/router';
-import {Injectable} from '@angular/core';
-import 'rxjs/Rx';
+import { Http, Headers, ConnectionBackend, XHRBackend, RequestOptions, RequestOptionsArgs, Request, Response } from '@angular/http';
+import { Observable } from 'rxjs';
+import { map, catchError } from 'rxjs/operators';
+import { Router } from '@angular/router';
+import { Injectable } from '@angular/core';
 
 @Injectable()
 export class AuthHttp extends Http {
@@ -44,13 +44,13 @@ export class AuthHttp extends Http {
   }
 
   intercept(observable: Observable<Response>): Observable<Response> {
-    return <Observable<Response>> observable.catch((error, source) => {
+    return <Observable<Response>>observable.pipe(catchError((error, source) => {
       if (error.status === 401) {
         // console.log("token失效");
         // this.router.navigate(['login']);
       }
       return Observable.throw(error);
-    });
+    }));
   }
 
   addHeader(url: string | Request, options?: RequestOptionsArgs): RequestOptionsArgs {
@@ -78,8 +78,8 @@ export class AuthHttp extends Http {
 }
 
 export function authHttpFactory(backend: XHRBackend,
-                                defaultOptions: RequestOptions,
-                                router: Router) {
+  defaultOptions: RequestOptions,
+  router: Router) {
   return new AuthHttp(
     backend,
     defaultOptions,

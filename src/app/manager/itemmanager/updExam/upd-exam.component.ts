@@ -1,9 +1,10 @@
-import {Component, ElementRef, OnInit, TemplateRef, ViewChild} from '@angular/core';
-import {UpdExamService} from './upd-exam.service';
-import {CpaOption, CpaSolution, Item} from '../item-model';
+import { Component, ElementRef, OnInit, TemplateRef, ViewChild } from '@angular/core';
+import { UpdExamService } from './upd-exam.service';
+import { CpaOption, CpaSolution, Item } from '../item-model';
 import swal from 'sweetalert2';
-import {ModalDirective} from 'ngx-bootstrap';
-import {Observable} from 'rxjs/Observable';
+import { ModalDirective } from 'ngx-bootstrap';
+import { Observable } from 'rxjs';
+import { map, catchError } from 'rxjs/operators';
 
 @Component({
   selector: 'app-upd-exam',
@@ -181,25 +182,25 @@ export class UpdExamComponent implements OnInit {
     // tabledataObject.abbr=text获取表格中abbr的值
     console.log(`修改试题ID为：` + idEle.abbr);
     this._updExamService.getExamDetail(idEle.abbr).subscribe(res => {
-        this.item.choice = res['data'].choice;
-        this.item.testType = res['data'].testType;
-        this.item.id = res['data'].id;
-        console.log('item:');
-        console.log(this.item);
-        this.cpaOptions = res['data'].cpaOptionDtos;
-        console.log('cpaOptions:');
-        console.log(this.cpaOptions);
-        this.cpaSolution.result = res['data'].bresult;
-        console.log('cpaSolution:');
-        console.log(this.cpaSolution);
+      this.item.choice = res['data'].choice;
+      this.item.testType = res['data'].testType;
+      this.item.id = res['data'].id;
+      console.log('item:');
+      console.log(this.item);
+      this.cpaOptions = res['data'].cpaOptionDtos;
+      console.log('cpaOptions:');
+      console.log(this.cpaOptions);
+      this.cpaSolution.result = res['data'].bresult;
+      console.log('cpaSolution:');
+      console.log(this.cpaSolution);
 
-        // 打开修改试题弹窗
-        this.isModalShown = true;
-      }, (err) => {
-        console.log(`err: ${err}`);
-      }, () => {
-        console.log(`编译`);
-      }
+      // 打开修改试题弹窗
+      this.isModalShown = true;
+    }, (err) => {
+      console.log(`err: ${err}`);
+    }, () => {
+      console.log(`编译`);
+    }
     );
   }
 
@@ -254,15 +255,15 @@ export class UpdExamComponent implements OnInit {
   delExam(idEle: any): Observable<boolean> {
     console.log(`被删除的试题Id：` + idEle.abbr);
     let key: boolean = false;
-    return this._updExamService.delExam(idEle.abbr).map(res => {
+    return this._updExamService.delExam(idEle.abbr).pipe(map(res => {
       // key = res['state'] == 1 ? true : false;
       key = res['state'] === 1;
       console.log('删除试题是否成功：' + key);
       return key;
-    }).catch((err) => {
+    }), catchError((err) => {
       console.error(err.message);
       return Observable.throw(err.message);
-    });
+    }));
   }
 
   /**
