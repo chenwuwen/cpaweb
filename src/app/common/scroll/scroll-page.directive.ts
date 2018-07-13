@@ -1,11 +1,5 @@
 import {AfterViewInit, Directive, ElementRef, Input} from '@angular/core';
-import {Observable} from 'rxjs';
-import 'rxjs/add/observable/fromEvent';
-import 'rxjs/add/operator/pairwise';
-import 'rxjs/add/operator/map';
-import 'rxjs/add/operator/exhaustMap';
-import 'rxjs/add/operator/filter';
-import 'rxjs/add/operator/startWith';
+
 
 interface ScrollPosition {
   sH: number;
@@ -85,7 +79,7 @@ export class ScrollPageDirective implements AfterViewInit {
    */
   private registerScrollEvent() {
 
-    this.scrollEvent$ = Observable.fromEvent(window, 'scroll'); // change to window
+    // this.scrollEvent$ = Observable.fromEvent(window, 'scroll'); // change to window
 
   }
 

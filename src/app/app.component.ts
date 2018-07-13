@@ -3,7 +3,6 @@ import { Component, ViewChild, ElementRef } from '@angular/core';
 import { ActivatedRoute, Router, ActivatedRouteSnapshot, RouterState, RouterStateSnapshot } from '@angular/router';
 import { LoginmodalComponent } from './common/loginmodal/loginmodal.component';
 import { ShareComponent } from './common/share/share.component';
-import { tokenNotExpired } from 'angular2-jwt';
 import { AppService } from './app.service';
 import { Store } from '@ngrx/store';
 import { Observable } from 'rxjs';
@@ -38,13 +37,16 @@ export class AppComponent {
   }
 
   ngOnInit() {
-    if (tokenNotExpired()) {
-      console.log(`Token未过期`);
-      this.setNavBar(JSON.parse(localStorage.getItem('user')));
-    } else {
-      console.log(`Token已过期`);
-      localStorage.clear();
-    }
+    /**
+     * 原来使用angular2-jwt来验证Token
+     */
+    // if (tokenNotExpired()) {
+    //   console.log(`Token未过期`);
+    //   this.setNavBar(JSON.parse(localStorage.getItem('user')));
+    // } else {
+    //   console.log(`Token已过期`);
+    //   localStorage.clear();
+    // }
   }
 
   /**

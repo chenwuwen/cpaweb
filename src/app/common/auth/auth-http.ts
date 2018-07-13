@@ -1,6 +1,6 @@
 import { Http, Headers, ConnectionBackend, XHRBackend, RequestOptions, RequestOptionsArgs, Request, Response } from '@angular/http';
 import { Observable } from 'rxjs';
-import { map, catchError } from 'rxjs/operators';
+import { catchError } from 'rxjs/operators';
 import { Router } from '@angular/router';
 import { Injectable } from '@angular/core';
 
@@ -46,8 +46,8 @@ export class AuthHttp extends Http {
   intercept(observable: Observable<Response>): Observable<Response> {
     return <Observable<Response>>observable.pipe(catchError((error, source) => {
       if (error.status === 401) {
-        // console.log("token失效");
-        // this.router.navigate(['login']);
+        console.log("token失效");
+        this.router.navigate(['login']);
       }
       return Observable.throw(error);
     }));

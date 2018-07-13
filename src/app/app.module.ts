@@ -26,7 +26,6 @@ import {loginStateReducer} from './common/reducer/loginStateReducer';
 import {BaseModule} from './common/base.module';
 import {LoginmodalModule} from './common/loginmodal/loginmodal.module';
 import {ShareModule} from './common/share/share.module';
-import {authHttpProvider} from './common/auth/auth-http';
 import {ElModule} from 'element-angular/release/element-angular.module';
 
 @NgModule({
@@ -53,13 +52,15 @@ import {ElModule} from 'element-angular/release/element-angular.module';
     ItemmanagerModule,
     BaseModule,
     LoginmodalModule,
-    /*使用ngRx进行状态管理,StoreModule提供了一个provideStore方法,
-     *在这个方法中我们声明了一个 { loginState: loginStateReducer, }
-     * 对象，这个就是Store。前面讲过Store可以想象成数据库，Reducer可以想象成表，
-     *那么这样一个对象形式告诉我们数据库是由那些表构成的
-     * 那么可以看到我们定义了Reducer：loginStateReducer。在看代码之前，我们来思考一下这个流程，
-     * 所谓Reducer其实就是接收两个参数：之前的状态和要采取的动作，然后返回新的状态。
-     * StoreModule.provideStore() 在 Angular4的 @ngrx/store 版本中已经更新为更为标准化的StoreModule.forRoot()
+    ShareModule,
+    /**
+     *  使用ngRx进行状态管理,StoreModule提供了一个provideStore方法,
+     *  在这个方法中我们声明了一个 { loginState: loginStateReducer, }
+     *  对象，这个就是Store。前面讲过Store可以想象成数据库，Reducer可以想象成表，
+     *  那么这样一个对象形式告诉我们数据库是由那些表构成的
+     *  那么可以看到我们定义了Reducer：loginStateReducer。在看代码之前，我们来思考一下这个流程，
+     *  所谓Reducer其实就是接收两个参数：之前的状态和要采取的动作，然后返回新的状态。
+     *  StoreModule.provideStore() 在 Angular4的 @ngRx/store 版本中已经更新为更为标准化的StoreModule.forRoot()
      */
     StoreModule.forRoot({
       loginState: loginStateReducer,
@@ -67,7 +68,6 @@ import {ElModule} from 'element-angular/release/element-angular.module';
   ],
   providers: [/*声明模块中使用的服务的提供者,对于appModule来说,也应该就是控制导航菜单显示了，即权限控制*/
     AppService,
-    authHttpProvider()
   ],
   bootstrap: [/*根模块中的引导组件，应用启动过程中，会创建这个数组中的组件并插入到HTML中，一般只有一个引导组件*/
     AppComponent
