@@ -46,7 +46,7 @@ import { ShareComponent } from './share/share.component';
   /**
    * 数组类型的选项, 用来声明属于这个模块的指令,管道等等，然后我们就可以在这个模块中使用它们了.
    */
-  declarations: [DigitalTransferPipe, ChangePostBodyPipe, SliceStringPipe, ScrollPageDirective, LoginModalComponent, ShareComponent
+  declarations: [DigitalTransferPipe, ChangePostBodyPipe, SliceStringPipe, ScrollPageDirective
   ],
   /**
    * 这个选项是一个数组,需要我们列出我们这个模块的一些需要共用的服务，然后我们就可以在这个模块的各个组件中通过依赖注入使用了.

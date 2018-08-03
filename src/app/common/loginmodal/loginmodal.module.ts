@@ -12,7 +12,6 @@ import { BaseModule } from '../base.module';
     TabsModule.forRoot(),
     CommonModule,
     FormsModule,
-    BaseModule,
     CustomFormsModule  //引入ng2-validation
   ],
   declarations: [LoginModalComponent],

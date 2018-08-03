@@ -15,7 +15,7 @@
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-primary" (click)="reviewErr()">查看错题</button>
-        <button type="button" class="btn btn-warning" [routerLink]="['/unitexam',result.testType]">继续测试</button>
+        <button type="button" class="btn btn-warning" [routerLink]="['/unitexam/'+result.typeCode]">继续测试</button>
       </div>
     </div>
   </div>
@@ -30,7 +30,7 @@
          [immediateCallback]="false"
          [scrollCallback]="scrollCallback">
       <!--此标签只作为逻辑工具使用;渲染之后不改变原有结构-->
-      <ng-container *ngFor="let data of Listdata;let i = index">
+      <ng-container *ngFor="let data of listData;let i = index">
         <div class="card mb-3" [ngClass]="{'bg-danger': reviewErrList(data.id),'bg-warning':reviewNotDoList(i)}">
           <!--一个标签内[ngClass]不可以写多个,如果需要多个,将方法写在一个[ngClass]内-->
           <div class="card-header">
@@ -46,7 +46,7 @@
               </li>
               <li style="text-align:right">
                 <i class="fa fa-comment-o fa-fw" style="cursor:pointer" aria-hidden="true"
-                   (click)="toggleCommentwindow(i,data.id)"></i>
+                   (click)="toggleCommentWindow(i,data.id)"></i>
                 <i class="fa fa-heart-o fa-fw" style="cursor:pointer" [ngClass]="{'fa fa-heart fa-fw':collectIndexs[i]}"
                    aria-hidden="true"
                    (click)="toggleCollect(i,data.id)"></i>
@@ -68,7 +68,7 @@
                  *ngIf="data.commentCount>0">共{{data.commentCount}}条评论</a>
               <div *ngIf="commentContentIndexs[i]">
                 <!-- 显示评论内容(使用了BootStrap媒体对象列表) -->
-                <div class="media" *ngFor='let userComment of Listcomment[i]'>
+                <div class="media" *ngFor='let userComment of listComment[i]'>
                   <div class="media-left">
                     <a href="javascript:void(0)">
                       <img class="media-object" src="..." alt="...">
@@ -90,7 +90,7 @@
     <div class="col-1 offset-1">
       <!--这里是右侧动态加载的内容(计算器等)是子组件-->
       <!-- 其中”pAnswers” 为父组件中的属性，[pAnswer] 为子组件的输入;在子组件中使用 @Input() pAnswer 来接受父组件传递的值 -->
-      <app-util [pAnswer]="pAnswers" [totleCount]="totleCount" [testType]="testType"
+      <app-util [pAnswer]="pAnswers" [loadCount]="loadCount" [testType]="testType"
                 (childResult)="hitResult($event)"></app-util>
     </div>
 
@@ -100,7 +100,7 @@
 
 <!--primeng Growl消息提示插件,旨在替代sweetalert2插件-->
 <!--baseZIndex 设置该元素在Dom元素中的层级,life表示该元素显示多长时间-->
-<p-growl [(value)]="msgs" baseZIndex=100  life=3000></p-growl>
+<p-growl [(value)]="msgs" baseZIndex=100 life=3000></p-growl>
 
 <!-- 登陆窗口弹出层 -->
 <!-- 此变量须与组件内@ViewChild的值相同 -->
