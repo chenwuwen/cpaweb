@@ -1,5 +1,4 @@
-import {BaseModule} from './../common/base.module';
-import {LoginmodalModule} from '../common/loginmodal/loginmodal.module';
+import {BaseModule} from '../common/base.module';
 import {NgModule} from '@angular/core';
 import {UnitexamComponent} from './unitexam.component';
 import {UnitexamService} from './unitexam.service';
@@ -22,7 +21,6 @@ import { ElModule } from 'element-angular/release/element-angular.module';
     RouterModule,
     GrowlModule, /*primeng消息提示模块*/
     BrowserAnimationsModule, /*动画所需Module*/
-    LoginmodalModule,
     CustomFormsModule,  // 引入ng2-validation
     ElModule.forRoot(),
     BaseModule

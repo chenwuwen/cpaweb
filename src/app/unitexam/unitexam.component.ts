@@ -5,7 +5,7 @@ import {flyIn} from '../animations/fly-in';
 import {BsModalService, ModalDirective} from 'ngx-bootstrap';
 import swal from 'sweetalert2';
 import {Message} from 'primeng/api';
-import {LoginmodalComponent} from '../common/loginmodal/loginmodal.component';
+import {LoginModalComponent} from '../common/loginmodal/loginmodal.component';
 
 @Component({
   selector: 'app-unitexam',
@@ -37,7 +37,7 @@ export class UnitexamComponent implements OnInit {
   @ViewChild('scoreModal')
   public scoreModal: ModalDirective; // 得分弹出层
   @ViewChild('loginModal')
-  private loginModal: LoginmodalComponent; // 登陆弹出层
+  private loginModal: LoginModalComponent; // 登陆弹出层
 
 
   private pageNo: number = 0;

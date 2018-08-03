@@ -6,7 +6,7 @@ import { ChangePostBodyPipe } from '../pipe/ChangePostBodyPipe/change-post-body.
 import { map, catchError } from 'rxjs/operators';
 
 @Injectable()
-export class LoginmodalService {
+export class LoginModalService {
 
   constructor(private _http: HttpClient) {
   }

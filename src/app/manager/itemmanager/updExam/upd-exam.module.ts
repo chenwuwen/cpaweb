@@ -1,4 +1,4 @@
-import {BaseModule} from './../../../common/base.module';
+import {BaseModule} from '../../../common/base.module';
 import {NgModule} from '@angular/core';
 import {CommonModule} from '@angular/common';
 import {UpdExamComponent} from './upd-exam.component';

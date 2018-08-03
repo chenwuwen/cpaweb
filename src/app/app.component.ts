@@ -1,7 +1,7 @@
 import { Component, ViewChild, ElementRef } from '@angular/core';
 /*所有组件必须引入*/
 import { ActivatedRoute, Router, ActivatedRouteSnapshot, RouterState, RouterStateSnapshot } from '@angular/router';
-import { LoginmodalComponent } from './common/loginmodal/loginmodal.component';
+import { LoginModalComponent } from './common/loginmodal/loginmodal.component';
 import { ShareComponent } from './common/share/share.component';
 import { AppService } from './app.service';
 import { Store } from '@ngrx/store';
@@ -16,7 +16,7 @@ import { SearchmodalComponent } from './common/searchmodal/searchmodal.component
 })
 export class AppComponent {
   @ViewChild('loginModal')
-  private loginModal: LoginmodalComponent;
+  private loginModal: LoginModalComponent;
   @ViewChild('shareModal')
   private shareModal: ShareComponent;
   @ViewChild('searchModal')
