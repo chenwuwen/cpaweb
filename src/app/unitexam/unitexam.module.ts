@@ -1,8 +1,7 @@
 import {BaseModule} from './../common/base.module';
-import {LoginmodalModule} from '../common/loginmodal/loginmodal.module';
+import {LoginModalModule} from '../common/loginmodal/loginmodal.module';
 import {NgModule} from '@angular/core';
-import {UnitexamComponent} from './unitexam.component';
-import {UnitexamService} from './unitexam.service';
+import {UnitExamService} from './unitexam.service';
 import {UtilModule} from '../util/util.module';
 import {CommonModule} from '@angular/common';
 import {FormsModule} from '@angular/forms';
@@ -12,6 +11,7 @@ import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import {CustomFormsModule} from 'ng2-validation';
 import {GrowlModule} from 'primeng/growl';
 import { ElModule } from 'element-angular/release/element-angular.module';
+import {UnitExamComponent} from './unitexam.component';
 
 @NgModule({
   imports: [
@@ -22,17 +22,17 @@ import { ElModule } from 'element-angular/release/element-angular.module';
     RouterModule,
     GrowlModule, /*primeng消息提示模块*/
     BrowserAnimationsModule, /*动画所需Module*/
-    LoginmodalModule,
+    LoginModalModule,
     CustomFormsModule,  // 引入ng2-validation
     ElModule.forRoot(),
     BaseModule
   ],
   declarations: [
-    UnitexamComponent
+    UnitExamComponent
   ],
   providers: [
-    UnitexamService
+    UnitExamService
   ]
 })
-export class UnitexamModule {
+export class UnitExamModule {
 }

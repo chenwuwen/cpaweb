@@ -82,7 +82,7 @@ export class LoginmodalService {
    * @returns {Observable<any>}
    */
   public checkUsername(newUsername: string): Observable<any> {
-    let url = '/api/user/checkname';
+    let url = '/api/user/checkName';
     let params = new HttpParams();
     params.set('username', newUsername.trim());
     const httpRequestOptions = this.getHttpRequestOptions('', params);

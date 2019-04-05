@@ -30,8 +30,8 @@ export class UtilService {
    * @returns {Observable<any>}
    */
   commitAnswer(pAnswer: any, testType: string): Observable<any> {
-    let url = '/api/solution/correctItem';
-    let headers = this.getHttpHeaders('');
+    const url = '/api/solution/correctItem';
+    const headers = this.getHttpHeaders('');
     return this._http.post(url, { pAnswer, testType }, { headers }).pipe(
       map(this.extractData)
       , catchError(this.handleError));
@@ -42,8 +42,8 @@ export class UtilService {
    * @param {string} testType
    * @returns {Observable<any>}
    */
-  downloadItem(testType: string): Observable<HttpResponse<Config>> {
-    let url = '/api/unitExam/exportWord/';
+  downloadItem(testType: string): Observable<HttpResponse<Blob>> {
+    const url = '/api/unitExam/exportWord/';
     // headers.append('content-Type', 'application/msword');
     // headers.append('Accept', 'application/msword');
     // Angular4设置ResponseType方式如下

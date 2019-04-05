@@ -21,4 +21,4 @@ import { BaseModule } from '../base.module';
   ],
   exports: [LoginmodalComponent]
 })
-export class LoginmodalModule { }
+export class LoginModalModule { }

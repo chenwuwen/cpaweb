@@ -23,7 +23,7 @@ export class UtilComponent implements OnInit {
   public notDoCount: number;
   public result: any;
   public mark: number = 0;
-  public newAnswer: Array<any> = [];
+  public newAnswer = [];
 
   @ViewChild('staticModal')
   public staticModal: ModalDirective;
@@ -61,7 +61,7 @@ export class UtilComponent implements OnInit {
 
   // 还有几道题没有做提示
   notDo(): boolean {
-    let falg: boolean = false;
+    let flag: boolean = false;
     /* 原来的想法是将pAnswer中空值去掉，但是有一个问题就是去掉之后原数组结构改变，导致在视图上已选择的答案消失
      if (this.mark > 0) {
        for (let index = 0; index < this.pAnswer.length; index++) {
@@ -103,10 +103,10 @@ export class UtilComponent implements OnInit {
 
       this.notDoCount = this.totleCount - this.newAnswer.length;
       if (this.notDoCount > 0) {
-        falg = true;
+        flag = true;
       }
     }
-    return falg;
+    return flag;
   }
 
   // 如果用户一道题都没有做点提交选择不同的弹窗,如果用户已经提交过一次，就不让他再次提交
@@ -141,12 +141,12 @@ export class UtilComponent implements OnInit {
        * Word:application/msword
        */
         // Angular4获取文件名的方式
-        // var filename = res['headers']._headers.get("content-disposition")[0].substring(20);
-      var filename = res['headers'].getAll('content-disposition')[0].substring(20);
-      var blob = new Blob([res['body']], {type: 'application/msword'});
+        // const filename = res['headers']._headers.get("content-disposition")[0].substring(20);
+      const fileName = res['headers'].getAll('content-disposition')[0].substring(20);
       //Angular5设置ResponseType为Blob,返回回来的直接就是Blob对象不用再去body中去取了，但是由于直接返回Blob对象,那么无法获取header也就没法获取文件名了
-      // var blob = new Blob([res], {type: 'application/msword'});
-      FileSaver.saveAs(blob, filename);
+      // const blob = new Blob([res], {type: 'application/msword'});
+      const blob = new Blob([res['body']], {type: 'application/msword'});
+      FileSaver.saveAs(blob, fileName);
       // var objectUrl = window.URL.createObjectURL(blob);
       // var a = document.createElement('a');
       // document.body.appendChild(a);

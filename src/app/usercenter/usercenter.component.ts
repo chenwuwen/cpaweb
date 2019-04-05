@@ -8,7 +8,7 @@ import { element } from 'protractor';
   templateUrl: './usercenter.component.html',
   styleUrls: ['./usercenter.component.css']
 })
-export class UsercenterComponent implements OnInit {
+export class UserCenterComponent implements OnInit {
 
   @ViewChild('headImg')
   private headImg: ElementRef;
@@ -95,8 +95,10 @@ export class UsercenterComponent implements OnInit {
               //避免选择相同的图片
               selectedArr.push(imgs);
             } else {
-              $this.uploader.queue[i].remove();//如果已经选择，就需要在队列中移除该图片
-              $this.selectedImgLength = $this.uploader.queue.length;//并更新已选图片数量
+              //如果已经选择，就需要在队列中移除该图片
+              $this.uploader.queue[i].remove();
+              //并更新已选图片数量
+              $this.selectedImgLength = $this.uploader.queue.length;
             }
           } else {
             selectedArr.push(imgs);
@@ -107,13 +109,13 @@ export class UsercenterComponent implements OnInit {
     this.selectedImgLength = this.uploader.queue.length;
     console.log('已选择 ' + this.selectedImgLength + ' 张图片');
     console.log(selectedArr);
-    for (var i = 0; i < this.selectedImgLength; i++) {
+    for (let i = 0; i < this.selectedImgLength; i++) {
       // 预览图片返回的是blob对象，需要使用blob封装,在使用window.URL.createObjectURL()携程url;
-      var blob = new Blob(selectedArr[i]);
-      var url = window.URL.createObjectURL(blob);
+      const blob = new Blob(selectedArr[i]);
+      const url = window.URL.createObjectURL(blob);
       console.log('已选择的图片的url：' + url);
 
-      this.preview.nativeElement.src = url
+      this.preview.nativeElement.src = url;
 
 
     }

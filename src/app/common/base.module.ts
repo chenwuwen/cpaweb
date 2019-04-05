@@ -1,4 +1,4 @@
-import {LoginmodalModule} from './loginmodal/loginmodal.module';
+import {LoginModalModule} from './loginmodal/loginmodal.module';
 import {NgModule} from '@angular/core';
 import {CommonModule} from '@angular/common';
 import {DigitalTransferPipe} from './pipe/DigitalTransferPipe/digital-transfer.pipe';
@@ -8,6 +8,7 @@ import {SliceStringPipe} from './pipe/SubstrStringPipe/slice-string.pipe';
 import {ShareModule} from './share/share.module';
 import {SearchmodalModule} from './searchmodal/searchmodal.module';
 import {ScrollPageDirective} from './scroll/scroll-page.directive';
+import {ChatModule} from './chat/chat.module';
 
 
 /**
@@ -18,8 +19,8 @@ import {ScrollPageDirective} from './scroll/scroll-page.directive';
 @NgModule({
   imports: [
     CommonModule,
-    MypaginationModule,
-    // LoginmodalModule,
+    ChatModule,
+    // LoginModalModule,
     ShareModule,
     SearchmodalModule
   ],

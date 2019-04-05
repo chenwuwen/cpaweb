@@ -16,15 +16,15 @@ import {StoreModule} from '@ngrx/store';
 import {BsDropdownModule} from 'ngx-bootstrap';
 import {AppComponent} from './app.component';
 import {appRoutes} from './app.routes';
-import {UnitexamModule} from './unitexam/unitexam.module';
+import {UnitExamModule} from './unitexam/unitexam.module';
 import {HomeModule} from './home/home.module';
 import {ManagerModule} from './manager/manager.module';
 import {ItemmanagerModule} from './manager/itemmanager/itemmanager.module';
-import {UsercenterModule} from './usercenter/usercenter.module';
+import {UserCenterModule} from './usercenter/usercenter.module';
 import {AppService} from './app.service';
 import {loginStateReducer} from './common/reducer/loginStateReducer';
 import {BaseModule} from './common/base.module';
-import {LoginmodalModule} from './common/loginmodal/loginmodal.module';
+import {LoginModalModule} from './common/loginmodal/loginmodal.module';
 import {ShareModule} from './common/share/share.module';
 import {ElModule} from 'element-angular/release/element-angular.module';
 
@@ -45,13 +45,13 @@ import {ElModule} from 'element-angular/release/element-angular.module';
      我们通过首页进入子路由一切正常，但是在子路由路径下，刷新就会报404了。默认情况下nginx会当成这个路径是实际web路径下的资源而去定位它，
      但可想而知实际是并不存在的。折中的方案可以改回hash风格*/
     RouterModule.forRoot(appRoutes, {useHash: false}), /*angular2项目中url去掉#(即哈希路由)*/
-    UnitexamModule,
-    UsercenterModule,
+    UnitExamModule,
+    UserCenterModule,
     HomeModule,
     ManagerModule,
     ItemmanagerModule,
     BaseModule,
-    LoginmodalModule,
+    LoginModalModule,
     ShareModule,
     /**
      *  使用ngRx进行状态管理,StoreModule提供了一个provideStore方法,

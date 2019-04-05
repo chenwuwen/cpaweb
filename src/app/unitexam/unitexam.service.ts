@@ -4,7 +4,7 @@ import { Observable } from 'rxjs';
 import { map, catchError } from 'rxjs/operators';
 
 @Injectable()
-export class UnitexamService {
+export class UnitExamService {
 
   constructor(private _http: HttpClient) {
   }

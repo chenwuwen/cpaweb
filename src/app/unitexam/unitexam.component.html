@@ -46,7 +46,7 @@
               </li>
               <li style="text-align:right">
                 <i class="fa fa-comment-o fa-fw" style="cursor:pointer" aria-hidden="true"
-                   (click)="toggleCommentwindow(i,data.id)"></i>
+                   (click)="toggleCommentWindow(i,data.id)"></i>
                 <i class="fa fa-heart-o fa-fw" style="cursor:pointer" [ngClass]="{'fa fa-heart fa-fw':collectIndexs[i]}"
                    aria-hidden="true"
                    (click)="toggleCollect(i,data.id)"></i>
@@ -68,7 +68,7 @@
                  *ngIf="data.commentCount>0">共{{data.commentCount}}条评论</a>
               <div *ngIf="commentContentIndexs[i]">
                 <!-- 显示评论内容(使用了BootStrap媒体对象列表) -->
-                <div class="media" *ngFor='let userComment of Listcomment[i]'>
+                <div class="media" *ngFor='let userComment of listComment[i]'>
                   <div class="media-left">
                     <a href="javascript:void(0)">
                       <img class="media-object" src="..." alt="...">

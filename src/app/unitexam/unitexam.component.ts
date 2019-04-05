@@ -1,6 +1,6 @@
 import {Component, ElementRef, Input, OnInit, ViewChild} from '@angular/core';
 import {ActivatedRoute, Router} from '@angular/router';
-import {UnitexamService} from './unitexam.service';
+import {UnitExamService} from './unitexam.service';
 import {flyIn} from '../animations/fly-in';
 import {BsModalService, ModalDirective} from 'ngx-bootstrap';
 import swal from 'sweetalert2';
@@ -15,7 +15,7 @@ import {LoginmodalComponent} from '../common/loginmodal/loginmodal.component';
     flyIn
   ]
 })
-export class UnitexamComponent implements OnInit {
+export class UnitExamComponent implements OnInit {
 
 
   public testType: string;
@@ -27,7 +27,7 @@ export class UnitexamComponent implements OnInit {
   private collectIndexs: boolean[] = new Array();   // 收藏试题索引数组
   private commentIndexs: boolean[] = new Array();   // 评论试题索引数组
   private commentContentIndexs: boolean[] = new Array();  // 评论试题内容索引数组
-  private Listcomment: any[] = new Array();   // 获取试题评论数组
+  private listComment: any[] = new Array();   // 获取试题评论数组
   public commentContent: any[] = new Array();  // 评论内容数组,用在表单验证上
   public msgs: Message[] = [];  // primeng消息提示,之前消息提示用的是sweetalert2
 
@@ -45,7 +45,7 @@ export class UnitexamComponent implements OnInit {
 
   constructor(private _route: ActivatedRoute,
               private _router: Router,
-              private _unitexamService: UnitexamService,
+              private _unitExamService: UnitExamService,
               private _bsModalService: BsModalService) {
     /*通过这种形式来接收父级页面传过来的值  或者通过  this.route.params['value']['testType']*/
     /*route.params是一个可观察对象，可以使用.subscribe(),将参数值提取到固定值，这种情况下，我们将params['id'];赋值给组件实例变量id*/
@@ -84,7 +84,7 @@ export class UnitexamComponent implements OnInit {
   getUnitExam(): any {
     // 页码初始化为0,请求一次,页码加一
     this.pageNo++;
-    return this._unitexamService.getUnitExam(this.testType, this.pageNo, this.pageSize).subscribe(res => {
+    return this._unitExamService.getUnitExam(this.testType, this.pageNo, this.pageSize).subscribe(res => {
         // 从service获取数据，订阅将数据到Component
         // this.Listdata = res['data'];
         this.Listdata = this.Listdata.concat(res['data']);
@@ -93,7 +93,7 @@ export class UnitexamComponent implements OnInit {
           this.collectIndexs.push(true);
           this.commentIndexs.push(false);
           this.commentContentIndexs.push(false);
-          this.Listcomment.push();
+          this.listComment.push();
         }
         // 加载试题成功,隐藏loading加载组件
         if (this.Listdata.length <= this.pageSize) {
@@ -143,17 +143,17 @@ export class UnitexamComponent implements OnInit {
    * @param examId
    */
   reviewErrList(examId: number): boolean {
-    let falg: boolean = false;
+    let flag: boolean = false;
     if (this.result != undefined) {
       let errList = this.result.errorList;
       for (let i = 0; i < errList.length; i++) {
         if (examId == errList[i].errorItemId) {
-          falg = true;
+          flag = true;
           break;
         }
       }
     }
-    return falg;
+    return flag;
   }
 
   /**
@@ -179,7 +179,7 @@ export class UnitexamComponent implements OnInit {
     console.log(`index: ` + index);
     console.dir(`reId: ` + reId);
     this.collectIndexs[index] = !this.collectIndexs[index];
-    this._unitexamService.toggleCollect(reId).subscribe(res => {
+    this._unitExamService.toggleCollect(reId).subscribe(res => {
         // 用户未登录，弹出登陆框
         if (res['status'] == 0) {
           this.collectIndexs[index] = !this.collectIndexs[index];
@@ -214,7 +214,7 @@ export class UnitexamComponent implements OnInit {
   commentItem(index: number, reId: number, comment: string): any {
     console.log(`reId: ` + reId);
     console.log(`comment: ` + comment);
-    this._unitexamService.commentItem(reId, comment).subscribe(res => {
+    this._unitExamService.commentItem(reId, comment).subscribe(res => {
         this.commentIndexs[index] = !this.commentIndexs[index];
         // 用户未登录，弹出登陆框
         if (res['status'] == 0) {
@@ -231,9 +231,9 @@ export class UnitexamComponent implements OnInit {
           this.msgs = [];
           this.msgs.push({severity: 'success', summary: '成功', detail: '评论已提交'});
           // 评论完成,将评论数加一,此处应该在后台查询,先这样写吧
-          console.log(this.Listcomment[index]);
-          console.log(typeof this.Listcomment[index]);
-          this.Listcomment[index].commentCount = this.Listcomment[index].commentCount + 1;
+          console.log(this.listComment[index]);
+          console.log(typeof this.listComment[index]);
+          this.listComment[index].commentCount = this.listComment[index].commentCount + 1;
           //如果当前评论窗口是打开状态,触发查看评论方法
           if (this.commentContentIndexs[index]) {
             this.getComment(index, reId, 0);
@@ -255,7 +255,7 @@ export class UnitexamComponent implements OnInit {
    * 打开关闭评论窗口
    * @param index
    */
-  toggleCommentwindow(index: number): void {
+  toggleCommentWindow(index: number): void {
     this.commentIndexs[index] = !this.commentIndexs[index];
   }
 
@@ -264,11 +264,11 @@ export class UnitexamComponent implements OnInit {
    */
   getComment(index: number, reId: number, falg: number): any {
     if (!this.commentContentIndexs[index]) {   //如果评论内容Dom未打开
-      this._unitexamService.getComment(reId).subscribe(res => {
+      this._unitExamService.getComment(reId).subscribe(res => {
           if (res['status'] == 0) {
             this.loginModal.showLoginModal();
           }
-          this.Listcomment[index] = res['data'];
+          this.listComment[index] = res['data'];
           //如果评论内容加载完Dom打开
           this.commentContentIndexs[index] = !this.commentContentIndexs[index];
         }, (err) => {
@@ -280,11 +280,11 @@ export class UnitexamComponent implements OnInit {
       //再次点击dom时如果评论内容Dom打开则关闭
       this.commentContentIndexs[index] = !this.commentContentIndexs[index];
     } else {
-      this._unitexamService.getComment(reId).subscribe(res => {
+      this._unitExamService.getComment(reId).subscribe(res => {
           if (res['status'] == 0) {
             this.loginModal.showLoginModal();
           }
-          this.Listcomment[index] = res['data'];
+          this.listComment[index] = res['data'];
         }, (err) => {
           console.log(`error ${err}`);
         }, () => console.log(`编译`)
