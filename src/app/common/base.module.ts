@@ -9,6 +9,9 @@ import {ShareModule} from './share/share.module';
 import {SearchmodalModule} from './searchmodal/searchmodal.module';
 import {ScrollPageDirective} from './scroll/scroll-page.directive';
 import {ChatModule} from './chat/chat.module';
+import {LoginModalComponent} from './loginmodal/loginmodal.component';
+import {ShareComponent} from './share/share.component';
+import {ChatComponent} from './chat/chat.component';
 
 
 /**
@@ -37,7 +40,7 @@ import {ChatModule} from './chat/chat.module';
   imports: [
     CommonModule,
     ChatModule,
-    // LoginModalModule,
+    LoginModalModule,
     ShareModule,
     SearchmodalModule
   ],
@@ -84,7 +87,7 @@ import {ChatModule} from './chat/chat.module';
    * 那么别的模块就可以直接使用我们在这里导出的组件,指令模块等.
    */
   exports: [DigitalTransferPipe, ChangePostBodyPipe, SliceStringPipe, ShareModule, MypaginationModule,
-    SearchmodalModule, ScrollPageDirective, LoginModalComponent, ShareComponent
+    SearchmodalModule, ScrollPageDirective, LoginModalComponent, ShareComponent, ChatComponent
   ]
 })
 export class BaseModule {

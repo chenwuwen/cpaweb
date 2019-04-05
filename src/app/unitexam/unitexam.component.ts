@@ -1,11 +1,11 @@
 import {Component, ElementRef, Input, OnInit, ViewChild} from '@angular/core';
 import {ActivatedRoute, Router} from '@angular/router';
-import {UnitExamService} from './unitexam.service';
 import {flyIn} from '../animations/fly-in';
 import {BsModalService, ModalDirective} from 'ngx-bootstrap';
 import swal from 'sweetalert2';
 import {Message} from 'primeng/api';
 import {LoginModalComponent} from '../common/loginmodal/loginmodal.component';
+import {UnitExamService} from './unitexam.service';
 
 @Component({
   selector: 'app-unitexam',
@@ -45,7 +45,7 @@ export class UnitExamComponent implements OnInit {
 
   constructor(private _route: ActivatedRoute,
               private _router: Router,
-              private unitExamService: UnitexamService,
+              private unitExamService: UnitExamService,
               private _bsModalService: BsModalService) {
     /*通过这种形式来接收父级页面传过来的值  或者通过  this.route.params['value']['testType']*/
     /*route.params是一个可观察对象，可以使用.subscribe(),将参数值提取到固定值，这种情况下，我们将params['id'];赋值给组件实例变量id*/
@@ -84,7 +84,7 @@ export class UnitExamComponent implements OnInit {
   getUnitExam(): any {
     // 页码初始化为0,请求一次,页码加一
     this.pageNo++;
-    return this._unitexamService.getUnitExam(this.testType, this.pageNo, this.pageSize).subscribe(res => {
+    return this.unitExamService.getUnitExam(this.testType, this.pageNo, this.pageSize).subscribe(res => {
         // 从service获取数据，订阅将数据到Component
         // this.listData = res['data'];
         this.listData = this.listData.concat(res['data']);
@@ -102,7 +102,7 @@ export class UnitExamComponent implements OnInit {
         }
       }, (err) => {
         // 加载试题失败,隐藏loading加载组件
-      if (this.Listdata.length <= this.pageSize) {
+      if (this.listData.length <= this.pageSize) {
         this.is_loading = !this.is_loading;
       }
         console.log(`error ${err}`);
@@ -162,13 +162,13 @@ export class UnitExamComponent implements OnInit {
    * @param index
    */
   reviewNotDoList(index: number): boolean {
-    let falg: boolean = false;
+    let flag: boolean = false;
     if (this.result != undefined) {
       if (this.pAnswers[index] == '' || this.pAnswers[index] == undefined) {
-        falg = true;
+        flag = true;
       }
     }
-    return falg;
+    return flag;
   }
 
   /**

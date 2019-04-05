@@ -11,6 +11,7 @@ import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import {CustomFormsModule} from 'ng2-validation';
 import {GrowlModule} from 'primeng/growl';
 import { ElModule } from 'element-angular/release/element-angular.module';
+import {UnitExamComponent} from './unitexam.component';
 
 @NgModule({
   imports: [

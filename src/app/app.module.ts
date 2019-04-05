@@ -24,7 +24,6 @@ import {UserCenterModule} from './usercenter/usercenter.module';
 import {AppService} from './app.service';
 import {loginStateReducer} from './common/reducer/loginStateReducer';
 import {BaseModule} from './common/base.module';
-import {LoginModalModule} from './common/loginmodal/loginmodal.module';
 import {ShareModule} from './common/share/share.module';
 import {ElModule} from 'element-angular/release/element-angular.module';
 
@@ -67,7 +66,6 @@ import {ElModule} from 'element-angular/release/element-angular.module';
     ManagerModule,
     ItemmanagerModule,
     BaseModule,
-    LoginModalModule,
     ShareModule,
     /**
      *  使用ngRx进行状态管理,StoreModule提供了一个provideStore方法,
