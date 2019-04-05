@@ -12,7 +12,7 @@ import {
 import {CustomValidators} from 'ng2-validation';
 import {ModalDirective, BsModalRef} from 'ngx-bootstrap';
 import {CpaUser} from './user-model';
-import {LoginmodalService} from './loginmodal.service';
+import {LoginModalService} from './loginmodal.service';
 import swal from 'sweetalert2';
 import {NgForm} from '@angular/forms';
 import {Store} from '@ngrx/store';
@@ -24,7 +24,7 @@ import {LoginState} from '../reducer/loginStateReducer';
   templateUrl: './loginmodal.component.html',
   styleUrls: ['./loginmodal.component.css']
 })
-export class LoginmodalComponent implements OnInit {
+export class LoginModalComponent implements OnInit {
 
   public isModalShown: boolean = false;
   private schema: number;
@@ -54,7 +54,7 @@ export class LoginmodalComponent implements OnInit {
   @Output() childResult = new EventEmitter<any>();
 
 
-  constructor(private loginModalService: LoginmodalService, private applicationRef: ApplicationRef, private store: Store<LoginState>) {
+  constructor(private loginModalService: LoginModalService, private applicationRef: ApplicationRef, private store: Store<LoginState>) {
   }
 
   ngOnInit() {

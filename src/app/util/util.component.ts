@@ -15,7 +15,7 @@ export class UtilComponent implements OnInit {
   /*Input相当于指令的值绑定，无论是单向的(@)还是双向的(=)。都是将父作用域的值“输入”到子作用域中，然后子作用域进行相关处理。
   Output相当于指令的方法绑定，子作用域触发事件执行响应函数，而响应函数方法体则位于父作用域中，相当于将事件“输出到”父作用域中，在父作用域中处理。*/
   @Input() pAnswer;
-  @Input() totleCount;
+  @Input() loadCount;
   @Input() testType;
   /*声明事件发射器*/
   @Output() childResult = new EventEmitter<any>();
@@ -37,7 +37,9 @@ export class UtilComponent implements OnInit {
   }
 
 
-  // 提交用户答案到后台
+  /**
+   * 提交用户答案到后台
+   */
   submitUnitExam(): any {
     this.staticModal.hide();
     console.log(`点击了提交按钮： ${this.newAnswer}`);
@@ -59,7 +61,9 @@ export class UtilComponent implements OnInit {
     this.childResult.emit(data);
   }
 
-  // 还有几道题没有做提示
+  /**
+   * 还有几道题没有做提示
+   */
   notDo(): boolean {
     let flag: boolean = false;
     /* 原来的想法是将pAnswer中空值去掉，但是有一个问题就是去掉之后原数组结构改变，导致在视图上已选择的答案消失
@@ -101,7 +105,8 @@ export class UtilComponent implements OnInit {
          arr.filter((item) => Object.prototypy.toString.call(item) === '[object String]' || item);*/
 
 
-      this.notDoCount = this.totleCount - this.newAnswer.length;
+      this.notDoCount = this.loadCount - this.newAnswer.length;
+      console.warn(`还有${this.notDoCount}题未做`)
       if (this.notDoCount > 0) {
         flag = true;
       }
@@ -109,7 +114,9 @@ export class UtilComponent implements OnInit {
     return flag;
   }
 
-  // 如果用户一道题都没有做点提交选择不同的弹窗,如果用户已经提交过一次，就不让他再次提交
+  /**
+   * 如果用户一道题都没有做点提交选择不同的弹窗,如果用户已经提交过一次，就不让他再次提交
+   */
   chooseModel(): void {
     if (this.pAnswer.length == 0) {
       this.tip1();

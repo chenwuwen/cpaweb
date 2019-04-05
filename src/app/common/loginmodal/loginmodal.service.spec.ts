@@ -1,15 +1,15 @@
 import { TestBed, inject } from '@angular/core/testing';
 
-import { LoginmodalService } from './loginmodal.service';
+import { LoginModalService } from './loginmodal.service';
 
-describe('LoginmodalService', () => {
+describe('LoginModalService', () => {
   beforeEach(() => {
     TestBed.configureTestingModule({
-      providers: [LoginmodalService]
+      providers: [LoginModalService]
     });
   });
 
-  it('should be created', inject([LoginmodalService], (service: LoginmodalService) => {
+  it('should be created', inject([LoginModalService], (service: LoginModalService) => {
     expect(service).toBeTruthy();
   }));
 });

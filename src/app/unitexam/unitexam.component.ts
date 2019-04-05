@@ -5,7 +5,7 @@ import {flyIn} from '../animations/fly-in';
 import {BsModalService, ModalDirective} from 'ngx-bootstrap';
 import swal from 'sweetalert2';
 import {Message} from 'primeng/api';
-import {LoginmodalComponent} from '../common/loginmodal/loginmodal.component';
+import {LoginModalComponent} from '../common/loginmodal/loginmodal.component';
 
 @Component({
   selector: 'app-unitexam',
@@ -19,8 +19,8 @@ export class UnitExamComponent implements OnInit {
 
 
   public testType: string;
-  public Listdata: Array<any> = [];   // 试题集合
-  public totleCount: number;    // 加载记录数
+  public listData: Array<any> = [];   // 试题集合
+  public loadCount: number = 0;    // 已加载记录数
   public pAnswers: Array<any>;  // 用户回答
   public result: any;           // 结果，由子组件传递过来
   public isScoreModalShown: boolean = false; // 得分modal
@@ -37,7 +37,7 @@ export class UnitExamComponent implements OnInit {
   @ViewChild('scoreModal')
   public scoreModal: ModalDirective; // 得分弹出层
   @ViewChild('loginModal')
-  private loginModal: LoginmodalComponent; // 登陆弹出层
+  private loginModal: LoginModalComponent; // 登陆弹出层
 
 
   private pageNo: number = 0;
@@ -45,7 +45,7 @@ export class UnitExamComponent implements OnInit {
 
   constructor(private _route: ActivatedRoute,
               private _router: Router,
-              private _unitExamService: UnitExamService,
+              private unitExamService: UnitexamService,
               private _bsModalService: BsModalService) {
     /*通过这种形式来接收父级页面传过来的值  或者通过  this.route.params['value']['testType']*/
     /*route.params是一个可观察对象，可以使用.subscribe(),将参数值提取到固定值，这种情况下，我们将params['id'];赋值给组件实例变量id*/
@@ -57,7 +57,7 @@ export class UnitExamComponent implements OnInit {
       /*切换路由将上次用户回答置为空;此设值不能写在构造函数中，因为构造函数只在组建被访问时执行，而是应该写在订阅里，这样每次切换菜单，都可以重置数组*/
       this.pAnswers = [];
       // 初始化loading加载组件(只在第一次请求时初始化)
-      if (this.Listdata.length === 0) {
+      if (this.listData.length === 0) {
         this.is_loading = !this.is_loading;
       }
       this.scrollCallback = this.getUnitExam.bind(this);
@@ -73,7 +73,7 @@ export class UnitExamComponent implements OnInit {
       // 切换路由,将测试结果置为undefined;以免切换后还可以看到错题样式
       this.result = undefined;
       // 切换路由,将结果集置为空数组
-      this.Listdata = [];
+      this.listData = [];
     });
   }
 
@@ -84,19 +84,20 @@ export class UnitExamComponent implements OnInit {
   getUnitExam(): any {
     // 页码初始化为0,请求一次,页码加一
     this.pageNo++;
-    return this._unitExamService.getUnitExam(this.testType, this.pageNo, this.pageSize).subscribe(res => {
+    return this._unitexamService.getUnitExam(this.testType, this.pageNo, this.pageSize).subscribe(res => {
         // 从service获取数据，订阅将数据到Component
-        // this.Listdata = res['data'];
-        this.Listdata = this.Listdata.concat(res['data']);
-        this.totleCount = res['totalCount'];
-        for (let i = 0; i < this.Listdata.length; i++) {
+        // this.listData = res['data'];
+        this.listData = this.listData.concat(res['data']);
+        // 总数量为返回数量与已存在数的和
+        this.loadCount = this.loadCount + res['data'].length;
+        for (let i = 0; i < this.listData.length; i++) {
           this.collectIndexs.push(true);
           this.commentIndexs.push(false);
           this.commentContentIndexs.push(false);
           this.listComment.push();
         }
         // 加载试题成功,隐藏loading加载组件
-        if (this.Listdata.length <= this.pageSize) {
+        if (this.listData.length <= this.pageSize) {
           this.is_loading = !this.is_loading;
         }
       }, (err) => {
@@ -179,7 +180,7 @@ export class UnitExamComponent implements OnInit {
     console.log(`index: ` + index);
     console.dir(`reId: ` + reId);
     this.collectIndexs[index] = !this.collectIndexs[index];
-    this._unitExamService.toggleCollect(reId).subscribe(res => {
+    this.unitExamService.toggleCollect(reId).subscribe(res => {
         // 用户未登录，弹出登陆框
         if (res['status'] == 0) {
           this.collectIndexs[index] = !this.collectIndexs[index];
@@ -214,7 +215,7 @@ export class UnitExamComponent implements OnInit {
   commentItem(index: number, reId: number, comment: string): any {
     console.log(`reId: ` + reId);
     console.log(`comment: ` + comment);
-    this._unitExamService.commentItem(reId, comment).subscribe(res => {
+    this.unitExamService.commentItem(reId, comment).subscribe(res => {
         this.commentIndexs[index] = !this.commentIndexs[index];
         // 用户未登录，弹出登陆框
         if (res['status'] == 0) {
@@ -264,7 +265,7 @@ export class UnitExamComponent implements OnInit {
    */
   getComment(index: number, reId: number, falg: number): any {
     if (!this.commentContentIndexs[index]) {   //如果评论内容Dom未打开
-      this._unitExamService.getComment(reId).subscribe(res => {
+      this.unitExamService.getComment(reId).subscribe(res => {
           if (res['status'] == 0) {
             this.loginModal.showLoginModal();
           }
@@ -280,7 +281,7 @@ export class UnitExamComponent implements OnInit {
       //再次点击dom时如果评论内容Dom打开则关闭
       this.commentContentIndexs[index] = !this.commentContentIndexs[index];
     } else {
-      this._unitExamService.getComment(reId).subscribe(res => {
+      this.unitExamService.getComment(reId).subscribe(res => {
           if (res['status'] == 0) {
             this.loginModal.showLoginModal();
           }

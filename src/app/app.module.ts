@@ -28,23 +28,39 @@ import {LoginModalModule} from './common/loginmodal/loginmodal.module';
 import {ShareModule} from './common/share/share.module';
 import {ElModule} from 'element-angular/release/element-angular.module';
 
+
 @NgModule({
-  declarations: [/*声明属于本模块的组件，每个组件(管道)必须在且仅在一个模块中声明,g*/
-    AppComponent
-  ],
-  imports: [/*引入买本模块中用到的模块，该模块是处于import语句引入的模块中*/
+  /**
+   * 引入本模块中用到的模块，该模块是处于import语句引入的模块中
+   */
+  imports: [
     BrowserModule,
     FormsModule,
-    /*HttpModule,*/  /*Angular4及之前,使用Http需要引入此模块,之后使用HttpClientModule模块*/
+    /**
+     * Angular4及之前,使用Http需要引入此模块,之后使用HttpClientModule模块
+     *
+     */
+    //HttpModule,
     HttpClientModule,
     CommonModule,
-    ReactiveFormsModule, /*加入响应式表单ReactiveFormsModule*/
-    BsDropdownModule.forRoot(), /*导入ngx-bootstrap下拉菜单模块*/
-    ElModule.forRoot(), /*导入element-angular ui库所有组件，该app其他组件可以直接使用*/
-    /*angular2默认采用HTML5的pushState来管理路由，它会导致前端路由与后端路由的冲突，例如当部署到nginx环境时，
-     我们通过首页进入子路由一切正常，但是在子路由路径下，刷新就会报404了。默认情况下nginx会当成这个路径是实际web路径下的资源而去定位它，
-     但可想而知实际是并不存在的。折中的方案可以改回hash风格*/
-    RouterModule.forRoot(appRoutes, {useHash: false}), /*angular2项目中url去掉#(即哈希路由)*/
+    /**
+     * 加入响应式表单ReactiveFormsModule
+     */
+    ReactiveFormsModule,
+    /**
+     * 导入ngx-bootstrap下拉菜单模块
+     */
+    BsDropdownModule.forRoot(),
+    /**
+     * 导入element-angular ui库所有组件，该app其他组件可以直接使用
+     */
+    ElModule.forRoot(),
+    /**
+     *  angular2默认采用HTML5的pushState来管理路由，它会导致前端路由与后端路由的冲突，例如当部署到nginx环境时，
+     *  我们通过首页进入子路由一切正常，但是在子路由路径下，刷新就会报404了。默认情况下nginx会当成这个路径是实际web路径下的资源而去定位它，
+     *  但可想而知实际是并不存在的。折中的方案可以改回hash风格
+     */
+    RouterModule.forRoot(appRoutes, {useHash: false}),
     UnitExamModule,
     UserCenterModule,
     HomeModule,
@@ -65,14 +81,33 @@ import {ElModule} from 'element-angular/release/element-angular.module';
     StoreModule.forRoot({
       loginState: loginStateReducer,
     })
+
   ],
-  providers: [/*声明模块中使用的服务的提供者,对于appModule来说,也应该就是控制导航菜单显示了，即权限控制*/
+
+  /**
+   * 声明属于本模块的组件，每个组件(管道)必须在且仅在一个模块中声明
+   */
+  declarations: [
+    AppComponent
+  ],
+
+  /**
+   * 声明模块中使用的服务的提供者,对于appModule来说,也应该就是控制导航菜单显示了，即权限控制
+   */
+  providers: [
     AppService,
   ],
-  bootstrap: [/*根模块中的引导组件，应用启动过程中，会创建这个数组中的组件并插入到HTML中，一般只有一个引导组件*/
+
+  /**
+   * 根模块中的引导组件，应用启动过程中，会创建这个数组中的组件并插入到HTML中，一般只有一个引导组件
+   */
+  bootstrap: [
     AppComponent
   ]
 })
-// 使用export语句，创建模块的类并暴露出去。模块、组件只有暴露出去，其他的模块才能引用
+
+/**
+ * 使用export语句，创建模块的类并暴露出去。模块、组件只有暴露出去，其他的模块才能引用
+ */
 export class AppModule {
 }
